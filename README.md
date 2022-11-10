@@ -1,6 +1,1 @@
-# SNAPfrontend
-
-DEVELOPED BY RAJARSHI HALDER
-
-React Native Application
-
+# react-native-front-end-dev

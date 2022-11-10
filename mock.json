@@ -1,0 +1,44 @@
+{
+    "interests":  [
+       {
+        "id": "1",
+        "title": "Arts"
+       },
+       {
+        "id": "2",
+        "title": "Dancing"
+       },
+       {
+        "id": "3",
+        "title": "Playing Games"
+       },
+       {
+        "id": "4",
+        "title": "Cricket"
+       },
+       {
+        "id": "5",
+        "title": "Singing"
+       },
+       {
+        "id": "6",
+        "title": "Reading Books"
+       },
+       {
+        "id": "7",
+        "title": "Food"
+       },
+       {
+        "id": "8",
+        "title": "Movies"
+       },
+       {
+        "id": "9",
+        "title": "Friends"
+       },
+       {
+        "id": "10",
+        "title": "Making Friends"
+       }
+     ]
+}
