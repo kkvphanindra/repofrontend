@@ -2717,10 +2717,11 @@
     <item name="shapeAppearanceOverlay">@null</item>
   </style>
     <style name="Base.Widget.MaterialComponents.TextView" parent="Widget.AppCompat.TextView"/>
-    <style name="CalendarDatePickerDialog" ns2:targetApi="lollipop" parent="Theme.AppCompat.Light.Dialog">
+    <style name="CalendarDatePickerDialog" ns2:targetApi="lollipop" parent="android:Theme.Material.Dialog.Alert">
         <item name="android:datePickerStyle">@style/CalendarDatePickerStyle</item>
+        <item name="android:windowIsFloating">true</item>
     </style>
-    <style name="CalendarDatePickerStyle" ns2:targetApi="lollipop" parent="android:Widget.Material.Light.DatePicker">
+    <style name="CalendarDatePickerStyle" ns2:targetApi="lollipop" parent="android:Widget.Material.DatePicker">
         <item name="android:datePickerMode">calendar</item>
     </style>
     <style name="CardView" parent="Base.CardView">
@@ -2730,12 +2731,6 @@
     </style>
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
-    </style>
-    <style name="ClockTimePickerDialog" ns2:targetApi="lollipop" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:timePickerStyle">@style/ClockTimePickerStyle</item>
-    </style>
-    <style name="ClockTimePickerStyle" ns2:targetApi="lollipop" parent="android:Widget.Material.Light.TimePicker">
-        <item name="android:timePickerMode">clock</item>
     </style>
     <style name="DialogAnimationFade">
     <item name="android:windowEnterAnimation">@anim/catalyst_fade_in</item>
@@ -3076,17 +3071,15 @@
     <item name="cornerSizeTopRight">20px</item>
   </style>
     <style name="SpinnerDatePickerDialog" parent="SpinnerDatePickerDialogBase"/>
-    <style name="SpinnerDatePickerDialogBase" ns2:targetApi="lollipop">
+    <style name="SpinnerDatePickerDialogBase" ns2:targetApi="lollipop" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="android:datePickerStyle">@style/SpinnerDatePickerStyle</item>
-		<item name="android:windowIsFloating">true</item>
     </style>
     <style name="SpinnerDatePickerStyle" ns2:targetApi="lollipop" parent="android:Widget.Material.DatePicker">
         <item name="android:datePickerMode">spinner</item>
     </style>
     <style name="SpinnerTimePickerDialog" parent="SpinnerTimePickerDialogBase"/>
-    <style name="SpinnerTimePickerDialogBase" ns2:targetApi="lollipop">
+    <style name="SpinnerTimePickerDialogBase" ns2:targetApi="lollipop" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="android:timePickerStyle">@style/SpinnerTimePickerStyle</item>
-		<item name="android:windowIsFloating">true</item>
     </style>
     <style name="SpinnerTimePickerStyle" ns2:targetApi="lollipop" parent="android:Widget.Material.TimePicker">
         <item name="android:timePickerMode">spinner</item>

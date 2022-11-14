@@ -1532,6 +1532,8 @@ drawable src_assets_images_list1
 drawable src_assets_images_list2
 drawable src_assets_images_list3
 drawable src_assets_images_locationicon
+drawable src_assets_images_login
+drawable src_assets_images_loginarrow
 drawable src_assets_images_menuicon
 drawable src_assets_images_notifyicon
 drawable src_assets_images_notifystatus1
@@ -2465,8 +2467,6 @@ style CalendarDatePickerStyle
 style CardView
 style CardView_Dark
 style CardView_Light
-style ClockTimePickerDialog
-style ClockTimePickerStyle
 style DialogAnimationFade
 style DialogAnimationSlide
 style EmptyTheme

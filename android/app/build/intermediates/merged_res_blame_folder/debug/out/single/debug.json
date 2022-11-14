@@ -76,12 +76,12 @@
         "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\drawable-mdpi\\src_assets_images_homemenu.png"
     },
     {
-        "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-xhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
-        "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\drawable-xhdpi\\node_modules_reactnavigation_elements_src_assets_backicon.png"
-    },
-    {
         "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-mdpi_src_assets_images_offer2.png.flat",
         "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\drawable-mdpi\\src_assets_images_offer2.png"
+    },
+    {
+        "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-xhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\drawable-xhdpi\\node_modules_reactnavigation_elements_src_assets_backicon.png"
     },
     {
         "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-mdpi_src_assets_images_groupbluebg.png.flat",
@@ -142,6 +142,10 @@
     {
         "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-mdpi_node_modules_reactnavigation_bottomtabs_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
         "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\drawable-mdpi\\node_modules_reactnavigation_bottomtabs_node_modules_reactnavigation_elements_src_assets_backicon.png"
+    },
+    {
+        "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-mdpi_src_assets_images_loginarrow.png.flat",
+        "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\drawable-mdpi\\src_assets_images_loginarrow.png"
     },
     {
         "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-mdpi_src_assets_images_groupicon1.png.flat",
@@ -318,6 +322,10 @@
     {
         "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
         "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-mdpi_src_assets_images_login.png.flat",
+        "source": "E:\\Frisles\\repofrontend\\android\\app\\src\\main\\res\\drawable-mdpi\\src_assets_images_login.png"
     },
     {
         "merged": "E:\\Frisles\\repofrontend\\android\\app\\build\\intermediates\\merged_res\\debug\\drawable-mdpi_src_assets_images_gallerypic1.png.flat",

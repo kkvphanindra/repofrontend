@@ -13,8 +13,12 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
 
-const UploadPicture = ({navigation}) => {
+
+const UploadPicture = ({route, navigation}) => {
+    const { uniqueID, phoneNumber, name, dob, gender, occupation } = route?.params;
+    console.log("UploadPicture", phoneNumber, name, dob, gender, occupation)
     const [profileFilepath,
         setProfileFilepath] = useState({data: '', uri: ''});
     const [profileFileData,
@@ -41,6 +45,27 @@ const UploadPicture = ({navigation}) => {
             }
         });
     };
+
+    const uploadProfileLogo = (e) => {
+        // let file = e.target;
+        // console.log('e====>', file)
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            console.log('RESULT===>', reader.result);
+        }
+        reader.readAsDataURL(e);
+        // console.log()
+    }
+    
+    const uploadCoverLogo = (e) => {
+        console.log('e====>', e)
+        // let file = e.target.files[0];
+        // let reader = new FileReader();
+        // reader.onloadend = function () {
+        //     console.log('RESULT', reader.result);
+        // }
+        // reader.readAsDataURL(file);
+    }
 
     const launchImageLibrary = () => {
         let options = {
@@ -74,7 +99,10 @@ const UploadPicture = ({navigation}) => {
                         ?.uri);
                         setCoverFilepath(response);
                 setProfileFileData(response.data);
-                setProfileFileUri(response?.assets[0]?.uri);
+                // setProfileFileUri(response?.assets[0]?.uri);
+                ImgToBase64.getBase64String(response?.assets[0]?.uri)
+                .then(base64String => setProfileFileUri(`data:image/jpeg;base64,${base64String}`)).catch(err => console.log('error',err));
+                // uploadProfileLogo(response?.assets[0]?.uri);
             }
 
           }
@@ -112,7 +140,9 @@ const UploadPicture = ({navigation}) => {
                         ?.uri);
                 setCoverFilepath(response);
                 setCoverFileData(response.data);
-                setCoverFileUri(response?.assets[0]?.uri);
+                // setCoverFileUri(response?.assets[0]?.uri);
+                ImgToBase64.getBase64String(response?.assets[0]?.uri)
+                .then(base64String => setCoverFileUri(`data:image/jpeg;base64,${base64String}`)).catch(err => console.log('error',err));
             }
 
           }
@@ -162,7 +192,16 @@ const UploadPicture = ({navigation}) => {
                         </ImageBackground>
                     </View>
                     <Pressable
-                        onPress={() => navigation.navigate('location')}
+                        onPress={() => navigation.navigate('location', {
+                            uniqueID: uniqueID,
+                            phoneNumber: phoneNumber,
+                            name: name, 
+                            dob: dob, 
+                            gender: gender, 
+                            occupation: occupation,
+                            profilePic: profileFileUri,
+                            coverPic: coverFileUri
+                        })}
                         style={styles.buttonContainer}>
                         <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                             <Text style={styles.buttonText}>

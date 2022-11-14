@@ -12,41 +12,69 @@ import LinearGradient from 'react-native-linear-gradient';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 // import Geolocation from "react-native-geolocation-service";
 import Geolocation from "@react-native-community/geolocation";
+import axios from 'axios';
 import GetLocation from 'react-native-get-location';
 
-const width = Dimensions
-    .get('window')
-    .width;
-const height = Dimensions
-    .get('window')
-    .height;
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
-const Location = ({navigation}) => {
+const Location = ({route, navigation}) => {
+    const { uniqueID, phoneNumber, name, dob, gender, occupation, profilePic, coverPic } = route?.params;
+    // console.log(phoneNumber, name, dob, gender, occupation, profilePic, coverPic)
     const [latitude,
         setLatitude] = useState(0);
     const [longitude,
         setLongitude] = useState(0);
+    const triggerRegister = ()     => {
+        let payload = {
+            "mobile": uniqueID,
+            "phone": phoneNumber,
+            "name": name,
+            "dob": dob,
+            "gender": gender,
+            "occupation": occupation,
+            "profilePicture": profilePic,
+            "coverPicture": coverPic,
+            "latitude": latitude.toString(),
+            "longitude": longitude.toString(),
+            "interest": ["books"]
+        }
+        console.log("payload", payload)
+        axios.post('http://18.212.184.28:3000/api/login', payload).then((response) => {
+            console.log('response', response.data)
+        })
+        // navigation.navigate('inviteFriends')
+    }
     useEffect(() => {
         if (Platform.OS === 'android') {
+            
             PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,);
             if (PermissionsAndroid.RESULTS.GRANTED) {
-                // do something if granted...
-                Geolocation.getCurrentPosition(position => {
-                    console.log('position', position.coords)
-                    setLatitude(position.coords.latitude);
-                    setLongitude(position.coords.longitude);
-                    // this.setState({   latitude: position.coords.latitud,   longitude:
-                    // position.coords.longitude,   coordinates: this.state.coordinates.concat({
-                    // latitude: position.coords.latitude,     longitude: position.coords.longitude
-                    // }) });
-                }, error => {
-                    console.log(error.message.toString());
-                }, {
+                // console.log(PermissionsAndroid.RESULTS.GRANTED, "Geolocation", Geolocation.getCurrentPosition(e => console.log('e',e.coords.latitude)));
+                Geolocation.getCurrentPosition(e => {
+                    console.log('position', e.coords)
+                    setLatitude(e.coords.latitude);
+                    setLongitude(e.coords.longitude);
+                },
+                error => {
+                    console.log("error.message", error.message.toString());
+                },{
                     showLocationDialog: true,
-                    enableHighAccuracy: true,
                     timeout: 20000,
-                    maximumAge: 0
-                });
+                    maximumAge: 3600000
+                })
+                // Geolocation.getCurrentPosition(e => {
+                //     console.log('position', e.coords)
+                //     setLatitude(e.coords.latitude);
+                //     setLongitude(e.coords.longitude);
+                // }, error => {
+                //     console.log("error.message", error.message.toString());
+                // }, {
+                //     showLocationDialog: true,
+                //     enableHighAccuracy: true,
+                //     timeout: 20000,
+                //     maximumAge: 3600000
+                // });
                 //   GetLocation.getCurrentPosition({     enableHighAccuracy: true,     timeout:
                 // 15000, }) .then(location => {     console.log("location",location); })
                 // .catch(error => {     const { code, message } = error;     console.warn(code,
@@ -55,7 +83,9 @@ const Location = ({navigation}) => {
         }
 
         return () => {}
-    }, [])
+    }, []);
+
+    console.log('latitude', latitude, 'longitude', longitude)
     return (
 
         <View style={styles.container}>
@@ -89,7 +119,7 @@ const Location = ({navigation}) => {
                 }}></Marker>
             </MapView>
             <Pressable
-                onPress={() => navigation.navigate('inviteFriends')}
+                onPress={() => triggerRegister()}
                 style={styles.buttonContainer}>
                 <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                     <Text style={styles.buttonText}>

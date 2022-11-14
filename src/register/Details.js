@@ -12,12 +12,16 @@ import SelectDropdown from 'react-native-select-dropdown';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 
-const Details = ({navigation}) => {
-    const countries = ["Male", "Female"];
+const Details = ({route, navigation}) => {
+    const { phoneNumber,uniqueID } = route?.params;
+    console.log('Details comp phoneNumber', phoneNumber,uniqueID)
+    const gender = ["Male", "Female"];
     const [isDatePickerVisible,
         setDatePickerVisibility] = useState(false);
-    const [dateText,
-        setDateText] = useState('DD/MM/YY');
+    const [Name, setName] = useState('');
+    const [dateText, setDateText] = useState('DD/MM/YY');
+    const [genderSelect, setGenderSelect] = useState('');
+    const [occupationSelect, setOccupationSelect] = useState('');
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -38,8 +42,9 @@ const Details = ({navigation}) => {
         <View style={styles.container}>
             <View style={styles.wrapper}>
                 <Text style={styles.title}>My Name is</Text>
-                <Text style={[styles.info, styles.infoHighlight]}>
-                    wow its available!!!</Text>
+                <TextInput style={styles.nameStyle} onChangeText={(text) => setName(text)} />
+                {/* <Text style={[styles.info, styles.infoHighlight]}>
+                    wow its available!!!</Text> */}
                 <Text style={styles.info}>
                     This name will appear as your username and you wont be able to change
                 </Text>
@@ -58,12 +63,13 @@ const Details = ({navigation}) => {
                 <View style={styles.selectWrapper}>
                     <Text style={styles.selectText}>Gender</Text>
                     <SelectDropdown
-                        data={countries}
+                        data={gender}
                         defaultButtonText="Select"
                         buttonStyle={styles.buttonStyle}
                         buttonTextStyle={styles.buttonTextStyle}
                         onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index)
+                        console.log(selectedItem, index);
+                        setGenderSelect(selectedItem);
                     }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem
@@ -76,7 +82,7 @@ const Details = ({navigation}) => {
             <View style={styles.selectContainer}>
                 <View style={[styles.selectWrapper, styles.fullWidth]}>
                     <Text style={styles.selectText}>Working at</Text>
-                    <TextInput style={styles.buttonStyle}/>
+                    <TextInput style={styles.buttonStyle} onChangeText={(text) => setOccupationSelect(text)} />
                 </View>
             </View>
 
@@ -87,7 +93,14 @@ const Details = ({navigation}) => {
                 onCancel={hideDatePicker}/>
 
             <Pressable
-                onPress={() => navigation.navigate('uploadPicture')}
+                onPress={() => navigation.navigate('uploadPicture',{
+                    uniqueID: uniqueID,
+                    phoneNumber: phoneNumber,
+                    name: Name,
+                    dob: dateText,
+                    gender: genderSelect,
+                    occupation: occupationSelect
+                })}
                 style={styles.buttonContainer}>
                 <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                     <Text style={styles.buttonText}>
@@ -106,7 +119,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        paddingTop: 60
+        // paddingTop: 60
     },
     wrapper: {
         maxWidth: 300
@@ -120,6 +133,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 20,
         paddingBottom: 20
+    },
+    nameStyle:{
+        border: 'transparent',
+        borderBottomWidth: 2,
+        borderBottomColor: '#2E3CD7',
+        color: '#2E3CD7',
+        marginBottom: 20,
+        fontSize: 22
     },
     info: {
         fontFamily: 'Inter',
@@ -178,8 +199,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '80%',
         height: 60,
-        marginTop: 'auto',
-        marginBottom: 40
+        // marginTop: 'auto',
+        // marginBottom: 40
     },
     buttonWrapper: {
         width: '100%',

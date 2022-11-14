@@ -5,14 +5,14 @@ import OTPInput from '../components/OTPInput';
 
 const VerifyAccount = ({route, navigation}) => {
     // if(route !== undefined && route.params !== undefined){
-        const { number, getConfirm } = route?.params;
+        const { number, getConfirm, uniqueID } = route?.params;
     // }
     const [term, setTerm] = useState("");
     const [code, setCode] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
 
     // console.log("getConfirm", navigation?.getParam('number'))
-    // console.log(number, "getConfirm", getConfirm)
+    console.log(number, "getConfirm")
     
     const sendCode = async() => {
         
@@ -28,7 +28,11 @@ const VerifyAccount = ({route, navigation}) => {
         try {
             await getConfirm.confirm(code);
             console.log('success.');
-            setModalVisible(!modalVisible)
+            setModalVisible(false);
+            navigation.navigate('agree',{
+                phoneNumber: number,
+                uniqueID: uniqueID
+            });
         } catch (error) {
             console.log('Invalid code.');
         }
@@ -71,16 +75,15 @@ const VerifyAccount = ({route, navigation}) => {
                 <Text
                     style={styles.footerLinkText}
                     onPress={() => navigation.navigate('agree')}> Teams and Conditions</Text>
-
-            </Text>
-            <Modal
+                </Text>
+            {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
         }}
-      ><Text>Success</Text></Modal>
+      ><Text>OTP Verification Success</Text></Modal> */}
         </View>
     )
 }
