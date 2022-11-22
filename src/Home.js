@@ -28,7 +28,7 @@ const Home = ({navigation}) => {
                         resizeMode="cover"
                         style={styles.topContainer}>
                         <View style={styles.menuContainer}>
-                            <Pressable onPress={() => navigation.navigate('mobileNumber')}  style={styles.menuWrapper}>
+                            <Pressable onPress={() => navigation.openDrawer()}  style={styles.menuWrapper}>
                                 <Image style={styles.menuIcon} source={require('../src/assets/images/menu-icon.png')}/>
                             </Pressable>
                             <Pressable onPress={() => navigation.navigate('notifications')}  style={styles.notifyWrapper}>

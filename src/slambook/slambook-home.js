@@ -198,7 +198,7 @@ const SlambookHome = ({navigation}) => {
                     resizeMode="cover"
                     style={styles.topContainer}>
                         <View style={styles.wrapper}>
-                            <Pressable onPress={() => navigation.navigate('slambookRequest')}  style={styles.iconWrapper}>
+                            <Pressable onPress={() => navigation.openDrawer()}  style={styles.iconWrapper}>
                                 <Image style={styles.arrowIcon} source={require('../assets/images/menu-icon.png')}/>
                             </Pressable>    
                             <Pressable onPress={() => navigation.navigate('notifications')}  style={styles.notifyWrapper}>
