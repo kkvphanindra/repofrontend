@@ -58,6 +58,9 @@ import Setting from './src/notification/settings';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import SettingNotifications from './src/notification/notification';
+import Snap from './src/snap/snap'
+import SnapDetails from './src/snap/snapDetails'
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -98,6 +101,18 @@ function HomeStackScreen() {
               return <Image
               source={require('./src/assets/images/chat-menu.png')}
               style={{ width: 28, height: 20, color: '' }}
+                />
+            }
+          }}  
+        />
+         <Tab.Screen 
+          name="snap" 
+          component={Snap} 
+          options={{
+            tabBarIcon: ({size,focused,color}) => {
+              return <Image
+              source={require('./src/assets/images/snap-menu.png')}
+              style={{ width: 24, height: 20, color: '' }}
                 />
             }
           }}  
@@ -203,6 +218,9 @@ const App = () => {
         <Stack.Screen name='callNow' component={CallNow}/>
         <Stack.Screen name='settings' component={Setting}/>
         <Stack.Screen name='settingNotification' component={SettingNotifications}/>
+        <Stack.Screen name='snap' component={Snap}/>
+        <Stack.Screen name='snapDetails' component={SnapDetails}/>
+
 
       </Stack.Navigator>
     </NavigationContainer>

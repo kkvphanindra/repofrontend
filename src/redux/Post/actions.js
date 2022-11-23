@@ -68,7 +68,7 @@ export const getAllPostsByUserId = (id) => {
     return async (dispatch) => {
         dispatch(req());
         try {const response = await axios.get(
-                `http://10.0.2.2:3800/api/post/user/${id}`
+                `https://frisles.herokuapp.com/api/post/user/${id}`
             )
             if (response.status) {
                 dispatch(reqSuccess(response.data));
@@ -92,7 +92,7 @@ export const addNewPost = (post,userId) => {
             console.log(post,userId)
             try {
                 const response = await axios.post(
-                    `http://10.0.2.2:3800/api/post`,
+                    `https://frisles.herokuapp.com/api/post`,
                     {
                         description :post,
                         userId:userId
@@ -129,7 +129,7 @@ export const addPostLike = (postId,userId) => {
         console.log(postId,userId)
         try {
             const response = await axios.post(
-                `http://10.0.2.2:3800/api/post-likes`,
+                `https://frisles.herokuapp.com/api/post-likes`,
                 {
                     userId:userId,
                     postId:postId
