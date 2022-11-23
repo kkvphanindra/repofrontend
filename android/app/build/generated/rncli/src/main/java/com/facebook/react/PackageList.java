@@ -21,6 +21,8 @@ import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 // @react-native-firebase/auth
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
+// react-native-background-timer
+import com.ocetnik.timer.BackgroundTimerPackage;
 // react-native-contacts
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 // react-native-device-info
@@ -101,6 +103,7 @@ public class PackageList {
       new RNCViewPagerPackage(),
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseAuthPackage(),
+      new BackgroundTimerPackage(),
       new ReactNativeContacts(),
       new RNDeviceInfo(),
       new RNFusedLocationPackage(),

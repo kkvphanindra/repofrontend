@@ -15,7 +15,8 @@ import {
   Text,
   useColorScheme,
   View,
-  Image
+  Image,
+  Settings
 } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -38,10 +39,10 @@ import SlambookRequest from './src/slambook/slambook-request';
 import SlambookForm from './src/slambook/slambook-form';
 import SlambookHome from './src/slambook/slambook-home';
 import Notifications from './src/notifications';
-import ScheduledHome from './src/scheduled-activity/scheduled-home';
-import CreateActivity from './src/scheduled-activity/create-activity';
-import ScheduledActivity from './src/scheduled-activity/scheduled-activity';
-import ActivityDetails from './src/scheduled-activity/activity-details';
+import ScheduledHome from './src/scheduled-activity/ActivityHome';
+import CreateActivity from './src/scheduled-activity/CreateActivty';
+import ScheduledActivity from './src/scheduled-activity/ScheduleActivity';
+import ActivityDetails from './src/scheduled-activity/ActivityDetails';
 import ProfileHome from './src/profile/profile-home';
 import ProfileEdit from './src/profile/profile-edit';
 import ConnectHome from './src/connect/connect-home';
@@ -53,8 +54,10 @@ import GroupCreation from './src/chat/GroupCreation'
 import AllContacts from './src/chat/AllContacts'
 import GroupDetails from './src/chat/GroupDetails'
 import CallNow from './src/chat/CallNow'
+import Setting from './src/notification/settings';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+import SettingNotifications from './src/notification/notification';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -139,7 +142,7 @@ drawerLabel: 'Home'
       drawerLabel: 'Saved Items'
           }}
     />
-      <Drawer.Screen name="settingsPrivacy" component={Notifications} 
+      <Drawer.Screen name="settingsPrivacy" component={Setting} 
      options={{
       drawerLabel: 'Settings & Privacy'
           }}
@@ -167,7 +170,7 @@ const App = () => {
   return (
     <Provider store={store}>
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="login">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="home">
         <Stack.Screen name="login" component={LoginComponent} />
         <Stack.Screen name="mobileNumber" component={MobileNumber} />
         <Stack.Screen name="verifyAccount" component={VerifyAccount} />
@@ -184,6 +187,7 @@ const App = () => {
         <Stack.Screen name="slambookHome" component={SlambookHome} />
         <Stack.Screen name="notifications" component={Notifications} />
         <Stack.Screen name="scheduledHome" component={ScheduledHome} />
+        {/* <Stack.Screen name="activityHome" component={ActivityHome} /> */}
         <Stack.Screen name="createActivity" component={CreateActivity} />
         <Stack.Screen name="scheduledActivity" component={ScheduledActivity} />
         <Stack.Screen name="activityDetails" component={ActivityDetails} />
@@ -197,6 +201,9 @@ const App = () => {
         <Stack.Screen name='groupCreation' component={GroupCreation}/>
         <Stack.Screen name='groupDetails' component={GroupDetails}/>
         <Stack.Screen name='callNow' component={CallNow}/>
+        <Stack.Screen name='settings' component={Setting}/>
+        <Stack.Screen name='settingNotification' component={SettingNotifications}/>
+
       </Stack.Navigator>
     </NavigationContainer>
     {/* <Drawer.Navigator>

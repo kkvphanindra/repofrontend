@@ -15,6 +15,7 @@ MERGED from [com.google.firebase:firebase-auth:21.0.8] /Users/hmi/.gradle/caches
 MERGED from [:react-native-community_datetimepicker] /Users/hmi/Desktop/frisle/repofrontend/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-community_geolocation] /Users/hmi/Desktop/frisle/repofrontend/node_modules/@react-native-community/geolocation/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-community_viewpager] /Users/hmi/Desktop/frisle/repofrontend/node_modules/@react-native-community/viewpager/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-background-timer] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-background-timer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-contacts] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-contacts/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-device-info] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-geolocation-service] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-geolocation-service/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -354,6 +355,8 @@ MERGED from [:react-native-community_geolocation] /Users/hmi/Desktop/frisle/repo
 MERGED from [:react-native-community_geolocation] /Users/hmi/Desktop/frisle/repofrontend/node_modules/@react-native-community/geolocation/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_viewpager] /Users/hmi/Desktop/frisle/repofrontend/node_modules/@react-native-community/viewpager/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_viewpager] /Users/hmi/Desktop/frisle/repofrontend/node_modules/@react-native-community/viewpager/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-background-timer] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-background-timer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-background-timer] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-background-timer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-contacts] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-contacts/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-contacts] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-contacts/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-device-info] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -596,6 +599,8 @@ ADDED from [com.facebook.flipper:flipper:0.125.0] /Users/hmi/.gradle/caches/tran
 		ADDED from [com.facebook.flipper:flipper:0.125.0] /Users/hmi/.gradle/caches/transforms-3/6592dcbdc85f0d9e1988e0bc1c08f0ef/transformed/jetified-flipper-0.125.0/AndroidManifest.xml:16:22-73
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [:react-native-firebase_auth] /Users/hmi/Desktop/frisle/repofrontend/node_modules/@react-native-firebase/auth/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-68
+MERGED from [:react-native-background-timer] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-background-timer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-68
+MERGED from [:react-native-background-timer] /Users/hmi/Desktop/frisle/repofrontend/node_modules/react-native-background-timer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-68
 MERGED from [com.google.android.gms:play-services-measurement-api:21.1.1] /Users/hmi/.gradle/caches/transforms-3/1f72f27fed8676d220eaa250ef2f39b0/transformed/jetified-play-services-measurement-api-21.1.1/AndroidManifest.xml:24:5-68
 MERGED from [com.google.android.gms:play-services-measurement-api:21.1.1] /Users/hmi/.gradle/caches/transforms-3/1f72f27fed8676d220eaa250ef2f39b0/transformed/jetified-play-services-measurement-api-21.1.1/AndroidManifest.xml:24:5-68
 MERGED from [androidx.work:work-runtime:2.7.1] /Users/hmi/.gradle/caches/transforms-3/6e236d35c1644b5d4c725032ecf89036/transformed/work-runtime-2.7.1/AndroidManifest.xml:25:5-68
