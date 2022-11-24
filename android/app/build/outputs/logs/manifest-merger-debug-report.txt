@@ -16,18 +16,27 @@ MERGED from [:react-native-community_datetimepicker] E:\Frisles\repofrontend\nod
 MERGED from [:react-native-community_geolocation] E:\Frisles\repofrontend\node_modules\@react-native-community\geolocation\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-contacts] E:\Frisles\repofrontend\node_modules\react-native-contacts\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-device-info] E:\Frisles\repofrontend\node_modules\react-native-device-info\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:react-native-geolocation-service] E:\Frisles\repofrontend\node_modules\react-native-geolocation-service\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-gesture-handler] E:\Frisles\repofrontend\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-get-location] E:\Frisles\repofrontend\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-image-base64] E:\Frisles\repofrontend\node_modules\react-native-image-base64\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
+MERGED from [:react-native-imei] E:\Frisles\repofrontend\node_modules\react-native-imei\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-linear-gradient] E:\Frisles\repofrontend\node_modules\react-native-linear-gradient\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-maps] E:\Frisles\repofrontend\node_modules\react-native-maps\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-safe-area-context] E:\Frisles\repofrontend\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-screens] E:\Frisles\repofrontend\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-sms] E:\Frisles\repofrontend\node_modules\react-native-sms\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-vector-icons] E:\Frisles\repofrontend\node_modules\react-native-vector-icons\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-video] E:\Frisles\repofrontend\node_modules\react-native-video\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [com.facebook.react:react-native:0.69.5] C:\Users\heman\.gradle\caches\transforms-3\c524f9377c2d24209c0911437a319424\transformed\jetified-react-native-0.69.5-debug\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\heman\.gradle\caches\transforms-3\f892fe3df617bb7699a35f41e3e7b12c\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [org.webkit:android-jsc:r250230] C:\Users\heman\.gradle\caches\transforms-3\ac30da1611cc6d82a774fbc4259230a9\transformed\jetified-android-jsc-r250230\AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-get-sms-android] E:\Frisles\repofrontend\node_modules\react-native-get-sms-android\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-reanimated] E:\Frisles\repofrontend\node_modules\react-native-reanimated\android\build\.transforms\6a89c2a8809d4b4ffdf5711e76817a93\transformed\jetified-react-native-reanimated-69-jsc\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-sim-data] E:\Frisles\repofrontend\node_modules\react-native-sim-data\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.gms:play-services-measurement-api:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\1f72f27fed8676d220eaa250ef2f39b0\transformed\jetified-play-services-measurement-api-21.1.1\AndroidManifest.xml:17:1-37:12
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\heman\.gradle\caches\transforms-3\27b2ecfa54d5d1554136ce7bef848281\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.firebase:firebase-installations:17.0.3] C:\Users\heman\.gradle\caches\transforms-3\cf60644b60c4daa3429af4f980fa6fb8\transformed\jetified-firebase-installations-17.0.3\AndroidManifest.xml:2:1-24:12
@@ -47,7 +56,9 @@ MERGED from [com.facebook.fresco:memory-type-ashmem:2.6.0] C:\Users\heman\.gradl
 MERGED from [com.facebook.fresco:imagepipeline:2.6.0] C:\Users\heman\.gradle\caches\transforms-3\7e6ce0ed1e6cc548c2b465112c577855\transformed\jetified-imagepipeline-2.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:nativeimagetranscoder:2.6.0] C:\Users\heman\.gradle\caches\transforms-3\e1b889d891e6580bb86c8e0d5f36294a\transformed\jetified-nativeimagetranscoder-2.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:imagepipeline-base:2.6.0] C:\Users\heman\.gradle\caches\transforms-3\e1495bf4f63c2ba4b2115e3f0f7addf6\transformed\jetified-imagepipeline-base-2.6.0\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\heman\.gradle\caches\transforms-3\d90198fb8b26ef764351e6f389329256\transformed\constraintlayout-2.0.4\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\f1d014e802d614c163e6c5eb66bd2791\transformed\material-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.github.adityaxjha:Android-ScalableVideoView:10e7b4da8b] C:\Users\heman\.gradle\caches\transforms-3\4f22fd73afc4669ad30ffa66ae73bf1a\transformed\jetified-Android-ScalableVideoView-10e7b4da8b\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.appcompat:appcompat:1.4.1] C:\Users\heman\.gradle\caches\transforms-3\658ad22a06fefca40233d57901c13be0\transformed\appcompat-1.4.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\heman\.gradle\caches\transforms-3\6e236d35c1644b5d4c725032ecf89036\transformed\work-runtime-2.7.1\AndroidManifest.xml:17:1-145:12
 MERGED from [androidx.room:room-runtime:2.2.5] C:\Users\heman\.gradle\caches\transforms-3\7dc836ceaec98693cfcd11e299fa2106\transformed\room-runtime-2.2.5\AndroidManifest.xml:17:1-31:12
@@ -59,9 +70,10 @@ MERGED from [com.facebook.fresco:ui-common:2.6.0] C:\Users\heman\.gradle\caches\
 MERGED from [androidx.browser:browser:1.4.0] C:\Users\heman\.gradle\caches\transforms-3\5505384dd52dc026f1a8e6c1262c54b3\transformed\browser-1.4.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\6d83d1d9353959259293e3a0a21f8926\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\heman\.gradle\caches\transforms-3\9e00ca15ffb5aef0e07b5a544cdb4611\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\heman\.gradle\caches\transforms-3\5fda36d3c24ed3448f5adc61e32ff528\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.exifinterface:exifinterface:1.3.3] C:\Users\heman\.gradle\caches\transforms-3\1862cb77e2389ff0f14e42eff55a8d47\transformed\exifinterface-1.3.3\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\0d3adacdbd523f9b68e08cbd10760dea\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.core:core-ktx:1.5.0] C:\Users\heman\.gradle\caches\transforms-3\9fdf9fe63476bbce61d41cc8fa813b86\transformed\jetified-core-ktx-1.5.0\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.webkit:webkit:1.4.0] C:\Users\heman\.gradle\caches\transforms-3\8a1da1ab2ad463bbe9ac49a024ca6754\transformed\webkit-1.4.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-measurement:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\0f5a2b7858f769c433c1cd8efaf96180\transformed\jetified-play-services-measurement-21.1.1\AndroidManifest.xml:17:1-46:12
 MERGED from [com.google.android.gms:play-services-iid:16.0.0] C:\Users\heman\.gradle\caches\transforms-3\21db2d17e8c2c41ebd90c09b87eb0085\transformed\jetified-play-services-iid-16.0.0\AndroidManifest.xml:17:1-28:12
 MERGED from [com.google.android.gms:play-services-measurement-sdk:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\8bdaffd64240f8c6d461fb4099beeac9\transformed\jetified-play-services-measurement-sdk-21.1.1\AndroidManifest.xml:17:1-25:12
@@ -72,6 +84,7 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [com.google.firebase:firebase-components:17.0.1] C:\Users\heman\.gradle\caches\transforms-3\2237b904b801be70dffa6cd89f1e2050\transformed\jetified-firebase-components-17.0.1\AndroidManifest.xml:15:1-23:12
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\heman\.gradle\caches\transforms-3\c6061791b1d1ec4904d4cf2eb562c70d\transformed\sqlite-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-auth:20.3.0] C:\Users\heman\.gradle\caches\transforms-3\ed4b4f855b81673832850f35e2642c12\transformed\jetified-play-services-auth-20.3.0\AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\heman\.gradle\caches\transforms-3\1168b04c994dd142e7b753df31b3a0e5\transformed\jetified-play-services-identity-17.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-location:20.0.0] C:\Users\heman\.gradle\caches\transforms-3\d8459bf16129f41d4dd5f28e9d3460b8\transformed\jetified-play-services-location-20.0.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-maps:18.0.2] C:\Users\heman\.gradle\caches\transforms-3\39eb60630793a4472cdc8f2ac41c8c0e\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:17:1-44:12
 MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] C:\Users\heman\.gradle\caches\transforms-3\93720366f67add9544233bbed05b96f7\transformed\jetified-play-services-safetynet-17.0.0\AndroidManifest.xml:17:1-24:12
@@ -200,8 +213,12 @@ MERGED from [com.google.firebase:firebase-auth:21.0.8] C:\Users\heman\.gradle\ca
 MERGED from [com.google.firebase:firebase-auth:21.0.8] C:\Users\heman\.gradle\caches\transforms-3\2b65681ba409bb8363c0207deb3e110f\transformed\jetified-firebase-auth-21.0.8\AndroidManifest.xml:26:5-71:19
 MERGED from [:react-native-community_datetimepicker] E:\Frisles\repofrontend\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-20
 MERGED from [:react-native-community_datetimepicker] E:\Frisles\repofrontend\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-20
+MERGED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
+MERGED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [com.facebook.react:react-native:0.69.5] C:\Users\heman\.gradle\caches\transforms-3\c524f9377c2d24209c0911437a319424\transformed\jetified-react-native-0.69.5-debug\AndroidManifest.xml:9:5-20
 MERGED from [com.facebook.react:react-native:0.69.5] C:\Users\heman\.gradle\caches\transforms-3\c524f9377c2d24209c0911437a319424\transformed\jetified-react-native-0.69.5-debug\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.gms:play-services-measurement-api:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\1f72f27fed8676d220eaa250ef2f39b0\transformed\jetified-play-services-measurement-api-21.1.1\AndroidManifest.xml:27:5-35:19
@@ -214,6 +231,8 @@ MERGED from [com.google.firebase:firebase-common:20.1.2] C:\Users\heman\.gradle\
 MERGED from [com.google.firebase:firebase-common:20.1.2] C:\Users\heman\.gradle\caches\transforms-3\38f4d138903845356a0aa9eb628c7ab2\transformed\jetified-firebase-common-20.1.2\AndroidManifest.xml:25:5-38:19
 MERGED from [com.facebook.soloader:soloader:0.10.3] C:\Users\heman\.gradle\caches\transforms-3\859ea87ab1b6d8fcbc721cfef8413368\transformed\jetified-soloader-0.10.3\AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.soloader:soloader:0.10.3] C:\Users\heman\.gradle\caches\transforms-3\859ea87ab1b6d8fcbc721cfef8413368\transformed\jetified-soloader-0.10.3\AndroidManifest.xml:11:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\heman\.gradle\caches\transforms-3\d90198fb8b26ef764351e6f389329256\transformed\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\heman\.gradle\caches\transforms-3\d90198fb8b26ef764351e6f389329256\transformed\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\f1d014e802d614c163e6c5eb66bd2791\transformed\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\f1d014e802d614c163e6c5eb66bd2791\transformed\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\heman\.gradle\caches\transforms-3\6e236d35c1644b5d4c725032ecf89036\transformed\work-runtime-2.7.1\AndroidManifest.xml:30:5-143:19
@@ -232,6 +251,8 @@ MERGED from [com.google.android.gms:play-services-stats:17.0.2] C:\Users\heman\.
 MERGED from [com.google.android.gms:play-services-stats:17.0.2] C:\Users\heman\.gradle\caches\transforms-3\ebe36bfd8acca3daf493479c29a51413\transformed\jetified-play-services-stats-17.0.2\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-auth:20.3.0] C:\Users\heman\.gradle\caches\transforms-3\ed4b4f855b81673832850f35e2642c12\transformed\jetified-play-services-auth-20.3.0\AndroidManifest.xml:22:5-38:19
 MERGED from [com.google.android.gms:play-services-auth:20.3.0] C:\Users\heman\.gradle\caches\transforms-3\ed4b4f855b81673832850f35e2642c12\transformed\jetified-play-services-auth-20.3.0\AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\heman\.gradle\caches\transforms-3\1168b04c994dd142e7b753df31b3a0e5\transformed\jetified-play-services-identity-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\heman\.gradle\caches\transforms-3\1168b04c994dd142e7b753df31b3a0e5\transformed\jetified-play-services-identity-17.0.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-location:20.0.0] C:\Users\heman\.gradle\caches\transforms-3\d8459bf16129f41d4dd5f28e9d3460b8\transformed\jetified-play-services-location-20.0.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-location:20.0.0] C:\Users\heman\.gradle\caches\transforms-3\d8459bf16129f41d4dd5f28e9d3460b8\transformed\jetified-play-services-location-20.0.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-maps:18.0.2] C:\Users\heman\.gradle\caches\transforms-3\39eb60630793a4472cdc8f2ac41c8c0e\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:36:5-42:19
@@ -346,14 +367,20 @@ MERGED from [:react-native-contacts] E:\Frisles\repofrontend\node_modules\react-
 MERGED from [:react-native-contacts] E:\Frisles\repofrontend\node_modules\react-native-contacts\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-device-info] E:\Frisles\repofrontend\node_modules\react-native-device-info\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-device-info] E:\Frisles\repofrontend\node_modules\react-native-device-info\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-geolocation-service] E:\Frisles\repofrontend\node_modules\react-native-geolocation-service\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-geolocation-service] E:\Frisles\repofrontend\node_modules\react-native-geolocation-service\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-gesture-handler] E:\Frisles\repofrontend\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-gesture-handler] E:\Frisles\repofrontend\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-get-location] E:\Frisles\repofrontend\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-get-location] E:\Frisles\repofrontend\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-base64] E:\Frisles\repofrontend\node_modules\react-native-image-base64\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-base64] E:\Frisles\repofrontend\node_modules\react-native-image-base64\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-imei] E:\Frisles\repofrontend\node_modules\react-native-imei\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-imei] E:\Frisles\repofrontend\node_modules\react-native-imei\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-linear-gradient] E:\Frisles\repofrontend\node_modules\react-native-linear-gradient\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-linear-gradient] E:\Frisles\repofrontend\node_modules\react-native-linear-gradient\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-maps] E:\Frisles\repofrontend\node_modules\react-native-maps\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
@@ -362,14 +389,26 @@ MERGED from [:react-native-safe-area-context] E:\Frisles\repofrontend\node_modul
 MERGED from [:react-native-safe-area-context] E:\Frisles\repofrontend\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-screens] E:\Frisles\repofrontend\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-screens] E:\Frisles\repofrontend\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-sms] E:\Frisles\repofrontend\node_modules\react-native-sms\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-sms] E:\Frisles\repofrontend\node_modules\react-native-sms\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-vector-icons] E:\Frisles\repofrontend\node_modules\react-native-vector-icons\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-vector-icons] E:\Frisles\repofrontend\node_modules\react-native-vector-icons\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-video] E:\Frisles\repofrontend\node_modules\react-native-video\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-video] E:\Frisles\repofrontend\node_modules\react-native-video\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.react:react-native:0.69.5] C:\Users\heman\.gradle\caches\transforms-3\c524f9377c2d24209c0911437a319424\transformed\jetified-react-native-0.69.5-debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.react:react-native:0.69.5] C:\Users\heman\.gradle\caches\transforms-3\c524f9377c2d24209c0911437a319424\transformed\jetified-react-native-0.69.5-debug\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\heman\.gradle\caches\transforms-3\f892fe3df617bb7699a35f41e3e7b12c\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\heman\.gradle\caches\transforms-3\f892fe3df617bb7699a35f41e3e7b12c\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [org.webkit:android-jsc:r250230] C:\Users\heman\.gradle\caches\transforms-3\ac30da1611cc6d82a774fbc4259230a9\transformed\jetified-android-jsc-r250230\AndroidManifest.xml:7:5-9:41
 MERGED from [org.webkit:android-jsc:r250230] C:\Users\heman\.gradle\caches\transforms-3\ac30da1611cc6d82a774fbc4259230a9\transformed\jetified-android-jsc-r250230\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-get-sms-android] E:\Frisles\repofrontend\node_modules\react-native-get-sms-android\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-get-sms-android] E:\Frisles\repofrontend\node_modules\react-native-get-sms-android\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-reanimated] E:\Frisles\repofrontend\node_modules\react-native-reanimated\android\build\.transforms\6a89c2a8809d4b4ffdf5711e76817a93\transformed\jetified-react-native-reanimated-69-jsc\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-reanimated] E:\Frisles\repofrontend\node_modules\react-native-reanimated\android\build\.transforms\6a89c2a8809d4b4ffdf5711e76817a93\transformed\jetified-react-native-reanimated-69-jsc\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-sim-data] E:\Frisles\repofrontend\node_modules\react-native-sim-data\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-sim-data] E:\Frisles\repofrontend\node_modules\react-native-sim-data\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.android.gms:play-services-measurement-api:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\1f72f27fed8676d220eaa250ef2f39b0\transformed\jetified-play-services-measurement-api-21.1.1\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-measurement-api:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\1f72f27fed8676d220eaa250ef2f39b0\transformed\jetified-play-services-measurement-api-21.1.1\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\heman\.gradle\caches\transforms-3\27b2ecfa54d5d1554136ce7bef848281\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:5:5-44
@@ -408,8 +447,12 @@ MERGED from [com.facebook.fresco:nativeimagetranscoder:2.6.0] C:\Users\heman\.gr
 MERGED from [com.facebook.fresco:nativeimagetranscoder:2.6.0] C:\Users\heman\.gradle\caches\transforms-3\e1b889d891e6580bb86c8e0d5f36294a\transformed\jetified-nativeimagetranscoder-2.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:imagepipeline-base:2.6.0] C:\Users\heman\.gradle\caches\transforms-3\e1495bf4f63c2ba4b2115e3f0f7addf6\transformed\jetified-imagepipeline-base-2.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:imagepipeline-base:2.6.0] C:\Users\heman\.gradle\caches\transforms-3\e1495bf4f63c2ba4b2115e3f0f7addf6\transformed\jetified-imagepipeline-base-2.6.0\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\heman\.gradle\caches\transforms-3\d90198fb8b26ef764351e6f389329256\transformed\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\heman\.gradle\caches\transforms-3\d90198fb8b26ef764351e6f389329256\transformed\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\f1d014e802d614c163e6c5eb66bd2791\transformed\material-1.1.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\f1d014e802d614c163e6c5eb66bd2791\transformed\material-1.1.0\AndroidManifest.xml:20:5-44
+MERGED from [com.github.adityaxjha:Android-ScalableVideoView:10e7b4da8b] C:\Users\heman\.gradle\caches\transforms-3\4f22fd73afc4669ad30ffa66ae73bf1a\transformed\jetified-Android-ScalableVideoView-10e7b4da8b\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.adityaxjha:Android-ScalableVideoView:10e7b4da8b] C:\Users\heman\.gradle\caches\transforms-3\4f22fd73afc4669ad30ffa66ae73bf1a\transformed\jetified-Android-ScalableVideoView-10e7b4da8b\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.appcompat:appcompat:1.4.1] C:\Users\heman\.gradle\caches\transforms-3\658ad22a06fefca40233d57901c13be0\transformed\appcompat-1.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat:1.4.1] C:\Users\heman\.gradle\caches\transforms-3\658ad22a06fefca40233d57901c13be0\transformed\appcompat-1.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\heman\.gradle\caches\transforms-3\6e236d35c1644b5d4c725032ecf89036\transformed\work-runtime-2.7.1\AndroidManifest.xml:21:5-23:41
@@ -432,12 +475,14 @@ MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\hem
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\6d83d1d9353959259293e3a0a21f8926\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\heman\.gradle\caches\transforms-3\9e00ca15ffb5aef0e07b5a544cdb4611\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\heman\.gradle\caches\transforms-3\9e00ca15ffb5aef0e07b5a544cdb4611\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\heman\.gradle\caches\transforms-3\5fda36d3c24ed3448f5adc61e32ff528\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\heman\.gradle\caches\transforms-3\5fda36d3c24ed3448f5adc61e32ff528\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.exifinterface:exifinterface:1.3.3] C:\Users\heman\.gradle\caches\transforms-3\1862cb77e2389ff0f14e42eff55a8d47\transformed\exifinterface-1.3.3\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.exifinterface:exifinterface:1.3.3] C:\Users\heman\.gradle\caches\transforms-3\1862cb77e2389ff0f14e42eff55a8d47\transformed\exifinterface-1.3.3\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\0d3adacdbd523f9b68e08cbd10760dea\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\heman\.gradle\caches\transforms-3\0d3adacdbd523f9b68e08cbd10760dea\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core-ktx:1.5.0] C:\Users\heman\.gradle\caches\transforms-3\9fdf9fe63476bbce61d41cc8fa813b86\transformed\jetified-core-ktx-1.5.0\AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.core:core-ktx:1.5.0] C:\Users\heman\.gradle\caches\transforms-3\9fdf9fe63476bbce61d41cc8fa813b86\transformed\jetified-core-ktx-1.5.0\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.webkit:webkit:1.4.0] C:\Users\heman\.gradle\caches\transforms-3\8a1da1ab2ad463bbe9ac49a024ca6754\transformed\webkit-1.4.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.4.0] C:\Users\heman\.gradle\caches\transforms-3\8a1da1ab2ad463bbe9ac49a024ca6754\transformed\webkit-1.4.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-measurement:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\0f5a2b7858f769c433c1cd8efaf96180\transformed\jetified-play-services-measurement-21.1.1\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-measurement:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\0f5a2b7858f769c433c1cd8efaf96180\transformed\jetified-play-services-measurement-21.1.1\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-iid:16.0.0] C:\Users\heman\.gradle\caches\transforms-3\21db2d17e8c2c41ebd90c09b87eb0085\transformed\jetified-play-services-iid-16.0.0\AndroidManifest.xml:20:5-44
@@ -458,6 +503,8 @@ MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\heman\.gradle\caches\transfo
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\heman\.gradle\caches\transforms-3\c6061791b1d1ec4904d4cf2eb562c70d\transformed\sqlite-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-auth:20.3.0] C:\Users\heman\.gradle\caches\transforms-3\ed4b4f855b81673832850f35e2642c12\transformed\jetified-play-services-auth-20.3.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:20.3.0] C:\Users\heman\.gradle\caches\transforms-3\ed4b4f855b81673832850f35e2642c12\transformed\jetified-play-services-auth-20.3.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\heman\.gradle\caches\transforms-3\1168b04c994dd142e7b753df31b3a0e5\transformed\jetified-play-services-identity-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\heman\.gradle\caches\transforms-3\1168b04c994dd142e7b753df31b3a0e5\transformed\jetified-play-services-identity-17.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-location:20.0.0] C:\Users\heman\.gradle\caches\transforms-3\d8459bf16129f41d4dd5f28e9d3460b8\transformed\jetified-play-services-location-20.0.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:20.0.0] C:\Users\heman\.gradle\caches\transforms-3\d8459bf16129f41d4dd5f28e9d3460b8\transformed\jetified-play-services-location-20.0.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-maps:18.0.2] C:\Users\heman\.gradle\caches\transforms-3\39eb60630793a4472cdc8f2ac41c8c0e\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:20:5-44
@@ -700,6 +747,14 @@ ADDED from [com.google.firebase:firebase-auth:21.0.8] C:\Users\heman\.gradle\cac
 		ADDED from [com.google.firebase:firebase-auth:21.0.8] C:\Users\heman\.gradle\caches\transforms-3\2b65681ba409bb8363c0207deb3e110f\transformed\jetified-firebase-auth-21.0.8\AndroidManifest.xml:69:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:21.0.8] C:\Users\heman\.gradle\caches\transforms-3\2b65681ba409bb8363c0207deb3e110f\transformed\jetified-firebase-auth-21.0.8\AndroidManifest.xml:68:17-109
+activity#com.reactlibrary.devicenumber.DeviceNumberActivity
+ADDED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-14:20
+	android:noHistory
+		ADDED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+	android:theme
+		ADDED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-56
+	android:name
+		ADDED from [:react-native-device-number] E:\Frisles\repofrontend\node_modules\react-native-device-number\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-78
 provider#com.imagepicker.ImagePickerProvider
 ADDED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
 	android:grantUriPermissions
@@ -716,6 +771,22 @@ ADDED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\rea
 		ADDED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-67
 	android:name
 		ADDED from [:react-native-image-picker] E:\Frisles\repofrontend\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from [:react-native-imei] E:\Frisles\repofrontend\node_modules\react-native-imei\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-75
+MERGED from [:react-native-sim-data] E:\Frisles\repofrontend\node_modules\react-native-sim-data\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-75
+MERGED from [:react-native-sim-data] E:\Frisles\repofrontend\node_modules\react-native-sim-data\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-75
+	android:name
+		ADDED from [:react-native-imei] E:\Frisles\repofrontend\node_modules\react-native-imei\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-72
+provider#com.reactnativecommunity.webview.RNCWebViewFileProvider
+ADDED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+	android:grantUriPermissions
+		ADDED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+	android:authorities
+		ADDED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-64
+	android:exported
+		ADDED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+	android:name
+		ADDED from [:react-native-webview] E:\Frisles\repofrontend\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-83
 uses-permission#com.google.android.gms.permission.AD_ID
 ADDED from [com.google.android.gms:play-services-measurement-api:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\1f72f27fed8676d220eaa250ef2f39b0\transformed\jetified-play-services-measurement-api-21.1.1\AndroidManifest.xml:25:5-79
 MERGED from [com.google.android.gms:play-services-measurement-impl:21.1.1] C:\Users\heman\.gradle\caches\transforms-3\ee7741ba4604e19ea16788f278d93707\transformed\jetified-play-services-measurement-impl-21.1.1\AndroidManifest.xml:27:5-79

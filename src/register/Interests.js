@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -6,71 +6,96 @@ import {
     StyleSheet,
     Text,
     useColorScheme,
+    TouchableOpacity,
     Pressable,
+    Dimensions,
     View,
     TouchableHighlight,
     FlatList,
+    ToastAndroid,
     SectionList
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import data from '../../mock.json';
-
-const Interests = ({navigation}) => {
+import axios from 'axios';
+import { environment } from '../../environment';
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
+const Interests = ({route, navigation}) => {
+  const { uniqueID, phoneNumber, name, dob, gender, 
+    occupation, profilePic, coverPic, latitude,longitude } = route?.params;
   const [BtnColor, setBtnColor] = useState("");
+  const [interestData, setInterestData] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  
+  useEffect(() => {
+    axios.get(`${environment.API_URL}/interest`).then((response) => {
+        // console.log('response interest', response?.data[0]?.interest);
+        setInterestData(response?.data[0]?.interest);
+        
+    }).catch(err => {
+      console.log("interest err", err)
+    });
+  }, []);
+
+  const removeItem = (i) => {
+    // const index = filterData.indexOf(item);
+    // console.log(filterData, "removeItem", i)
+    const filteredInterest = filterData.filter((item) => item.id !== i.id);
+    // console.log(filteredInterest, "filteredInterest")
+    setFilterData(filteredInterest)
+  }
 
   const ListItem = ({ item }) => {
     return (
       <View style={styles.itemContainer}>
-            <Text style={styles.itemText}>{item.title}</Text>
+        <Text style={styles.itemText}>{item.name}</Text>
+        <TouchableOpacity onPress={() => removeItem(item)} style={styles.remove}>
+          <Text style={styles.removeIcon}>X</Text>
+        </TouchableOpacity>
       </View>)
   }
-  const SECTIONS = [
-    {
-      data: [
-        {
-          "id": "1",
-          "title": "Arts"
-         },
-         {
-          "id": "2",
-          "title": "Dancing"
-         },
-         {
-          "id": "3",
-          "title": "Playing Games"
-         },
-         {
-          "id": "4",
-          "title": "Cricket"
-         },
-         {
-          "id": "5",
-          "title": "Singing"
-         },
-         {
-          "id": "6",
-          "title": "Reading Books"
-         },
-         {
-          "id": "7",
-          "title": "Food"
-         },
-         {
-          "id": "8",
-          "title": "Movies"
-         },
-         {
-          "id": "9",
-          "title": "Friends"
-         },
-         {
-          "id": "10",
-          "title": "Making Friends"
-         }
-      ]
+
+  const selectedItem = (item) => {
+    console.log("item", item);
+    const found = filterData.some(el => el.id === item.id);
+    if(!found){
+      setFilterData(filterData.concat(item))
     }
-    
-  ]
+    console.log(filterData, "filter")
+    setBtnColor('#FFF');
+  }
+
+  const submitLogin = () => {
+    let payload = {
+      "mobile": uniqueID,
+      "phone": phoneNumber,
+      "name": name,
+      "dob": dob,
+      "gender": gender,
+      "occupation": occupation,
+      "profilePicture": profilePic,
+      "coverPicture": coverPic,
+      "latitude": latitude,
+      "longitude": longitude,
+      "interest": filterData
+  }
+  console.log("payload", payload)
+  axios.post(`${environment.API_URL}/login`, payload).then((response) => {
+      console.log('response', response.data);
+      ToastAndroid.showWithGravityAndOffset(
+          "Submitted Login Request Successfully",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          height
+        );
+  });
+    // navigation.navigate('groups');
+  }
+
+  // console.log("filterData", filterData)
+
     return (
         <View style={styles.container}>
           <Pressable
@@ -84,41 +109,33 @@ const Interests = ({navigation}) => {
                 <Text style={styles.title}>Select 5 Interests</Text>
                 <View style={styles.filterContainer}>
                   <SafeAreaView style={{ flex: 1 }}>
-                      <SectionList
-                        contentContainerStyle={{ paddingHorizontal: 10 }}
-                        stickySectionHeadersEnabled={false}
-                        sections={SECTIONS}
-                        renderSectionHeader={({ section }) => (
-                          <FlatList
-                            horizontal
-                            data={section.data}
-                            renderItem={({ item }) => <ListItem item={item} />}
-                            showsHorizontalScrollIndicator={true}
-                          />
-                        )}
-                        renderItem={({ item, section }) => {
-                          return null;
-                        }}
+                      <FlatList
+                        horizontal
+                        data={filterData}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item, index }) => <ListItem item={item} />}
+                        showsHorizontalScrollIndicator={true}
                       />
                   </SafeAreaView>
                 </View>
                 <View style={styles.listContainer}>
                   {
-                    data.interests && data.interests.map((e,i) => {
+                    interestData.length > 0 && interestData.map((e,i) => {
+                      // console.log("eeee", e)
                       return <TouchableHighlight
                       key={i}
                       style={styles.listBox}
                       activeOpacity={1}
                       underlayColor="#FB8D33"
-                      onPress={() => setBtnColor('#FFF')}>
-                      <Text style={styles.listText}>{e.title}</Text>
+                      onPress={() => selectedItem(e)}>
+                      <Text style={styles.listText}>{e.name}</Text>
                     </TouchableHighlight>
                     })
                   }
                 </View>
             </View>
             <Pressable
-                onPress={() => navigation.navigate('groups')}
+                onPress={() => submitLogin()}
                 style={styles.buttonContainer}>
                 <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                     <Text style={styles.buttonText}>
@@ -183,9 +200,11 @@ skipText: {
     borderRadius: 15,
     height: 31,
     alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: 14,
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    
   },
   itemText:{
     fontFamily: 'Inter',
@@ -193,6 +212,7 @@ skipText: {
     fontWeight: '600',
     color: '#FFF',
     lineHeight: 18,
+    paddingHorizontal: 10,
     textAlign: 'center',
   },
   listContainer:{
@@ -219,6 +239,18 @@ skipText: {
     color: '#000',
     lineHeight: 20,
     textAlign: 'center',
+  },
+  remove:{
+    backgroundColor: '#F7F7F7',
+    justifyContent: 'center',
+    borderRadius: 30,
+    alignItems: 'center',
+    width: 20,
+    height: 20,
+  },
+  removeIcon:{
+    color: '#8091E6',
+    fontSize: 12
   },
   buttonContainer: {
       width: '80%',

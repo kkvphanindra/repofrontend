@@ -1,6 +1,8 @@
 import React, {useRef, useState} from 'react';
-import {StyleSheet, Text, Pressable, View, Modal} from 'react-native';
+import {StyleSheet, Text, Pressable, View, Modal, TouchableOpacity, ToastAndroid} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import CountDown from 'react-native-countdown-component';
+import auth from '@react-native-firebase/auth';
 import OTPInput from '../components/OTPInput';
 
 const VerifyAccount = ({route, navigation}) => {
@@ -9,24 +11,48 @@ const VerifyAccount = ({route, navigation}) => {
     // }
     const [term, setTerm] = useState("");
     const [code, setCode] = useState("");
+    const [getConfirmation, setGetConfirmation] = useState(getConfirm);
+    const [resend, setResend] = useState(false);
+    const [timer, setTimer] = useState(10);
+    const [showTimer, setShowRunTimer] = useState(true);
+    const [runTimer, setRunTimer] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
     // console.log("getConfirm", navigation?.getParam('number'))
-    console.log(number, "getConfirm")
+    // console.log(number, "getConfirm")
     
-    const sendCode = async() => {
-        
-      }
+    const resendCode = async(number) => {
+        console.log('signInWithPhoneNumber.',number);
+        try{
+            const confirmation = await auth().signInWithPhoneNumber(number);
+            if(confirmation){
+                console.log("confirmation", confirmation)
+                setGetConfirmation(confirmation);
+                setShowRunTimer(true);
+                setResend(false)
+            }
+        } catch (e) {
+            console.log(e.message);
+            ToastAndroid.showWithGravityAndOffset(
+                `Request ${e.message}`,
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                height
+              );
+        }
+    }
+
     const onChangeText = (value) => {
         console.log('value ==>', value)
         setCode(value)
     } 
-      console.log('term', term)
+    //   console.log('term', term)
 
       const confirmCode = async() => {
         console.log('confirmCode value ==>', code)
         try {
-            await getConfirm.confirm(code);
+            await getConfirmation.confirm(code);
             console.log('success.');
             setModalVisible(false);
             navigation.navigate('agree',{
@@ -48,12 +74,31 @@ const VerifyAccount = ({route, navigation}) => {
                         onChange={onChangeText}
                     />
                 </View>
-                <View style={styles.timerWrapper}>
-                    <Text style={styles.timerText}>02:22:01</Text>
-                </View>
+                    {
+                        showTimer && 
+                        <View style={styles.timerWrapper}>
+                            <CountDown
+                                size={10}
+                                until={timer}
+                                onFinish={() => [setShowRunTimer(false),setResend(true)]}
+                                digitStyle={{backgroundColor: 'transparent', borderWidth: 0, borderColor: 'transparent'}}
+                                digitTxtStyle={{marginHorizontal: -10, color: '#FFF'}}
+                                timeLabelStyle={{marginHorizontal: -10, fontSize: 8, color: '#FFF', fontWeight: 'bold'}}
+                                separatorStyle={{marginHorizontal: -10, color: '#FFF'}}
+                                timeToShow={['H', 'M', 'S']}
+                                timeLabels={{m: null, s: null}}
+                                showSeparator
+                            />
+                        </View>
+                    }
+                    {/* <Text style={styles.timerText}>02:22:01</Text> */}
                 <View style={styles.codeWrapper}>
                     <Text style={styles.subContent}>Didn’t not received the code?</Text>
-                    <Text style={styles.linkText}>Resend Code</Text>
+                    {
+                        resend && <Pressable onPress={resendCode}  style={styles.resendButton}>
+                            <Text style={styles.linkText}>Resend Code</Text>
+                        </Pressable>
+                    }
                 </View>
             </View>
             <Pressable
@@ -139,6 +184,9 @@ const styles = StyleSheet.create({
         color: '#FFF',
         lineHeight: 18,
         textAlign: 'center'
+    },
+    resendButton:{
+        paddingHorizontal: 20
     },
     linkText: {
         fontFamily: 'Inter',

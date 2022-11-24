@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useRef} from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -7,28 +7,112 @@ import {
     Text,
     useColorScheme,
     Pressable,
+    TouchableOpacity,
     View,
     Dimensions,
     ImageBackground,
-    Image
+    Image,
+    PermissionsAndroid
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ScheduleHome from './components/schedule-home';
+import axios from 'axios';
+import DeviceInfo from 'react-native-device-info';
+import Carousel from 'react-native-snap-carousel-v4';
+import { environment } from '../environment';
 
 const { width, height } = Dimensions.get('window');
 
 const Home = ({navigation}) => {
+
+    const [profileName, setProfileName] = useState(null);
+    const [profilePic, setProfilePic] = useState(null);
+    const carouselRef = useRef(null);
+    const ENTRIES1 = [
+        {
+            img: require('../src/assets/images/group-bg-1.png'),
+            title: 'Group Name',
+            subTitle: '1.2K Conversations',
+            avatar: require('../src/assets/images/form-avatar-group.png'),
+        },
+        {
+            img: require('../src/assets/images/group-bg-2.png'),
+            title: 'Group Name',
+            subTitle: '1.2K Conversations',
+            avatar: require('../src/assets/images/form-avatar-group.png'),
+        },
+        {
+            img: require('../src/assets/images/group-bg-3.png'),
+            title: 'Group Name',
+            subTitle: '1.2K Conversations',
+            avatar: require('../src/assets/images/form-avatar-group.png'),
+        },
+    ];
+    const _renderItem = ({item, index}) => {
+        return (
+            <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => {
+                carouselRef.current.scrollToIndex(index);
+            }}>
+                <ImageBackground
+                    source={item.img}
+                    resizeMode="cover"
+                    style={styles.recentGroupImageContainer}>
+                    <View style={styles.recentGroupNameContainer}>
+                        <Text style={styles.recentGroupName}>{item.title}</Text>
+                        <Text style={styles.recentGroupText}>{item.subTitle}</Text>
+                    </View>
+                    <View style={styles.recentGroupAvatarContainer}>
+                        <Image style={styles.avatarPic} source={item.avatar}/>
+                        <Pressable onPress={() => navigation.navigate('')}  style={[styles.recentGroupAction, {backgroundColor: '#FB8D33'}]}>
+                            <Text style={styles.recentGroupActionText}>More Active</Text>
+                        </Pressable>
+                    </View>    
+                </ImageBackground>
+            </TouchableOpacity>
+        )
+    }     
+    useEffect(() => {
+        if(PermissionsAndroid.RESULTS.GRANTED){
+            DeviceInfo.getUniqueId().then((uniqueId) => {
+                console.log("uniqueId gr", uniqueId)
+                let payload = {"mobileUniqueID":uniqueId};
+                axios.post(`${environment.API_URL}/profile`, payload).then((response) => {
+                    // console.log("profile post response",response.data);
+                    const { mobileUniqueID } = response.data;
+                    // console.log("profile post response >>",mobileUniqueID);
+                    if(mobileUniqueID !== ""){
+                        const homePayload = {
+                            "mobileUniqueID" : mobileUniqueID
+                        }
+                        axios.post(`${environment.API_URL}/home`, homePayload).then((response) => {
+                            // console.log("home post response ==>",response.data);
+                            const {name, profilePicture} = response.data;
+                            setProfileName(name);
+                            setProfilePic(profilePicture);
+                        }).catch(err => {
+                            console.log("home post err", err)
+                        });
+                    }
+                }).catch(err => {
+                    console.log("profile post err", err)
+                });
+            })
+        }
+    }, []);
+
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}>
+                    showsHorizontalScrollIndicator={false}>
                 <View style={styles.container}>
                     <ImageBackground
                         source={require('../src/assets/images/home-top-bg.png')}
                         resizeMode="cover"
                         style={styles.topContainer}>
                         <View style={styles.menuContainer}>
-                            <Pressable onPress={() => navigation.navigate('mobileNumber')}  style={styles.menuWrapper}>
+                            <Pressable onPress={() => navigation.navigate('login')}  style={styles.menuWrapper}>
                                 <Image style={styles.menuIcon} source={require('../src/assets/images/menu-icon.png')}/>
                             </Pressable>
                             <Pressable onPress={() => navigation.navigate('notifications')}  style={styles.notifyWrapper}>
@@ -40,7 +124,7 @@ const Home = ({navigation}) => {
                         </View>    
                         <View style={styles.titleContainer}>
                             <Text style={styles.title}>Welcome Back</Text>
-                            <Text style={styles.name}>Clara Fredry</Text>
+                            <Text style={styles.name}>{profileName}</Text>
                         </View>    
                         <View style={styles.badgeContainer}>
                             <ImageBackground
@@ -65,7 +149,7 @@ const Home = ({navigation}) => {
                             resizeMode="cover"
                             style={styles.profileImageContainer}>
                                 <Pressable onPress={() => navigation.navigate('profileHome')}>
-                                <Image style={styles.profilePic} source={require('../src/assets/images/picture-1.png')}/>
+                                <Image style={styles.profilePic} source={{ uri: profilePic}}/>
 
                                 </Pressable>
                         </ImageBackground>
@@ -97,51 +181,17 @@ const Home = ({navigation}) => {
                             <Text style={styles.recentGroupTitle}>Your Recent Groups</Text>
                             <Text style={styles.recentGroupSubTitle}>Lorem Ipsum is simply dummy text.</Text>
                         </View>
-                        <ImageBackground
-                            source={require('../src/assets/images/group-bg-1.png')}
-                            resizeMode="cover"
-                            style={styles.recentGroupImageContainer}>
-                            <View style={styles.recentGroupNameContainer}>
-                                <Text style={styles.recentGroupName}>Group Name</Text>
-                                <Text style={styles.recentGroupText}>1.2K Conversations</Text>
-                            </View>
-                            <View style={styles.recentGroupAvatarContainer}>
-                                <Image style={styles.avatarPic} source={require('../src/assets/images/form-avatar-group.png')}/>
-                                <Pressable onPress={() => navigation.navigate('')}  style={[styles.recentGroupAction, {backgroundColor: '#FB8D33'}]}>
-                                    <Text style={styles.recentGroupActionText}>More Active</Text>
-                                </Pressable>
-                            </View>    
-                        </ImageBackground>
-                        <ImageBackground
-                            source={require('../src/assets/images/group-bg-2.png')}
-                            resizeMode="cover"
-                            style={styles.recentGroupImageContainer}>
-                            <View style={styles.recentGroupNameContainer}>
-                                <Text style={styles.recentGroupName}>Group Name</Text>
-                                <Text style={styles.recentGroupText}>1.2K Conversations</Text>
-                            </View>
-                            <View style={styles.recentGroupAvatarContainer}>
-                                <Image style={styles.avatarPic} source={require('../src/assets/images/form-avatar-group.png')}/>
-                                <Pressable onPress={() => navigation.navigate('')}  style={[styles.recentGroupAction, {backgroundColor: '#258FE6'}]}>
-                                    <Text style={styles.recentGroupActionText}>Partially Active</Text>
-                                </Pressable>
-                            </View>    
-                        </ImageBackground>
-                        <ImageBackground
-                            source={require('../src/assets/images/group-bg-3.png')}
-                            resizeMode="cover"
-                            style={styles.recentGroupImageContainer}>
-                            <View style={styles.recentGroupNameContainer}>
-                                <Text style={styles.recentGroupName}>Group Name</Text>
-                                <Text style={styles.recentGroupText}>1.2K Conversations</Text>
-                            </View>
-                            <View style={styles.recentGroupAvatarContainer}>
-                                <Image style={styles.avatarPic} source={require('../src/assets/images/form-avatar-group.png')}/>
-                                <Pressable onPress={() => navigation.navigate('')}  style={[styles.recentGroupAction, {backgroundColor: '#D05A5D'}]}>
-                                    <Text style={styles.recentGroupActionText}>InActive</Text>
-                                </Pressable>
-                            </View>    
-                        </ImageBackground>
+                        <Carousel
+                            ref={carouselRef}
+                            data={ENTRIES1}
+                            renderItem={_renderItem}
+                            itemWidth={width/1.24}
+                            sliderWidth={width} 
+                            activeSlideOffset={20}
+                            apparitionDelay={0.5}
+                            loop={true}
+                            style={styles.carouselWrapper}
+                        />
                         <Pressable onPress={() => navigation.navigate('')}  style={styles.buttonContainer}>
                         <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                             <Text style={styles.buttonText}>
@@ -154,7 +204,23 @@ const Home = ({navigation}) => {
                         <Text style={styles.scheduleHeadTitle}>Schedule</Text>
                         <ScheduleHome />
                     </View>
-                    
+                    <View style={styles.offersFlex}>
+                        <Text style={styles.offersTitle}>Offers</Text>
+                        <View style={styles.offersContainer}>
+                            <Pressable onPress={() => navigation.navigate('giftsHome')}  style={styles.offersWrapper}>
+                                <Image style={styles.offerPic} source={require('../src/assets/images/offer-1.png')}/>
+                            </Pressable>
+                            <Pressable onPress={() => navigation.navigate('')}  style={styles.offersWrapper}>
+                                <Image style={styles.offerPic} source={require('../src/assets/images/offer-2.png')}/>
+                            </Pressable>
+                            <Pressable onPress={() => navigation.navigate('generateHome')}  style={styles.offersWrapper}>
+                                <Image style={styles.offerPic} source={require('../src/assets/images/offer-3.png')}/>
+                            </Pressable>
+                            <Pressable onPress={() => navigation.navigate('')}  style={styles.offersWrapper}>
+                                <Image style={styles.offerPic} source={require('../src/assets/images/offer-4.png')}/>
+                            </Pressable>
+                        </View>
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -407,13 +473,15 @@ const styles = StyleSheet.create({
     recentGroupImageContainer:{
         marginVertical: 10,
         width: 338,
-        height: 104 ,
+        height: 150 ,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'center' 
+        alignItems: 'center',
+        borderRadius: 26 
     },
     recentGroupNameContainer:{
-        alignItems: 'flex-start' 
+        alignItems: 'flex-start' ,
+        borderRadius: 26 
     },
     recentGroupName:{
         fontFamily: 'Inter',
@@ -442,8 +510,8 @@ const styles = StyleSheet.create({
         width: 146,
         height: 28,
         position: 'relative',
-        top: 22,
-        left: 18,
+        top: 47,
+        left: 16,
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomRightRadius: 16

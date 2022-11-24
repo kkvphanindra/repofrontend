@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -15,6 +15,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import ShareMoment from '../components/share-moment';
 const { width, height } = Dimensions.get('window');
+import axios from 'axios';
+import DeviceInfo from 'react-native-device-info';
+import { environment } from '../../environment';
+
 
 const ProfileHome = ({navigation}) => {
     const data =  [
@@ -80,7 +84,17 @@ const ProfileHome = ({navigation}) => {
             "coverPic": require('../assets/images/cover-pic.png'),
 
         }
-    ]
+    ];
+    
+    const [profileData, setProfileData] = useState([]);
+
+    useEffect(() => {
+        axios.get(`${environment.API_URL}/profile`).then((response) => {
+            console.log("profile get response >>",response.data);
+            setProfileData(response.data)
+        });
+    }, []);
+    console.log('profileData', profileData)
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}
@@ -107,15 +121,15 @@ const ProfileHome = ({navigation}) => {
                                 resizeMode="cover"
                                 style={styles.profileImageContainer}>
                                     <Pressable onPress={() => navigation.navigate('profileHome')}>
-                                    <Image style={styles.profilePic} source={require('../assets/images/picture-1.png')}/>
+                                    <Image style={styles.profilePic} source={{uri: profileData[0] !== undefined ? profileData[0].profilePicture : ''}}/>
 
                                     </Pressable>
                                     <Image style={styles.tagIcon} source={require('../assets/images/vip-icon.png')}/>
                             </ImageBackground>
                         </View>  
                         <View style={styles.titleContainer}>
-                            <Text style={styles.name}>Clara Fredry</Text>
-                            <Text style={styles.title}>@clarafredry</Text>
+                            <Text style={styles.name}>{profileData[0] !== undefined ? profileData[0].name : ""}</Text>
+                            <Text style={styles.title}>@{profileData[0] !== undefined ? profileData[0].name : ""}</Text>
                         </View>    
                         <View style={styles.badgeContainer}>
                             <ImageBackground
@@ -165,21 +179,21 @@ const ProfileHome = ({navigation}) => {
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Works at</Text>
-                                    <Text style={styles.infoContent}>Company Name here</Text>
+                                    <Text style={styles.infoContent}>{profileData[0] !== undefined ? profileData[0].occupation: ""}</Text>
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Studied at</Text>
-                                    <Text style={styles.infoContent}>University Name goes here</Text>
+                                    <Text style={styles.infoContent}>{profileData[0] !== undefined ? profileData[0].education: ""}</Text>
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Marital Status</Text>
-                                    <Text style={styles.infoContent}>Single</Text>
+                                    <Text style={styles.infoContent}>{profileData[0] !== undefined ? profileData[0].maritalStatus: ""}</Text>
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Location</Text>
                                     <View style={styles.tabLocationWrapper}>
                                     <Image style={styles.icon} source={require('../assets/images/location-icon.png')}/>
-                                    <Text style={styles.tabLocation}>Location</Text>
+                                    <Text style={styles.tabLocation}>{profileData[0] !== undefined ? profileData[0].location: ""}</Text>
                                 </View>
                                 </View>
                             </View>

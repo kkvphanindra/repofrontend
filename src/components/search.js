@@ -29,7 +29,7 @@ const SearchComponent = ({searchPhrase, setSearchPhrase, placeHolder, filter}) =
                 style={styles.inputContainer}
                 placeholder={placeHolder}
                 value={searchPhrase}
-                onChangeText={setSearchPhrase}/>
+                onChangeText={(text) => setSearchPhrase(text)}/>
                 {
                     filter && 
                     <Pressable onPress={getFilter}  style={styles.filterIconWrapper}>

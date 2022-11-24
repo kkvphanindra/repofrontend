@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -10,11 +10,16 @@ import {
     TextInput,
     View,
     ImageBackground,
+    PermissionsAndroid,
     Dimensions,
     Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as ImagePicker from 'react-native-image-picker';
+import axios from 'axios';
+import { environment } from '../../environment';
+import ImgToBase64 from 'react-native-image-base64';
+import DeviceInfo from 'react-native-device-info';
 
 const { width, height } = Dimensions.get('window');
 
@@ -34,6 +39,12 @@ const ProfileEdit = ({navigation}) => {
         setCoverFileUri] = useState('');
     const [photo,
         setPhoto] = useState(null);
+
+    const [name, setName] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [education, setEducation] = useState('');
+    const [maritalStatus, setMaritalStatus] = useState('');
+    const [location, setLocation] = useState('');
 
     const launchImageLibrary = () => {
         let options = {
@@ -67,7 +78,9 @@ const ProfileEdit = ({navigation}) => {
                         ?.uri);
                         setCoverFilepath(response);
                 setProfileFileData(response.data);
-                setProfileFileUri(response?.assets[0]?.uri);
+                // setProfileFileUri(response?.assets[0]?.uri);
+                ImgToBase64.getBase64String(response?.assets[0]?.uri)
+                .then(base64String => setProfileFileUri(`data:image/jpeg;base64,${base64String}`)).catch(err => console.log('error',err));
             }
 
           }
@@ -105,11 +118,45 @@ const ProfileEdit = ({navigation}) => {
                         ?.uri);
                 setCoverFilepath(response);
                 setCoverFileData(response.data);
-                setCoverFileUri(response?.assets[0]?.uri);
+                // setCoverFileUri(response?.assets[0]?.uri);
+                ImgToBase64.getBase64String(response?.assets[0]?.uri)
+                .then(base64String => setCoverFileUri(`data:image/jpeg;base64,${base64String}`)).catch(err => console.log('error',err));
             }
 
           }
         })
+    }
+
+    useEffect(() => {
+     
+    }, []);
+
+    const profileSubmit = () => {
+        if(PermissionsAndroid.RESULTS.GRANTED){
+            DeviceInfo.getUniqueId().then((uniqueId) => {
+                console.log("uniqueId gr", uniqueId)
+                let payload = {
+                    "mobileUniqueID": uniqueId,
+                    "profilePicture": profileFileUri,
+                    "coverPicture": coverFileUri,
+                    "endorsed": "",
+                    "genuine": "",
+                    "followers": "",
+                    "following": "",
+                    "occupation": occupation,
+                    "education": education,
+                    "maritalStatus": maritalStatus,
+                    "location": location,
+                };
+                console.log("payload payload", payload)
+                axios.post(`${environment.API_URL}/profile`, payload).then((response) => {
+                    console.log("profile edit post response ==>",response.data);
+                    navigation.navigate('profileHome');
+                }).catch(err => {
+                    console.log("profile edit post err", err)
+                });
+            })
+        }
     }
 
     return (
@@ -155,15 +202,15 @@ const ProfileEdit = ({navigation}) => {
                     <View style={styles.formFlex}>
                         <Text style={styles.H1Title}>Edit Details</Text>
                         <Text style={styles.formLabel}>Work</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput onChangeText={(text) => setOccupation(text)} placeholder='Auto filled can be edited' style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Study</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput onChangeText={(text) => setEducation(text)} placeholder='Auto filled can be edited' style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Status</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput onChangeText={(text) => setMaritalStatus(text)} placeholder='Auto filled can be edited' style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>DOB</Text>
@@ -171,7 +218,7 @@ const ProfileEdit = ({navigation}) => {
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Location</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput onChangeText={(text) => setLocation(text)} placeholder='Auto filled can be edited' style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Interests</Text>
@@ -187,7 +234,7 @@ const ProfileEdit = ({navigation}) => {
                     </View>
                 </View>
                 <Pressable
-                    onPress={() => navigation.navigate('home')}
+                    onPress={() => profileSubmit()}
                     style={styles.buttonContainer}>
                     <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                         <Text style={styles.buttonText}>
