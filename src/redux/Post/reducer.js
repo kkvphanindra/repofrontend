@@ -9,7 +9,9 @@ import {
     SUCCESS_NEW_POST,
     REQ_START_NEW_POST,
     FAILURE_NEW_POST,
-    ACTIVITYLOADING
+    ACTIVITYLOADING,
+    POST_HIDE,
+    POST_SAVE
 } from './actionTypes';
 
 
@@ -17,6 +19,8 @@ const initialstate = {
     loading: false,
     newPostLoading:false,
     activityLoading:false,
+    postHide: {},
+    postSave: {},
     error: "",
     data: [],
     inputValues: {
@@ -116,6 +120,20 @@ const storeReducer = (state = initialstate, action) => {
             return{
                 ...state,
                 activityLoading:!state.activityLoading,
+            }
+        }
+        case POST_HIDE:{
+            return{
+                ...state,
+                postHide: action.data,
+                error: '',
+            }
+        }
+        case POST_SAVE:{
+            return{
+                ...state,
+                postSave: action.data,
+                error: '',
             }
         }
         default:

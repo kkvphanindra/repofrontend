@@ -60,6 +60,7 @@ import store from './src/redux/store';
 import SettingNotifications from './src/notification/notification';
 import Snap from './src/snap/snap'
 import SnapDetails from './src/snap/snapDetails'
+import CommentSnap from './src/snap/commentSnap';
 
 
 const Stack = createNativeStackNavigator();
@@ -162,7 +163,7 @@ drawerLabel: 'Home'
       drawerLabel: 'Settings & Privacy'
           }}
     />
-      <Drawer.Screen name="helpSupport" component={ScheduledActivity} 
+      <Drawer.Screen name="helpSupport" component={Snap} 
      options={{
       drawerLabel: 'Help & Support'
           }}
@@ -220,6 +221,7 @@ const App = () => {
         <Stack.Screen name='settingNotification' component={SettingNotifications}/>
         <Stack.Screen name='snap' component={Snap}/>
         <Stack.Screen name='snapDetails' component={SnapDetails}/>
+        <Stack.Screen name='commentSnap' component={CommentSnap}/>
 
 
       </Stack.Navigator>

@@ -13,11 +13,14 @@ const SnapDetails = ({navigation}) => {
                         <View style={styles.header}>
                 <View style={styles.backView}>
                     <TouchableOpacity onPress={()=> navigation.goBack()}>
-                        <Text>B</Text>
+                    <Image
+                  style={styles.menuIcon}
+                  source={require('../assets/icons/png/backButton.png')}
+                />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.pageTitleView}>
-                    <Text style={styles.pageTitleText}>Snap</Text>
+                    <Text style={styles.pageTitleText}>Huddle Play</Text>
                 </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>

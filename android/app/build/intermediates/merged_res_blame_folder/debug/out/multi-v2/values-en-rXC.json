@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hmi/Desktop/frisle/repofrontend/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "C:\\Users\\ANDALIB QURAISHI\\Desktop\\Work\\repofrontend\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rXC\\values-en-rXC.xml",
             "map": [
                 {
-                    "source": "/Users/hmi/.gradle/caches/transforms-3/5505384dd52dc026f1a8e6c1262c54b3/transformed/browser-1.4.0/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\5505384dd52dc026f1a8e6c1262c54b3\\transformed\\browser-1.4.0\\res\\values-en-rXC\\values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/hmi/.gradle/caches/transforms-3/e7b3602ddd63dcf732caf349d634263f/transformed/core-1.7.0/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\e7b3602ddd63dcf732caf349d634263f\\transformed\\core-1.7.0\\res\\values-en-rXC\\values-en-rXC.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/hmi/.gradle/caches/transforms-3/658ad22a06fefca40233d57901c13be0/transformed/appcompat-1.4.1/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\658ad22a06fefca40233d57901c13be0\\transformed\\appcompat-1.4.1\\res\\values-en-rXC\\values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

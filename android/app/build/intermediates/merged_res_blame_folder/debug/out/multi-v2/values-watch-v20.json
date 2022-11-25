@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hmi/Desktop/frisle/repofrontend/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "C:\\Users\\ANDALIB QURAISHI\\Desktop\\Work\\repofrontend\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
             "map": [
                 {
-                    "source": "/Users/hmi/.gradle/caches/transforms-3/658ad22a06fefca40233d57901c13be0/transformed/appcompat-1.4.1/res/values-watch-v20/values-watch-v20.xml",
+                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\658ad22a06fefca40233d57901c13be0\\transformed\\appcompat-1.4.1\\res\\values-watch-v20\\values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/hmi/.gradle/caches/transforms-3/ed4b4f855b81673832850f35e2642c12/transformed/jetified-play-services-auth-20.3.0/res/values-watch-v20/values.xml",
+                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\ed4b4f855b81673832850f35e2642c12\\transformed\\jetified-play-services-auth-20.3.0\\res\\values-watch-v20\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",
