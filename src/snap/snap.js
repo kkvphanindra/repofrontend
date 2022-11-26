@@ -86,7 +86,10 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
         report={()=> console.log("report")}
         verify={()=>console.log("verify")}
         addTo={()=>console.log("addTo")}
-        groupName={item.groupName}
+        // groupName={item.groupName}
+        endorsed='6.5k'
+        genuine='4.8k'
+        groupName='@FunTogether'
         message={item.description}
         profilePic={item.profilePic}
         postText={item.description}

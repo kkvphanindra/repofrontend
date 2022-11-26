@@ -15,13 +15,18 @@ import {addNewPost, updateFields} from '../../redux/Post/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import LocationIQ from 'react-native-locationiq';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const NewSnap = props => {
   const [state, setState] = useState();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [lat, setLat]=useState('')
+  const [long, setLong]=useState('')
+  const [location,setLocation]=useState('')
   const postState = useSelector(state => state.postState);
-
+  LocationIQ.init('pk.9258ab5f6e3604f3f0a08054a0b92c48');
   const launchLibrary = async navigation => {
     let options = {
       storageOptions: {
@@ -87,6 +92,21 @@ const NewSnap = props => {
       }
     });
   };
+  const launchCamera = () => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
+  };
   const getLocation = () => {
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
@@ -94,13 +114,22 @@ const NewSnap = props => {
     })
       .then(location => {
         console.log(location);
+        setLat(location.latitude)
+        setLong(location.longitude)
       })
       .catch(error => {
         const {code, message} = error;
         console.warn(code, message);
       });
   };
-
+  LocationIQ.reverse(lat, long)
+    .then(json => {
+      var address = json.address.city;
+      // console.log(address);
+      setLocation(address);
+    })
+    .catch(error => console.warn(error));
+    console.log("location", location)
   const checkValidity = (val, fieldId) => {
     let isValid = true;
 
@@ -149,7 +178,7 @@ const NewSnap = props => {
                 />
               </View>
               <View style={styles.attachmentBox}>
-                <TouchableOpacity onPress={() => launchCameraPhoto()}>
+                <TouchableOpacity onPress={() => launchCamera()}>
                   <Image
                     source={require('../../assets/icons/png/camera.png')}
                   />
@@ -169,6 +198,15 @@ const NewSnap = props => {
               </View>
             </View>
           </View>
+          {location? 
+          <Text style={{
+            margin: '5%',
+            color: '#000',
+            // fontWeight: '600'
+          }}>Checked in at {'\b'} <Text style={{fontWeight: 'bold'}}>{location}</Text></Text>
+          :
+          null
+        }
           {/* <TouchableOpacity style={styles.shareNowButton}>
             <LinearGradient
               style={styles.buttonWrapper}
@@ -190,6 +228,7 @@ const NewSnap = props => {
                       addNewPost(
                         postState.inputValues.post,
                         '6dddae20-5925-11ed-a555-c9afc10124e6',
+                        location
                       ),
                     )
                     navigation.navigate('snap')

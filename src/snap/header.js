@@ -16,10 +16,15 @@ import LinearGradient from 'react-native-linear-gradient';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-const profileData = {
-  name: 'Raju',
-  profilePic:
-    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png',
+let user = {
+  userId: '6dddae20-5925-11ed-a555-c9afc10124e6',
+  firstName: 'Danish',
+  lastName: 'ali',
+  photo: 'https://i.ibb.co/pyhjCBx/ffd493ff-fe15-4d19-b645-635cadbab9d1.jpg',
+  countryCode: '91',
+  phoneNumber: '7439240134',
+  createdAt: '2022-10-31T14:08:01.029Z',
+  updatedAt: '2022-11-03T05:37:14.544Z',
 };
 
 const Header = props => {
@@ -78,11 +83,11 @@ const Header = props => {
               <View style={styles.profileInformation}>
                 <Image
                   source={{
-                    uri: profileData.profilePic,
+                    uri: user.photo,
                   }}
                   style={styles.profileImage}
                 />
-                <Text style={styles.profileName}>{profileData.name}</Text>
+                <Text style={styles.profileName}>{user.firstName+'\b'+user.lastName}</Text>
               </View>
             </View>
           </ImageBackground>

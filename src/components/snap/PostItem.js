@@ -15,7 +15,7 @@ import axios from 'axios';
 const {height} = Dimensions.get('window');
 import OptionsMenu from 'react-native-option-menu';
 import {useDispatch} from 'react-redux';
-import {addPostLike} from '../../redux/Post/actions';
+import {addPostLike, postShare} from '../../redux/Post/actions';
 import LoadingComponet from './LoadingComponent';
 import SnapComment from './SnapComment';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -54,7 +54,7 @@ const PostItem = props => {
     createdAt: '2022-10-31T14:08:01.029Z',
     updatedAt: '2022-11-03T05:37:14.544Z',
   };
-  const onShare = async () => {
+  const onShare = async (id) => {
     try {
       const result = await Share.share({
         message: props.message,
@@ -62,8 +62,10 @@ const PostItem = props => {
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
           // shared with activity type of result.activityType
+          // console.log("shr", result)
         } else {
           // shared
+          sharePost(id, user.userId)
         }
       } else if (result.action === Share.dismissedAction) {
         // dismissed
@@ -72,6 +74,9 @@ const PostItem = props => {
       alert(error.message);
     }
   };
+  const sharePost = (postId) => {
+dispatch(postShare(postId,user.userId ))
+  }
   const [id, setId] = useState('');
   const launchCameraPhoto = () => {
     let options = {
@@ -225,6 +230,14 @@ const PostItem = props => {
                     <Text style={styles.postGroupText}>{props.groupName}</Text>
                   </View>
                 </View>
+                <View style={styles.postHeadingInfo}>
+                  <View style={styles.postEndorsed}>
+                    <Text style={styles.postEndorsedText}>{props.endorsed}</Text>
+                  </View>
+                  <View style={styles.postGenuine}>
+                    <Text style={styles.postGenuineText}>{props.genuine}</Text>
+                  </View>
+                </View>
               </View>
               <View style={styles.postHeadingActions}>
                 <TouchableOpacity>
@@ -253,6 +266,7 @@ const PostItem = props => {
                 </TouchableOpacity>
               </View>
             </View>
+            <View style={styles.postHorizontalLine}/>
             <View style={styles.postBody}>
               <View style={styles.postBodyTextView}>
                 <Text numberOfLines={2} style={styles.postBodyText}>
@@ -339,7 +353,9 @@ const PostItem = props => {
                 <TouchableOpacity
                   style={styles.postSecondaryActionLogo}
                   onPress={
-                    () => onShare()
+                    () => {onShare(props.id)
+                      // sharePost(props.id)
+                    }
                   }>
                   {props.shareItem === '1' ? (
                     <Image
@@ -412,24 +428,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: '23%',
     width: '100%',
+    marginBottom: '4%',
     alignContent: 'space-between',
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD',
-    borderBottomColor: '#DDDDD',
   },
   postHeadingImageAndInfo: {
     flexDirection: 'row',
     flex: 1,
   },
   postHeadingImage: {
-    paddingRight: 20,
+    paddingRight: 10,
   },
   postImage: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 100 / 2,
   },
-  postHeadingInfo: {},
+  postHeadingInfo: {
+  width:'39%'
+  },
   postHeadingInfoName: {
     paddingBottom: 5,
   },
@@ -438,13 +454,48 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'black',
   },
-  postHeadingInfoGroups: {},
+  postHeadingInfoGroups: {
+    marginBottom: '10%',
+  },
   postGroupText: {
     fontSize: 13,
     fontWeight: '400',
     color: '#A5A4A8',
   },
-  postHeadingActions: {},
+  postEndorsed:{
+    alignSelf: 'flex-end',
+    backgroundColor:'#d0eff9',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    margin: '2%'
+  },
+  postEndorsedText:{
+    fontSize: 12,
+    fontWeight: '500',
+  color:'#000',
+  },
+  postGenuine: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#ffdddd',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    margin: '2%'
+  },
+  postGenuineText: {
+    fontSize: 12,
+    fontWeight: '500',
+  color:'#000'
+  },
+  postHeadingActions: {
+    margin: '2%'
+  },
+  postHorizontalLine: {
+    borderBottomWidth: 1,
+    borderColor: '#DDDDDD',
+    borderBottomColor: '#DDDDD',
+  },
   postBody: {},
   postBodyTextView: {
     paddingVertical: 15,

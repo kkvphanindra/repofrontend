@@ -10,7 +10,8 @@ import {
     FAILURE_NEW_POST,
     ACTIVITYLOADING,
     POST_HIDE,
-    POST_SAVE
+    POST_SAVE,
+    POSTSHARE
 } from './actionTypes';
 import axios from 'axios';
 
@@ -74,6 +75,10 @@ export const savePost = ()=>({
     type: POST_SAVE,
 })
 
+export const sharePost = ()=>({
+    type: POSTSHARE,
+})
+
 export const getAllPostsByUserId = (id) => {
     return async (dispatch) => {
         dispatch(req());
@@ -96,7 +101,7 @@ export const getAllPostsByUserId = (id) => {
     };
 }
 
-export const addNewPost = (post,userId) => {
+export const addNewPost = (post,userId,location) => {
         return async (dispatch) => {
             dispatch(reqStartNewPost());
             console.log(post,userId)
@@ -105,7 +110,8 @@ export const addNewPost = (post,userId) => {
                     `https://frisles.herokuapp.com/api/post`,
                     {
                         description :post,
-                        userId:userId
+                        userId:userId,
+                        location: location
                     }
                 )
                 // console.log(response.data)
@@ -117,7 +123,7 @@ export const addNewPost = (post,userId) => {
                     // console.log('COMPLETE RESPONSE DATA:', response.data)
                     // console.log(response)
                     dispatch(reqSuccessNewPost());
-                    // dispatch(stateCleanup())
+                    dispatch(stateCleanup())
                     // dispatch(getAllPostsByUserId(userId))
                 }
                 else {
@@ -206,6 +212,32 @@ export const postSave = (post,userId) => {
             if (response) {
                 console.log("post save action log",response.data)
                 dispatch(savePost(response.data))
+                dispatch(getAllPostsByUserId(userId));
+            }
+        }
+        catch (err) {
+            console.log("Request failed");
+            console.log(err.message)
+            dispatch(reqFailureNewPost(err.message));
+        }
+    };
+}
+
+export const postShare = (post,userId) => {
+    return async (dispatch) => {
+        dispatch(reqStartNewPost());
+        console.log(post,userId)
+        try {
+            const response = await axios.post(
+                `https://frisles.herokuapp.com/api/post-share`,
+                {
+                   postId: post,
+                   userId: userId
+                }
+            )
+            if (response) {
+                console.log("post share action log",response.data)
+                dispatch(sharePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
         }

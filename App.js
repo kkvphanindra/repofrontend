@@ -18,7 +18,7 @@ import {
   Image,
   Settings
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation,getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import 'react-native-gesture-handler'
@@ -66,10 +66,20 @@ import CommentSnap from './src/snap/commentSnap';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-
-function HomeStackScreen() {
+const tabHiddenRoutes = [
+  "snap",
+];
+function HomeStackScreen({navigation, route}) {
+  useLayoutEffect(() => {
+    // const routeName = getFocusedRouteNameFromRoute(route);
+    if (tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))) {
+      navigation.setOptions({ tabBarStyle: { display: 'none' } });
+    } else {
+      navigation.setOptions({ tabBarStyle: { display: 'flex' } });
+    }
+  }, [navigation, route]);
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName='Home'>
         <Tab.Screen 
           name="Home" 
           component={Home} 
@@ -126,7 +136,7 @@ function DrawerNv() {
   return (
     <Drawer.Navigator 
     screenOptions={{
-      drawerActiveTintColor: '#000',
+      drawerActiveTintColor: 'red',
       drawerInactiveTintColor: '#000',
       drawerActiveBackgroundColor: '#fff',
       headerShown: false,
@@ -136,9 +146,10 @@ function DrawerNv() {
         borderBottomWidth: 1,
       }
     }}
+    initialRouteName='Home'
     drawerContent={props => <CustomDrawer {...props} />}
     >
-    <Drawer.Screen name="home" component={HomeStackScreen} 
+    <Drawer.Screen name="Home" component={HomeStackScreen} 
     options={{
 drawerLabel: 'Home'
     }}

@@ -11,7 +11,8 @@ import {
     FAILURE_NEW_POST,
     ACTIVITYLOADING,
     POST_HIDE,
-    POST_SAVE
+    POST_SAVE,
+    POSTSHARE
 } from './actionTypes';
 
 
@@ -21,6 +22,7 @@ const initialstate = {
     activityLoading:false,
     postHide: {},
     postSave: {},
+    postShare: {},
     error: "",
     data: [],
     inputValues: {
@@ -133,6 +135,13 @@ const storeReducer = (state = initialstate, action) => {
             return{
                 ...state,
                 postSave: action.data,
+                error: '',
+            }
+        }
+        case POSTSHARE:{
+            return{
+                ...state,
+                postShare: action.data,
                 error: '',
             }
         }
