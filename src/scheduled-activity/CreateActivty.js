@@ -13,7 +13,7 @@ import React, {useState, useEffect} from 'react';
 import StackHeader from '../components/Activity/StackHeader';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CalendarPicker from 'react-native-calendar-picker';
-import { SelectList } from 'react-native-dropdown-select-list';
+import SelectList from 'react-native-dropdown-select-list';
 import TimeRangePicker from 'react-native-range-timepicker';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'

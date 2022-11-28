@@ -29,6 +29,7 @@ const GroupChat = ({navigation, route}) => {
   const { group, authId } = route.params
   const chatState = useSelector((state)=> state.chatState)
   const dispatch = useDispatch()
+  const [video, setVideo] = useState('')
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -42,12 +43,13 @@ const GroupChat = ({navigation, route}) => {
             path: 'images',
         },
     };
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
+    ImagePicker.openPicker({
+      mediaType: 'any',
+      // multiple: true
+    }).then(video => {
+      console.log(video);
+      setVideo(video);
+      sendMessage(video);
     });
 
 }
@@ -140,7 +142,7 @@ const typingHandler = (event) => {
     }
   }, timerLength);
 };
-const sendMessage = async (event) => {
+const sendMessage = async (video) => {
   // console.log("event",event.nativeEvent)
   if (newMessage) {
     socket.emit("stop typing", group.chatId);
@@ -172,6 +174,47 @@ const sendMessage = async (event) => {
     } catch (error) {
       console.log("error at send message", error.response.status)
       Alert.alert("error of send message")
+    }
+  }
+  else if (video) {
+    socket.emit('stop typing', group.chatId);
+    console.log("before try")
+    try {
+      // console.log('form data',formData);
+      setNewMessage('');
+      const formData = new FormData();
+      // video.forEach((item, i) => {
+        formData.append('content', {
+          uri: video.path,
+          type: video.mime,
+          name: video.filename || `filename${video.size}.mp4` || `filename${video.size}.jpg`,
+        });
+      // });
+      formData.append('createdAt',moment().toISOString())
+      await axios
+        .post(endPoint + `/api/message/chat/${group.chatId}/user/${authId}`, 
+        formData,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type':'multipart/form-data'
+        }
+        }
+       )
+        .then(async response => {
+          // console.log("res", response)
+          if (response.status == 200) {
+            // console.log("re", messages)
+            // console.log("video res",response.data);
+            await socket.emit('new message', response.data);
+
+            // await messages.push(response.data)
+            setMessages([...messages, response.data]);
+          }
+        });
+    } catch (error) {
+      console.log('error at send message', error);
+      Alert.alert('error of send message');
     }
   }
 };
