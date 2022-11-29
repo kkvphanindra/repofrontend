@@ -11,7 +11,7 @@ import Header from './header';
 import PostItem from '../components/snap/PostItem';
 import LoadingComponet from '../components/snap/LoadingComponent';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllPostsByUserId, postHide, postSave} from '../redux/Post/actions';
+import {getAllPostsByUserId, postHide, postSave, postVerify} from '../redux/Post/actions';
 
 const data = [
   {
@@ -53,16 +53,17 @@ const Snap = navigation => {
 const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   useFocusEffect(
     React.useCallback(() => {
-      //   const unsubscribe = API.subscribe(userId, user => setUser(user));
       dispatch(getAllPostsByUserId('6dddae20-5925-11ed-a555-c9afc10124e6'));
     }, [dispatch]),
   );
   const hidePost = (postId) => {
     dispatch(postHide(postId, authId))
-    // console.log("post state", postState)
   }
   const savePost = (postId) => {
     dispatch(postSave(postId,authId))
+  }
+  const verifyPost = (postId) => {
+    dispatch(postVerify(postId,authId))
   }
   // useEffect(() => {
   //     dispatch(getAllPostsByUserId("b62f35c0-17ff-11ed-929f-0bfbd7529461"));
@@ -84,9 +85,8 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
         hidePost={()=>hidePost(item.id)}
         savePost={()=>savePost(item?.id)}
         report={()=> console.log("report")}
-        verify={()=>console.log("verify")}
+        verify={()=>verifyPost(item?.id)}
         addTo={()=>console.log("addTo")}
-        // groupName={item.groupName}
         endorsed='6.5k'
         genuine='4.8k'
         groupName='@FunTogether'

@@ -10,6 +10,7 @@ export const FAILURE_NEW_POST = "FAILURE_NEW_POST";
 export const POST_HIDE="POST_HIDE"
 export const POST_SAVE="POST_SAVE"
 export const POSTLIKE = "POSTLIKE";
+export const POSTVERIFY = "POSTVERIFY"
 export const POSTCOMMENT = "POSTCOMMENT";
 export const POSTSHARE = "POSTSHARE";
 export const POSTVOICE = "POSTVOICE";

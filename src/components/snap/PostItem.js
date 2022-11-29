@@ -7,6 +7,8 @@ import {
   Dimensions,
   TouchableOpacity,
   Share,
+  PermissionsAndroid,
+  Platform,
   Modal,
   Alert,
   TextInput,
@@ -22,20 +24,61 @@ import ImagePicker from 'react-native-image-crop-picker';
 import io from 'socket.io-client';
 import SnapCommentHeader from './SnapCommentHeader';
 import { useNavigation } from '@react-navigation/native';
+import AudioRecorderPlayer,{
+  AVEncoderAudioQualityIOSType,
+  AVEncodingOption,
+  AudioEncoderAndroidType,
+  AudioSet,
+  AudioSourceAndroidType,
+} from 'react-native-audio-recorder-player';
 
 var socket, selectedChatCompare;
 
+const permission = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      const grants = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      ]);
+  
+      console.log('write external stroage', grants);
+  
+      if (
+        grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        grants['android.permission.READ_EXTERNAL_STORAGE'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        grants['android.permission.RECORD_AUDIO'] ===
+          PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        console.log('Permissions granted');
+      } else {
+        console.log('All required permissions not granted');
+        return;
+      }
+    } catch (err) {
+      console.warn(err);
+      return;
+    }
+  }
+}
 const PostItem = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
   const scrollViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const audioRecorderPlayer = new AudioRecorderPlayer();
   const [newMessage, setNewMessage] = useState('');
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [recordSecs, setRecordSecs] = useState(0);
+  const [recordTime, setRecordTime] = useState('00:00:00');
+  const [started, setStarted] = useState(false)
   var endPoint = `https://frisles.herokuapp.com`;
   const heart = true;
   const comment = true;
@@ -93,118 +136,63 @@ dispatch(postShare(postId,user.userId ))
       console.log(image);
     });
   };
-  // const modalOpen = () => {
-  //   setModalVisible(true);
-  //   setId(props.id);
-  //   getCommentByPostId()
-  //   // console.log("pop id", props.id)
-  // };
-  // const getCommentByPostId = async () => {
-  //   // if (!selectedChat) return;
+  useEffect(async() => {
+    if (Platform.OS === 'android') {
+      try {
+        const grants = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+        ]);
+    
+        console.log('write external stroage', grants);
+    
+        if (
+          grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+            PermissionsAndroid.RESULTS.GRANTED &&
+          grants['android.permission.READ_EXTERNAL_STORAGE'] ===
+            PermissionsAndroid.RESULTS.GRANTED &&
+          grants['android.permission.RECORD_AUDIO'] ===
+            PermissionsAndroid.RESULTS.GRANTED
+        ) {
+          console.log('Permissions granted');
+        } else {
+          console.log('All required permissions not granted');
+          return;
+        }
+      } catch (err) {
+        console.warn(err);
+        return;
+      }
+    }
+  }, []);
+ const  onStartRecord = async () => {
+    // permission()
+    const path = 'hello.mp3';
+    const audioSet = {
+      AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
+      AudioSourceAndroid: AudioSourceAndroidType.MIC,
+      AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
+      AVNumberOfChannelsKeyIOS: 2,
+      AVFormatIDKeyIOS: AVEncodingOption.aac,
+    };
+    console.log('audioSet', audioSet);
+    const uri = await audioRecorderPlayer.startRecorder();
+    audioRecorderPlayer.addRecordBackListener((e) => {
+      setStarted(true)
+      setRecordSecs(e.currentPosition);
+      setRecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+    });
+    console.log(`uri: ${uri}`, recordSecs,recordTime);
+  };
 
-  //   try {
-  //     setLoading(true);
-  //     console.log("id", props.id)
-  //     const response = await axios.get(
-  //       endPoint + `/api/post-comment/post/${props.id}`,
-  //     );
-  //     console.log('yo yo', response.data);
-  //     setMessages(response.data);
-  //     setLoading(false);
-
-  //     socket.emit('join chat',id);
-  //   } catch (error) {
-  //     console.log('err', error.message);
-  //     Alert.alert('error');
-  //   }
-  // };
-  // useEffect(() => {
-  //   socket = io(endPoint);
-  //   socket.emit('setup', user);
-  //   socket.on('connected', () => setSocketConnected(true));
-  //   socket.on('typing', () => setIsTyping(true));
-  //   socket.on('stop typing', () => setIsTyping(false));
-  //   // getAllMessageByChatId()
-  //   // eslint-disable-next-line
-  // }, []);
-  // useEffect(() => {
-  //   getCommentByPostId();
-  //   // selectedChatCompare = chat
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("new msg",selectedChatCompare)
-  //   socket.on("message recieved", (newMessageRecieved) => {
-  //     if (
-  //       !selectedChatCompare || // if chat is not selected or doesn't match current chat
-  //       selectedChatCompare.props.id !== newMessageRecieved.props.id
-  //       // newMessageRecieved
-  //     )
-  //     {
-  //       if (!notification.includes(newMessageRecieved)) {
-  //         setNotification([newMessageRecieved, ...notification]);
-  //         setFetchAgain(!fetchAgain);
-  //       }
-  //     }
-  //     else {
-  //       setMessages([...messages, newMessageRecieved]);
-  //       console.log("new msg", newMessageRecieved)
-  //     }
-  //     console.log("new msg inside ", newMessageRecieved)
-  //   });
-  // },[]);
-  // console.log("time", moment().toISOString())
-  // console.log("old msg", messages)
-  // console.log("post id", props.id)
-  // const typingHandler = event => {
-  //   setNewMessage(event);
-  //   console.log(event);
-  //   if (!socketConnected) return;
-
-  //   if (!typing) {
-  //     setTyping(true);
-  //     socket.emit('typing',id);
-  //   }
-  //   let lastTypingTime = new Date().getTime();
-  //   var timerLength = 3000;
-  //   setTimeout(() => {
-  //     var timeNow = new Date().getTime();
-  //     var timeDiff = timeNow - lastTypingTime;
-  //     if (timeDiff >= timerLength && typing) {
-  //       socket.emit('stop typing',id);
-  //       setTyping(false);
-  //     }
-  //   }, timerLength);
-  // };
-  // const sendMessage = async event => {
-  //   // console.log("event",event.nativeEvent)
-  //   if (newMessage) {
-  //     socket.emit('stop typing',id);
-  //     try {
-  //       setNewMessage('');
-  //       console.log("cu", props.id)
-  //       await axios
-  //         .post(endPoint + `/api/post-comment`, {
-  //           postId: id,
-  //           userId: user.userId,
-  //           comment: newMessage,
-  //         })
-  //         .then(async response => {
-  //           if (response.status == 200) {
-  //             // console.log("re", messages)
-  //             await socket.emit('new message', response.data);
-  //             console.log(response.data);
-
-  //             // await messages.push(response.data)
-  //             setMessages([...messages, response.data]);
-  //           }
-  //         });
-  //     } catch (error) {
-  //       console.log('error at send message', error.response.status);
-  //       Alert.alert('error of send message');
-  //     }
-  //   }
-  // };
+  const onStopRecord = async () => {
+    const result = await audioRecorderPlayer.stopRecorder();
+    audioRecorderPlayer.removeRecordBackListener();
+    setStarted(false)
+    setRecordSecs(0)
+    console.log(result);
+  };
   return (
     <View>
       {props.activityLoading ? (
@@ -330,17 +318,20 @@ dispatch(postShare(postId,user.userId ))
                   </View>
                 </View>
                 <View style={styles.postMainAction}>
-                  <View style={styles.postActionMainLogo}>
-                    {mic ? (
+                  {/* <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>console.log("object")}> */}
+                    {started ? (
+                  <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>onStopRecord()}>
                       <Image
                         source={require('../../assets/icons/png/micClicked.png')}
                       />
+                      </TouchableOpacity>
                     ) : (
-                      <Image
-                        source={require('../../assets/icons/png/mic.png')}
-                      />
+                      <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>onStartRecord()}>
+                        <Image
+                          source={require('../../assets/icons/png/mic.png')}
+                        />
+                      </TouchableOpacity>
                     )}
-                  </View>
                   <View style={styles.postMainActionInfo}>
                     <Text style={styles.postActionText}>{props.voices}</Text>
                   </View>

@@ -11,7 +11,8 @@ import {
     ACTIVITYLOADING,
     POST_HIDE,
     POST_SAVE,
-    POSTSHARE
+    POSTSHARE,
+    POSTVERIFY
 } from './actionTypes';
 import axios from 'axios';
 
@@ -77,6 +78,10 @@ export const savePost = ()=>({
 
 export const sharePost = ()=>({
     type: POSTSHARE,
+})
+
+export const verifyPost = ()=>({
+    type: POSTVERIFY,
 })
 
 export const getAllPostsByUserId = (id) => {
@@ -238,6 +243,32 @@ export const postShare = (post,userId) => {
             if (response) {
                 console.log("post share action log",response.data)
                 dispatch(sharePost(response.data))
+                dispatch(getAllPostsByUserId(userId));
+            }
+        }
+        catch (err) {
+            console.log("Request failed");
+            console.log(err.message)
+            dispatch(reqFailureNewPost(err.message));
+        }
+    };
+}
+
+export const postVerify = (post,userId) => {
+    return async (dispatch) => {
+        dispatch(reqStartNewPost());
+        console.log(post,userId)
+        try {
+            const response = await axios.post(
+                `https://frisles.herokuapp.com/api/post-share`,
+                {
+                   postId: post,
+                   userId: userId
+                }
+            )
+            if (response) {
+                console.log("post share action log",response.data)
+                dispatch(verifyPost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
         }

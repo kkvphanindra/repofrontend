@@ -29,6 +29,7 @@
     "react": "18.0.0",
     "react-native": "0.69.5",
     "react-native-anchor-carousel": "^4.0.1",
+    "react-native-audio-recorder-player": "^3.5.1",
     "react-native-background-timer": "^2.4.1",
     "react-native-calendar-picker": "^7.1.2",
     "react-native-confirmation-code-field": "^7.3.0",

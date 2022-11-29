@@ -12,7 +12,8 @@ import {
     ACTIVITYLOADING,
     POST_HIDE,
     POST_SAVE,
-    POSTSHARE
+    POSTSHARE,
+    POSTVERIFY
 } from './actionTypes';
 
 
@@ -23,6 +24,7 @@ const initialstate = {
     postHide: {},
     postSave: {},
     postShare: {},
+    postVerify: {},
     error: "",
     data: [],
     inputValues: {
@@ -135,6 +137,13 @@ const storeReducer = (state = initialstate, action) => {
             return{
                 ...state,
                 postSave: action.data,
+                error: '',
+            }
+        }
+        case POSTVERIFY:{
+            return{
+                ...state,
+                postVerify: action.data,
                 error: '',
             }
         }
