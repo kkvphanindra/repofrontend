@@ -62,8 +62,8 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   const savePost = (postId) => {
     dispatch(postSave(postId,authId))
   }
-  const verifyPost = (postId) => {
-    dispatch(postVerify(postId,authId))
+  const verifyPost = (userId) => {
+    dispatch(postVerify(userId,authId))
   }
   // useEffect(() => {
   //     dispatch(getAllPostsByUserId("b62f35c0-17ff-11ed-929f-0bfbd7529461"));
@@ -75,7 +75,7 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   //     });
   //     return unsubscribe;
   //   }, [navigation]);
-
+// console.log("dat", postState.data)
   const renderPostItem = item => {
     return (
       <PostItem
@@ -85,7 +85,7 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
         hidePost={()=>hidePost(item.id)}
         savePost={()=>savePost(item?.id)}
         report={()=> console.log("report")}
-        verify={()=>verifyPost(item?.id)}
+        verify={()=>verifyPost(item.userId)}
         addTo={()=>console.log("addTo")}
         endorsed='6.5k'
         genuine='4.8k'

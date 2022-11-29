@@ -136,63 +136,63 @@ dispatch(postShare(postId,user.userId ))
       console.log(image);
     });
   };
-  useEffect(async() => {
-    if (Platform.OS === 'android') {
-      try {
-        const grants = await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-        ]);
+//   useEffect(async() => {
+//     if (Platform.OS === 'android') {
+//       try {
+//         const grants = await PermissionsAndroid.requestMultiple([
+//           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+//           PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+//           PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+//         ]);
     
-        console.log('write external stroage', grants);
+//         console.log('write external stroage', grants);
     
-        if (
-          grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          grants['android.permission.READ_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          grants['android.permission.RECORD_AUDIO'] ===
-            PermissionsAndroid.RESULTS.GRANTED
-        ) {
-          console.log('Permissions granted');
-        } else {
-          console.log('All required permissions not granted');
-          return;
-        }
-      } catch (err) {
-        console.warn(err);
-        return;
-      }
-    }
-  }, []);
- const  onStartRecord = async () => {
-    // permission()
-    const path = 'hello.mp3';
-    const audioSet = {
-      AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
-      AudioSourceAndroid: AudioSourceAndroidType.MIC,
-      AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
-      AVNumberOfChannelsKeyIOS: 2,
-      AVFormatIDKeyIOS: AVEncodingOption.aac,
-    };
-    console.log('audioSet', audioSet);
-    const uri = await audioRecorderPlayer.startRecorder();
-    audioRecorderPlayer.addRecordBackListener((e) => {
-      setStarted(true)
-      setRecordSecs(e.currentPosition);
-      setRecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
-    });
-    console.log(`uri: ${uri}`, recordSecs,recordTime);
-  };
+//         if (
+//           grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+//             PermissionsAndroid.RESULTS.GRANTED &&
+//           grants['android.permission.READ_EXTERNAL_STORAGE'] ===
+//             PermissionsAndroid.RESULTS.GRANTED &&
+//           grants['android.permission.RECORD_AUDIO'] ===
+//             PermissionsAndroid.RESULTS.GRANTED
+//         ) {
+//           console.log('Permissions granted');
+//         } else {
+//           console.log('All required permissions not granted');
+//           return;
+//         }
+//       } catch (err) {
+//         console.warn(err);
+//         return;
+//       }
+//     }
+//   }, []);
+//  const  onStartRecord = async () => {
+//     // permission()
+//     const path = 'hello.mp3';
+//     const audioSet = {
+//       AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
+//       AudioSourceAndroid: AudioSourceAndroidType.MIC,
+//       AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
+//       AVNumberOfChannelsKeyIOS: 2,
+//       AVFormatIDKeyIOS: AVEncodingOption.aac,
+//     };
+//     console.log('audioSet', audioSet);
+//     const uri = await audioRecorderPlayer.startRecorder();
+//     audioRecorderPlayer.addRecordBackListener((e) => {
+//       setStarted(true)
+//       setRecordSecs(e.currentPosition);
+//       setRecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+//     });
+//     console.log(`uri: ${uri}`, recordSecs,recordTime);
+//   };
 
-  const onStopRecord = async () => {
-    const result = await audioRecorderPlayer.stopRecorder();
-    audioRecorderPlayer.removeRecordBackListener();
-    setStarted(false)
-    setRecordSecs(0)
-    console.log(result);
-  };
+//   const onStopRecord = async () => {
+//     const result = await audioRecorderPlayer.stopRecorder();
+//     audioRecorderPlayer.removeRecordBackListener();
+//     setStarted(false)
+//     setRecordSecs(0)
+//     console.log(result);
+//   };
   return (
     <View>
       {props.activityLoading ? (
@@ -318,20 +318,20 @@ dispatch(postShare(postId,user.userId ))
                   </View>
                 </View>
                 <View style={styles.postMainAction}>
-                  {/* <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>console.log("object")}> */}
-                    {started ? (
-                  <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>onStopRecord()}>
+                  <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>console.log("object")}>
+                  {/* <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>onStopRecord()}> */}
+                    {mic ? (
                       <Image
                         source={require('../../assets/icons/png/micClicked.png')}
                       />
-                      </TouchableOpacity>
+                      // </TouchableOpacity>
                     ) : (
-                      <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>onStartRecord()}>
+                      // <TouchableOpacity style={styles.postActionMainLogo} onPress={()=>onStartRecord()}>
                         <Image
                           source={require('../../assets/icons/png/mic.png')}
                         />
-                      </TouchableOpacity>
-                    )}
+                        )}
+                        </TouchableOpacity>
                   <View style={styles.postMainActionInfo}>
                     <Text style={styles.postActionText}>{props.voices}</Text>
                   </View>

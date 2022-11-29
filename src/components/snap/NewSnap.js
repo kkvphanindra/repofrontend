@@ -21,6 +21,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 const NewSnap = props => {
   const [state, setState] = useState();
   const navigation = useNavigation();
+  const [images, setImages] = useState('')
   const dispatch = useDispatch();
   const [lat, setLat]=useState('')
   const [long, setLong]=useState('')
@@ -37,8 +38,9 @@ const NewSnap = props => {
 
     openPicker({
       multiple: true,
-    }).then(images => {
-      console.log(images);
+    }).then(image => {
+      console.log("ma",image[0].path);
+      setImages(image[0].path)
     });
 
     //  await launchImageLibrary(options, async(response) => {
@@ -104,7 +106,9 @@ const NewSnap = props => {
       height: 400,
       cropping: true,
     }).then(image => {
-      console.log(image);
+      console.log(image[0].path);
+      setImages(image)
+      console.log("im", images)
     });
   };
   const getLocation = () => {
@@ -145,7 +149,7 @@ const NewSnap = props => {
 
     dispatch(updateFields(val, fieldId, isValid));
   };
-
+console.log("img", images)
   return (
     <View>
       <View style={styles.thoughts}>
@@ -162,6 +166,10 @@ const NewSnap = props => {
                   value={postState.inputValues.post}
                   onChangeText={value => checkValidity(value, 'post')}
                 />
+                {/* <Image 
+                source={{uri: 'file:///data/user/0/com.frisles/cache/react-native-image-crop-picker/IMG_20221129_172153.jpg '}}
+                style={{alignSelf: 'center', backgroundColor: 'red', height: 100, width: 100}}
+                /> */}
               </TouchableOpacity>
             </View>
             <View style={styles.thoughtBoxAttachments}>

@@ -23,7 +23,11 @@ const ChatInnerItem = props => {
             <View style={{ flexDirection: 'column' }}>
               <View style={styles.messageRight} key={props.key2}>
                 <Text style={styles.senderUsername}>{props.username}</Text>
-                <Text style={styles.senderMessage}>{props.message}</Text>
+                {props.message==='https://snap-attachments.s3.amazonaws.com/'?
+              <Image source={{uri:props.message}} style={{height: 80, width: 80, alignSelf: 'center'}}/>  
+              :
+              <Text style={styles.senderMessage}>{props.message}</Text>
+              }
               </View>
               <View>
                 <Text style={{ alignSelf: 'flex-end', marginRight: '5%',color: 'grey' }}>{props.time}</Text>

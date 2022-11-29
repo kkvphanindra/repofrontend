@@ -174,7 +174,7 @@ const SnapDetails = ({navigation}) => {
               editable={true}
               navigation={navigation}
               postButton={true}
-            />
+              />
           </View>
         </View>
       </ScrollView>

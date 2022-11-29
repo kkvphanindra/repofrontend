@@ -254,16 +254,15 @@ export const postShare = (post,userId) => {
     };
 }
 
-export const postVerify = (post,userId) => {
+export const postVerify = (user,userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(post,userId)
+        console.log(user,userId)
         try {
             const response = await axios.post(
-                `https://frisles.herokuapp.com/api/post-share`,
+                `https://frisles.herokuapp.com/api/verify/user/${userId}`,
                 {
-                   postId: post,
-                   userId: userId
+                   verifiedTo: user,
                 }
             )
             if (response) {

@@ -197,7 +197,7 @@ const ChatSingle = ({navigation, route}) => {
           formData.append('content', {
             uri: video.path,
             type: video.mime,
-            name: video.filename || `filename${video.size}.mp4`,
+            name: video.filename || `filename${video.size}.jpg`,
           });
         // });
         formData.append('createdAt',moment().toISOString())
