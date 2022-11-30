@@ -197,10 +197,14 @@ const ChatSingle = ({navigation, route}) => {
           formData.append('content', {
             uri: video.path,
             type: video.mime,
-            name: video.filename || `filename${video.size}.jpg`,
+            // name: 'mp4'
+            name: video.filename || `filename${video.size}.${video.path.slice(-3)}`,
           });
         // });
         formData.append('createdAt',moment().toISOString())
+        formData.append('firstName', user.firstName)
+        formData.append('lastName', user.lastName)
+        formData.append('photo',user.photo)
         await axios
           .post(endPoint + `/api/message/chat/${chat.chatId}/user/${authId}`, 
           formData,
@@ -262,11 +266,11 @@ const ChatSingle = ({navigation, route}) => {
           );
         })}
       </ScrollView>
-      {typing ? (
+      {/* {typing ? (
         <View>
           <Text>typing...</Text>
         </View>
-      ) : null}
+      ) : null} */}
       <View
         style={{backgroundColor: 'white', width: windowWidth / 1, height: 60}}>
         <View style={styles.inputView}>

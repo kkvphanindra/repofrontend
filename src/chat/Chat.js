@@ -10,6 +10,7 @@ import {getContact} from '../redux/Chat/actions';
 import moment from 'moment'
 import Contacts from 'react-native-contacts';
 
+
 import { getAllMessageByChatId } from '../redux/Message/actions';
 
 const data = [
@@ -92,9 +93,6 @@ const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
     }
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={()=> contact()}>
-        <Text style={styles.plus}>+</Text>
-      </TouchableOpacity>
       {chatState.data.map((item, index) => {
         return (
           <View>
@@ -112,7 +110,9 @@ const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
           </View>
         )
       })}
-
+      <TouchableOpacity style={styles.button} onPress={()=> contact()}>
+        <Text style={styles.plus}>+</Text>
+      </TouchableOpacity>
     </View>
   )
 }

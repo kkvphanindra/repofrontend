@@ -13,7 +13,8 @@ import {
     POST_HIDE,
     POST_SAVE,
     POSTSHARE,
-    POSTVERIFY
+    POSTVERIFY,
+    POSTGENUINE
 } from './actionTypes';
 
 
@@ -25,6 +26,7 @@ const initialstate = {
     postSave: {},
     postShare: {},
     postVerify: {},
+    postGenuine: {},
     error: "",
     data: [],
     inputValues: {
@@ -151,6 +153,13 @@ const storeReducer = (state = initialstate, action) => {
             return{
                 ...state,
                 postShare: action.data,
+                error: '',
+            }
+        }
+        case POSTGENUINE:{
+            return{
+                ...state,
+                postGenuine: action.data,
                 error: '',
             }
         }

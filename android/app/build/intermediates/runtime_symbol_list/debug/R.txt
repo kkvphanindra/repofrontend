@@ -594,6 +594,7 @@ int attr roundedCornerRadius 0x7f030201
 int attr roundingBorderColor 0x7f030202
 int attr roundingBorderPadding 0x7f030203
 int attr roundingBorderWidth 0x7f030204
+int attr scalableType 0x7f0302c6
 int attr scopeUris 0x7f030205
 int attr scrimAnimationDuration 0x7f030206
 int attr scrimBackground 0x7f030207
@@ -1737,8 +1738,12 @@ int id buttonPanel 0x7f08005a
 int id cancel_button 0x7f08005b
 int id catalyst_redbox_title 0x7f08005c
 int id center 0x7f08005d
+int id centerBottom 0x7f08017d
+int id centerBottomCrop 0x7f08017e
 int id centerCrop 0x7f08005e
 int id centerInside 0x7f08005f
+int id centerTop 0x7f08017f
+int id centerTopCrop 0x7f080180
 int id center_horizontal 0x7f080060
 int id center_vertical 0x7f080061
 int id checkbox 0x7f080062
@@ -1774,6 +1779,7 @@ int id disableHome 0x7f08007f
 int id dropdown_menu 0x7f080080
 int id edit_query 0x7f080081
 int id end 0x7f080082
+int id endInside 0x7f080181
 int id enterAlways 0x7f080083
 int id enterAlwaysCollapsed 0x7f080084
 int id exitUntilCollapsed 0x7f080085
@@ -1829,6 +1835,12 @@ int id layout_aspect_ratio 0x7f0800b6
 int id layout_rotate_wheel 0x7f0800b7
 int id layout_scale_wheel 0x7f0800b8
 int id left 0x7f0800b9
+int id leftBottom 0x7f080182
+int id leftBottomCrop 0x7f080183
+int id leftCenter 0x7f080184
+int id leftCenterCrop 0x7f080185
+int id leftTop 0x7f080186
+int id leftTopCrop 0x7f080187
 int id light 0x7f0800ba
 int id line1 0x7f0800bb
 int id line3 0x7f0800bc
@@ -1892,6 +1904,12 @@ int id progress_horizontal 0x7f0800f5
 int id radio 0x7f0800f6
 int id react_test_id 0x7f0800f7
 int id right 0x7f0800f8
+int id rightBottom 0x7f080188
+int id rightBottomCrop 0x7f080189
+int id rightCenter 0x7f08018a
+int id rightCenterCrop 0x7f08018b
+int id rightTop 0x7f08018c
+int id rightTopCrop 0x7f08018d
 int id right_icon 0x7f0800f9
 int id right_side 0x7f0800fa
 int id rn_frame_file 0x7f0800fb
@@ -1947,6 +1965,7 @@ int id src_in 0x7f08012c
 int id src_over 0x7f08012d
 int id standard 0x7f08012e
 int id start 0x7f08012f
+int id startInside 0x7f08018e
 int id state_aspect_ratio 0x7f080130
 int id state_rotate 0x7f080131
 int id state_scale 0x7f080132
@@ -4094,6 +4113,8 @@ int[] styleable ViewStubCompat { 0x010100d0, 0x010100f2, 0x010100f3 }
 int styleable ViewStubCompat_android_id 0
 int styleable ViewStubCompat_android_layout 1
 int styleable ViewStubCompat_android_inflatedId 2
+int[] styleable scaleStyle { 0x7f0302c6 }
+int styleable scaleStyle_scalableType 0
 int[] styleable ucrop_AspectRatioTextView { 0x7f03029a, 0x7f03029b, 0x7f03029c }
 int styleable ucrop_AspectRatioTextView_ucrop_artv_ratio_title 0
 int styleable ucrop_AspectRatioTextView_ucrop_artv_ratio_x 1

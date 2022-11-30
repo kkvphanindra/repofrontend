@@ -1,5 +1,5 @@
-import {ScrollView, StyleSheet, Text, TextInput,Image,TouchableOpacity, Alert,View, Dimensions} from 'react-native';
-import React,{useState, useEffect} from 'react';
+import { ScrollView, StyleSheet, Text, TextInput, Image, TouchableOpacity, Alert, View, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import ChatInnerItem from '../components/Chat/ChatInnerItem';
 import ChatHeader from '../components/Chat/ChatHeader';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -25,9 +25,9 @@ const data = [
     senderMessage: 'I am good.how are you all good?',
   },
 ];
-const GroupChat = ({navigation, route}) => {
+const GroupChat = ({ navigation, route }) => {
   const { group, authId } = route.params
-  const chatState = useSelector((state)=> state.chatState)
+  const chatState = useSelector((state) => state.chatState)
   const dispatch = useDispatch()
   const [video, setVideo] = useState('')
   const [messages, setMessages] = useState([]);
@@ -38,10 +38,10 @@ const GroupChat = ({navigation, route}) => {
   const [istyping, setIsTyping] = useState(false);
   const launchCameraPhoto = () => {
     let options = {
-        storageOptions: {
-            skipBackup: true,
-            path: 'images',
-        },
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
     };
     ImagePicker.openPicker({
       mediaType: 'any',
@@ -52,228 +52,230 @@ const GroupChat = ({navigation, route}) => {
       sendMessage(video);
     });
 
-}
-let user =  {
-  "userId": "3ac1df80-5a6e-11ed-a871-7d8265a60df7",
-  "firstName": "Andalib",
-  "lastName": "Quraishi",
-  "photo": "https://assets.vogue.in/photos/622f9af651da11b2e5b0b176/master/pass/7%20times%20Alia%20Bhatt%20served%20sublime%20beauty%20moments%20.jpg",
-  "countryCode": "91",
-  "phoneNumber": "9748121112",
-  "createdAt": "2022-11-02T05:21:39.705Z",
-  "updatedAt": "2022-11-02T05:21:39.705Z"
-}
-var endPoint = `https://frisles.herokuapp.com`
-
-
-const getMessagesByChatId = async () => {
-  // if (!selectedChat) return;
-
-  try {
-
-    setLoading(true);
-    const response = await axios.get(
-      endPoint +
-      `/api/message/chat/${group.chatId}?userId=${authId}`,
-    );
-    console.log("res", response.data)
-    setMessages(response.data);
-    setLoading(false);
-
-    socket.emit("join chat", group.chatId);
-  } catch (error) {
-    console.log("err", error.message)
-    Alert.alert("error")
   }
-};
-useEffect(() => {
-  socket = io(endPoint);
-  socket.emit("setup", user);
-  socket.on("connected", () => setSocketConnected(true));
-  socket.on("typing", () => setIsTyping(true));
-  socket.on("stop typing", () => setIsTyping(false));
-  // getAllMessageByChatId()
-  // eslint-disable-next-line
-}, []);
-
-useEffect(() => {
-  getMessagesByChatId()
-}, [group.chatId])
-useEffect(() => {
-  console.log("new msg",selectedChatCompare)
-  socket.on("message recieved", (newMessageRecieved) => {
-    if (
-      !selectedChatCompare || // if chat is not selected or doesn't match current chat
-      selectedChatCompare.chatId !== newMessageRecieved.chatId
-      // newMessageRecieved
-    ) 
-    {
-      if (!notification.includes(newMessageRecieved)) {
-        setNotification([newMessageRecieved, ...notification]);
-        setFetchAgain(!fetchAgain);
-      }
-    }
-    else {
-      setMessages([...messages, newMessageRecieved]);
-      console.log("new msg", newMessageRecieved)
-    }
-    console.log("new msg inside ", newMessageRecieved)
-  });
-},[]);
-// console.log("time", moment().toISOString())
-// console.log("old msg", messages)
-const typingHandler = (event) => {
-  setNewMessage(event);
-  console.log(event)
-  if (!socketConnected) return;
-
-  if (!typing) {
-    setTyping(true);
-    socket.emit("typing", group.chatId);
+  let user = {
+    "userId": "3ac1df80-5a6e-11ed-a871-7d8265a60df7",
+    "firstName": "Andalib",
+    "lastName": "Quraishi",
+    "photo": "https://assets.vogue.in/photos/622f9af651da11b2e5b0b176/master/pass/7%20times%20Alia%20Bhatt%20served%20sublime%20beauty%20moments%20.jpg",
+    "countryCode": "91",
+    "phoneNumber": "9748121112",
+    "createdAt": "2022-11-02T05:21:39.705Z",
+    "updatedAt": "2022-11-02T05:21:39.705Z"
   }
-  let lastTypingTime = new Date().getTime();
-  var timerLength = 3000;
-  setTimeout(() => {
-    var timeNow = new Date().getTime();
-    var timeDiff = timeNow - lastTypingTime;
-    if (timeDiff >= timerLength && typing) {
-      socket.emit("stop typing", group.chatId);
-      setTyping(false);
-    }
-  }, timerLength);
-};
-const sendMessage = async (video) => {
-  // console.log("event",event.nativeEvent)
-  if (newMessage) {
-    socket.emit("stop typing", group.chatId);
+  var endPoint = `https://frisles.herokuapp.com`
+
+
+  const getMessagesByChatId = async () => {
+    // if (!selectedChat) return;
+
     try {
-      setNewMessage("");
-      await axios.post(
+
+      setLoading(true);
+      const response = await axios.get(
         endPoint +
-        `/api/message/chat/${group.chatId}/user/${authId}`,
-        {
-          content: newMessage,
-          createdAt: moment().toISOString(),
-          firstName: user.firstName,
-          lastName: user.lastName,
-          photo: user.photo
-        },
-      ).then(async(response) => {
-        if(response.status==200){
-          // console.log("re", messages)
-          console.log(response.data)
-          await socket.emit("new message", response.data);
+        `/api/message/chat/${group.chatId}?userId=${authId}`,
+      );
+      console.log("res", response.data)
+      setMessages(response.data);
+      setLoading(false);
 
-          // await messages.push(response.data)
-          setMessages([...messages, response.data]);
-          
-        }
-      })
-      
-      
+      socket.emit("join chat", group.chatId);
     } catch (error) {
-      console.log("error at send message", error.response.status)
-      Alert.alert("error of send message")
+      console.log("err", error.message)
+      Alert.alert("error")
     }
-  }
-  else if (video) {
-    socket.emit('stop typing', group.chatId);
-    console.log("before try")
-    try {
-      // console.log('form data',formData);
-      setNewMessage('');
-      const formData = new FormData();
-      // video.forEach((item, i) => {
-        formData.append('content', {
-          uri: video.path,
-          type: video.mime,
-          name: video.filename || `filename${video.size}.mp4` || `filename${video.size}.jpg`,
-        });
-      // });
-      formData.append('createdAt',moment().toISOString())
-      await axios
-        .post(endPoint + `/api/message/chat/${group.chatId}/user/${authId}`, 
-        formData,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type':'multipart/form-data'
+  };
+  useEffect(() => {
+    socket = io(endPoint);
+    socket.emit("setup", user);
+    socket.on("connected", () => setSocketConnected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
+    // getAllMessageByChatId()
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    getMessagesByChatId()
+  }, [group.chatId])
+  useEffect(() => {
+    console.log("new msg", selectedChatCompare)
+    socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare || // if chat is not selected or doesn't match current chat
+        selectedChatCompare.chatId !== newMessageRecieved.chatId
+        // newMessageRecieved
+      ) {
+        if (!notification.includes(newMessageRecieved)) {
+          setNotification([newMessageRecieved, ...notification]);
+          setFetchAgain(!fetchAgain);
         }
-        }
-       )
-        .then(async response => {
-          // console.log("res", response)
+      }
+      else {
+        setMessages([...messages, newMessageRecieved]);
+        console.log("new msg", newMessageRecieved)
+      }
+      console.log("new msg inside ", newMessageRecieved)
+    });
+  }, []);
+  // console.log("time", moment().toISOString())
+  // console.log("old msg", messages)
+  const typingHandler = (event) => {
+    setNewMessage(event);
+    console.log(event)
+    if (!socketConnected) return;
+
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", group.chatId);
+    }
+    let lastTypingTime = new Date().getTime();
+    var timerLength = 3000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", group.chatId);
+        setTyping(false);
+      }
+    }, timerLength);
+  };
+  const sendMessage = async (video) => {
+    // console.log("event",event.nativeEvent)
+    if (newMessage) {
+      socket.emit("stop typing", group.chatId);
+      try {
+        setNewMessage("");
+        await axios.post(
+          endPoint +
+          `/api/message/chat/${group.chatId}/user/${authId}`,
+          {
+            content: newMessage,
+            createdAt: moment().toISOString(),
+            firstName: user.firstName,
+            lastName: user.lastName,
+            photo: user.photo
+          },
+        ).then(async (response) => {
           if (response.status == 200) {
             // console.log("re", messages)
-            // console.log("video res",response.data);
-            await socket.emit('new message', response.data);
+            console.log(response.data)
+            await socket.emit("new message", response.data);
 
             // await messages.push(response.data)
             setMessages([...messages, response.data]);
+
           }
-        });
-    } catch (error) {
-      console.log('error at send message', error);
-      Alert.alert('error of send message');
+        })
+
+
+      } catch (error) {
+        console.log("error at send message", error.response.status)
+        Alert.alert("error of send message")
+      }
     }
-  }
-};
-// console.log("first",messages)
+    else if (video) {
+      socket.emit('stop typing', group.chatId);
+      console.log("before try")
+      try {
+        // console.log('form data',formData);
+        setNewMessage('');
+        const formData = new FormData();
+        // video.forEach((item, i) => {
+        formData.append('content', {
+          uri: video.path,
+          type: video.mime,
+          name: video.filename || `filename${video.size}.${video.path.slice(-3)}`,
+        });
+        // });
+        formData.append('createdAt', moment().toISOString())
+        formData.append('firstName', user.firstName)
+        formData.append('lastName', user.lastName)
+        formData.append('photo', user.photo)
+        await axios
+          .post(endPoint + `/api/message/chat/${group.chatId}/user/${authId}`,
+            formData,
+            {
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+          )
+          .then(async response => {
+            // console.log("res", response)
+            if (response.status == 200) {
+              // console.log("re", messages)
+              // console.log("video res",response.data);
+              await socket.emit('new message', response.data);
+
+              // await messages.push(response.data)
+              setMessages([...messages, response.data]);
+            }
+          });
+      } catch (error) {
+        console.log('error at send message', error);
+        Alert.alert('error of send message');
+      }
+    }
+  };
+  // console.log("first",messages)
   return (
     <View style={styles.container}>
-        <ChatHeader
+      <ChatHeader
 
-          name={group.chatName}
-          profilePic={{uri:group.groupPhoto}}
-          number={group.users.map((i)=>i.phoneNumber + ",")}
-          navigation={navigation}
-          onPressName={()=>navigation.navigate('groupDetails',{chatId: group.chatId})}
-        />
+        name={group.chatName}
+        profilePic={{ uri: group.groupPhoto }}
+        number={group.users.map((i) => i.phoneNumber + ",")}
+        navigation={navigation}
+        onPressName={() => navigation.navigate('groupDetails', { chatId: group.chatId })}
+      />
       <ScrollView>
         {messages.map(item => {
           return (
             <ChatInnerItem
-            navigation={navigation}
-            // receiverUsername={item?.data?.firstName +'\b'+ item?.data?.lastName}
-            // receiverMessage={item?.data?.content}
-            send={item?.data?.userId}
-            isSender={item?.isSender}
-            pic={{uri: item?.data?.photo}}
-            username={item?.data?.firstName +'\b'+ item?.data?.lastName}
-            message={item?.data?.content}
-            time={moment(item?.data?.createdAt).format("hh:mm a")}
-          />
+              navigation={navigation}
+              // receiverUsername={item?.data?.firstName +'\b'+ item?.data?.lastName}
+              // receiverMessage={item?.data?.content}
+              send={item?.data?.userId}
+              isSender={item?.isSender}
+              pic={{ uri: item?.data?.photo }}
+              username={item?.data?.firstName + '\b' + item?.data?.lastName}
+              message={item?.data?.content}
+              time={moment(item?.data?.createdAt).format("hh:mm a")}
+            />
           );
         })}
       </ScrollView>
-      <View style={{backgroundColor: 'white',width: windowWidth/1, height: 60}}>
+      <View style={{ backgroundColor: 'white', width: windowWidth / 1, height: 60 }}>
         <View style={styles.inputView}>
-        <TextInput style={styles.input}
+          <TextInput style={styles.input}
             placeholderTextColor='#000'
             placeholder='Type here'
             value={newMessage}
             onChangeText={(e) => typingHandler(e)}
-            // onKeyPress={sendMessage}
+          // onKeyPress={sendMessage}
           />
           <TouchableOpacity style={styles.emoticon}>
-          <Image
-          source={require('../assets/icons/png/smile.png')}
-          style={{height: 25, width: 25, marginTop: '19%',marginLeft: '7%',}}
-          />
+            <Image
+              source={require('../assets/icons/png/smile.png')}
+              style={{ height: 25, width: 25, marginTop: '19%', marginLeft: '7%', }}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.emoticon} onPress={()=>launchCameraPhoto()}>
-          <Image
-          source={require('../assets/icons/png/cameraColor.png')}
-          style={{height: 27, width: 27, marginTop: '19%',marginLeft: '7%',}}
-          />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.emoticon} onPress={() =>sendMessage()}>
-            <Feather name='send' size={22} color='#5d6afe' 
+          <TouchableOpacity style={styles.emoticon} onPress={() => launchCameraPhoto()}>
+            <Image
+              source={require('../assets/icons/png/cameraColor.png')}
+              style={{ height: 27, width: 27, marginTop: '19%', marginLeft: '7%', }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.emoticon} onPress={() => sendMessage()}>
+            <Feather name='send' size={22} color='#5d6afe'
             // style={styles.emoticon} onPress={()=> sendMessage()}
             />
           </TouchableOpacity>
         </View>
-        </View>
+      </View>
     </View>
   );
 };
@@ -295,7 +297,7 @@ const styles = StyleSheet.create({
     // margin: 12,
     color: '#000',
     borderRadius: 20,
-    width: windowWidth/1.6,
+    width: windowWidth / 1.6,
     marginLeft: '3%',
     marginBottom: '3%',
     marginTop: '3%',
@@ -324,12 +326,12 @@ const styles = StyleSheet.create({
     // backgroundColor: 'black',
     // borderColor: 'blue',
     // borderWidth: 1,
-      marginLeft: '1%',
-      marginTop: '3%',
-      width: 26,
-      height: 26,
-      alignItems: 'flex-end',
-      justifyContent: 'flex-end',
-      borderRadius: 100 / 2,
-    },
+    marginLeft: '1%',
+    marginTop: '3%',
+    width: 26,
+    height: 26,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    borderRadius: 100 / 2,
+  },
 });

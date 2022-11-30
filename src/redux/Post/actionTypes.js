@@ -13,5 +13,6 @@ export const POSTLIKE = "POSTLIKE";
 export const POSTVERIFY = "POSTVERIFY"
 export const POSTCOMMENT = "POSTCOMMENT";
 export const POSTSHARE = "POSTSHARE";
+export const POSTGENUINE = 'POSTGENUINE'
 export const POSTVOICE = "POSTVOICE";
 export const ACTIVITYLOADING = "ACTIVITYLOADING";

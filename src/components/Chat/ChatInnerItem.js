@@ -5,37 +5,95 @@ import {
   View,
   Image,
   TextInput,
+
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import Video from 'react-native-video';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ChatInnerItem = props => {
   const navigation = props.navigation;
   // console.log(props.isSender,"ddd")
-  const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
+  const authId = "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
   // const userId ="3ac1df80-5a6e-11ed-a871-7d8265a60df7"
+
+  const [paused, setPaused] = useState(false);
+
+  const togglePaused = ()=>{setPaused(prev => !prev)} // add this toggle function
+
   return (
     <View>
-      {props.send===authId?
+      {props.send === authId ?
         <>
           <View style={{ flexDirection: 'row', marginBottom: '1%' }}>
             <View style={{ flexDirection: 'column' }}>
-              <View style={styles.messageRight} key={props.key2}>
+              <View style={{
+                backgroundColor: props.message.includes('jpg') || props.message.includes('png') || props.message.includes('mp4') ? '#fff' : '#5d6afe',
+                marginLeft: '10%',
+                marginTop: '5%',
+                height: 'auto',
+                // height: windowHeight / 9,
+                width: windowWidth / 1.5,
+                borderTopEndRadius: 20,
+                padding: 5,
+                // borderBottomEndRadius: 10,
+                borderTopLeftRadius: 20,
+                borderBottomLeftRadius: 20,
+              }} key={props.key2}>
                 <Text style={styles.senderUsername}>{props.username}</Text>
-                {props.message==='https://snap-attachments.s3.amazonaws.com/'?
-              <Image source={{uri:props.message}} style={{height: 80, width: 80, alignSelf: 'center'}}/>  
-              :
-              <Text style={styles.senderMessage}>{props.message}</Text>
-              }
+                {props.message.includes('jpg') || props.message.includes('png')?
+                  // ?
+                  <View>
+                    <Image source={{ uri: props.message }} style={{
+                      height: windowHeight / 4, width: windowWidth / 1.7, alignSelf: 'flex-start', margin: 10,
+                      // borderTopEndRadius: 20,
+                      borderTopRightRadius: 20,
+                      padding: 5,
+                      borderBottomEndRadius: 10,
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
+                    }} />
+                  </View> : null
+                }
+                {props.message.includes('mp4') ?
+                  <View style={{alignContent:'center',alignItems:'center'}}>
+                    <Video
+                      source={{ uri: props.message }}
+                      resizeMode='cover'
+                      paused={paused}
+                      repeat={true}
+                      controls={true}
+                      style={{
+                        height: windowHeight / 4, width: windowWidth / 1.7, alignSelf: 'flex-start', margin: 10,
+                        borderTopEndRadius: 20,
+                        padding: 5,
+                        // borderBottomEndRadius: 10,
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
+                      }}
+
+                    />
+                    <TouchableOpacity style={{alignSelf:'center'}} onPress={()=>togglePaused}>
+                      <Text>Play!</Text>
+                    </TouchableOpacity>
+                  </View>
+                  : null}
+                {!props.message.includes('mp4') && !props.message
+                  .includes('jpg') && !props.message.includes('png')?
+                  <View>
+                    <Text style={styles.senderMessage}>{props.message}</Text>
+                  </View> : null
+                }
               </View>
+
               <View>
-                <Text style={{ alignSelf: 'flex-end', marginRight: '5%',color: 'grey' }}>{props.time}</Text>
+                <Text style={{ alignSelf: 'flex-end', marginRight: '5%', color: 'grey' }}>{props.time}</Text>
               </View>
             </View>
             <View style={styles.messageImageRight}>
               <Image
-                style={{ height: 35, width: 35, borderRadius: 100 / 2 }}
+                style={{ height: 35, width: 35, borderRadius: 100 / 2, alignSelf: 'center', marginTop: '5%', justifyContent:'center', alignItems:'center'}}
                 source={props.pic} />
             </View>
           </View>
@@ -49,9 +107,61 @@ const ChatInnerItem = props => {
                 source={props.pic} />
             </View>
             <View style={{ flexDirection: 'column' }}>
-              <View style={styles.message} key={props.key1}>
+              <View style={{
+                backgroundColor: props.message.includes('jpg') || props.message.includes('png')|| props.message.includes('mp4') ? '#fff' : '#dbdbdb',
+                marginLeft: '2%',
+                marginTop: '3%',
+                padding: 5,
+                // height: windowHeight / 9,
+                height: 'auto',
+                width: windowWidth / 1.4,
+                borderTopEndRadius: 20,
+                borderBottomEndRadius: 20,
+                borderTopLeftRadius: 20,
+              }} key={props.key1}>
                 <Text style={styles.receiverUsername}>{props.username}</Text>
-                <Text style={styles.receiverMessage}>{props.message}</Text>
+                {props.message.includes('jpg') || props.message.includes('png') ?
+                  // ?
+                  <View>
+                    <Image source={{ uri: props.message }} style={{
+                      height: windowHeight / 4, width: windowWidth / 1.7, alignSelf: 'flex-start', margin: 10,
+                      borderTopRightRadius: 20,
+                      padding: 5,
+                      borderBottomRightRadius: 10,
+                      borderTopLeftRadius: 20,
+                      // borderBottomLeftRadius: 20,
+                    }} />
+                  </View> : null
+                }
+                {props.message.includes('mp4') ?
+                  <View>
+
+                    <Video
+                      source={{ uri: props.message }}
+                      resizeMode='cover'
+                      paused={paused}
+                      repeat={true}
+                      style={{
+                        height: windowHeight / 4, width: windowWidth / 1.7, alignSelf: 'flex-start', margin: 10,
+                        borderTopEndRadius: 20,
+                        padding: 5,
+                        // borderBottomEndRadius: 10,
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
+                      }}
+
+                    />
+                    <TouchableOpacity onPress={togglePaused}>
+                      <Text>Play!</Text>
+                    </TouchableOpacity>
+                  </View>
+                  : null}
+                {!props.message.includes('mp4') && !props.message
+                  .includes('jpg') && !props.message.includes('png') ?
+                  <View>
+                    <Text style={styles.receiverMessage}>{props.message}</Text>
+                  </View> : null
+                }
               </View>
               <View>
                 <Text style={{ alignSelf: 'flex-end', marginRight: '5%', color: 'grey' }}>{props.time}</Text>

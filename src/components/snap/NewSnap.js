@@ -21,7 +21,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 const NewSnap = props => {
   const [state, setState] = useState();
   const navigation = useNavigation();
-  const [images, setImages] = useState('')
+  const [images, setImages] = useState()
   const dispatch = useDispatch();
   const [lat, setLat]=useState('')
   const [long, setLong]=useState('')
@@ -39,7 +39,7 @@ const NewSnap = props => {
     openPicker({
       multiple: true,
     }).then(image => {
-      console.log("ma",image[0].path);
+      console.log("ma",image);
       setImages(image[0].path)
     });
 
@@ -106,7 +106,7 @@ const NewSnap = props => {
       height: 400,
       cropping: true,
     }).then(image => {
-      console.log(image[0].path);
+      console.log(image);
       setImages(image)
       console.log("im", images)
     });
@@ -166,10 +166,6 @@ console.log("img", images)
                   value={postState.inputValues.post}
                   onChangeText={value => checkValidity(value, 'post')}
                 />
-                {/* <Image 
-                source={{uri: 'file:///data/user/0/com.frisles/cache/react-native-image-crop-picker/IMG_20221129_172153.jpg '}}
-                style={{alignSelf: 'center', backgroundColor: 'red', height: 100, width: 100}}
-                /> */}
               </TouchableOpacity>
             </View>
             <View style={styles.thoughtBoxAttachments}>
@@ -215,16 +211,12 @@ console.log("img", images)
           :
           null
         }
-          {/* <TouchableOpacity style={styles.shareNowButton}>
-            <LinearGradient
-              style={styles.buttonWrapper}
-              colors={['#5E6BFF', '#212FCC']}>
-              <Text style={styles.buttonText}>Share Now</Text>
-            </LinearGradient>
-          </TouchableOpacity> */}
-          {/* <View>
-            <Text style={styles.previousPost}>Previous Post</Text>
-          </View> */}
+        {images?
+        <Image 
+        source={{uri: images}}
+        style={{alignSelf: 'center', height: 100, width: 100, marginTop: '5%'}}
+        />:null
+      }
           {props.postButton ? (
             <>
               <View style={styles.postButtonView}>
@@ -236,7 +228,10 @@ console.log("img", images)
                       addNewPost(
                         postState.inputValues.post,
                         '6dddae20-5925-11ed-a555-c9afc10124e6',
-                        location
+                        location,
+                        lat,
+                        long,
+                        images
                       ),
                     )
                     navigation.navigate('snap')

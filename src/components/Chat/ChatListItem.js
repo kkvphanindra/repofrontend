@@ -48,7 +48,14 @@ const navigation = useNavigation()
                 </View>
                 <View style={styles.body}>
                     <Text style={styles.name}>{props.name}</Text>
+                    {props.lastMessage==='video' || props.lastMessage==='image'?
+                    <View style={{flexDirection: 'row'}}>
+                        <Image source={{uri:'https://cdn-icons-png.flaticon.com/512/45/45010.png'}} style={{height: 20, width: 20, alignSelf:'flex-start', marginRight: '3%'}}/>
                     <Text style={styles.message}>{props.lastMessage}</Text>
+                    </View>
+                    :
+                    <Text style={styles.message}>{props.lastMessage}</Text>
+                }
                 </View>
                 <View style={styles.info}>
                     <Text style={styles.time}>{props.time}</Text>

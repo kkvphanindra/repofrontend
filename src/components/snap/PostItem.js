@@ -136,6 +136,7 @@ dispatch(postShare(postId,user.userId ))
       console.log(image);
     });
   };
+  // console.log(",ol")
 //   useEffect(async() => {
 //     if (Platform.OS === 'android') {
 //       try {
@@ -206,7 +207,7 @@ dispatch(postShare(postId,user.userId ))
               <View style={styles.postHeadingImageAndInfo}>
                 <View style={styles.postHeadingImage}>
                   <Image
-                    source={{uri: props.profilePic}}
+                    source={props.profilePic}
                     style={styles.postImage}
                   />
                 </View>
@@ -261,10 +262,10 @@ dispatch(postShare(postId,user.userId ))
                   {props.postText}
                 </Text>
               </View>
-              {props.image === '1' ? (
+              {props.image? (
                 <Image
                   style={styles.postBodyAttachmentView}
-                  source={props.photo}
+                  source={props.image}
                 />
               ) : null}
             </View>
@@ -432,6 +433,7 @@ const styles = StyleSheet.create({
   postImage: {
     width: 50,
     height: 50,
+    backgroundColor: 'blue',
     borderRadius: 100 / 2,
   },
   postHeadingInfo: {

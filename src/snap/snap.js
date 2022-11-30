@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -12,6 +12,7 @@ import PostItem from '../components/snap/PostItem';
 import LoadingComponet from '../components/snap/LoadingComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllPostsByUserId, postHide, postSave, postVerify} from '../redux/Post/actions';
+import { activityName, groupName } from '../redux/activity/action';
 
 const data = [
   {
@@ -50,12 +51,20 @@ const data = [
 const Snap = navigation => {
   const dispatch = useDispatch();
   const postState = useSelector(state => state.postState);
+  const activityState = useSelector(state => state.activityState);
+  const [groupN, setGroupN] = useState('');
+  const [groupId, setGroupId] = useState('');
+  const [activityN, setActivityN] = useState('');
 const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   useFocusEffect(
     React.useCallback(() => {
       dispatch(getAllPostsByUserId('6dddae20-5925-11ed-a555-c9afc10124e6'));
     }, [dispatch]),
   );
+  useEffect(()=>{
+        dispatch(groupName())
+        dispatch(activityName())
+      },[dispatch])
   const hidePost = (postId) => {
     dispatch(postHide(postId, authId))
   }
@@ -65,6 +74,16 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   const verifyPost = (userId) => {
     dispatch(postVerify(userId,authId))
   }
+  let user = {
+    userId: '6dddae20-5925-11ed-a555-c9afc10124e6',
+    firstName: 'Danish',
+    lastName: 'ali',
+    photo: 'https://i.ibb.co/pyhjCBx/ffd493ff-fe15-4d19-b645-635cadbab9d1.jpg',
+    countryCode: '91',
+    phoneNumber: '7439240134',
+    createdAt: '2022-10-31T14:08:01.029Z',
+    updatedAt: '2022-11-03T05:37:14.544Z',
+  };
   // useEffect(() => {
   //     dispatch(getAllPostsByUserId("b62f35c0-17ff-11ed-929f-0bfbd7529461"));
   // }, [dispatch]);
@@ -88,16 +107,16 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
         verify={()=>verifyPost(item.userId)}
         addTo={()=>console.log("addTo")}
         endorsed='6.5k'
-        genuine='4.8k'
+        genuine={item.genuine}
         groupName='@FunTogether'
         message={item.description}
-        profilePic={item.profilePic}
+        profilePic={{uri:user.photo}}
         postText={item.description}
-        image={item.image}
+        image={{uri:item.images}}
         // photo={{uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png'}}
         attachmentType={item.attachmentType}
         attachment={item.attachment}
-        heart={item.heart}
+        heart={item.isLikedByAuth}
         loves={item.likes}
         comment={item.comments}
         voices={item.voices}

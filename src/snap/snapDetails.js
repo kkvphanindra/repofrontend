@@ -15,18 +15,15 @@ import NewSnap from '../components/snap/NewSnap';
 import {addNewPost} from '../redux/Post/actions';
 import SelectList from 'react-native-dropdown-select-list';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
-import { groupName } from '../redux/activity/action';
+
 
 const SnapDetails = ({navigation}) => {
   const dispatch = useDispatch;
-  const activityState = useSelector(state => state.activityState);
+  const postState = useSelector(state => state.postState);
   const [groupN, setGroupN] = useState('');
   const [groupId, setGroupId] = useState('');
   const [activityN, setActivityN] = useState('');
-  const postState = useSelector(state => state.postState);
-  // useEffect(()=>{
-  //   dispatch(groupName())
-  // },[dispatch])
+  const activityState = useSelector((state)=> state.activityState)
   const press = selectedItem => {
       let d = activityState.groupName.filter(i => i.key === selectedItem);
       let e = d?.[0]?.key;
