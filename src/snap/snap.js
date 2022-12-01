@@ -94,7 +94,7 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   //     });
   //     return unsubscribe;
   //   }, [navigation]);
-// console.log("dat", postState.data)
+console.log("dat", postState.data[0])
   const renderPostItem = item => {
     return (
       <PostItem

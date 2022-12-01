@@ -24,7 +24,7 @@ const initialState = {
 
 // REDUCER FUNCTION.
 const chatReducer = (state = initialState, action) => {
-    console.log("fired");
+    // console.log("fired");
     switch (action.type) {
         case REQ_START: {
             console.log("Getting Chat List Data");

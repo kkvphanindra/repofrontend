@@ -20,6 +20,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 const NewSnap = props => {
   const [state, setState] = useState();
+  const [pic,setPic] = useState()
   const navigation = useNavigation();
   const [images, setImages] = useState()
   const dispatch = useDispatch();
@@ -41,29 +42,8 @@ const NewSnap = props => {
     }).then(image => {
       console.log("ma",image);
       setImages(image[0].path)
+      setPic(image)
     });
-
-    //  await launchImageLibrary(options, async(response) => {
-
-    //   console.log('Response = ', response);
-
-    //   if (response.didCancel) {
-    //     console.log('User cancelled image picker');
-    //   } else if (response.error) {
-    //     console.log('ImagePicker Error: ', response.error);
-    //   } else if (response.customButton) {
-    //     console.log('User tapped custom button: ', response.customButton);
-    //     alert(response.customButton);
-    //   } else {
-    //     const source = { uri: response.uri };
-    //     console.log('response', JSON.stringify(response));
-    //     setState({
-    //       filePath: response,
-    //       fileData: response.data,
-    //       fileUri: response.uri
-    //     });
-    //   }
-    // })
   };
 
   const launchCameraPhoto = () => {
@@ -106,8 +86,9 @@ const NewSnap = props => {
       height: 400,
       cropping: true,
     }).then(image => {
-      console.log(image);
-      setImages(image)
+      console.log(image.path);
+      setImages(image.path)
+      setPic(image)
       console.log("im", images)
     });
   };
@@ -149,7 +130,7 @@ const NewSnap = props => {
 
     dispatch(updateFields(val, fieldId, isValid));
   };
-console.log("img", images)
+// console.log("img", images)
   return (
     <View>
       <View style={styles.thoughts}>
@@ -231,7 +212,7 @@ console.log("img", images)
                         location,
                         lat,
                         long,
-                        images
+                        pic
                       ),
                     )
                     navigation.navigate('snap')

@@ -133,7 +133,7 @@ dispatch(postShare(postId,user.userId ))
       height: 400,
       cropping: true,
     }).then(image => {
-      console.log(image);
+      // console.log(image);
     });
   };
   // console.log(",ol")
@@ -262,12 +262,14 @@ dispatch(postShare(postId,user.userId ))
                   {props.postText}
                 </Text>
               </View>
-              {props.image? (
+              {props.image.uri==null? 
+                null
+                :
                 <Image
                   style={styles.postBodyAttachmentView}
                   source={props.image}
                 />
-              ) : null}
+              }
             </View>
             <View style={styles.postActions}>
               <View style={styles.postActionsMain}>
@@ -406,7 +408,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: windowWidth / 1.1,
     flex: 1,
-    marginTop: '5%',
+    marginTop: '1%',
     marginBottom: '5%',
     // height: 'auto',
     elevation: 4,
@@ -502,7 +504,7 @@ const styles = StyleSheet.create({
   postBodyAttachmentView: {
     height: 150,
     width: '100%',
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     borderRadius: 15,
     color: 'black',
   },

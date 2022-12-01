@@ -26,15 +26,15 @@ export const req = () => {
     };
 };
 
-export const updateFields = (val,fieldId,isValid) => ({
-    type:UPDATE_FIELDS,
+export const updateFields = (val, fieldId, isValid) => ({
+    type: UPDATE_FIELDS,
     val,
     fieldId,
     isValid
 })
 
 export const blurFields = (fieldId) => ({
-    type:BLUR_FIELDS,
+    type: BLUR_FIELDS,
     fieldId
 })
 
@@ -55,44 +55,45 @@ export const reqFailure = (error) => ({
     error: error,
 });
 
-export const reqSuccessNewPost = ()=>({
+export const reqSuccessNewPost = () => ({
     type: SUCCESS_NEW_POST,
 })
-export const reqStartNewPost = ()=>({
+export const reqStartNewPost = () => ({
     type: REQ_START_NEW_POST,
 })
-export const reqFailureNewPost = ()=>({
+export const reqFailureNewPost = () => ({
     type: FAILURE_NEW_POST,
 })
 
-export const reqActivityLoading = ()=>({
+export const reqActivityLoading = () => ({
     type: ACTIVITYLOADING,
 })
 
-export const hidePost = ()=>({
+export const hidePost = () => ({
     type: POST_HIDE,
 })
 
-export const savePost = ()=>({
+export const savePost = () => ({
     type: POST_SAVE,
 })
 
-export const sharePost = ()=>({
+export const sharePost = () => ({
     type: POSTSHARE,
 })
 
-export const verifyPost = ()=>({
+export const verifyPost = () => ({
     type: POSTVERIFY,
 })
 
-export const genuinePost = ()=>({
+export const genuinePost = () => ({
     type: POSTGENUINE,
 })
 
 export const getAllPostsByUserId = (id) => {
     return async (dispatch) => {
         dispatch(req());
-        try {const response = await axios.get(
+        try {
+            const response = await axios.get(
                 `https://frisles.herokuapp.com/api/post/user/${id}`
             )
             if (response.status) {
@@ -111,77 +112,42 @@ export const getAllPostsByUserId = (id) => {
     };
 }
 
-export const addNewPost = (post,userId,location, lat, long, image) => {
-        return async (dispatch) => {
-            dispatch(reqStartNewPost());
-            console.log(post,userId, lat, long)
-            try {
-                const formData = new FormData();
-                formData.append('description',post)
-                formData.append('userId', userId)
-                formData.append('location', location)
-                formData.append('latitude',lat)
-                formData.append('longitude',long)
-                  formData.append('images', {
-                    uri: image.path,
-                    type: image.mime,
-                    name: image.filename || `filename${image.size}.jpg`,
-                  });
-                const response = await axios.post(
-                    `https://frisles.herokuapp.com/api/post`,
-                   formData,
-                   {
+export const addNewPost = (post, userId, location, lat, long, image) => {
+    return async (dispatch) => {
+        dispatch(reqStartNewPost());
+        console.log("add new post", post, userId, lat, long, image)
+        try {
+            const formData = new FormData();
+            formData.append('description', post)
+            formData.append('userId', userId)
+            formData.append('location', location)
+            formData.append('latitude', lat)
+            formData.append('longitude', long)
+            formData.append('images', {
+                uri: image[0].path,
+                type: image[0].mime,
+                name: image[0].filename || `filename${image.size}.jpg`,
+            });
+            const response = await axios.post(
+                `https://frisles.herokuapp.com/api/post`,
+                formData,
+                {
                     headers: {
                         Accept: 'application/json',
-                        'Content-Type':'multipart/form-data'
+                        'Content-Type': 'multipart/form-data'
                     }
-                   }
-                )
-                // console.log(response.data)
-                 if (response) {
-                    // console.log('COMPLETE RESPONSE DATA:', response.data)
-                    console.log(response.data)
-                    dispatch(reqSuccessNewPost());
-                    dispatch(stateCleanup())
-                    // dispatch(getAllPostsByUserId(userId))
-                }
-                else {
-                    dispatch(reqFailureNewPost('Please Enter Valid Inputs'));    
-                }
-            }
-            catch (err) {
-                console.log("Request failed");
-                console.log(err.message)
-                dispatch(reqFailureNewPost(err.message));
-            }
-        };
-    }
-
-
-export const addPostLike = (postId,userId) => {
-    return async (dispatch) => {
-        // dispatch(reqActivityLoading());
-        console.log(postId,userId)
-        try {
-            const response = await axios.post(
-                `https://frisles.herokuapp.com/api/post-likes/${userId}`,
-                {
-                    userId:userId,
-                    postId:postId
                 }
             )
-            console.log(response.data)
-            if (response.headers.error) {
-                console.log(response.headers.error);
-            }
-            else if (response) {
+            console.log("new post res", response.data)
+            if (response) {
                 // console.log('COMPLETE RESPONSE DATA:', response.data)
-        // dispatch(reqActivityLoading());
-                // console.log("add post like",response)
-                dispatch(getAllPostsByUserId(userId));
+                console.log(response.data)
+                dispatch(reqSuccessNewPost());
+                dispatch(stateCleanup())
+                // dispatch(getAllPostsByUserId(userId))
             }
             else {
-                dispatch(reqFailureNewPost('Some Error Occured'));    
+                dispatch(reqFailureNewPost('Please Enter Valid Inputs'));
             }
         }
         catch (err) {
@@ -191,11 +157,46 @@ export const addPostLike = (postId,userId) => {
         }
     };
 }
- 
-export const postHide = (post,userId) => {
+
+
+export const addPostLike = (postId, userId) => {
+    return async (dispatch) => {
+        // dispatch(reqActivityLoading());
+        console.log(postId, userId)
+        try {
+            const response = await axios.post(
+                `https://frisles.herokuapp.com/api/post-likes/${userId}`,
+                {
+                    userId: userId,
+                    postId: postId
+                }
+            )
+            console.log(response.data)
+            if (response.headers.error) {
+                console.log(response.headers.error);
+            }
+            else if (response) {
+                // console.log('COMPLETE RESPONSE DATA:', response.data)
+                // dispatch(reqActivityLoading());
+                // console.log("add post like",response)
+                dispatch(getAllPostsByUserId(userId));
+            }
+            else {
+                dispatch(reqFailureNewPost('Some Error Occured'));
+            }
+        }
+        catch (err) {
+            console.log("Request failed");
+            console.log(err.message)
+            dispatch(reqFailureNewPost(err.message));
+        }
+    };
+}
+
+export const postHide = (post, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(post,userId)
+        console.log(post, userId)
         try {
             const response = await axios.post(
                 `https://frisles.herokuapp.com/api/post/${post}/user/${userId}`,
@@ -204,7 +205,7 @@ export const postHide = (post,userId) => {
                 }
             )
             if (response) {
-                console.log("post hide action log",response.data)
+                console.log("post hide action log", response.data)
                 dispatch(hidePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -217,10 +218,10 @@ export const postHide = (post,userId) => {
     };
 }
 
-export const postSave = (post,userId) => {
+export const postSave = (post, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(post,userId)
+        console.log(post, userId)
         try {
             const response = await axios.post(
                 `https://frisles.herokuapp.com/api/post/${post}/user/${userId}`,
@@ -229,7 +230,7 @@ export const postSave = (post,userId) => {
                 }
             )
             if (response) {
-                console.log("post save action log",response.data)
+                console.log("post save action log", response.data)
                 dispatch(savePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -242,20 +243,20 @@ export const postSave = (post,userId) => {
     };
 }
 
-export const postShare = (post,userId) => {
+export const postShare = (post, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(post,userId)
+        console.log(post, userId)
         try {
             const response = await axios.post(
                 `https://frisles.herokuapp.com/api/post-share`,
                 {
-                   postId: post,
-                   userId: userId
+                    postId: post,
+                    userId: userId
                 }
             )
             if (response) {
-                console.log("post share action log",response.data)
+                console.log("post share action log", response.data)
                 dispatch(sharePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -268,19 +269,19 @@ export const postShare = (post,userId) => {
     };
 }
 
-export const postVerify = (user,userId) => {
+export const postVerify = (user, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(user,userId)
+        console.log(user, userId)
         try {
             const response = await axios.post(
                 `https://frisles.herokuapp.com/api/verify/user/${userId}`,
                 {
-                   verifiedTo: user,
+                    verifiedTo: user,
                 }
             )
             if (response) {
-                console.log("post share action log",response.data)
+                console.log("post share action log", response.data)
                 dispatch(verifyPost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -293,16 +294,16 @@ export const postVerify = (user,userId) => {
     };
 }
 
-export const postGenuine = (user,userId) => {
+export const postGenuine = (user, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(user,userId)
+        console.log(user, userId)
         try {
             const response = await axios.get(
                 `https://frisles.herokuapp.com/api/verify/user/${userId}`,
             )
             if (response) {
-                console.log("post share action log",response.data)
+                console.log("post share action log", response.data)
                 dispatch(genuinePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }

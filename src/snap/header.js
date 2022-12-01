@@ -101,23 +101,16 @@ const Header = props => {
           paddingBottom: 10,
           paddingHorizontal: 30,
         }}>
-        {/* <TouchableOpacity onPress={() => navigation.navigate('snapDetails')}> */}
+        <TouchableOpacity onPress={() => navigation.navigate('snapDetails')}>
           <NewSnap
             editable={false}
             navigation={navigation}
             handleChange={checkValidity}
           />
-           <TouchableOpacity style={styles.shareNowButton}>
-            <LinearGradient
-              style={styles.buttonWrapper}
-              colors={['#5E6BFF', '#212FCC']}>
-              <Text style={styles.buttonText}>Share Now</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-          <View>
+          <View style={{marginTop:'10%'}}>
             <Text style={styles.previousPost}>Previous Post</Text>
           </View>
-        {/* </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </View>
   );
