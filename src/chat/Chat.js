@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, PermissionsAndroid, Platform } from 'react-native'
 import React, {useCallback} from 'react'
 import ChatListItem from '../components/Chat/ChatListItem'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { useEffect, useState } from "react";
 import { useFocusEffect } from '@react-navigation/native';
 import { useDispatch, useSelector } from "react-redux";
@@ -31,21 +31,21 @@ const data = [
     isOnline: false,
   }
 ]
-export default function Chat({ navigation }) {
+export default function Chat() {
   const chatState = useSelector(state => state.chatState);
+  const navigation = useNavigation()
   const [data, setData] = useState([]);
   const [contacts, setContacts] = useState([]);
-const [privateChat,setPrivatechat]=useState(true)
-const [refresh, setRefresh]=useState(false)
+  const [privateChat,setPrivatechat]=useState(true)
+  const [refresh, setRefresh]=useState(false)
   const dispatch = useDispatch();
-const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
+  const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
   useFocusEffect(
     useCallback(()=>{
-      if(navigation.isFocused()){
-  dispatch(getAllChatListByUserId(authId,privateChat, null))
-      }
-    },[dispatch,navigation.isFocused()])
+      dispatch(getAllChatListByUserId(authId,privateChat, null))
+    },[dispatch])
     )
+    console.log("ftu",chatState.filteredData)
     useEffect(() => {
       if (Platform.OS === 'android') {
         PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {

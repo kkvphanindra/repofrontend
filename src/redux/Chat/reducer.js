@@ -7,7 +7,9 @@ import {
     CREATE_GROUP,
     GET_ALL_GROUPDETAILS_BY_CHAT_ID,
     EXIT_GROUP,
-    CLEAR_CHAT
+    CLEAR_CHAT,
+    FILTER,
+    REMOVE_FILTER
 } from "./actionTypes";
 
 //Initial state///
@@ -15,6 +17,7 @@ import {
 const initialState = {
     loading: false,
     data: [],
+    initialData:[],
     contacts: [],
     group: [],
     exitGroup:[],
@@ -46,6 +49,25 @@ const chatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 data: action.data,
+                initialData: action.data,
+                error: "",
+                loading: false,
+            };
+        }
+        case FILTER: {
+            console.log("Successfully Got Chat List by User id");
+            return {
+                ...state,
+                data: action.data,
+                error: "",
+                loading: false,
+            };
+        }
+        case REMOVE_FILTER: {
+            console.log("Successfully Got Chat List by User id");
+            return {
+                ...state,
+                data: initialState.initialData,
                 error: "",
                 loading: false,
             };

@@ -15,6 +15,8 @@ import {
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/auth/action';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -22,7 +24,8 @@ const height = Dimensions.get('window').height;
 const LoginComponent = ({navigation}) => {
     const [confirmLogin, setConfirmLogin] = useState(false);
     const [uniqueID, setUniqueID] = useState(false);
-    
+    const dispatch = useDispatch()
+
     const phoneNumberValidate = () => {
         requestPermissions();
         if(PermissionsAndroid.RESULTS.GRANTED){

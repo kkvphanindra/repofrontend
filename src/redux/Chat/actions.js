@@ -9,7 +9,9 @@ import {
   CREATE_GROUP,
   GET_ALL_GROUPDETAILS_BY_CHAT_ID,
   EXIT_GROUP,
-  CLEAR_CHAT
+  REMOVE_FILTER,
+  CLEAR_CHAT,
+  FILTER
 } from "./actionTypes";
 import io from 'socket.io-client'
 import { getAllMessageByChatId } from "../Message/actions";
@@ -47,6 +49,13 @@ export const reqChatListByUserId = (id) => ({
   id: id,
 });
 
+export const reqFilter = (data) =>({
+  type: FILTER,
+  data
+})
+export const removeFilter = () =>({
+  type: REMOVE_FILTER
+})
 export const exitGroup = (chatId, authId) => ({
   type: EXIT_GROUP,
   chatId: chatId,
@@ -71,6 +80,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
         );
         if (response.status) {
           dispatch(reqSuccess(response.data));
+          dispatch(reqFilter(response.data))
           // console.log("today", response.data)
         }
       }
@@ -80,6 +90,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
         );
         if (response) {
           dispatch(reqSuccess(response.data));
+          dispatch(reqFilter(response.data))
           // console.log("week", response.data)
         }
       }

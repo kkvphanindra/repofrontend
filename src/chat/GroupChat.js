@@ -255,6 +255,7 @@ const GroupChat = ({ navigation, route }) => {
             placeholder='Type here'
             value={newMessage}
             onChangeText={(e) => typingHandler(e)}
+            onSubmitEditing={sendMessage}
           // onKeyPress={sendMessage}
           />
           <TouchableOpacity style={styles.emoticon}>

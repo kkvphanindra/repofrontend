@@ -8,6 +8,7 @@ import {
   
   const initialState = {
     isLoggedIn: true,
+    data: []
   };
   
   const authReducer = (state = initialState, action) => {
@@ -15,6 +16,8 @@ import {
       case REQ_SUCCESS: {
         return {
           ...state,
+          data: action.data,
+          error: '',
           isLoggedIn: true,
         };
       }
