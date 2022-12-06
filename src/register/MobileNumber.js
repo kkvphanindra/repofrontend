@@ -12,6 +12,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import PhoneInput from 'react-native-phone-number-input';
 import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/auth/action';
 
 const MobileNumber = ({route, navigation}) => {
     const { uniqueID } = route?.params;
@@ -24,7 +26,7 @@ const MobileNumber = ({route, navigation}) => {
   const [deviceIMEI, setDeviceIMEI] = useState();
 
     const phoneInput = useRef(null);
-
+const dispatch = useDispatch()
     const onAuthStateChanged = (user) => {
         console.log('user', user)
         setUser(user);
@@ -51,6 +53,7 @@ const MobileNumber = ({route, navigation}) => {
                 number: phoneNumber,
                 getConfirm: confirmation
             })
+
         }
         console.log('confirmation.', confirmation);
     }

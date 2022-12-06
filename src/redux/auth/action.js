@@ -5,6 +5,7 @@ import {
     REQ_FAILURE,
     LOGOUT,
   } from './actionTypes';
+  import axios from 'axios';
   
   export const req = (data) => ({
     type: REQ_SUCCESS,

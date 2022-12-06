@@ -197,7 +197,7 @@ const App = () => {
   return (
     <Provider store={store}>
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="home">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="login">
         <Stack.Screen name="login" component={LoginComponent} />
         <Stack.Screen name="mobileNumber" component={MobileNumber} />
         <Stack.Screen name="verifyAccount" component={VerifyAccount} />
