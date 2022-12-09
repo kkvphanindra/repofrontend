@@ -30,7 +30,7 @@ let user = {
 const Header = props => {
   const dispatch = useDispatch;
   const postState = useSelector(state => state.postState);
-
+const authState = useSelector((state)=>state.authState)
   const {navigation} = props.navigation;
 
   const checkValidity = (val, fieldId) => {
@@ -44,7 +44,7 @@ const Header = props => {
 
     dispatch(updateFields(val, fieldId, isValid));
   };
-
+// console.log("cuh", authState)
   return (
     <View>
       <View style={styles.top}>
@@ -83,11 +83,11 @@ const Header = props => {
               <View style={styles.profileInformation}>
                 <Image
                   source={{
-                    uri: user.photo,
+                    uri: authState.profilePicture==""? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':authState.profilePicture,
                   }}
                   style={styles.profileImage}
                 />
-                <Text style={styles.profileName}>{user.firstName+'\b'+user.lastName}</Text>
+                <Text style={styles.profileName}>{authState.name}</Text>
               </View>
             </View>
           </ImageBackground>

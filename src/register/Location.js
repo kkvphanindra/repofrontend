@@ -21,29 +21,23 @@ const height = Dimensions.get('window').height;
 const Location = ({route, navigation}) => {
     const { uniqueID, phoneNumber, name, dob, gender, occupation, profilePic, coverPic } = route?.params;
     // console.log(phoneNumber, name, dob, gender, occupation, profilePic, coverPic)
-    const [latitude,
-        setLatitude] = useState(0);
-    const [longitude,
-        setLongitude] = useState(0);
+    
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
+
     const triggerRegister = ()     => {
-        let payload = {
-            "mobile": uniqueID,
-            "phone": phoneNumber,
-            "name": name,
-            "dob": dob,
-            "gender": gender,
-            "occupation": occupation,
-            "profilePicture": profilePic,
-            "coverPicture": coverPic,
-            "latitude": latitude.toString(),
-            "longitude": longitude.toString(),
-            "interest": ["books"]
-        }
-        console.log("payload", payload)
-        axios.post('http://18.212.184.28:3000/api/login', payload).then((response) => {
-            console.log('response', response.data)
+        navigation.navigate('inviteFriends', {
+            uniqueID: uniqueID,
+            phoneNumber: phoneNumber,
+            name: name, 
+            dob: dob, 
+            gender: gender, 
+            occupation: occupation,
+            profilePic: profilePic,
+            coverPic: coverPic,
+            latitude: latitude.toString(),
+            longitude: longitude.toString()
         })
-        // navigation.navigate('inviteFriends')
     }
     useEffect(() => {
         if (Platform.OS === 'android') {

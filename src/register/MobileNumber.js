@@ -7,13 +7,15 @@ import {
     TextInput,
     Button,
     Alert,
-    PermissionsAndroid
+    PermissionsAndroid,
+    ToastAndroid,
+    Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PhoneInput from 'react-native-phone-number-input';
 import auth from '@react-native-firebase/auth';
-import { useDispatch } from 'react-redux';
-import { login } from '../redux/auth/action';
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const MobileNumber = ({route, navigation}) => {
     const { uniqueID } = route?.params;
@@ -26,7 +28,7 @@ const MobileNumber = ({route, navigation}) => {
   const [deviceIMEI, setDeviceIMEI] = useState();
 
     const phoneInput = useRef(null);
-const dispatch = useDispatch()
+
     const onAuthStateChanged = (user) => {
         console.log('user', user)
         setUser(user);
@@ -43,19 +45,31 @@ const dispatch = useDispatch()
     }, []);
 
     const signInWithPhoneNumber = async(phoneNumber) => {
-        console.log('signInWithPhoneNumber.', phoneNumber);
-        const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-        if(confirmation){
-            setConfirm(confirmation);
-            navigation.navigate('verifyAccount', {
-                uniqueID: uniqueID,
-                screen: 'verifyAccount',
-                number: phoneNumber,
-                getConfirm: confirmation
-            })
-
+        console.log('signInWithPhoneNumber Mbile.', phoneNumber);
+        // auth().signOut();
+        try{
+            const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+            if(confirmation){
+                setConfirm(confirmation);
+                navigation.navigate('verifyAccount', {
+                    uniqueID: uniqueID,
+                    screen: 'verifyAccount',
+                    number: phoneNumber,
+                    getConfirm: confirmation
+                });
+            }
         }
-        console.log('confirmation.', confirmation);
+        catch (e) {
+            console.log(e.message);
+            ToastAndroid.showWithGravityAndOffset(
+                `Request ${e.message}`,
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                height
+              );
+        }
+        // console.log('confirmation.', confirmation);
     }
 
     //   console.log('confirm ===>', confirm)

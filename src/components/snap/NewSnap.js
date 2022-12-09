@@ -11,7 +11,7 @@ import {
 const {height} = Dimensions.get('window');
 import {openPicker} from 'react-native-image-crop-picker';
 import GetLocation from 'react-native-get-location';
-import {addNewPost, updateFields} from '../../redux/Post/actions';
+import {addNewPost, getAllPostsByUserId, updateFields} from '../../redux/Post/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +20,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 const NewSnap = props => {
   const [state, setState] = useState();
+  const authState = useSelector((state)=> state.authState)
   const [pic,setPic] = useState()
   const navigation = useNavigation();
   const [images, setImages] = useState()
@@ -42,10 +43,11 @@ const NewSnap = props => {
     }).then(image => {
       console.log("ma",image);
       setImages(image[0].path)
-      setPic(image)
+      setPic(image[0])
     });
   };
-
+  let newPic = pic==undefined?null:pic
+  console.log("pic", pic, newPic)
   const launchCameraPhoto = () => {
     let options = {
       storageOptions: {
@@ -88,7 +90,7 @@ const NewSnap = props => {
     }).then(image => {
       console.log(image.path);
       setImages(image.path)
-      setPic(image)
+      setPic(image[0])
       console.log("im", images)
     });
   };
@@ -188,13 +190,13 @@ const NewSnap = props => {
             margin: '5%',
             color: '#000',
             // fontWeight: '600'
-          }}>Checked in at {'\b'} <Text style={{fontWeight: 'bold'}}>{location}</Text></Text>
+          }}>Checked in{'\b'} <Text style={{fontWeight: 'bold'}}>{location}</Text></Text>
           :
           null
         }
         {images?
         <Image 
-        source={{uri: images}}
+        source={{uri: images?images: null}}
         style={{alignSelf: 'center', height: 100, width: 100, marginTop: '5%'}}
         />:null
       }
@@ -204,17 +206,17 @@ const NewSnap = props => {
                 <TouchableOpacity
                   style={styles.postButton}
                   onPress={() =>{
-
                     dispatch(
                       addNewPost(
                         postState.inputValues.post,
-                        '6dddae20-5925-11ed-a555-c9afc10124e6',
+                        authState.userId,
                         location,
                         lat,
                         long,
-                        pic
+                        newPic
                       ),
                     )
+                    // dispatch(getAllPostsByUserId(authState.userId))
                     navigation.navigate('snap')
                   }
                   }>

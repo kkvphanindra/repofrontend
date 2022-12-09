@@ -8,14 +8,16 @@ import {
 
 } from 'react-native';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Video from 'react-native-video';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ChatInnerItem = props => {
   const navigation = props.navigation;
+  const authState = useSelector((state)=>state.authState)
   // console.log(props.isSender,"ddd")
-  const authId = "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
+  const authId = authState.userId
   // const userId ="3ac1df80-5a6e-11ed-a871-7d8265a60df7"
 
   const [paused, setPaused] = useState(false);
@@ -42,10 +44,10 @@ const ChatInnerItem = props => {
                 borderBottomLeftRadius: 20,
               }} key={props.key2}>
                 <Text style={styles.senderUsername}>{props.username}</Text>
-                {props.message.includes('jpg') || props.message.includes('png')?
+                {props.message.includes('jpg') || props.message.includes('png') || props.message.includes('jpeg')?
                   // ?
                   <View>
-                    <Image source={{ uri: props.message }} style={{
+                    <Image source={{ uri: props.message ==''? null:props.message }} style={{
                       height: windowHeight / 4, width: windowWidth / 1.7, alignSelf: 'flex-start', margin: 10,
                       // borderTopEndRadius: 20,
                       borderTopRightRadius: 20,
@@ -59,7 +61,7 @@ const ChatInnerItem = props => {
                 {props.message.includes('mp4') ?
                   <View style={{alignContent:'center',alignItems:'center'}}>
                     <Video
-                      source={{ uri: props.message }}
+                      source={{ uri: props.message ==''? null:props.message}}
                       resizeMode='cover'
                       paused={paused}
                       repeat={true}
@@ -80,7 +82,8 @@ const ChatInnerItem = props => {
                   </View>
                   : null}
                 {!props.message.includes('mp4') && !props.message
-                  .includes('jpg') && !props.message.includes('png')?
+                  .includes('jpg') && !props.message
+                  .includes('jpeg') && !props.message.includes('png')?
                   <View>
                     <Text style={styles.senderMessage}>{props.message}</Text>
                   </View> : null
@@ -94,7 +97,7 @@ const ChatInnerItem = props => {
             <View style={styles.messageImageRight}>
               <Image
                 style={{ height: 35, width: 35, borderRadius: 100 / 2, alignSelf: 'center', marginTop: '5%', justifyContent:'center', alignItems:'center'}}
-                source={props.pic} />
+                source={{uri:props.pic==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':props.pic }} />
             </View>
           </View>
         </>
@@ -104,11 +107,11 @@ const ChatInnerItem = props => {
             <View style={styles.messageImage}>
               <Image
                 style={{ height: 35, width: 35, borderRadius: 100 / 2 }}
-                source={props.pic} />
+                source={{uri:props.pic==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':props.pic}} />
             </View>
             <View style={{ flexDirection: 'column' }}>
               <View style={{
-                backgroundColor: props.message.includes('jpg') || props.message.includes('png')|| props.message.includes('mp4') ? '#fff' : '#dbdbdb',
+                backgroundColor: props.message.includes('jpg') || props.message.includes('png')|| props.message.includes('mp4') ||props.message.includes('jpeg')? '#fff' : '#dbdbdb',
                 marginLeft: '2%',
                 marginTop: '3%',
                 padding: 5,
@@ -120,10 +123,10 @@ const ChatInnerItem = props => {
                 borderTopLeftRadius: 20,
               }} key={props.key1}>
                 <Text style={styles.receiverUsername}>{props.username}</Text>
-                {props.message.includes('jpg') || props.message.includes('png') ?
+                {props.message.includes('jpg') || props.message.includes('png') ||props.message.includes('jpeg')?
                   // ?
                   <View>
-                    <Image source={{ uri: props.message }} style={{
+                    <Image source={{ uri: props.message==''?null:props.message }} style={{
                       height: windowHeight / 4, width: windowWidth / 1.7, alignSelf: 'flex-start', margin: 10,
                       borderTopRightRadius: 20,
                       padding: 5,
@@ -137,7 +140,7 @@ const ChatInnerItem = props => {
                   <View>
 
                     <Video
-                      source={{ uri: props.message }}
+                      source={{ uri: props.message==''?null:props.message }}
                       resizeMode='cover'
                       paused={paused}
                       repeat={true}
@@ -157,7 +160,8 @@ const ChatInnerItem = props => {
                   </View>
                   : null}
                 {!props.message.includes('mp4') && !props.message
-                  .includes('jpg') && !props.message.includes('png') ?
+                  .includes('jpg')&& !props.message
+                  .includes('jpeg') && !props.message.includes('png') ?
                   <View>
                     <Text style={styles.receiverMessage}>{props.message}</Text>
                   </View> : null

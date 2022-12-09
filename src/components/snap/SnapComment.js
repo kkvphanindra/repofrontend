@@ -10,9 +10,11 @@ import {
 import React, {useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
-const authId = '6dddae20-5925-11ed-a555-c9afc10124e6';
 const SnapComment = (props) => {
+  const authState = useSelector((state)=>state.authState)
+  const authId = authState.userId;
   const navigation = useNavigation()
   return (
     <View>

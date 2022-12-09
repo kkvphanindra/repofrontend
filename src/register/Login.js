@@ -15,8 +15,10 @@ import {
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { login } from '../redux/auth/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { environment } from '../../environment';
+// import { BASE_URL } from '@env'
+import { login, tokenRetriever } from '../redux/auth/action';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -25,34 +27,39 @@ const LoginComponent = ({navigation}) => {
     const [confirmLogin, setConfirmLogin] = useState(false);
     const [uniqueID, setUniqueID] = useState(false);
     const dispatch = useDispatch()
-
+    const authState = useSelector((state)=> state.authState)
     const phoneNumberValidate = () => {
         requestPermissions();
         if(PermissionsAndroid.RESULTS.GRANTED){
-            console.log("sdsds", PermissionsAndroid.RESULTS.GRANTED);
+            // console.log("sdsds", PermissionsAndroid.RESULTS.GRANTED);
             DeviceInfo.getUniqueId().then((uniqueId) => {
                 console.log('uniqueId',uniqueId);
-                setUniqueID(uniqueId)
-                
-                axios.get('http://18.212.184.28:3000/api/login').then((response) => {
-                    let data = response.data.length;
-                    console.log("data", data);
-                    if(data){
-                        response.data.filter(e => { 
-                            console.log("e.mobile", e.mobile);
-                           if(e.mobile === uniqueId){
-                               setConfirmLogin(false);
-                               navigation.navigate('home')
-                           }
-                           else{
-                               setConfirmLogin(true)
-                           }
-                       })
-                    }
-                    else{
-                        setConfirmLogin(true)
-                    }
-                  })
+                if(uniqueId !== ""){
+                    setUniqueID(uniqueId);
+                    console.log("process.env.BASE_URL", process.env);
+                    axios.get(`${environment.API_URL}/login`).then((response) => {
+                        let data = response.data.length;
+                        console.log("data", data);
+                        if(data){
+                            response.data.filter(e => { 
+                                console.log("e.mobile", e.mobile);
+                               if(e.mobile === uniqueId){
+                                   setConfirmLogin(false);
+                                   navigation.navigate('home')
+                               }
+                               else{
+                                   setConfirmLogin(true)
+                               }
+                           })
+                        }
+                        else{
+                            setConfirmLogin(true)
+                        }
+                    }).catch(err => {
+                        console.log("login Api call error", err);
+                        setConfirmLogin(true);
+                    });
+                }
             })
             
             DeviceInfo.getPhoneNumber().then((phoneNumber) => {
@@ -81,14 +88,15 @@ const LoginComponent = ({navigation}) => {
     useEffect(() => {
         console.log("Login Component");
         phoneNumberValidate();
+        dispatch(tokenRetriever())
     }, []);
     console.log("Login confirmLogin", confirmLogin);
-
+    console.log("process.env", authState.userId)
     return (
         <ImageBackground source={require('../assets/images/login.png')} resizeMode="cover" style={styles.imageContainer}>
             {
                 confirmLogin && 
-                <TouchableOpacity onPress={()=> navigation.navigate('mobileNumber', {uniqueID: uniqueID})} style={styles.textWrapper}>
+                <TouchableOpacity onPress={()=> {authState.userId? navigation.navigate('home'): navigation.navigate('mobileNumber', {uniqueID: uniqueID})}} style={styles.textWrapper}>
                 <Text style={styles.loginText}>Login With Mobile</Text>
                 <Image
                     style={styles.arrow}

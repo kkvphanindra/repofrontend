@@ -12,12 +12,17 @@ import {
     ImageBackground,
     Image
 } from 'react-native';
+import { useDispatch, useSelector } from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import ScheduleHome from './components/schedule-home';
+// import {BASE_URL} from '@env'
 
 const { width, height } = Dimensions.get('window');
 
 const Home = ({navigation}) => {
+    const authState = useSelector((state)=>state.authState)
+    // console.log("process.env", BASE_URL)
+    console.log("ftu",authState.userId)
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}

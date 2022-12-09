@@ -11,11 +11,12 @@ import {
 } from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
 import SnapCommentHeader from '../components/snap/SnapCommentHeader';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import io from 'socket.io-client';
 import ImagePicker from 'react-native-image-crop-picker';
 import SnapComment from '../components/snap/SnapComment';
 import axios from 'axios';
+import { BASE_URL } from '@env'
 var socket, selectedChatCompare;
 
 const CommentSnap = ({navigation, route}) => {
@@ -28,6 +29,7 @@ const CommentSnap = ({navigation, route}) => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
+  const authState = useSelector((state)=> state.authState)
   const [modalVisible, setModalVisible] = useState(false);
   var endPoint = `https://frisles.herokuapp.com`;
   let user = {
@@ -62,21 +64,21 @@ const CommentSnap = ({navigation, route}) => {
       setLoading(true);
       console.log('id', id);
       const response = await axios.get(
-        endPoint + `/api/post-comment/post/${id}`,
+        BASE_URL + `/api/post-comment/post/${id}`,
       );
       console.log('yo yo', response.data);
       setComment(response.data);
       setLoading(false);
 
-      socket.emit('join chat', user.userId);
+      socket.emit('join chat', authState.userId);
     } catch (error) {
       console.log('err', error.message);
       Alert.alert('error');
     }
   };
   useEffect(() => {
-    socket = io(endPoint);
-    socket.emit('setup', user);
+    socket = io(BASE_URL);
+    socket.emit('setup', authState);
     socket.on('connected', () => setSocketConnected(true));
     socket.on('typing', () => setIsTyping(true));
     socket.on('stop typing', () => setIsTyping(false));
@@ -85,8 +87,8 @@ const CommentSnap = ({navigation, route}) => {
   }, []);
   useEffect(() => {
     getCommentByPostId();
-    selectedChatCompare = user;
-  }, [user.userId]);
+    selectedChatCompare = authState;
+  }, [authState.userId]);
   useEffect(() => {
     console.log('new msg', selectedChatCompare);
     socket.on('message recieved', newMessageRecieved => {
@@ -96,7 +98,7 @@ const CommentSnap = ({navigation, route}) => {
       console.log('new msg inside ', newMessageRecieved);
     });
   }, []);
-  var userId = user.userId;
+  var userId = authState.userId;
   const typingHandler = event => {
     setNewComment(event);
     console.log(event);
@@ -104,7 +106,7 @@ const CommentSnap = ({navigation, route}) => {
 
     if (!typing) {
       setTyping(true);
-      socket.emit('typing', user.userId);
+      socket.emit('typing', authState.userId);
     }
     let lastTypingTime = new Date().getTime();
     var timerLength = 3000;
@@ -112,28 +114,28 @@ const CommentSnap = ({navigation, route}) => {
       var timeNow = new Date().getTime();
       var timeDiff = timeNow - lastTypingTime;
       if (timeDiff >= timerLength && typing) {
-        socket.emit('stop typing', user.userId);
+        socket.emit('stop typing', authState.userId);
         setTyping(false);
       }
     }, timerLength);
   };
   var commentData = {
-    firstName: user.firstName,
-    lastName: user.lastName,
-    userId: user.userId,
+    name: authState.name,
+    // lastName: user.lastName,
+    userId: authState.userId,
   };
   const sendMessage = async event => {
     // console.log("event",event.nativeEvent){ userId: "987589785764767686536864657", comment: "nice"}
     if (newComment) {
       // socket.emit('stop typing',id);
-      socket.emit('stop typing', user.userId);
+      socket.emit('stop typing', authState.userId);
       try {
         setNewComment('');
         console.log('cu', id);
         await axios
-          .post(endPoint + `/api/post-comment`, {
+          .post(BASE_URL + `/api/post-comment`, {
             postId: id,
-            userId: user.userId,
+            userId: authState.userId,
             comment: newComment,
           })
           .then(async response => {
@@ -173,11 +175,11 @@ const CommentSnap = ({navigation, route}) => {
           return (
             <>
               <SnapComment
-                send={user.userId}
+                send={authState.userId}
                 pic={{
-                  uri: 'https://i.ibb.co/pyhjCBx/ffd493ff-fe15-4d19-b645-635cadbab9d1.jpg',
+                  uri: item?.users.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item?.users.profilePicture,
                 }}
-                username={item.users.firstName + '\b' + item.users.lastName}
+                username={item.users.name }
                 message={item.comment}
               />
             </>

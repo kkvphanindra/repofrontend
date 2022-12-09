@@ -14,9 +14,10 @@ import {
 const ActivityDetails = ({ route }) => {
      const {activityDetails} = route.params;
     const navigation = useNavigation()
+    const authState = useSelector((state)=>state.authState)
     const activityState = useSelector(state => state.activityState);
     const dispatch = useDispatch();
-    const authId = '3ac1df80-5a6e-11ed-a871-7d8265a60df7';
+    const authId = authState.userId;
     useEffect(() => {
       dispatch(activityByActivityId(activityDetails.id));
     }, [dispatch]);

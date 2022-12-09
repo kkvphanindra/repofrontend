@@ -34,18 +34,19 @@ const data = [
 export default function Chat() {
   const chatState = useSelector(state => state.chatState);
   const navigation = useNavigation()
+  const authState = useSelector((state)=>state.authState)
   const [data, setData] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [privateChat,setPrivatechat]=useState(true)
   const [refresh, setRefresh]=useState(false)
   const dispatch = useDispatch();
-  const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
+  const authId= authState.userId
   useFocusEffect(
     useCallback(()=>{
-      dispatch(getAllChatListByUserId(authId,privateChat, null))
+      dispatch(getAllChatListByUserId(authState.userId,privateChat, null))
     },[dispatch])
     )
-    console.log("ftu",chatState.filteredData)
+    // console.log("ch", chatState.data[0].users[0])
     useEffect(() => {
       if (Platform.OS === 'android') {
         PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
@@ -100,7 +101,7 @@ export default function Chat() {
               <ChatListItem 
                 // id={item.chatId}
                 name={item.chatName}
-                profileUrl={item.users[0].photo}
+                profileUrl={item.users[0].profilePicture}
                 lastMessage={item.lastMessage}
                 time={moment(item.lastMessageTime).format("hh:mm a")}
                 unread={item.unreadMessages}

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   SafeAreaView,
   FlatList,
+  LogBox,
   View,
   ActivityIndicator,
 } from 'react-native';
@@ -51,14 +52,15 @@ const data = [
 const Snap = navigation => {
   const dispatch = useDispatch();
   const postState = useSelector(state => state.postState);
+  const authState = useSelector((state)=>state.authState)
   const activityState = useSelector(state => state.activityState);
   const [groupN, setGroupN] = useState('');
   const [groupId, setGroupId] = useState('');
   const [activityN, setActivityN] = useState('');
-const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
+const authId=authState.userId
   useFocusEffect(
     React.useCallback(() => {
-      dispatch(getAllPostsByUserId('6dddae20-5925-11ed-a555-c9afc10124e6'));
+      dispatch(getAllPostsByUserId(authState.userId));
     }, [dispatch]),
   );
   useEffect(()=>{
@@ -74,16 +76,16 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   const verifyPost = (userId) => {
     dispatch(postVerify(userId,authId))
   }
-  let user = {
-    userId: '6dddae20-5925-11ed-a555-c9afc10124e6',
-    firstName: 'Danish',
-    lastName: 'ali',
-    photo: 'https://i.ibb.co/pyhjCBx/ffd493ff-fe15-4d19-b645-635cadbab9d1.jpg',
-    countryCode: '91',
-    phoneNumber: '7439240134',
-    createdAt: '2022-10-31T14:08:01.029Z',
-    updatedAt: '2022-11-03T05:37:14.544Z',
-  };
+  // let user = {
+  //   userId: '6dddae20-5925-11ed-a555-c9afc10124e6',
+  //   firstName: 'Danish',
+  //   lastName: 'ali',
+  //   photo: 'https://i.ibb.co/pyhjCBx/ffd493ff-fe15-4d19-b645-635cadbab9d1.jpg',
+  //   countryCode: '91',
+  //   phoneNumber: '7439240134',
+  //   createdAt: '2022-10-31T14:08:01.029Z',
+  //   updatedAt: '2022-11-03T05:37:14.544Z',
+  // };
   // useEffect(() => {
   //     dispatch(getAllPostsByUserId("b62f35c0-17ff-11ed-929f-0bfbd7529461"));
   // }, [dispatch]);
@@ -94,12 +96,12 @@ const authId="6dddae20-5925-11ed-a555-c9afc10124e6"
   //     });
   //     return unsubscribe;
   //   }, [navigation]);
-console.log("dat", postState.data[0])
+// console.log("dat", postState.data[0])
   const renderPostItem = item => {
     return (
       <PostItem
         id={item.id}
-        name={item.firstName + '\b' +  item.lastName}
+        name={item.name}
         follow={()=>console.log("follow back")}
         hidePost={()=>hidePost(item.id)}
         savePost={()=>savePost(item?.id)}
@@ -110,7 +112,7 @@ console.log("dat", postState.data[0])
         genuine={item.genuine}
         groupName='@FunTogether'
         message={item.description}
-        profilePic={{uri:user.photo}}
+        profilePic={{uri:authState.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':authState.profilePicture}}
         postText={item.description}
         image={{uri:item.images}}
         // photo={{uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png'}}

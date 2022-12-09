@@ -28,7 +28,7 @@ const ContactList = (props) => {
     return false;
   };
   const {item, onPress} = props;
-  console.log("item", chatState.contacts)
+  // console.log("item", chatState.contacts)
   // let arr = [];
   // for (let i = 0; i < contacts.length; i++) {
   //   const element = contacts[i];
@@ -63,6 +63,9 @@ const ContactList = (props) => {
                 }>{`${item.givenName} ${item.familyName}`}</Text>
             </View>
           </View>
+        <TouchableOpacity style={styles.invite}>
+          <Text style={styles.inviteText}>Invite</Text>
+        </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </View>
@@ -74,19 +77,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     minHeight: 44,
     height: 63,
+    // backgroundColor: 'red'
   },
   leftElementContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 2,
-    paddingLeft: 13,
+    // flex: 2,
+    paddingLeft: 10,
+    // backgroundColor: 'pink'
   },
   rightSectionContainer: {
-    marginLeft: 18,
+    marginLeft: '2%',
     flexDirection: 'row',
-    flex: 20,
+    width: '67%',
+    // flex: 20,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#515151',
+    // backgroundColor: 'yellow'
   },
   mainTitleContainer: {
     justifyContent: 'center',
@@ -96,6 +103,21 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 16,
     color: '#000'
+  },
+  invite: {
+    backgroundColor: '#5d6aff',
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderRadius: 5,
+    // justifyContent: 'flex-end',
+    alignSelf: 'center',
+    // alignContent: 'flex-end',
+    // alignItems: 'flex-end',
+    // margin: '5%'
+  },
+  inviteText: {
+    fontSize: 14,
+    color: '#fff',
   },
 });
  

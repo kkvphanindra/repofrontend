@@ -14,6 +14,7 @@ import {
   FILTER
 } from "./actionTypes";
 import io from 'socket.io-client'
+import {BASE_URL} from '@env'
 import { getAllMessageByChatId } from "../Message/actions";
 var socket, selectedChatCompare;
 
@@ -76,7 +77,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
       console.log("chat", privateChat, id, groupChat)
       if (privateChat === true) {
         const response = await axios.get(
-          `https://frisles.herokuapp.com/api/chat/list/user/${id}?isPrivateList=${privateChat}`,
+          BASE_URL+`/api/chat/list/user/${id}?isPrivateList=${privateChat}`,
         );
         if (response.status) {
           dispatch(reqSuccess(response.data));
@@ -86,7 +87,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
       }
       else if (groupChat === true) {
         const response = await axios.get(
-          `https://frisles.herokuapp.com/api/chat/list/user/${id}?isGroupList=true`,
+          BASE_URL+`/api/chat/list/user/${id}?isGroupList=true`,
         );
         if (response) {
           dispatch(reqSuccess(response.data));
@@ -96,7 +97,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
       }
     } catch (err) {
       console.log('REQUEST FAILED');
-      console.log(err.response.status); clearChat
+      console.log(err.message); clearChat
       dispatch(reqFailure(err.message));
     }
   };
@@ -108,7 +109,7 @@ export const  getContact = (arr) => {
     try {
       console.log("arr at action", arr)
       const response = await axios.post(
-        `https://frisles.herokuapp.com/api/user/list/details`,
+        BASE_URL+`/api/user/list/details`,
         {
           contacts: arr
         },
@@ -130,7 +131,7 @@ export const groupCreate = (chatName, userChat) => {
     try {
       console.log("arr at action", chatName, userChat)
       const response = await axios.post(
-        `https://frisles.herokuapp.com/api/chat?userId=3ac1df80-5a6e-11ed-a871-7d8265a60df7`,
+        BASE_URL+`/api/chat?userId=3ac1df80-5a6e-11ed-a871-7d8265a60df7`,
         {
           chatName: chatName,
           isGroupChat: true,
@@ -154,7 +155,7 @@ export const getGroupDetailsbyChatId = (id) => {
     try {
       console.log("group chat", id)
       const response = await axios.get(
-        `https://frisles.herokuapp.com/api/chat/${id}/details`,
+        BASE_URL+`/api/chat/${id}/details`,
       );
       if (response.status) {
         dispatch(groupByChatId(response.data));
@@ -174,7 +175,7 @@ export const exitGroupChat = (chatId, authId) => {
     dispatch(req());
     try {
       const response = await axios.delete(
-        `https://frisles.herokuapp.com/api/chat/${chatId}/user/${authId}/exit`,
+        BASE_URL+`/api/chat/${chatId}/user/${authId}/exit`,
       );
       if (response.status) {
         dispatch(exitGroup(response.data));
@@ -194,7 +195,7 @@ export const clearMessages = (chatId) => {
     dispatch(req());
     try {
       const response = await axios.delete(
-        `https://frisles.herokuapp.com/api/chat/${chatId}/clear`,
+        BASE_URL+`/api/chat/${chatId}/clear`,
       );
       if (response.status) {
         dispatch(clearChat(response.data));

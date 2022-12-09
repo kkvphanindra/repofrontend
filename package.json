@@ -11,6 +11,7 @@
     "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/datetimepicker": "^6.3.2",
     "@react-native-community/geolocation": "^2.1.0",
     "@react-native-community/viewpager": "^5.0.11",
@@ -35,7 +36,9 @@
     "react-native-calendar-picker": "^7.1.2",
     "react-native-confirmation-code-field": "^7.3.0",
     "react-native-contacts": "^7.0.5",
+    "react-native-countdown-component": "^2.7.1",
     "react-native-device-info": "^10.3.0",
+    "react-native-dotenv": "^3.4.6",
     "react-native-dropdown-picker": "^5.4.3",
     "react-native-dropdown-select-list": "^1.0.23",
     "react-native-dynamic-search-bar": "^2.0.2",
@@ -44,6 +47,7 @@
     "react-native-geolocation-service": "^5.3.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-get-location": "^2.2.1",
+    "react-native-get-sms-android": "^2.1.0",
     "react-native-image-base64": "^0.1.4",
     "react-native-image-crop-picker": "^0.38.1",
     "react-native-image-picker": "^4.10.0",

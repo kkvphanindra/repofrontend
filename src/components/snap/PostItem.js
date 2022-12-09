@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 const {height} = Dimensions.get('window');
 import OptionsMenu from 'react-native-option-menu';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {addPostLike, postShare} from '../../redux/Post/actions';
 import LoadingComponet from './LoadingComponent';
 import SnapComment from './SnapComment';
@@ -79,6 +79,7 @@ const PostItem = props => {
   const [recordSecs, setRecordSecs] = useState(0);
   const [recordTime, setRecordTime] = useState('00:00:00');
   const [started, setStarted] = useState(false)
+  const authState = useSelector((state)=> state.authState)
   var endPoint = `https://frisles.herokuapp.com`;
   const heart = true;
   const comment = true;
@@ -108,7 +109,7 @@ const PostItem = props => {
           // console.log("shr", result)
         } else {
           // shared
-          sharePost(id, user.userId)
+          sharePost(id, authState.userId)
         }
       } else if (result.action === Share.dismissedAction) {
         // dismissed
@@ -118,7 +119,7 @@ const PostItem = props => {
     }
   };
   const sharePost = (postId) => {
-dispatch(postShare(postId,user.userId ))
+dispatch(postShare(postId,authState.userId ))
   }
   const [id, setId] = useState('');
   const launchCameraPhoto = () => {
@@ -207,7 +208,7 @@ dispatch(postShare(postId,user.userId ))
               <View style={styles.postHeadingImageAndInfo}>
                 <View style={styles.postHeadingImage}>
                   <Image
-                    source={props.profilePic}
+                    source={props.profilePic?props.profilePic: 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'}
                     style={styles.postImage}
                   />
                 </View>
@@ -279,7 +280,7 @@ dispatch(postShare(postId,user.userId ))
                       dispatch(
                         addPostLike(
                           props.id,
-                          '6dddae20-5925-11ed-a555-c9afc10124e6',
+                          authState.userId,
                         ),
                       )
                     }

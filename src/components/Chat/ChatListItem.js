@@ -38,7 +38,10 @@ const navigation = useNavigation()
                     <Image style={styles.profileImage}
                         source={{
                             uri:
+                                props.profileUrl?
                                 props.profileUrl
+                                :
+                                'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
                         }} />
                     {props.isOnline ?
                         <View style={styles.isOnline} />

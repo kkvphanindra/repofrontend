@@ -16,6 +16,7 @@ import {
   DELETE_ACTIVITY,
   USER_STATUS,
 } from './actionTypes';
+import { BASE_URL } from '@env'
 
 export const req = () => {
   console.log('started activity');
@@ -85,7 +86,8 @@ export const getAllActivityByUserId = (today, week, month, year) => {
       // console.log("week", today,week,month)
       if (today === true) {
         const response = await axios.get(
-          `https://frisles.herokuapp.com/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?today=${today}`,
+          BASE_URL+
+          `/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?today=${today}`,
         );
         if (response.status) {
           dispatch(ActivityByUserId(response.data));
@@ -93,7 +95,8 @@ export const getAllActivityByUserId = (today, week, month, year) => {
         }
       } else if (week === true) {
         const response = await axios.get(
-          `https://frisles.herokuapp.com/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?week=${week},`,
+          BASE_URL+
+          `/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?week=${week},`,
         );
         if (response) {
           dispatch(ActivityByUserId(response.data));
@@ -101,7 +104,7 @@ export const getAllActivityByUserId = (today, week, month, year) => {
         }
       } else if (month === true) {
         const response = await axios.get(
-          `https://frisles.herokuapp.com/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?month=${month},`,
+          BASE_URL+`/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?month=${month},`,
         );
         if (response) {
           dispatch(ActivityByUserId(response.data));
@@ -109,7 +112,7 @@ export const getAllActivityByUserId = (today, week, month, year) => {
         }
       } else if (year === true) {
         const response = await axios.get(
-          `https://frisles.herokuapp.com/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?month=${year},`,
+          BASE_URL+`/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?month=${year},`,
         );
         if (response) {
           dispatch(ActivityByUserId(response.data));
@@ -124,49 +127,11 @@ export const getAllActivityByUserId = (today, week, month, year) => {
   };
 };
 
-export const newActivity = data => {
-  return async dispatch => {
-    dispatch(req());
-    // console.log(accessToken)
-    // console.log("product actions", _id)
-    try {
-      const response = await axios.post(
-        // STOREURL +
-        `http://byit-be-store.herokuapp.com/api/product`,
-        {
-          startDate: data.startDate,
-          endDate: data.endDate,
-          startTime: data.startTime,
-          endTime: data.endTime,
-          activityName: data.activityName,
-          assignTo: data.assignTo,
-          groupName: data.groupName,
-          users: data.users,
-          message: data.message,
-        },
-        // {
-        //     headers: { Authorization: 'Bearer ' + accessToken },
-        // },
-      );
-      console.log(response.data);
-      if (response) {
-        // console.log('COMPLETE RESPONSE DATA:', response.data)
-        console.log('else if', response.data);
-        dispatch(newActivityByUserId(response.data));
-      }
-    } catch (err) {
-      console.log('Request failed');
-      console.log(err.message);
-      dispatch(reqFailure(err.message));
-    }
-  };
-};
-
 export const activityByActivityId = id => {
   return async dispatch => {
     try {
       const response = await axios.get(
-        `https://frisles.herokuapp.com/api/activity/${id}`,
+        BASE_URL+`/api/activity/${id}`,
       );
       if (response.status) {
         dispatch(getActivityDetailsByactivityId(response.data));
@@ -184,7 +149,7 @@ export const activityName = () => {
   return async dispatch => {
     try {
       const response = await axios.get(
-        `https://frisles.herokuapp.com/api/activity-type`,
+        BASE_URL+`/api/activity-type`,
       );
       if (response.status) {
         dispatch(getActivityName(response.data));
@@ -203,7 +168,7 @@ export const groupName = () => {
   return async dispatch => {
     try {
       const response = await axios.get(
-        `https://frisles.herokuapp.com/api/chat/group`,
+        BASE_URL+`/api/chat/group`,
       );
       if (response.status) {
         dispatch(getGroupName(response.data));
@@ -222,7 +187,7 @@ export const UsersByGroupId = id => {
   return async dispatch => {
     try {
       const response = await axios.get(
-        `https://frisles.herokuapp.com/api/chat/${id}/user`,
+        BASE_URL+`/api/chat/${id}/user`,
       );
       if (response.status) {
         dispatch(getAllUsersByGroupId(response.data));
@@ -245,7 +210,7 @@ export const startTime = (startTime, activityId, startId) => {
     try {
       const response = await axios.post(
         // STOREURL +
-        `https://frisles.herokuapp.com/api/activity/${activityId}/user/${startId}`,
+        BASE_URL+`/api/activity/${activityId}/user/${startId}`,
         {
           startedTime: startTime,
         },
@@ -272,7 +237,7 @@ export const endTime = (endTime, activityId, endId) => {
     try {
       const response = await axios.put(
         // STOREURL +
-        `https://frisles.herokuapp.com/api/activity/${activityId}/user/${endId}`,
+        BASE_URL+`/api/activity/${activityId}/user/${endId}`,
         {
           endedTime: endTime,
         },
@@ -297,7 +262,7 @@ export const deleteActivityByActivityId = (status,activityId) => {
     console.log('delete activity',activityId)
     try {
       const response = await axios.put(
-        `https://frisles.herokuapp.com/api/activity/${activityId}`,
+        BASE_URL+`/api/activity/${activityId}`,
         {
           isActive: status
         }
@@ -323,8 +288,8 @@ export const userStatusByactivityId = (status, activityId, userId) => {
     // console.log("product actions", _id)
     try {
       const response = await axios.put(
-        // STOREURL +
-        `https://frisles.herokuapp.com/api/activityAndUserStatus/activity/${activityId}/user/${userId}`,
+        BASE_URL +
+        `/api/activityAndUserStatus/activity/${activityId}/user/${userId}`,
         {
           status: status,
         },

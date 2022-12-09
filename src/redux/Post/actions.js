@@ -16,7 +16,7 @@ import {
     POSTGENUINE
 } from './actionTypes';
 import axios from 'axios';
-
+import { BASE_URL} from '@env'
 
 export const req = () => {
     console.log('started');
@@ -94,7 +94,7 @@ export const getAllPostsByUserId = (id) => {
         dispatch(req());
         try {
             const response = await axios.get(
-                `https://frisles.herokuapp.com/api/post/user/${id}`
+                BASE_URL+`/api/post/user/${id}`
             )
             if (response.status) {
                 dispatch(reqSuccess(response.data));
@@ -115,7 +115,7 @@ export const getAllPostsByUserId = (id) => {
 export const addNewPost = (post, userId, location, lat, long, image) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log("add new post", post, userId, lat, long, image)
+        console.log("add new post", post, userId, lat, long,image)
         try {
             const formData = new FormData();
             formData.append('description', post)
@@ -123,13 +123,13 @@ export const addNewPost = (post, userId, location, lat, long, image) => {
             formData.append('location', location)
             formData.append('latitude', lat)
             formData.append('longitude', long)
-            formData.append('images', {
-                uri: image[0].path,
-                type: image[0].mime,
-                name: image[0].filename || `filename${image.size}.jpg`,
-            });
+            formData.append('images', image!==null?{
+                uri: image.path==null?null:image.path,
+                type: image.mime|| null,
+                name: image.filename || `filename${image.size}.jpg`,
+            }:null);
             const response = await axios.post(
-                `https://frisles.herokuapp.com/api/post`,
+                BASE_URL+`/api/post`,
                 formData,
                 {
                     headers: {
@@ -165,7 +165,7 @@ export const addPostLike = (postId, userId) => {
         console.log(postId, userId)
         try {
             const response = await axios.post(
-                `https://frisles.herokuapp.com/api/post-likes/${userId}`,
+                BASE_URL+`/api/post-likes/${userId}`,
                 {
                     userId: userId,
                     postId: postId
@@ -199,7 +199,7 @@ export const postHide = (post, userId) => {
         console.log(post, userId)
         try {
             const response = await axios.post(
-                `https://frisles.herokuapp.com/api/post/${post}/user/${userId}`,
+                BASE_URL+`/api/post/${post}/user/${userId}`,
                 {
                     isHide: true
                 }
@@ -224,7 +224,7 @@ export const postSave = (post, userId) => {
         console.log(post, userId)
         try {
             const response = await axios.post(
-                `https://frisles.herokuapp.com/api/post/${post}/user/${userId}`,
+                BASE_URL+`/api/post/${post}/user/${userId}`,
                 {
                     isSave: true
                 }
@@ -249,7 +249,7 @@ export const postShare = (post, userId) => {
         console.log(post, userId)
         try {
             const response = await axios.post(
-                `https://frisles.herokuapp.com/api/post-share`,
+                BASE_URL+`/api/post-share`,
                 {
                     postId: post,
                     userId: userId
@@ -275,7 +275,7 @@ export const postVerify = (user, userId) => {
         console.log(user, userId)
         try {
             const response = await axios.post(
-                `https://frisles.herokuapp.com/api/verify/user/${userId}`,
+                BASE_URL+`/api/verify/user/${userId}`,
                 {
                     verifiedTo: user,
                 }
@@ -300,7 +300,7 @@ export const postGenuine = (user, userId) => {
         console.log(user, userId)
         try {
             const response = await axios.get(
-                `https://frisles.herokuapp.com/api/verify/user/${userId}`,
+                BASE_URL+`/api/verify/user/${userId}`,
             )
             if (response) {
                 console.log("post share action log", response.data)

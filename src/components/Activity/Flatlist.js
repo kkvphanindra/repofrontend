@@ -39,12 +39,13 @@ const Flatlist = ({data}) => {
   const [secondsLeft, setSecondsLeft] = useState();
   const [status, setStatus] = useState(false);
   const [month, setMonth] = useState(true);
+  const authState = useSelector((state)=>state.authState)
   const activityState = useSelector(state => state.activityState);
   let s = new Date();
   let startedTime = s.toISOString();
   let e = new Date();
   let endedTime = e.toISOString();
-  let id = '3ac1df80-5a6e-11ed-a871-7d8265a60df7';
+  let id = authState.userId;
   const [started, setStarted] = useState(startedTime);
   const [ended, setEnded] = useState(endedTime);
   const [timerOn, setTimerOn] = useState(false);

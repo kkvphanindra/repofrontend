@@ -70,10 +70,11 @@ const data = [
 
 export default function GroupDetails({ navigation, route }) {
   const { chatId } = route.params;
+  const authState = useSelector((state)=>state.authState)
   const chatState = useSelector((state) => state.chatState)
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
+const authId= authState.userId
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGroupDetailsbyChatId(chatId));
@@ -226,8 +227,8 @@ const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
                             <View>
                               <Image
                                 source={{
-                                  uri: item?.photo
-                                    ? item?.photo
+                                  uri: item?.profilePicture
+                                    ? item?.profilePicture
                                     : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
                                 }}
                                 style={{
@@ -248,7 +249,7 @@ const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
                                   marginLeft: '5%',
                                   color: '#000',
                                 }}>
-                                {item?.firstName + '\b' + item?.lastName}
+                                {item?.name}
                               </Text>
                               <Text
                                 style={{
@@ -256,7 +257,7 @@ const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
                                   marginLeft: '5%',
                                   color: '#000',
                                 }}>
-                                {item?.phoneNumber}
+                                {item?.phone}
                               </Text>
                             </View>
                             <View

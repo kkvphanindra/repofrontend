@@ -2,6 +2,7 @@ export const RETRIEVE_TOKEN = 'RETRIEVE_TOKEN';
 export const REQ = 'REQ';
 export const REQ_SUCCESS = 'REQ_SUCCESS';
 export const REQ_FAILURE = 'REQ_FAILURE';
+export const REQ_TOKEN = 'REQ_TOKEN';
 export const REGISTER_REQ = 'REGISTER_REQ,';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS,';
 export const SET_NEW_AUTH_TOKEN = 'SET_NEW_AUTH_TOKEN';

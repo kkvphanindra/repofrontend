@@ -16,12 +16,13 @@ import ChatHeader from '../components/Chat/ChatHeader';
 import ImagePicker from 'react-native-image-crop-picker';
 // import { getAllMessageByChatId } from '../redux/Chat/actions'
 import {useEffect, useRef} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import axios from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
 import io from 'socket.io-client';
 import moment from 'moment';
+import {BASE_URL} from '@env'
 // import EmojiBoard from 'react-native-emoji-board'
 var socket, selectedChatCompare;
 
@@ -29,6 +30,7 @@ const ChatSingle = ({navigation, route}) => {
   const {chat, authId} = route.params;
   const dispatch = useDispatch();
   const [video, setVideo] = useState('')
+  const authState = useSelector((state)=>state.authState)
   const scrollViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -58,8 +60,8 @@ const ChatSingle = ({navigation, route}) => {
       setVideo(video);
       sendMessage(video);
     });
-    // console.log("launch cam", video)
   };
+  console.log("launch cam", authState.name, authState)
   let user = {
     userId: '3ac1df80-5a6e-11ed-a871-7d8265a60df7',
     firstName: 'Andalib',
@@ -79,7 +81,7 @@ const ChatSingle = ({navigation, route}) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        endPoint + `/api/message/chat/${chat.chatId}?userId=${authId}`,
+        BASE_URL + `/api/message/chat/${chat.chatId}?userId=${authId}`,
       );
       // console.log("yo yo", response.data)
       setMessages(response.data);
@@ -93,7 +95,7 @@ const ChatSingle = ({navigation, route}) => {
   };
   useEffect(() => {
     socket = io(endPoint);
-    socket.emit('setup', user);
+    socket.emit('setup', authState);
     socket.on('connected', () => setSocketConnected(true));
     socket.on('typing', () => setIsTyping(true));
     socket.on('stop typing', () => setIsTyping(false));
@@ -164,17 +166,18 @@ const ChatSingle = ({navigation, route}) => {
         //   });
         // });
         await axios
-          .post(endPoint + `/api/message/chat/${chat.chatId}/user/${authId}`, {
+          .post(BASE_URL + `/api/message/chat/${chat.chatId}/user/${authId}`, {
             content: newMessage,
             createdAt: moment().toISOString(),
-            firstName: user.firstName,
-            lastName: user.lastName,
-            photo: user.photo,
+            // firstName: user.firstName,
+            // lastName: user.lastName,
+            name: authState.name,
+            profilePicture: authState.profilePicture,
           })
           .then(async response => {
             if (response.status == 200) {
               // console.log("re", messages)
-              console.log(response.data);
+              console.log("res",response.data);
               await socket.emit('new message', response.data);
 
               // await messages.push(response.data)
@@ -188,7 +191,7 @@ const ChatSingle = ({navigation, route}) => {
     }
     else if (video) {
       socket.emit('stop typing', chat.chatId);
-      console.log("before try")
+      console.log("before try",video)
       try {
         // console.log('form data',formData);
         setNewMessage('');
@@ -202,11 +205,12 @@ const ChatSingle = ({navigation, route}) => {
           });
         // });
         formData.append('createdAt',moment().toISOString())
-        formData.append('firstName', user.firstName)
-        formData.append('lastName', user.lastName)
-        formData.append('photo',user.photo)
+        // formData.append('firstName', user.firstName)
+        // formData.append('lastName', user.lastName)
+        formData.append('photo',authState.profilePicture)
+        formData.append('name', authState.name)
         await axios
-          .post(endPoint + `/api/message/chat/${chat.chatId}/user/${authId}`, 
+          .post(BASE_URL + `/api/message/chat/${chat.chatId}/user/${authId}`, 
           formData,
           {
             headers: {
@@ -227,7 +231,7 @@ const ChatSingle = ({navigation, route}) => {
             }
           });
       } catch (error) {
-        console.log('error at send message', error);
+        console.log('error at send message', error.message);
         Alert.alert('error of send message');
       }
     }
@@ -242,7 +246,7 @@ const ChatSingle = ({navigation, route}) => {
       <ChatHeader
         profilePic={{uri: chat.users[0].photo}}
         name={chat.chatName}
-        number={chat.users[0].phoneNumber}
+        number={chat.users[0].phone}
         navigation={navigation}
       />
       <ScrollView
@@ -257,8 +261,9 @@ const ChatSingle = ({navigation, route}) => {
                 send={item?.data?.userId}
                 navigation={navigation}
                 isSender={item?.isSender}
-                pic={{uri: item?.data?.photo}}
-                username={item?.data?.firstName + '\b' + item?.data?.lastName}
+                pic={item?.data?.profilePicture}
+                // username={item?.data?.firstName + '\b' + item?.data?.lastName}
+                username={item?.data?.name}
                 message={item?.data?.content}
                 time={moment(item?.data?.createdAt).format('hh:mm a')}
               />
@@ -308,7 +313,7 @@ const ChatSingle = ({navigation, route}) => {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.emoticon}
             onPress={() => sendMessage()}>
             <Feather
@@ -317,7 +322,7 @@ const ChatSingle = ({navigation, route}) => {
               color="#5d6afe"
               // style={styles.emoticon} onPress={()=> sendMessage()}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </View>

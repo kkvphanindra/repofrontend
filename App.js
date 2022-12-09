@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  LogBox,
   Image,
   Settings
 } from 'react-native';
@@ -55,13 +56,13 @@ import AllContacts from './src/chat/AllContacts'
 import GroupDetails from './src/chat/GroupDetails'
 import CallNow from './src/chat/CallNow'
 import Setting from './src/notification/settings';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import store from './src/redux/store';
 import SettingNotifications from './src/notification/notification';
 import Snap from './src/snap/snap'
 import SnapDetails from './src/snap/snapDetails'
 import CommentSnap from './src/snap/commentSnap';
-
+import { tokenRetriever } from './src/redux/auth/action';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -194,6 +195,7 @@ drawerLabel: 'Home'
 }
 
 const App = () => {
+  LogBox.ignoreLogs(['source.uri should not be an empty string','code']);
   return (
     <Provider store={store}>
     <NavigationContainer>

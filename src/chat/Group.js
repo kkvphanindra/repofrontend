@@ -10,12 +10,13 @@ import Contacts from 'react-native-contacts';
 import moment from 'moment';
 
 export default function Group({navigation}) {
+  const authState=useSelector((state)=>state.authState)
   const chatState = useSelector(state => state.chatState);
   const [data, setData] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [groupChat, setGroupchat] = useState(true);
   const dispatch = useDispatch();
-const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
+const authId= authState.userId
   useFocusEffect(
     useCallback(() => {
       if (navigation.isFocused()) {
@@ -24,7 +25,7 @@ const authId= "3ac1df80-5a6e-11ed-a871-7d8265a60df7"
         // console.log("before hook today", today)
         dispatch(
           getAllChatListByUserId(
-            '3ac1df80-5a6e-11ed-a871-7d8265a60df7',
+            authState.userId,
             null,
             groupChat,
           ),

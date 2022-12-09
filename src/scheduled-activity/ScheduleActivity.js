@@ -11,18 +11,6 @@ import StackHeader from '../components/Activity/StackHeader';
 import ScheduleActivityGroupMemberSelect from '../components/Activity/ScheduleActivityGroupMemberSelect';
 import { useNavigation } from '@react-navigation/native';
 
-const activityDetails = 
-  {
-    id: 1,
-    title: 'Walking',
-    time: '07:00 - 07:15',
-    location: 'Oxford Street',
-    selected: false,
-    pic: [
-      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-    ],
-  }
 const ScheduleActivity = ({route}) => {
   const { data } = route.params
   const navigation = useNavigation()
@@ -31,7 +19,7 @@ const ScheduleActivity = ({route}) => {
     try {
       let result = await axios
       .post(
-      `https://frisles.herokuapp.com/api/activity`,
+      BASE_URL+`/api/activity`,
         {
           startDate: data.startDate,
           endDate: data.endDate,

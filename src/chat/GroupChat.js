@@ -10,6 +10,7 @@ import io from 'socket.io-client'
 import moment from 'moment';
 import Feather from 'react-native-vector-icons/Feather'
 var socket, selectedChatCompare;
+import {BASE_URL} from '@env'
 
 const data = [
   {
@@ -29,6 +30,7 @@ const GroupChat = ({ navigation, route }) => {
   const { group, authId } = route.params
   const chatState = useSelector((state) => state.chatState)
   const dispatch = useDispatch()
+  const authState = useSelector((state)=> state.authState)
   const [video, setVideo] = useState('')
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -73,7 +75,7 @@ const GroupChat = ({ navigation, route }) => {
 
       setLoading(true);
       const response = await axios.get(
-        endPoint +
+       BASE_URL +
         `/api/message/chat/${group.chatId}?userId=${authId}`,
       );
       console.log("res", response.data)
@@ -87,8 +89,8 @@ const GroupChat = ({ navigation, route }) => {
     }
   };
   useEffect(() => {
-    socket = io(endPoint);
-    socket.emit("setup", user);
+    socket = io(BASE_URL);
+    socket.emit("setup", authState);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
@@ -148,14 +150,15 @@ const GroupChat = ({ navigation, route }) => {
       try {
         setNewMessage("");
         await axios.post(
-          endPoint +
+          BASE_URL +
           `/api/message/chat/${group.chatId}/user/${authId}`,
           {
             content: newMessage,
             createdAt: moment().toISOString(),
-            firstName: user.firstName,
-            lastName: user.lastName,
-            photo: user.photo
+            // firstName: user.firstName,
+            // lastName: user.lastName,
+            name: authState.name,
+            profilicture: authState.profilePicture
           },
         ).then(async (response) => {
           if (response.status == 200) {
@@ -190,11 +193,11 @@ const GroupChat = ({ navigation, route }) => {
         });
         // });
         formData.append('createdAt', moment().toISOString())
-        formData.append('firstName', user.firstName)
-        formData.append('lastName', user.lastName)
-        formData.append('photo', user.photo)
+        formData.append('photo', authState.profilePicture)
+        formData.append('name', authState.name)
+        // formData.append('lastName', user.lastName)
         await axios
-          .post(endPoint + `/api/message/chat/${group.chatId}/user/${authId}`,
+          .post(BASE_URL + `/api/message/chat/${group.chatId}/user/${authId}`,
             formData,
             {
               headers: {
@@ -224,10 +227,9 @@ const GroupChat = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <ChatHeader
-
         name={group.chatName}
         profilePic={{ uri: group.groupPhoto }}
-        number={group.users.map((i) => i.phoneNumber + ",")}
+        number={group.users.map((i) => i.phone + ",")}
         navigation={navigation}
         onPressName={() => navigation.navigate('groupDetails', { chatId: group.chatId })}
       />
@@ -240,8 +242,9 @@ const GroupChat = ({ navigation, route }) => {
               // receiverMessage={item?.data?.content}
               send={item?.data?.userId}
               isSender={item?.isSender}
-              pic={{ uri: item?.data?.photo }}
-              username={item?.data?.firstName + '\b' + item?.data?.lastName}
+              pic={item?.data?.profilePicture }
+              // username={item?.data?.firstName + '\b' + item?.data?.lastName}
+              username={item?.data?.name}
               message={item?.data?.content}
               time={moment(item?.data?.createdAt).format("hh:mm a")}
             />
@@ -270,11 +273,11 @@ const GroupChat = ({ navigation, route }) => {
               style={{ height: 27, width: 27, marginTop: '19%', marginLeft: '7%', }}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.emoticon} onPress={() => sendMessage()}>
+          {/* <TouchableOpacity style={styles.emoticon} onPress={() => sendMessage()}>
             <Feather name='send' size={22} color='#5d6afe'
             // style={styles.emoticon} onPress={()=> sendMessage()}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </View>

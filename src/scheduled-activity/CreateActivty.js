@@ -65,6 +65,7 @@ const CreateActivty = ({navigation}) => {
   ]);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const authState = useSelector((state)=> state.authState)
   const [timerModalVisible, setTimerModalVisible] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState();
   const [selectedEndDate, setSelectedEndDate] = useState();
@@ -102,7 +103,7 @@ const CreateActivty = ({navigation}) => {
   const onClose = () => {
     setVisible(false);
   };
-    var id = '3ac1df80-5a6e-11ed-a871-7d8265a60df7';
+    var id = authState.userId;
   LocationIQ.init('pk.9258ab5f6e3604f3f0a08054a0b92c48');
 
   const getCurrentPosition = () => {
@@ -381,7 +382,7 @@ const CreateActivty = ({navigation}) => {
         </TouchableOpacity>
         <Modal
           animationType="slide"
-          transparent={true}
+          // transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
