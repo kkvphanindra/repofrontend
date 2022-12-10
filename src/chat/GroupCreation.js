@@ -24,10 +24,12 @@ import { ar, fi } from 'date-fns/locale';
 
 const GroupCreation = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const authState = useSelector((state)=>state.authState)
   const chatState = useSelector(state => state.chatState);
   const [res, setRes] = useState(chatState.contacts);
   const [groupName, setGroupName] = useState('')
-  const [selectedName, setSelectedName] = useState(['3ac1df80-5a6e-11ed-a871-7d8265a60df7']);
+  const [selectedName, setSelectedName] = useState([authState.name]);
+  const [number, setNumber] = useState([authState.userId])
   const [filteredData, setFilteredData] = useState(chatState.contacts);
   const [serachText, setSearchText] = useState('');
   const [name, setName] = useState([])
@@ -44,8 +46,8 @@ const GroupCreation = ({navigation}) => {
       // Filter the masterDataSource and update FilteredDataSource
       const newData = res.filter(function (item) {
         // Applying filter for the inserted text in search bar
-        const itemData = item.firstName
-          ? item.firstName.toUpperCase()
+        const itemData = item.name
+          ? item.name.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -71,10 +73,11 @@ const GroupCreation = ({navigation}) => {
     }
   };
   const onSubmit = ()=>{
-    dispatch(groupCreate(groupName,selectedName))
+    dispatch(groupCreate(groupName,number, authState.userId))
+    navigation.navigate('Group')
   }
 
-  console.log('changed', selectedName);
+  // console.log('changed', selectedName,number);
   // console.log('chatstate', chatState.contacts);
   return (
     <View style={styles.container}>
@@ -192,8 +195,8 @@ const GroupCreation = ({navigation}) => {
                       <View>
                         <Image
                           source={{
-                            uri: item?.photo
-                              ? item?.photo
+                            uri: item?.profilePicture
+                              ? item?.photoPicture
                               : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
                           }}
                           style={{
@@ -214,7 +217,7 @@ const GroupCreation = ({navigation}) => {
                             marginLeft: '5%',
                             color: '#000',
                           }}>
-                          {item?.firstName + '\b' + item?.lastName}
+                          {item?.name }
                         </Text>
                         <Text
                           style={{
@@ -222,35 +225,43 @@ const GroupCreation = ({navigation}) => {
                             marginLeft: '5%',
                             color: '#000',
                           }}>
-                          {item?.phoneNumber}
+                          {item?.phone}
                         </Text>
                       </View>
                       <View>
                         <TouchableOpacity
                           onPress={() => {
-                              if((selectedName.includes(item?.userId))){
+                              if((selectedName.includes(item?.name))&&number.includes(item.userId)){
                                 setSelectedName(
                                   selectedName.filter(
-                                    value => value !== item?.userId
+                                    value => value !== item?.name
                                   ),
                                   );
-                                  console.log("bi", selectedName)
+                                  setNumber(
+                                    number.filter(
+                                      value => value !== item?.userId
+                                    ),
+                                    );
+                                  // console.log("bi", selectedName,number)
                               }
                              else {
                               setSelectedName([
-                                ...new Set([...selectedName, item?.userId]),
+                                ...new Set([...selectedName, item?.name]),
                               ]);
-                              console.log("se", selectedName)
+                              setNumber([
+                                ...new Set([...number, item?.userId]),
+                              ]);
+                              // console.log("se", selectedName, number)
                             }
                           }}>
-                          {/* {console.log("sele", name)} */}
+                          {/* {console.log("sele", selectedName,number)} */}
                           <View
                             key={item?.userId}
                             style={{
                               borderRadius: 100 / 2,
                               backgroundColor: selectedName.includes(
-                                item.userId,
-                              )
+                                item.name,
+                              )&&number.includes(item.userId)
                                 ? '#5d6aff'
                                 : '#B5B9DD',
                               height: 30,

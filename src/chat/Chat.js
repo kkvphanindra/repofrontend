@@ -75,19 +75,19 @@ export default function Chat() {
         });
     };
     let a= data.map(i=>i.displayName)
-    console.log(a)
+    // console.log(a)
     let num = '';
     let arr = [];
       for (let j = 0; j < contacts.length; j++) {
         const element = a[j];
         const element2 = contacts[j];
         // console.log("num", element2)
-        let value = (element2[0] || '').replace(/\D/g, '').slice(-10);
+        let value = (element2[0] || '').replace(/\D/g, '');
         // console.log("val", value)
         num=value;
         arr.push({'name':element, 'number': num});
       }
-    console.log("arr", arr)
+    // console.log("chatstate.contacts", chatState.contacts)
     const contact = () => {
       dispatch(getContact(arr))
       navigation.navigate("allContacts")

@@ -37,6 +37,8 @@ import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 // react-native-get-location
 import com.github.douglasjunior.reactNativeGetLocation.ReactNativeGetLocationPackage;
+// react-native-get-sms-android
+import com.react.SmsPackage;
 // react-native-image-base64
 import fr.snapp.imagebase64.RNImgToBase64Package;
 // react-native-image-crop-picker
@@ -117,6 +119,7 @@ public class PackageList {
       new RNFusedLocationPackage(),
       new RNGestureHandlerPackage(),
       new ReactNativeGetLocationPackage(),
+      new SmsPackage(),
       new RNImgToBase64Package(),
       new PickerPackage(),
       new ImagePickerPackage(),

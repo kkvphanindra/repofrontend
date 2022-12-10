@@ -107,14 +107,14 @@ export const  getContact = (arr) => {
   return async (dispatch) => {
     dispatch(req());
     try {
-      console.log("arr at action", arr)
+      // console.log("arr at action", arr)
       const response = await axios.post(
         BASE_URL+`/api/user/list/details`,
         {
           contacts: arr
         },
       );
-      console.log("response", response.data)
+      // console.log("response", response.data)
       dispatch(reqContacts(response.data));
       // console.log("today", response.data)
     } catch (err) {
@@ -125,13 +125,13 @@ export const  getContact = (arr) => {
   };
 }
 
-export const groupCreate = (chatName, userChat) => {
+export const groupCreate = (chatName, userChat, userId) => {
   return async (dispatch) => {
     dispatch(req());
     try {
-      console.log("arr at action", chatName, userChat)
+      console.log("arr at action", chatName, userChat, userId)
       const response = await axios.post(
-        BASE_URL+`/api/chat?userId=3ac1df80-5a6e-11ed-a871-7d8265a60df7`,
+        BASE_URL+`/api/chat?userId=${userId}`,
         {
           chatName: chatName,
           isGroupChat: true,

@@ -195,7 +195,7 @@ drawerLabel: 'Home'
 }
 
 const App = () => {
-  LogBox.ignoreLogs(['source.uri should not be an empty string','code']);
+  LogBox.ignoreLogs(['source.uri should not be an empty string','code','Warning: Encountered two children with the same key','VirtualizedLists','Warning: Each child in a list should have a unique "key" prop']);
   return (
     <Provider store={store}>
     <NavigationContainer>

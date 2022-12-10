@@ -158,7 +158,7 @@ const GroupChat = ({ navigation, route }) => {
             // firstName: user.firstName,
             // lastName: user.lastName,
             name: authState.name,
-            profilicture: authState.profilePicture
+            profilePicture: authState.profilePicture
           },
         ).then(async (response) => {
           if (response.status == 200) {
@@ -193,7 +193,7 @@ const GroupChat = ({ navigation, route }) => {
         });
         // });
         formData.append('createdAt', moment().toISOString())
-        formData.append('photo', authState.profilePicture)
+        formData.append('profilePicture', authState.profilePicture)
         formData.append('name', authState.name)
         // formData.append('lastName', user.lastName)
         await axios
