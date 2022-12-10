@@ -17,56 +17,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearMessages, exitGroupChat, getGroupDetailsbyChatId } from '../redux/Chat/actions';
 
-const data = [
-  {
-    id: 1,
-    image:
-      'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-    name: 'Tushar',
-    number: '9182734650',
-    admin: true,
-  },
-  {
-    id: 2,
-    image:
-      'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-    name: 'Vivan',
-    number: '9182734650',
-    admin: false,
-  },
-  {
-    id: 3,
-    image:
-      'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-    name: 'Nishat',
-    number: '9182734650',
-    admin: false,
-  },
-  {
-    id: 4,
-    image:
-      'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-    name: 'Vikas',
-    number: '9182734650',
-    admin: true,
-  },
-  {
-    id: 5,
-    image:
-      'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-    name: 'Vikas',
-    number: '9182734650',
-    admin: true,
-  },
-  {
-    id: 6,
-    image:
-      'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-    name: 'Vikas',
-    number: '9182734650',
-    admin: true,
-  },
-];
 
 export default function GroupDetails({ navigation, route }) {
   const { chatId } = route.params;
@@ -80,7 +30,7 @@ const authId= authState.userId
     dispatch(getGroupDetailsbyChatId(chatId));
   }, [dispatch]);
   // useEffect((chatId, authId) => {
-  // console.log("ddddddddddddd", chatId, authId)
+  console.log("ddddddddddddd",chatState.data[0].users)
   function exit() {
 
     dispatch(exitGroupChat(chatId, authId));

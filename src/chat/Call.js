@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import ChatListItem from '../components/Chat/ChatListItem'
 import CallListItem from '../components/Chat/CallListItem'
@@ -25,6 +25,7 @@ const data = [
 export default function Call({navigation}) {
   return (
     <View style={styles.container}>
+      <ScrollView>
       {data.map((item, index) => {
         return (
           <View>
@@ -41,6 +42,7 @@ export default function Call({navigation}) {
             </View>
         )
       })}
+      </ScrollView>
      
     </View>
   )

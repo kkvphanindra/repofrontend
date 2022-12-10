@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, PermissionsAndroid, Platform } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, PermissionsAndroid, Platform, ScrollView } from 'react-native'
 import React, {useCallback} from 'react'
 import ChatListItem from '../components/Chat/ChatListItem'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
@@ -82,18 +82,19 @@ export default function Chat() {
         const element = a[j];
         const element2 = contacts[j];
         // console.log("num", element2)
-        let value = (element2[0] || '').replace(/\D/g, '');
+        let value = (element2[0] || '').replace(/[^+\d]+/g, "");
         // console.log("val", value)
         num=value;
         arr.push({'name':element, 'number': num});
       }
-    // console.log("chatstate.contacts", chatState.contacts)
+    // console.log("chatstate.contacts", chatState.data[0].users[0])
     const contact = () => {
       dispatch(getContact(arr))
       navigation.navigate("allContacts")
     }
   return (
     <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
       {chatState.data.map((item, index) => {
         return (
           <View>
@@ -111,6 +112,7 @@ export default function Chat() {
           </View>
         )
       })}
+      </ScrollView>
       <TouchableOpacity style={styles.button} onPress={()=> contact()}>
         <Text style={styles.plus}>+</Text>
       </TouchableOpacity>

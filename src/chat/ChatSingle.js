@@ -61,7 +61,7 @@ const ChatSingle = ({navigation, route}) => {
       sendMessage(video);
     });
   };
-  console.log("launch cam", authState.name, authState)
+  // console.log("launch cam", authState.name, authState)
   let user = {
     userId: '3ac1df80-5a6e-11ed-a871-7d8265a60df7',
     firstName: 'Andalib',
@@ -94,7 +94,7 @@ const ChatSingle = ({navigation, route}) => {
     }
   };
   useEffect(() => {
-    socket = io(endPoint);
+    socket = io(BASE_URL);
     socket.emit('setup', authState);
     socket.on('connected', () => setSocketConnected(true));
     socket.on('typing', () => setIsTyping(true));
@@ -108,7 +108,7 @@ const ChatSingle = ({navigation, route}) => {
   }, [chat.chatId]);
 
   useEffect(() => {
-    console.log('new msg', selectedChatCompare);
+    // console.log('new msg', selectedChatCompare);
     socket.on('message recieved', newMessageRecieved => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
@@ -121,7 +121,7 @@ const ChatSingle = ({navigation, route}) => {
         }
       } else {
         setMessages([...messages, newMessageRecieved]);
-        console.log('new msg', newMessageRecieved);
+        // console.log('new msg', newMessageRecieved);
       }
       console.log('new msg inside ', newMessageRecieved);
     });
@@ -157,14 +157,6 @@ const ChatSingle = ({navigation, route}) => {
       try {
         // console.log('form data', formData);
         setNewMessage('');
-        // const formData = new FormData();
-        // video.forEach((item, i) => {
-        //   formData.append('content', {
-        //     uri: item.path,
-        //     type: 'video/mp4',
-        //     name: item.filename || `filename${i}.mp4`,
-        //   });
-        // });
         await axios
           .post(BASE_URL + `/api/message/chat/${chat.chatId}/user/${authId}`, {
             content: newMessage,
@@ -240,11 +232,11 @@ const ChatSingle = ({navigation, route}) => {
   const onClick = emoji => {
     console.log(emoji);
   };
-  // console.log(chat, authId)
+  console.log(chat.users[0])
   return (
     <View style={styles.container}>
       <ChatHeader
-        profilePic={{uri: chat.users[0].photo}}
+        profilePic={chat.users[0].profilePicture}
         name={chat.chatName}
         number={chat.users[0].phone}
         navigation={navigation}

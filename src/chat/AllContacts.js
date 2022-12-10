@@ -82,7 +82,7 @@ const AllContacts = ({contact}) => {
   let arr = [];
   for (let i = 0; i < contacts.length; i++) {
     const element = contacts[i];
-    let value = (element[0] || '').replace(/\D/g, '').slice(-10);
+    let value = (element[0] || '').replace(/[^+\d]+/g, "");
     arr.push(value);
     // console.log('arr', arr);
   }

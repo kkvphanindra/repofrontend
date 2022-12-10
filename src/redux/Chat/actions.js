@@ -82,7 +82,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
         if (response.status) {
           dispatch(reqSuccess(response.data));
           dispatch(reqFilter(response.data))
-          // console.log("today", response.data)
+          console.log("today", response.data)
         }
       }
       else if (groupChat === true) {

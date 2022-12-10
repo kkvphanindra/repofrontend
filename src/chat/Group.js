@@ -5,6 +5,7 @@ import {
   View,
   PermissionsAndroid,
   Platform,
+  ScrollView,
 } from 'react-native';
 import React, {useState, useCallback, useEffect} from 'react';
 import ChatListItem from '../components/Chat/ChatListItem';
@@ -79,6 +80,7 @@ export default function Group({navigation}) {
   };
   return (
     <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
       {chatState.data.map((item, index) => {
         return (
           <TouchableOpacity
@@ -91,7 +93,7 @@ export default function Group({navigation}) {
               profileUrl={
                 item.groupPhoto
                   ? item.groupPhoto
-                  : 'https://cdn.vectorstock.com/i/preview-1x/26/28/group-of-people-icon-vector-15262628.webp'
+                  : 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
               }
               lastMessage={item.lastMessage}
               time={moment(item.lastMessageTime).format('hh:mm a')}
@@ -101,6 +103,7 @@ export default function Group({navigation}) {
           </TouchableOpacity>
         );
       })}
+      </ScrollView>
       <TouchableOpacity style={styles.button} onPress={() => contact()}>
         <Text style={styles.plus}>+</Text>
       </TouchableOpacity>

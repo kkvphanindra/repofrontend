@@ -55,7 +55,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case FILTER: {
-            console.log("Successfully Got Chat List by User id");
+            console.log("Successfully filtering");
             return {
                 ...state,
                 data: action.data,
@@ -64,10 +64,11 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case REMOVE_FILTER: {
-            console.log("Successfully Got Chat List by User id");
+            console.log("Successfully filter removed");
             return {
                 ...state,
                 data: initialState.initialData,
+                // data: action.data,
                 error: "",
                 loading: false,
             };

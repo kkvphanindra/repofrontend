@@ -223,12 +223,12 @@ const GroupChat = ({ navigation, route }) => {
       }
     }
   };
-  // console.log("first",messages)
+  console.log("first",group.groupPhoto)
   return (
     <View style={styles.container}>
       <ChatHeader
         name={group.chatName}
-        profilePic={{ uri: group.groupPhoto }}
+        profilePic={group.groupPhoto}
         number={group.users.map((i) => i.phone + ",")}
         navigation={navigation}
         onPressName={() => navigation.navigate('groupDetails', { chatId: group.chatId })}

@@ -31,7 +31,7 @@ const ChatHeader = props => {
                 alignItems: 'center',
                 borderRadius: 100 / 2,
               }}
-              source={props.profilePic}
+              source={{uri:props.profilePic!==""&&props.profilePic!==null?props.profilePic:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'}}
               // source={require('../../assets/icons/png/backButton.png')}
               // style={styles.icon}
             />
