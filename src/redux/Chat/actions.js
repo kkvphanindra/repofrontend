@@ -204,7 +204,7 @@ export const clearMessages = (chatId) => {
       }
     } catch (err) {
       console.log('REQUEST FAILED');
-      console.log(err.response.status);
+      console.log(err.response.status,err.response.data.message);
       dispatch(reqFailure(err.message));
     }
   };

@@ -30,7 +30,7 @@ const authId= authState.userId
     dispatch(getGroupDetailsbyChatId(chatId));
   }, [dispatch]);
   // useEffect((chatId, authId) => {
-  console.log("ddddddddddddd",chatState.data[0].users)
+  // console.log("ddddddddddddd",chatState.data[0].users)
   function exit() {
 
     dispatch(exitGroupChat(chatId, authId));
@@ -266,6 +266,7 @@ const authId= authState.userId
           </TouchableOpacity>
         </View>
         <TouchableOpacity
+        onPress={() => exit()}
           style={{
             backgroundColor: '#ff8b77',
             width: '85%',
@@ -297,7 +298,7 @@ const authId= authState.userId
               textAlign: 'left',
               color: '#fff',
               fontWeight: '500',
-            }} onPress={() => exit()}>
+            }}>
             Exit Group
           </Text>
         </TouchableOpacity>

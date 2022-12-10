@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  LogBox,
   ImageBackground,
   PermissionsAndroid,
   Platform,
@@ -76,7 +77,9 @@ const GroupCreation = ({navigation}) => {
     dispatch(groupCreate(groupName,number, authState.userId))
     navigation.navigate('Group')
   }
-
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
+  }, [])
   // console.log('changed', selectedName,number);
   // console.log('chatstate', chatState.contacts);
   return (
@@ -170,6 +173,7 @@ const GroupCreation = ({navigation}) => {
               })}
             </ScrollView>
           </View>
+          {/* <ScrollView> */}
           <FlatList
             data={filteredData}
             keyExtractor={item => item?.userId}
@@ -291,6 +295,7 @@ const GroupCreation = ({navigation}) => {
               );
             }}
           />
+          {/* </ScrollView> */}
           {/* </View> */}
           {/* )} */}
           {/* <View style={{position: 'absolute', bottom: -90, alignSelf: 'center'}}> */}
