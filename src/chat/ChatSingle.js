@@ -199,7 +199,7 @@ const ChatSingle = ({navigation, route}) => {
         formData.append('createdAt',moment().toISOString())
         // formData.append('firstName', user.firstName)
         // formData.append('lastName', user.lastName)
-        formData.append('photo',authState.profilePicture)
+        formData.append('profilePicture',authState.profilePicture)
         formData.append('name', authState.name)
         await axios
           .post(BASE_URL + `/api/message/chat/${chat.chatId}/user/${authId}`, 
