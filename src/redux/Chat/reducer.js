@@ -12,7 +12,8 @@ import {
     REMOVE_FILTER,
     NAMES,
     USERID,
-    STATE_CLEANUP
+    STATE_CLEANUP,
+    CREATE_CHAT
 } from "./actionTypes";
 
 //Initial state///
@@ -25,6 +26,7 @@ const initialState = {
     initialData:[],
     contacts: [],
     group: [],
+    chat:[],
     exitGroup:[],
     clearChat: []
 };
@@ -95,6 +97,15 @@ const chatReducer = (state = initialState, action) => {
             return{
                 ...state,
                 group: action.data,
+                error: '',
+                loading: false
+            }
+        }
+        case CREATE_CHAT: {
+            console.log("chat create", action.data)
+            return{
+                ...state,
+                chat: action.data,
                 error: '',
                 loading: false
             }

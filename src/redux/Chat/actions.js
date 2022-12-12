@@ -14,7 +14,8 @@ import {
   FILTER,
   NAMES,
   USERID,
-  STATE_CLEANUP
+  STATE_CLEANUP,
+  CREATE_CHAT
 } from "./actionTypes";
 import io from 'socket.io-client'
 import {BASE_URL} from '@env'
@@ -45,6 +46,10 @@ export const stateCleanUp = () => ({
 });
 export const createGroup = (data) => ({
   type: CREATE_GROUP,
+  data
+});
+export const chatCreate = (data) => ({
+  type: CREATE_CHAT,
   data
 });
 export const reqName = (data) => ({
@@ -167,22 +172,24 @@ export const groupCreate = (chatName, userChat, userId) => {
 }
 
 
-export const createChat = (friendId, userId,navigation) => {
+export const createChat = (friendId, userId) => {
   return async (dispatch) => {
     dispatch(req());
     try {
-      console.log("arr at action", friendId, userId)
+      let chatId = []
+      chatId.push(friendId,userId)
+      console.log("arr at action", friendId, userId, chatId)
       const response = await axios.post(
         BASE_URL+`/api/chat?userId=${userId}`,
         {
-          chatName: null,
+          // chatName: null,
           isGroupChat: false,
-          userChat: [friendId,userId]
+          userChat: chatId
         },
       );
       console.log("response", response.data)
-      dispatch(createGroup(response.data));
-      navigation.navigate('Chat')
+      dispatch(chatCreate(response.data));
+      // navigation.navigate('Chat')
       // console.log("today", response.data)
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -191,12 +198,6 @@ export const createChat = (friendId, userId,navigation) => {
     }
   };
 }
-
-
-
-
-
-
 
 
 export const getGroupDetailsbyChatId = (id) => {

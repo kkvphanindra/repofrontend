@@ -260,7 +260,7 @@ const AllContacts = ({route}) => {
                         createChat(
                           contact.item.userId,
                           authState.userId,
-                          navigation.navigate('Chat'),
+                          // navigation.navigate('Chat'),
                         ),
                       );
                       navigation.navigate('Chat');
