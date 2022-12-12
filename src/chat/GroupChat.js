@@ -229,7 +229,7 @@ const GroupChat = ({ navigation, route }) => {
       <ChatHeader
         name={group.chatName}
         profilePic={group.groupPhoto}
-        number={group.users.map((i) => i.phone + ",")}
+        number={group.users.map((i) => i.name + ",")}
         navigation={navigation}
         onPressName={() => navigation.navigate('groupDetails', { chatId: group.chatId })}
       />

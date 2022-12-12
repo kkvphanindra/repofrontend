@@ -179,11 +179,11 @@ const authId= authState.userId
                                 source={{
                                   uri: item?.profilePicture
                                     ? item?.profilePicture
-                                    : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+                                    : 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
                                 }}
                                 style={{
                                   // backgroundColor: 'black',
-                                  marginTop: '10%',
+                                  // marginTop: '5%',
                                   marginLeft: '5%',
                                   marginBottom: '10%',
                                   height: 50,
@@ -192,27 +192,31 @@ const authId= authState.userId
                                 }}
                               />
                             </View>
-                            <View>
+                            <View style={{alignSelf: 'center',}}>
                               <Text
                                 style={{
-                                  marginTop: '5%',
+                                  // marginTop: '5%',
+                                  // justifyContent: 'center',
+                                  // alignSelf: 'center',
+                                  marginBottom: '10%',
                                   marginLeft: '5%',
                                   color: '#000',
+                                  // textAlign: 'center'
                                 }}>
                                 {item?.name}
                               </Text>
-                              <Text
+                              {/* <Text
                                 style={{
                                   marginTop: '5%',
                                   marginLeft: '5%',
                                   color: '#000',
                                 }}>
                                 {item?.phone}
-                              </Text>
+                              </Text> */}
                             </View>
                             <View
                               style={{
-                                marginTop: '5%',
+                                marginTop: '4%',
                                 marginLeft: '30%',
                               }}>
                               <Text

@@ -11,7 +11,10 @@ import {
   EXIT_GROUP,
   REMOVE_FILTER,
   CLEAR_CHAT,
-  FILTER
+  FILTER,
+  NAMES,
+  USERID,
+  STATE_CLEANUP
 } from "./actionTypes";
 import io from 'socket.io-client'
 import {BASE_URL} from '@env'
@@ -37,8 +40,19 @@ export const reqContacts = (data) => ({
   type: GET_CONTACTS,
   data
 });
+export const stateCleanUp = () => ({
+  type:STATE_CLEANUP,
+});
 export const createGroup = (data) => ({
   type: CREATE_GROUP,
+  data
+});
+export const reqName = (data) => ({
+  type:NAMES,
+  data
+});
+export const reqUserId = (data) => ({
+  type:USERID,
   data
 });
 export const groupByChatId = (data) => ({

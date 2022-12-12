@@ -9,7 +9,10 @@ import {
     EXIT_GROUP,
     CLEAR_CHAT,
     FILTER,
-    REMOVE_FILTER
+    REMOVE_FILTER,
+    NAMES,
+    USERID,
+    STATE_CLEANUP
 } from "./actionTypes";
 
 //Initial state///
@@ -17,6 +20,8 @@ import {
 const initialState = {
     loading: false,
     data: [],
+    name:[],
+    userId:[],
     initialData:[],
     contacts: [],
     group: [],
@@ -33,7 +38,10 @@ const chatReducer = (state = initialState, action) => {
             console.log("Getting Chat List Data");
             return { ...state, loading: true, error: "" };
         }
-
+        case STATE_CLEANUP: {
+            console.log("Getting Chat List Data");
+            return { ...state,userId:[],name:[],loading: true, error: "" };
+        }
         case CHATLIST_SUCCESS: {
             console.log("Successfully Got List");
             console.log(action.data);
@@ -87,6 +95,24 @@ const chatReducer = (state = initialState, action) => {
             return{
                 ...state,
                 group: action.data,
+                error: '',
+                loading: false
+            }
+        }
+        case NAMES: {
+            // console.log("group create", action.data)
+            return{
+                ...state,
+                name: action.data,
+                error: '',
+                loading: false
+            }
+        }
+        case USERID: {
+            // console.log("group create", action.data)
+            return{
+                ...state,
+                userId: action.data,
                 error: '',
                 loading: false
             }

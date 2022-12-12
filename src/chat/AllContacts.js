@@ -8,21 +8,23 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Contacts from 'react-native-contacts';
 import ContactList from '../components/Chat/ContactList';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
-import { createChat, getContact, groupCreate } from '../redux/Chat/actions';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {createChat, getContact, groupCreate, reqName, reqUserId} from '../redux/Chat/actions';
 
 const AllContacts = ({route}) => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
+  const authState = useSelector(state => state.authState);
+  const [selectedName, setSelectedName] = useState([authState.name]);
+  const [number, setNumber] = useState([authState.userId]);
   const [contacts, setContacts] = useState([]);
-  const [filteredData, setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
   const chatState = useSelector(state => state.chatState);
   const [phone, setPhone] = useState([]);
-  const authState = useSelector((state) => state.authState)
 
   const {isGroupChat} = route.params;
 
@@ -35,62 +37,64 @@ const AllContacts = ({route}) => {
         loadContacts();
       });
     } else {
-      console.log("error getting contacts")
+      console.log('error getting contacts');
       loadContacts();
     }
   }, []);
   const loadContacts = () => {
-    if(chatState.contacts==undefined){
-    Contacts.getAll()
-      .then(contacts => {
-        contacts.sort(
-          (a, b) => a.givenName.toLowerCase() > b.givenName.toLowerCase(),
-        );
-        setData(contacts);
-        // console.log()
-        setFilteredData(contacts)
-        setContacts(contacts.map(i => i.phoneNumbers.map(p => p.number)));
-      })
-      .catch(e => {
-        alert('Permission to access contacts was denied');
-        console.warn('Permission to access contacts was denied');
-      });
+    if (chatState.contacts == undefined) {
+      Contacts.getAll()
+        .then(contacts => {
+          contacts.sort(
+            (a, b) => a.givenName.toLowerCase() > b.givenName.toLowerCase(),
+          );
+          setData(contacts);
+          // console.log()
+          setFilteredData(contacts);
+          setContacts(contacts.map(i => i.phoneNumbers.map(p => p.number)));
+        })
+        .catch(e => {
+          alert('Permission to access contacts was denied');
+          console.warn('Permission to access contacts was denied');
+        });
     }
-
 
     let num = '';
     let final = [];
     let arr = chatState.contacts;
-    console.log("start",arr)
+    console.log('start', arr);
 
+    // console.log("before", d)
+    for (let j = 0; j < arr.length; j++) {
+      const element = arr[j];
+      final.push({
+        name: element.name,
+        phone: element.phone,
+        profilePicture: element.profilePicture,
+        isSelected: false,
+        userId: element.userId,
+      });
+    }
+    if (isGroupChat) {
+      let fnl = final.filter(y => {
+        return y.userId !== null;
+      });
+      setData(fnl);
+      setFilteredData(fnl);
+    } else {
+      console.log('end'.arr);
+      setData(final);
+      setFilteredData(final);
+    }
 
-  // console.log("before", d)
-      for (let j = 0; j < arr.length; j++) {
-            const element = arr[j];
-            final.push({ 
-              name: element.name, 
-              phone: element.phone  , 
-              profilePicture:element.profilePicture,
-              isSelected:true, 
-              userId:element.userId});
-          }
-
-          console.log("end".arr)
-
-    setData(final);
-    setFilteredData(final)
     // console.log(chatState.contacts)
     // formatContact(data)
   };
   // console.log("contact 37", contacts, "sp", phone)
   const search = text => {
-
-    const d1 =
-      data.filter(
-        (a) => a.name.toLowerCase().includes(text)
-      )
-      setFilteredData(d1)
-      console.log('contacts', contacts);
+    const d1 = data.filter(a => a.name.toLowerCase().includes(text));
+    setFilteredData(d1);
+    console.log('contacts', contacts);
 
     // const phoneNumberRegex =
     //   /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,15}\b/m;
@@ -126,55 +130,66 @@ const AllContacts = ({route}) => {
   //   Contacts.openExistingContact(contact);
   // };
 
-//   const formatContact = (d) =>{
-//     let num = '';
-//   let arr = [];
-// console.log("before", d)
-//     for (let j = 0; j < data.length; j++) {
-//           const element = a[j];
-//           const element2 = data[j];
-//           // console.log("num", element2)
-//           let value = (data[0] || '').replace(/[^+\d]+/g, "");
-//           // console.log("val", value)
-//            num= value;
-//           arr.push({ 'name': element, 'number': num , isSelected:false});
-//         }
-//         setData(arr)
-//     setFilteredData(arr)
-//     console.log("fil", arr)
+  //   const formatContact = (d) =>{
+  //     let num = '';
+  //   let arr = [];
+  // console.log("before", d)
+  //     for (let j = 0; j < data.length; j++) {
+  //           const element = a[j];
+  //           const element2 = data[j];
+  //           // console.log("num", element2)
+  //           let value = (data[0] || '').replace(/[^+\d]+/g, "");
+  //           // console.log("val", value)
+  //            num= value;
+  //           arr.push({ 'name': element, 'number': num , isSelected:false});
+  //         }
+  //         setData(arr)
+  //     setFilteredData(arr)
+  //     console.log("fil", arr)
 
-//   }
+  //   }
 
-  const selectContact = (userId)=> {
-    console.log(userId)
+  const selectContact = userId => {
+    // console.log("149 userId",userId)
     // if(userIdnull){
 
     // } else{
-      console.log("first")
-     
-      console.log(data);
-      let newData
-       = data.map(x => (x.userId === userId) ? 
-      { 
-        name: x.name, 
-        phone: x.phone  , 
-        profilePicture:x.profilePicture,
-        isSelected:!x.isSelected, 
-        userId:x.userId}
-      
-      : x)
-      // let selectState = 
-      // data.find(item=> item.userId==userId? item.isSelected=!item.isSelected:null);
-      // selectState.isSelected= !selectState.isSelected;
+    // console.log("first")
 
-      // setData(selectState);
-      // setFilteredData(selectState)
-      console.log("antim")
-      console.log(newData)
+    console.log(data);
+    let newData = data.map(x =>
+      x.userId == userId
+        ? {
+            name: x.name,
+            phone: x.phone,
+            profilePicture: x.profilePicture,
+            isSelected: !x.isSelected,
+            userId: x.userId,
+          } && console.log('163', {name: x.name})
+        : x && console.log('x 165', x),
+    );
+    // let selectState =
+    // data.find(item=> item.userId==userId? item.isSelected=!item.isSelected:null);
+    // selectState.isSelected= !selectState.isSelected;
+
+    // setData(selectState);
+    // setFilteredData(selectState)
+    console.log('antim');
+    console.log(newData);
     // }
-    
-  }
-
+  };
+  const kil = (name, userId) => {
+    console.log('object');
+    if (chatState.name.includes(name) && chatState.userId.includes(userId)) {
+      dispatch(reqName(chatState.name.filter(value => value !== name)));
+      dispatch(reqUserId(chatState.userId.filter(value => value !== userId)));
+      console.log('bi', chatState.name, chatState.userId);
+    } else {
+      dispatch(reqName([...new Set([...chatState.name, name])]));
+      dispatch(reqUserId([...new Set([...chatState.userId, userId])]));
+      console.log('se', chatState.name, chatState.userId);
+    }
+  };
   // useEffect((async) => {
   //   contact()
   // }, [])
@@ -196,8 +211,8 @@ const AllContacts = ({route}) => {
   //     arr.push({ 'name': element, 'number': num , isSelected:false});
   //   }
   //   console.log("here", arr)
-    // dispatch(getContact(arr))
-    // navigation.navigate("allContacts")
+  // dispatch(getContact(arr))
+  // navigation.navigate("allContacts")
   // }
 
   console.log('arr', chatState.contacts);
@@ -211,16 +226,17 @@ const AllContacts = ({route}) => {
         placeholder="Search"
         style={styles.searchBar}
       />
-      <View>
-        {/* {chatState.contacts.map(item => {
-          return ( */}
         <View>
           {/* {item?.userId ? ( */}
           <FlatList
             data={filteredData}
             renderItem={contact => {
-              { console.log("contact1s", filteredData) }
-              {console.log("groupc", isGroupChat)}
+              {
+                console.log('contact1s', filteredData);
+              }
+              {
+                console.log('groupc', isGroupChat);
+              }
               return (
                 // <View style={{flexDirection: 'row'}}>
                 //   <Text>{contact.item.displayName}</Text>
@@ -233,11 +249,21 @@ const AllContacts = ({route}) => {
                     key={contact.item.recordID}
                     item={contact.item}
                     isGroupChat={isGroupChat}
-                    selectContact= {()=>selectContact(contact)}
-                    isSelected={contact.isSelected}
+                    // selectContact= {()=>selectContact(contact)}
+                    selectContact={() =>
+                      kil(contact?.item.name, contact.item.userId)
+                    }
+                    selectedContacts={chatState.userId}
+                    isSelected={contact.item.isSelected}
                     createChat={() => {
-                      dispatch(createChat(contact.item.userId, authState.userId, navigation.navigate('Chat')))
-                      navigation.navigate('Chat')
+                      dispatch(
+                        createChat(
+                          contact.item.userId,
+                          authState.userId,
+                          navigation.navigate('Chat'),
+                        ),
+                      );
+                      navigation.navigate('Chat');
                     }}
                     invite={{}}
                   />
@@ -261,9 +287,9 @@ const AllContacts = ({route}) => {
                 </View> */}
           {/* )} */}
         </View>
-        {/* );
-        })} */}
-      </View>
+      <TouchableOpacity {...selectedName} style={{position: 'absolute', bottom: 0, right: 15, marginBottom: 20}} onPress={()=>{navigation.goBack()}}>
+        <Text style={{color: '#000'}}>done</Text>
+      </TouchableOpacity>
     </View>
   );
 };

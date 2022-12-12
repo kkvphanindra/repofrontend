@@ -18,27 +18,37 @@ import SearchBar from 'react-native-dynamic-search-bar';
 import {ScrollView} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
-import {getContact, groupCreate} from '../redux/Chat/actions';
+import {
+  getContact,
+  groupCreate,
+  reqName,
+  stateCleanUp,
+} from '../redux/Chat/actions';
 import Contacts from 'react-native-contacts';
-import { ar, fi } from 'date-fns/locale';
+import {useNavigation} from '@react-navigation/native';
 
-const GroupCreation = ({navigation}) => {
+const GroupCreation = ({route, selectedName}) => {
+  // const {name}=route?.params
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const authState = useSelector((state)=>state.authState)
+  const navigation = useNavigation();
+  const authState = useSelector(state => state.authState);
   const chatState = useSelector(state => state.chatState);
   const [res, setRes] = useState(chatState.contacts);
-  const [groupName, setGroupName] = useState('')
-  const [selectedName, setSelectedName] = useState([authState.name]);
-  const [number, setNumber] = useState([authState.userId])
+  const [groupName, setGroupName] = useState('');
+  const [selectedNames, setSelectedNames] = useState([]);
+  const [number, setNumber] = useState([authState.userId]);
   const [filteredData, setFilteredData] = useState(chatState.contacts);
   const [serachText, setSearchText] = useState('');
-  const [name, setName] = useState([])
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleOnPress = item => {
-    if (selectedName.includes(item)) {
-      setSelectedName(selectedName.filter(value => value !== item));
+    if (chatState.name.includes(item)) {
+      dispatch(reqName(chatState.name.filter(value => value !== item)));
     }
   };
+
+  // useEffect(() => {
+  //   dispatch(stateCleanUp());
+  // }, [dispatch]);
   const handleOnChangeText = text => {
     // ? Visible the spinner
     if (text) {
@@ -46,9 +56,7 @@ const GroupCreation = ({navigation}) => {
       // Filter the masterDataSource and update FilteredDataSource
       const newData = res.filter(function (item) {
         // Applying filter for the inserted text in search bar
-        const itemData = item.name
-          ? item.name.toUpperCase()
-          : ''.toUpperCase();
+        const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -72,13 +80,13 @@ const GroupCreation = ({navigation}) => {
       return data;
     }
   };
-  const onSubmit = ()=>{
-    dispatch(groupCreate(groupName,number, authState.userId))
-    navigation.navigate('Group')
-  }
+  const onSubmit = () => {
+    dispatch(groupCreate(groupName, chatState.userId, authState.userId));
+    navigation.navigate('Group');
+  };
 
-  // console.log('changed', selectedName,number);
-  // console.log('chatstate', chatState.contacts);
+  // console.log('changed', name);
+  console.log('chatstate', chatState.name, chatState.userId);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -120,12 +128,12 @@ const GroupCreation = ({navigation}) => {
             placeholder="Enter group name"
             placeholderTextColor="#cacaca"
             value={groupName}
-            onChangeText={(e)=>setGroupName(e)}
+            onChangeText={e => setGroupName(e)}
           />
         </View>
         <View>
           <Text style={styles.groupNo}>
-            Group.{selectedName.length}participant
+            Group.{selectedNames?.length}participant
           </Text>
         </View>
         <View style={{backgroundColor: '#cccef3', marginTop: '10%'}}>
@@ -135,9 +143,10 @@ const GroupCreation = ({navigation}) => {
           <View>
             <SearchBar
               placeholder="Search here"
-              onPress={() => alert('onPress')}
               style={styles.searchbar}
-              onPress={()=>navigation.navigate("allContacts",{isGroupChat:true})}
+              onPress={() =>
+                navigation.navigate('allContacts', {isGroupChat: true})
+              }
               editable={false}
             />
           </View>
@@ -145,11 +154,13 @@ const GroupCreation = ({navigation}) => {
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              {selectedName.map(item => {
+              {chatState.name?.map(item => {
                 return (
                   <View>
                     <View style={styles.selectName}>
                       <Text style={styles.selectText}>{item}</Text>
+                      {/* {chatState.name.find(y=>y==authState.name)?
+                      null: */}
                       <TouchableOpacity
                         onPress={() => handleOnPress(item)}
                         style={{alignSelf: 'center'}}>
@@ -164,133 +175,14 @@ const GroupCreation = ({navigation}) => {
                           }}
                         />
                       </TouchableOpacity>
+                      {/* } */}
                     </View>
                   </View>
                 );
               })}
             </ScrollView>
           </View>
-          <FlatList
-            data={filteredData}
-            keyExtractor={item => item?.userId}
-            renderItem={({item}) => {
-              // {console.log("null check", item?.userId==null? 'null': 'not null')}
-              return (
-                <View>
-                  {/* <ScrollView> */}
-                  {item?.userId==null?
-                  null:
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: '#cccef3',
-                      justifyContent: 'center',
-                      marginTop: '2%',
-                      borderBottomColor: '#c3c5e3',
-                      borderBottomWidth: 1,
-                      width: windowWidth / 1.1,
-                      alignSelf: 'center',
-                    }}>
-                    <View style={{flexDirection: 'row'}}>
-                      <View>
-                        <Image
-                          source={{
-                            uri: item?.profilePicture
-                              ? item?.photoPicture
-                              : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
-                          }}
-                          style={{
-                            // backgroundColor: 'black',
-                            marginTop: '10%',
-                            marginLeft: '5%',
-                            marginBottom: '10%',
-                            height: 50,
-                            width: 50,
-                            borderRadius: 100 / 2,
-                          }}
-                        />
-                      </View>
-                      <View>
-                        <Text
-                          style={{
-                            marginTop: '5%',
-                            marginLeft: '5%',
-                            color: '#000',
-                          }}>
-                          {item?.name }
-                        </Text>
-                        <Text
-                          style={{
-                            marginTop: '5%',
-                            marginLeft: '5%',
-                            color: '#000',
-                          }}>
-                          {item?.phone}
-                        </Text>
-                      </View>
-                      <View>
-                        <TouchableOpacity
-                          onPress={() => {
-                              if((selectedName.includes(item?.name))&&number.includes(item.userId)){
-                                setSelectedName(
-                                  selectedName.filter(
-                                    value => value !== item?.name
-                                  ),
-                                  );
-                                  setNumber(
-                                    number.filter(
-                                      value => value !== item?.userId
-                                    ),
-                                    );
-                                  // console.log("bi", selectedName,number)
-                              }
-                             else {
-                              setSelectedName([
-                                ...new Set([...selectedName, item?.name]),
-                              ]);
-                              setNumber([
-                                ...new Set([...number, item?.userId]),
-                              ]);
-                              // console.log("se", selectedName, number)
-                            }
-                          }}>
-                          {/* {console.log("sele", selectedName,number)} */}
-                          <View
-                            key={item?.userId}
-                            style={{
-                              borderRadius: 100 / 2,
-                              backgroundColor: selectedName.includes(
-                                item.name,
-                              )&&number.includes(item.userId)
-                                ? '#5d6aff'
-                                : '#B5B9DD',
-                              height: 30,
-                              width: 30,
-                              marginTop: '10%',
-                              marginLeft: '50%',
-                              alignSelf: 'center',
-                            }}>
-                            <Image
-                              source={require('../assets/icons/png/tick.png')}
-                              style={{
-                                height: 18,
-                                width: 18,
-                                marginTop: '19%',
-                                marginLeft: '1%',
-                                alignSelf: 'center',
-                              }}
-                            />
-                          </View>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                }
-                  {/* </ScrollView> */}
-                </View>
-              );
-            }}
-          />
+
           {/* </View> */}
           {/* )} */}
           {/* <View style={{position: 'absolute', bottom: -90, alignSelf: 'center'}}> */}
@@ -310,7 +202,7 @@ const GroupCreation = ({navigation}) => {
             marginBottom: '5%',
           }}>
           <TouchableOpacity
-          onPress={()=>onSubmit()}
+            onPress={() => onSubmit()}
             style={{
               // backgroundColor: '#000',
               width: '40%',
@@ -352,7 +244,6 @@ const GroupCreation = ({navigation}) => {
     </View>
   );
 };
-
 export default GroupCreation;
 
 const windowWidth = Dimensions.get('window').width;

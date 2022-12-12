@@ -1,0 +1,121 @@
+<FlatList
+            data={filteredData}
+            keyExtractor={item => item?.userId}
+            renderItem={({item}) => {
+              // {console.log("null check", item?.userId==null? 'null': 'not null')}
+              return (
+                <View>
+                  {/* <ScrollView> */}
+                  {item?.userId==null?
+                  null:
+                  <View
+                    style={{
+                      flex: 1,
+                      backgroundColor: '#cccef3',
+                      justifyContent: 'center',
+                      marginTop: '2%',
+                      borderBottomColor: '#c3c5e3',
+                      borderBottomWidth: 1,
+                      width: windowWidth / 1.1,
+                      alignSelf: 'center',
+                    }}>
+                    <View style={{flexDirection: 'row'}}>
+                      <View>
+                        <Image
+                          source={{
+                            uri: item?.profilePicture
+                              ? item?.photoPicture
+                              : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+                          }}
+                          style={{
+                            // backgroundColor: 'black',
+                            marginTop: '10%',
+                            marginLeft: '5%',
+                            marginBottom: '10%',
+                            height: 50,
+                            width: 50,
+                            borderRadius: 100 / 2,
+                          }}
+                        />
+                      </View>
+                      <View>
+                        <Text
+                          style={{
+                            marginTop: '5%',
+                            marginLeft: '5%',
+                            color: '#000',
+                          }}>
+                          {item?.name }
+                        </Text>
+                        <Text
+                          style={{
+                            marginTop: '5%',
+                            marginLeft: '5%',
+                            color: '#000',
+                          }}>
+                          {item?.phone}
+                        </Text>
+                      </View>
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                              if((selectedName.includes(item?.name))&&number.includes(item.userId)){
+                                setSelectedName(
+                                  selectedName.filter(
+                                    value => value !== item?.name
+                                  ),
+                                  );
+                                  setNumber(
+                                    number.filter(
+                                      value => value !== item?.userId
+                                    ),
+                                    );
+                                  // console.log("bi", selectedName,number)
+                              }
+                             else {
+                              setSelectedName([
+                                ...new Set([...selectedName, item?.name]),
+                              ]);
+                              setNumber([
+                                ...new Set([...number, item?.userId]),
+                              ]);
+                              // console.log("se", selectedName, number)
+                            }
+                          }}>
+                          {/* {console.log("sele", selectedName,number)} */}
+                          <View
+                            key={item?.userId}
+                            style={{
+                              borderRadius: 100 / 2,
+                              backgroundColor: selectedName.includes(
+                                item.name,
+                              )&&number.includes(item.userId)
+                                ? '#5d6aff'
+                                : '#B5B9DD',
+                              height: 30,
+                              width: 30,
+                              marginTop: '10%',
+                              marginLeft: '50%',
+                              alignSelf: 'center',
+                            }}>
+                            <Image
+                              source={require('../assets/icons/png/tick.png')}
+                              style={{
+                                height: 18,
+                                width: 18,
+                                marginTop: '19%',
+                                marginLeft: '1%',
+                                alignSelf: 'center',
+                              }}
+                            />
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                }
+                  {/* </ScrollView> */}
+                </View>
+              );
+            }}
+          />

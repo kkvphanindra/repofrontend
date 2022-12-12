@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hmi/Desktop/frisles client/repofrontend/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
+            "outputFile": "C:\\Users\\ANDALIB QURAISHI\\Desktop\\Work\\repofrontend\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-v4\\values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "/Users/hmi/.gradle/caches/transforms-3/acc77ee559fe4b242c294f331a78c390/transformed/appcompat-1.4.1/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\2f2f1cd80fbd9ae2d047c6a7a9852952\\transformed\\appcompat-1.4.1\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

@@ -238,7 +238,7 @@ const ChatSingle = ({navigation, route}) => {
       <ChatHeader
         profilePic={chat.users[0].profilePicture}
         name={chat.chatName}
-        number={chat.users[0].phone}
+        // number={chat.users[0].phone}
         navigation={navigation}
       />
       <ScrollView

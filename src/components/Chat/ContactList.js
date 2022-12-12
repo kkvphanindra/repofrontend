@@ -27,7 +27,7 @@ const ContactList = (props) => {
   const shouldComponentUpdate = () => {
     return false;
   };
-  const { item, invite, createChat, isGroupChat, isSelected ,selectContact } = props;
+  const { item, invite, createChat, isGroupChat, isSelected ,selectContact, selectedContacts } = props;
   // console.log("item", chatState.contacts)
   // let arr = [];
   // for (let i = 0; i < contacts.length; i++) {
@@ -69,7 +69,7 @@ const ContactList = (props) => {
               <TouchableOpacity
                 onPress={selectContact}
                 style={{ alignSelf: 'center',marginHorizontal:20}}>
-                  {isSelected == true?
+                  {/* {isSelected == true?
                   <Image
                   source={require('./../../assets/icons/png/icon-done.png')}
                   style={{
@@ -80,10 +80,7 @@ const ContactList = (props) => {
                     alignSelf: 'center',
                   }}
                 />
-                
-                
                 :
-                
                 <Image
                   source={require('./../../assets/icons/png/icon-done-2.png')}
                   style={{
@@ -94,15 +91,33 @@ const ContactList = (props) => {
                     alignSelf: 'center',
                   }}
                 />
-                
-                }
-                
-                
+                } */}
+              {selectedContacts?.includes(item.userId)?
+            <Image
+            source={require('./../../assets/icons/png/icon-done.png')}
+            style={{
+              height: 22,
+              width: 22,
+              // marginTop: '19%',
+              // marginLeft: '1%',
+              alignSelf: 'center',
+            }}
+          />
+          :
+          <Image
+            source={require('./../../assets/icons/png/icon-done-2.png')}
+            style={{
+              height: 22,
+              width: 22,
+              // marginTop: '19%',
+              // marginLeft: '1%',
+              alignSelf: 'center',
+            }}
+          />  
+            }
               </TouchableOpacity>
               :
-
               <>
-
                 {item.userId == null ?
                   <TouchableOpacity
                     onPress={invite}
