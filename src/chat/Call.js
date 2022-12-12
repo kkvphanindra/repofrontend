@@ -10,7 +10,7 @@ const data = [
     lastMessage: "This is Okay!",
     time: "12:34 PM",
     unread: 3,
-    date:"456789"
+    date:"10/12/22"
   },
   {
     id:"2",

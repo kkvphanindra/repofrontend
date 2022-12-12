@@ -106,15 +106,18 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
 export const  getContact = (arr) => {
   return async (dispatch) => {
     dispatch(req());
+
     try {
-      // console.log("arr at action", arr)
+      console.log("arr at action", arr)
       const response = await axios.post(
         BASE_URL+`/api/user/list/details`,
         {
           contacts: arr
         },
       );
-      // console.log("response", response.data)
+      console.log("first")
+      console.log()
+      console.log("response", response.data)
       dispatch(reqContacts(response.data));
       // console.log("today", response.data)
     } catch (err) {
@@ -148,6 +151,39 @@ export const groupCreate = (chatName, userChat, userId) => {
     }
   };
 }
+
+
+export const createChat = (friendId, userId,navigation) => {
+  return async (dispatch) => {
+    dispatch(req());
+    try {
+      console.log("arr at action", friendId, userId)
+      const response = await axios.post(
+        BASE_URL+`/api/chat?userId=${userId}`,
+        {
+          chatName: null,
+          isGroupChat: false,
+          userChat: [friendId,userId]
+        },
+      );
+      console.log("response", response.data)
+      dispatch(createGroup(response.data));
+      navigation.navigate('Chat')
+      // console.log("today", response.data)
+    } catch (err) {
+      console.log('REQUEST FAILED');
+      console.log(err.message);
+      dispatch(reqFailure(err.message));
+    }
+  };
+}
+
+
+
+
+
+
+
 
 export const getGroupDetailsbyChatId = (id) => {
   return async (dispatch) => {

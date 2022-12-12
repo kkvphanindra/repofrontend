@@ -8,20 +8,24 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Contacts from 'react-native-contacts';
 import ContactList from '../components/Chat/ContactList';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
-import {getContact} from '../redux/Chat/actions';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { createChat, getContact, groupCreate } from '../redux/Chat/actions';
 
-const AllContacts = ({contact}) => {
+const AllContacts = ({route}) => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [filteredData, setFilteredData] = useState([])
   const chatState = useSelector(state => state.chatState);
   const [phone, setPhone] = useState([]);
+  const authState = useSelector((state) => state.authState)
+
+  const {isGroupChat} = route.params;
+
   useEffect(() => {
     if (Platform.OS === 'android') {
       PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
@@ -31,16 +35,19 @@ const AllContacts = ({contact}) => {
         loadContacts();
       });
     } else {
+      console.log("error getting contacts")
       loadContacts();
     }
   }, []);
   const loadContacts = () => {
+    if(chatState.contacts==undefined){
     Contacts.getAll()
       .then(contacts => {
         contacts.sort(
           (a, b) => a.givenName.toLowerCase() > b.givenName.toLowerCase(),
         );
         setData(contacts);
+        // console.log()
         setFilteredData(contacts)
         setContacts(contacts.map(i => i.phoneNumbers.map(p => p.number)));
       })
@@ -48,44 +55,151 @@ const AllContacts = ({contact}) => {
         alert('Permission to access contacts was denied');
         console.warn('Permission to access contacts was denied');
       });
+    }
+
+
+    let num = '';
+    let final = [];
+    let arr = chatState.contacts;
+    console.log("start",arr)
+
+
+  // console.log("before", d)
+      for (let j = 0; j < arr.length; j++) {
+            const element = arr[j];
+            final.push({ 
+              name: element.name, 
+              phone: element.phone  , 
+              profilePicture:element.profilePicture,
+              isSelected:true, 
+              userId:element.userId});
+          }
+
+          console.log("end".arr)
+
+    setData(final);
+    setFilteredData(final)
+    // console.log(chatState.contacts)
+    // formatContact(data)
   };
   // console.log("contact 37", contacts, "sp", phone)
   const search = text => {
-    const phoneNumberRegex =
-      /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,15}\b/m;
-    if (text === '' || text === null) {
-      loadContacts();
-    } else if (phoneNumberRegex.test(text)) {
-      Contacts.getContactsByPhoneNumber(text).then(contacts => {
-        contacts.sort(
-          (a, b) => a.givenName.toLowerCase() > b.givenName.toLowerCase(),
-        );
-        setContacts(contacts);
-        console.log('contacts', contacts);
-      });
-    } else {
-      Contacts.getContactsMatchingString(text).then(contacts => {
-        contacts.sort(
-          (a, b) => a.givenName.toLowerCase() > b.givenName.toLowerCase(),
-        );
-        setContacts(contacts);
-        setFilteredData(contacts)
-        console.log('contacts', contacts,filteredData);
-      });
-    }
+
+    const d1 =
+      data.filter(
+        (a) => a.name.toLowerCase().includes(text)
+      )
+      setFilteredData(d1)
+      console.log('contacts', contacts);
+
+    // const phoneNumberRegex =
+    //   /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,15}\b/m;
+    // if (text === '' || text === null) {
+    //   loadContacts();
+    // } else if (phoneNumberRegex.test(text)) {
+    //   const d1 =
+    //   data.filter(
+    //     (a) => a.name.toLowerCase().includes(text)
+    //   )
+    //   // Contacts.getContactsByPhoneNumber(text).then(contacts => {
+    //   //   contacts.sort(
+    //   //     (a, b) => a.givenName.toLowerCase() > b.givenName.toLowerCase(),
+    //   //   );
+    //   setContacts(d1);
+    //   console.log('contacts', contacts);
+    //   // });
+    // } else {
+
+    //   Contacts.getContactsMatchingString(text).then(contacts => {
+    //     contacts.sort(
+    //       (a, b) => a.givenName.toLowerCase() > b.givenName.toLowerCase(),
+    //     );
+    //     setContacts(contacts);
+    //     setFilteredData(contacts)
+    //     console.log('contacts', contacts, filteredData);
+    //   });
+    // }
   };
 
-  const openContact = contact => {
-    console.log(JSON.stringify(contact));
-    Contacts.openExistingContact(contact);
-  };
-  let arr = [];
-  for (let i = 0; i < contacts.length; i++) {
-    const element = contacts[i];
-    let value = (element[0] || '').replace(/[^+\d]+/g, "");
-    arr.push(value);
-    // console.log('arr', arr);
+  // const openContact = contact => {
+  //   console.log(JSON.stringify(contact));
+  //   Contacts.openExistingContact(contact);
+  // };
+
+//   const formatContact = (d) =>{
+//     let num = '';
+//   let arr = [];
+// console.log("before", d)
+//     for (let j = 0; j < data.length; j++) {
+//           const element = a[j];
+//           const element2 = data[j];
+//           // console.log("num", element2)
+//           let value = (data[0] || '').replace(/[^+\d]+/g, "");
+//           // console.log("val", value)
+//            num= value;
+//           arr.push({ 'name': element, 'number': num , isSelected:false});
+//         }
+//         setData(arr)
+//     setFilteredData(arr)
+//     console.log("fil", arr)
+
+//   }
+
+  const selectContact = (userId)=> {
+    console.log(userId)
+    // if(userIdnull){
+
+    // } else{
+      console.log("first")
+     
+      console.log(data);
+      let newData
+       = data.map(x => (x.userId === userId) ? 
+      { 
+        name: x.name, 
+        phone: x.phone  , 
+        profilePicture:x.profilePicture,
+        isSelected:!x.isSelected, 
+        userId:x.userId}
+      
+      : x)
+      // let selectState = 
+      // data.find(item=> item.userId==userId? item.isSelected=!item.isSelected:null);
+      // selectState.isSelected= !selectState.isSelected;
+
+      // setData(selectState);
+      // setFilteredData(selectState)
+      console.log("antim")
+      console.log(newData)
+    // }
+    
   }
+
+  // useEffect((async) => {
+  //   contact()
+  // }, [])
+
+  // let a = data.map(i => i.displayName)
+  // // console.log(a)
+  // let num = '';
+  // let arr = [];
+  // // console.log("chatstate.contacts", chatState.data[0].users[0])
+  // const contact = () => {
+
+  //   for (let j = 0; j < contacts.length; j++) {
+  //     const element = a[j];
+  //     const element2 = contacts[j];
+  //     // console.log("num", element2)
+  //     let value = (element2[0] || '').replace(/[^+\d]+/g, "");
+  //     // console.log("val", value)
+  //     num = value;
+  //     arr.push({ 'name': element, 'number': num , isSelected:false});
+  //   }
+  //   console.log("here", arr)
+    // dispatch(getContact(arr))
+    // navigation.navigate("allContacts")
+  // }
+
   console.log('arr', chatState.contacts);
   const dispatch = useDispatch();
   return (
@@ -100,32 +214,40 @@ const AllContacts = ({contact}) => {
       <View>
         {/* {chatState.contacts.map(item => {
           return ( */}
-            <View>
-              {/* {item?.userId ? ( */}
-                <FlatList
-                  data={filteredData}
-                  renderItem={contact => {
-                    // { console.log("contacts", contact) }
-                    return (
-                      // <View style={{flexDirection: 'row'}}>
-                      //   <Text>{contact.item.displayName}</Text>
-                      //   <TouchableOpacity>
-                      //     <Text>Invite</Text>
-                      //   </TouchableOpacity>
-                      // </View>
-                      <View>
-                      <ContactList
-                        key={contact.item.recordID}
-                        item={contact.item}
-                        onPress={openContact}
-                      />
-                      </View>
-                    );
-                  }}
-                  keyExtractor={item => item.recordID}
-                />
-              {/* ) : ( */}
-                {/* <View
+        <View>
+          {/* {item?.userId ? ( */}
+          <FlatList
+            data={filteredData}
+            renderItem={contact => {
+              { console.log("contact1s", filteredData) }
+              {console.log("groupc", isGroupChat)}
+              return (
+                // <View style={{flexDirection: 'row'}}>
+                //   <Text>{contact.item.displayName}</Text>
+                //   <TouchableOpacity>
+                //     <Text>Invite</Text>
+                //   </TouchableOpacity>
+                // </View>
+                <View>
+                  <ContactList
+                    key={contact.item.recordID}
+                    item={contact.item}
+                    isGroupChat={isGroupChat}
+                    selectContact= {()=>selectContact(contact)}
+                    isSelected={contact.isSelected}
+                    createChat={() => {
+                      dispatch(createChat(contact.item.userId, authState.userId, navigation.navigate('Chat')))
+                      navigation.navigate('Chat')
+                    }}
+                    invite={{}}
+                  />
+                </View>
+              );
+            }}
+            keyExtractor={item => item.recordID}
+          />
+          {/* ) : ( */}
+          {/* <View
                   style={{
                     flexDirection: 'row',
                     marginTop: '2%',
@@ -137,9 +259,9 @@ const AllContacts = ({contact}) => {
                     <Text style={styles.inviteText}>Invite</Text>
                   </TouchableOpacity>
                 </View> */}
-              {/* )} */}
-            </View>
-          {/* );
+          {/* )} */}
+        </View>
+        {/* );
         })} */}
       </View>
     </View>

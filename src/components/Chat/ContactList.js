@@ -1,16 +1,16 @@
 // Access Device’s Contact List in React Native App
 // https://aboutreact.com/access-contact-list-react-native/
- 
-import React, {memo} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
- 
+
+import React, { memo } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+
 import PropTypes from 'prop-types';
 import Avatar from './Avatar';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {getContact} from '../../redux/Chat/actions';
+import { getContact } from '../../redux/Chat/actions';
 
- 
+
 const getAvatarInitials = (textString) => {
   if (!textString) return '';
   const text = textString.trim();
@@ -20,14 +20,14 @@ const getAvatarInitials = (textString) => {
     textSplit[0].charAt(0) + textSplit[textSplit.length - 1].charAt(0);
   return initials;
 };
- 
+
 const ContactList = (props) => {
-  const chatState = useSelector((state)=>state.chatState)
+  const chatState = useSelector((state) => state.chatState)
   const dispatch = useDispatch()
   const shouldComponentUpdate = () => {
     return false;
   };
-  const {item, onPress} = props;
+  const { item, invite, createChat, isGroupChat, isSelected ,selectContact } = props;
   // console.log("item", chatState.contacts)
   // let arr = [];
   // for (let i = 0; i < contacts.length; i++) {
@@ -38,18 +38,19 @@ const ContactList = (props) => {
   // useEffect(()=>{
   //   dispatch(getContact(arr));
   // },[dispatch])
+  // id= item.userId;
   return (
     <View>
-      <TouchableOpacity onPress={() => console.log("first")}>
+      <TouchableOpacity onPress={isGroupChat? selectContact:null}>
         <View style={styles.itemContainer}>
           <View style={styles.leftElementContainer}>
             <Avatar
-              img={
-                item.hasThumbnail ?
-                  {uri: item.thumbnailPath} : undefined
-              }
+              // img={
+              //   item.hasThumbnail ?
+              //     { uri: item.thumbnailPath } : undefined
+              // }
               placeholder={getAvatarInitials(
-                `${item.givenName} ${item.familyName}`,
+                `${item.name}`,
               )}
               width={40}
               height={40}
@@ -60,23 +61,80 @@ const ContactList = (props) => {
               <Text
                 style={
                   styles.titleStyle
-                }>{`${item.givenName} ${item.familyName}`}</Text>
+                }>{`${item.name}`}</Text>
             </View>
           </View>
-        <TouchableOpacity style={styles.invite}>
-          <Text style={styles.inviteText}>Invite</Text>
-        </TouchableOpacity>
+          {
+            isGroupChat == true ?
+              <TouchableOpacity
+                onPress={selectContact}
+                style={{ alignSelf: 'center',marginHorizontal:20}}>
+                  {isSelected == true?
+                  <Image
+                  source={require('./../../assets/icons/png/icon-done.png')}
+                  style={{
+                    height: 22,
+                    width: 22,
+                    // marginTop: '19%',
+                    // marginLeft: '1%',
+                    alignSelf: 'center',
+                  }}
+                />
+                
+                
+                :
+                
+                <Image
+                  source={require('./../../assets/icons/png/icon-done-2.png')}
+                  style={{
+                    height: 22,
+                    width: 22,
+                    // marginTop: '19%',
+                    // marginLeft: '1%',
+                    alignSelf: 'center',
+                  }}
+                />
+                
+                }
+                
+                
+              </TouchableOpacity>
+              :
+
+              <>
+
+                {item.userId == null ?
+                  <TouchableOpacity
+                    onPress={invite}
+                    style={styles.invite}>
+                    <Text style={styles.inviteText}>Invite</Text>
+                  </TouchableOpacity>
+                  :
+                  <TouchableOpacity
+                    onPress={createChat}
+                    style={styles.invite}>
+                    <Text style={styles.inviteText}>Message</Text>
+                  </TouchableOpacity>
+                }
+              </>
+
+
+          }
+
+
         </View>
       </TouchableOpacity>
     </View>
   );
 };
- 
+
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     minHeight: 44,
     height: 63,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: '#515151',
     // backgroundColor: 'red'
   },
   leftElementContainer: {
@@ -89,16 +147,15 @@ const styles = StyleSheet.create({
   rightSectionContainer: {
     marginLeft: '2%',
     flexDirection: 'row',
-    width: '67%',
+    flex: 1,
+    // width: '%',
     // flex: 20,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: '#515151',
     // backgroundColor: 'yellow'
   },
   mainTitleContainer: {
     justifyContent: 'center',
     flexDirection: 'column',
-    flex: 1,
+    // flex: 0.5,
   },
   titleStyle: {
     fontSize: 16,
@@ -109,9 +166,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 5,
     borderRadius: 5,
+    marginRight: 10,
     // justifyContent: 'flex-end',
     alignSelf: 'center',
-    // alignContent: 'flex-end',
+    alignContent: 'flex-end',
     // alignItems: 'flex-end',
     // margin: '5%'
   },
@@ -120,9 +178,9 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 });
- 
+
 export default ContactList;
- 
+
 ContactList.propTypes = {
   item: PropTypes.object,
   onPress: PropTypes.func,

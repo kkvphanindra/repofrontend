@@ -137,8 +137,8 @@ const GroupCreation = ({navigation}) => {
               placeholder="Search here"
               onPress={() => alert('onPress')}
               style={styles.searchbar}
-              onClearPress={() => handleOnChangeText('')}
-              onChangeText={val => handleOnChangeText(val)}
+              onPress={()=>navigation.navigate("allContacts",{isGroupChat:true})}
+              editable={false}
             />
           </View>
           <View>

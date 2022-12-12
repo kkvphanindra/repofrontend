@@ -90,7 +90,7 @@ export default function Chat() {
     // console.log("chatstate.contacts", chatState.data[0].users[0])
     const contact = () => {
       dispatch(getContact(arr))
-      navigation.navigate("allContacts")
+      navigation.navigate("allContacts",{isGroupChat:false})
     }
   return (
     <View style={styles.container}>

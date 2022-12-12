@@ -124,6 +124,10 @@ const chatReducer = (state = initialState, action) => {
                 loading: false
             }
         }
+        // case SELECT_CONTACT:{
+        //     let contact = [];
+        //     contact= con
+        // }
         default:
             return state;
     }
