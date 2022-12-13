@@ -10,7 +10,6 @@ const SettingsComponent = ({
 }) => {
     return (
         <>
-
             <ScrollView style={{ backgroundColor: '#ffffff' }}>
                 {settingsOptions.map(({ title, subTitle, onPress }, index) => (
                     <TouchableOpacity key={title} onPress={onPress}>
@@ -22,8 +21,7 @@ const SettingsComponent = ({
                                 borderBottomColor: '#D3D3D3',
                                 borderBottomWidth: 1
                             }}>
-                            <Text style={{ fontSize: 17 }}>{title}</Text>
-
+                            <Text style={{ fontSize: 17, color: '#000' }}>{title}</Text>
                         </View>
 
                         <View style={{ height: 0.5 }} />

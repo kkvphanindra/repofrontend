@@ -63,6 +63,7 @@ import Snap from './src/snap/snap'
 import SnapDetails from './src/snap/snapDetails'
 import CommentSnap from './src/snap/commentSnap';
 import { tokenRetriever } from './src/redux/auth/action';
+import PrivacySettings from './src/notification/PrivacySettings';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -232,6 +233,7 @@ const App = () => {
         <Stack.Screen name='callNow' component={CallNow}/>
         <Stack.Screen name='settings' component={Setting}/>
         <Stack.Screen name='settingNotification' component={SettingNotifications}/>
+        <Stack.Screen name='privacy' component={PrivacySettings}/>
         <Stack.Screen name='snap' component={Snap}/>
         <Stack.Screen name='snapDetails' component={SnapDetails}/>
         <Stack.Screen name='commentSnap' component={CommentSnap}/>
