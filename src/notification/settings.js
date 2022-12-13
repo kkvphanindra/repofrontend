@@ -34,7 +34,7 @@ export default function Setting({ navigation }) {
 
                 <View style={{ alignContent: 'flex-start', alignSelf: 'center', marginLeft: 10 }}>
                     <Text style={styles.name}>Settings</Text>
-                    <Text style={styles.number}>+91 9876543211</Text>
+                    <Text style={styles.number}>+91 9876543212</Text>
 
                 </View>
 
