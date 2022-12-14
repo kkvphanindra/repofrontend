@@ -15,10 +15,7 @@ import {
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
 import { environment } from '../../environment';
-// import { BASE_URL } from '@env'
-import { login, tokenRetriever } from '../redux/auth/action';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -26,8 +23,7 @@ const height = Dimensions.get('window').height;
 const LoginComponent = ({navigation}) => {
     const [confirmLogin, setConfirmLogin] = useState(false);
     const [uniqueID, setUniqueID] = useState(false);
-    const dispatch = useDispatch()
-    const authState = useSelector((state)=> state.authState)
+    
     const phoneNumberValidate = () => {
         requestPermissions();
         if(PermissionsAndroid.RESULTS.GRANTED){
@@ -86,17 +82,16 @@ const LoginComponent = ({navigation}) => {
     }
 
     useEffect(() => {
-        console.log("Login Component");
+        console.log("Login Component ==>", environment);
         phoneNumberValidate();
-        dispatch(tokenRetriever())
     }, []);
-    console.log("Login confirmLogin", confirmLogin);
-    console.log("process.env", authState.userId)
+    // console.log("Login confirmLogin", confirmLogin);
+
     return (
         <ImageBackground source={require('../assets/images/login.png')} resizeMode="cover" style={styles.imageContainer}>
             {
                 confirmLogin && 
-                <TouchableOpacity onPress={()=> {authState.userId? navigation.navigate('home'): navigation.navigate('mobileNumber', {uniqueID: uniqueID})}} style={styles.textWrapper}>
+                <TouchableOpacity onPress={()=> navigation.navigate('mobileNumber', {uniqueID: uniqueID})} style={styles.textWrapper}>
                 <Text style={styles.loginText}>Login With Mobile</Text>
                 <Image
                     style={styles.arrow}

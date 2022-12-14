@@ -47,10 +47,10 @@ const ContactList = (props) => {
           <View style={styles.itemContainer}>
             <View style={styles.leftElementContainer}>
               <Avatar
-                // img={
-                //   item.hasThumbnail ?
-                //     { uri: item.thumbnailPath } : undefined
-                // }
+                img={
+                  item.hasThumbnail ?
+                    { uri: item.thumbnailPath } : undefined
+                }
                 placeholder={getAvatarInitials(
                   `${item.name}`,
                 )}

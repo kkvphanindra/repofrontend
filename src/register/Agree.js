@@ -1,18 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {Image, StyleSheet, Text, Pressable, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../redux/auth/action';
 
 const Agree = ({route, navigation}) => {
     const { phoneNumber, uniqueID } = route?.params;
     console.log('Agree comp phoneNumber', phoneNumber)
-    const authState = useSelector((state)=> state.authState)
-    const dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(login(phoneNumber))
-    },[dispatch])
-    console.log("authstate", authState)
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
@@ -23,8 +15,8 @@ const Agree = ({route, navigation}) => {
             <Image style={styles.imageContainer} source={require('../assets/images/list-2.png')}/>
             <Image style={styles.imageContainer} source={require('../assets/images/list-3.png')}/>
             <Pressable
-                onPress={() => {authState.error==404? navigation.navigate('details',
-                {phoneNumber: phoneNumber, uniqueID: uniqueID}): navigation.navigate('home')}}
+                onPress={() => navigation.navigate('details',
+                {phoneNumber: phoneNumber, uniqueID: uniqueID})}
                 style={styles.buttonContainer}>
                 <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                     <Text style={styles.buttonText}>

@@ -8,6 +8,7 @@ import {
   Platform,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import Contacts from 'react-native-contacts';
@@ -28,16 +29,18 @@ const AllContacts = ({ route }) => {
       let final = [];
       for (let j = 0; j < contact.length; j++) {
         const element = contact[j];
-        console.log("time", element)
+        // console.log("time", element)
 
 
-        if (element.phoneNumbers[0].number != null && element.displayName != null) {
-          let newPhone = element.phoneNumbers[0].number.replace(/\s/g, '').replace(/[()]/g, '')
+        if (element.phoneNumbers[0]?.number != undefined && element.displayName != undefined) {
+          console.log(element.phoneNumbers[0]?.number)
+          let newPhone = element.phoneNumbers[0]?.number.replace(/\s/g, '').replace(/[()]/g, '')
 
           final.push({
             name: element.displayName,
             number: newPhone,
           });
+          final.sort((a, b) => a.name.localeCompare(b.name))
         }
       }
       if (final.length > 0) {
@@ -59,7 +62,7 @@ const AllContacts = ({ route }) => {
             })
             .catch(e => {
               alert(e);
-              console.warn('Permission to access contacts was denied');
+              console.warn('Permission to access contacts was denied',e);
             });
         })
 
@@ -100,6 +103,7 @@ const AllContacts = ({ route }) => {
   console.log('arr', chatState.contacts);
   const dispatch = useDispatch();
 
+  
   return (
     <View style={styles.container}>
       <TextInput
@@ -108,6 +112,13 @@ const AllContacts = ({ route }) => {
         placeholder="Search"
         style={styles.searchBar}
       />
+      {chatState.loading?
+    
+      <View style={{flex:1, justifyContent:'center'}}>
+        <ActivityIndicator  color={colours.primary}/>
+      </View>
+    
+  :
       <View>
         <FlatList
           data={!isGroupChat?chatState.singleFilter:chatState.groupFilter}
@@ -142,6 +153,7 @@ const AllContacts = ({ route }) => {
         />
         
       </View>
+}
       {isGroupChat == true ?
 
         <TouchableOpacity style={{

@@ -47,7 +47,8 @@ const initialState = {
     clearChat: [],
     groupContact:[],
     chatScreen:false,
-    groupScreen: false
+    groupScreen: false,
+    contactLoading:false
 };
 
 
