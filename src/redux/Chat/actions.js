@@ -15,6 +15,15 @@ import {
   NAMES,
   USERID,
   STATE_CLEANUP,
+  ADD_CONTACT,
+  SUCCESS_GROUP_CHAT_CONTACT,
+  CHATLIST_SUCCESS_GROUP_CHAT,
+  SINGLE_CONTACT_FILTER,
+  GROUP_CONTACT_FILTER,
+  SINGLE_CHAT_FILTER,
+  GROUP_CHAT_FILTER,
+  SINGLE_CHAT_FILTER_UPDATE,
+  GROUP_CHAT_FILTER_UPDATE,
   CREATE_CHAT
 } from "./actionTypes";
 import io from 'socket.io-client'
@@ -31,6 +40,10 @@ export const reqSuccess = (data) => ({
   type: CHATLIST_SUCCESS,
   data,
 });
+export const reqSuccessGroupChat = (data) => ({
+  type: CHATLIST_SUCCESS_GROUP_CHAT,
+  data,
+});
 
 export const reqFailure = (error) => ({
   type: CHATLIST_FAILURE,
@@ -39,6 +52,11 @@ export const reqFailure = (error) => ({
 
 export const reqContacts = (data) => ({
   type: GET_CONTACTS,
+  data
+});
+
+export const reqSuccessGroupChatContact = (data) => ({
+  type: SUCCESS_GROUP_CHAT_CONTACT,
   data
 });
 export const stateCleanUp = () => ({
@@ -54,6 +72,11 @@ export const chatCreate = (data) => ({
 });
 export const reqName = (data) => ({
   type:NAMES,
+  data
+});
+
+export const reqAddContact = (data) => ({
+  type:ADD_CONTACT,
   data
 });
 export const reqUserId = (data) => ({
@@ -87,6 +110,39 @@ export const clearChat = (chatId) => ({
   chatId: chatId,
 })
 
+export const singleFilter = (data) => ({
+  type: SINGLE_CONTACT_FILTER,
+  data
+  // chatId: chatId,
+})
+
+export const groupFilter = (data) => ({
+  type: GROUP_CONTACT_FILTER,
+  data
+  // chatId: chatId,
+})
+export const reqSingleChat = (data) => ({
+  type: SINGLE_CHAT_FILTER,
+  data
+  // chatId: chatId,
+})
+export const reqSingleChatFilter = (data) => ({
+  type: SINGLE_CHAT_FILTER_UPDATE,
+  data
+  // chatId: chatId,GROUP_CHAT_FILTER_UPDATE
+})
+
+export const reqGroupChatFilter = (data) => ({
+  type: GROUP_CHAT_FILTER_UPDATE,
+  data
+  // chatId: chatId,
+})
+
+export const reqGroupChat = (data) => ({
+  type: GROUP_CHAT_FILTER,
+  data
+  // chatId: chatId,
+})
 
 export const getAllChatListByUserId = (id, privateChat, groupChat) => {
   return async (dispatch) => {
@@ -100,7 +156,8 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
         );
         if (response.status) {
           dispatch(reqSuccess(response.data));
-          dispatch(reqFilter(response.data))
+          dispatch(reqSingleChat(response.data))
+          dispatch(reqSingleChatFilter(response.data))
           console.log("today", response.data)
         }
       }
@@ -109,8 +166,9 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
           BASE_URL+`/api/chat/list/user/${id}?isGroupList=true`,
         );
         if (response) {
-          dispatch(reqSuccess(response.data));
-          dispatch(reqFilter(response.data))
+          dispatch(reqSuccessGroupChat(response.data));
+          dispatch(reqGroupChat(response.data))
+          dispatch(reqGroupChatFilter(response.data))
           // console.log("week", response.data)
         }
       }
@@ -122,9 +180,10 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
   };
 }
 
-export const  getContact = (arr) => {
+export const  getContact = (arr,isGroupChat) => {
   return async (dispatch) => {
     dispatch(req());
+    console.log("fx", arr)
 
     try {
       console.log("arr at action", arr)
@@ -137,7 +196,14 @@ export const  getContact = (arr) => {
       console.log("first")
       console.log()
       console.log("response", response.data)
-      dispatch(reqContacts(response.data));
+
+      if(isGroupChat){
+        dispatch(reqSuccessGroupChatContact(response.data))
+        dispatch(groupFilter(response.data))
+      } else{
+        dispatch(reqContacts(response.data));
+        dispatch(singleFilter(response.data))
+      }
       // console.log("today", response.data)
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -147,11 +213,42 @@ export const  getContact = (arr) => {
   };
 }
 
+export const  loadContact = (contact) => {
+  return async (dispatch) => {
+    dispatch(req());
+    console.log("loadContact")
+
+    let final = [];
+    
+    for (let j = 0; j < contact.length; j++) {
+      const element = contact[j];
+      if(element.displayName!==null){
+        final.push({
+          name: element.displayName,
+          phone: element.phoneNumbers,
+          profilePicture: element.thumbnailPath,
+          isSelected: false,
+          userId: null,
+        });
+      }
+      
+    }
+
+    console.log(final)
+    dispatch(getContact(final))
+
+    
+    // dispatch(reqAddContact(final))
+  };
+}
+
 export const groupCreate = (chatName, userChat, userId) => {
   return async (dispatch) => {
     dispatch(req());
     try {
+      userChat.push(userId)
       console.log("arr at action", chatName, userChat, userId)
+
       const response = await axios.post(
         BASE_URL+`/api/chat?userId=${userId}`,
         {
@@ -171,25 +268,25 @@ export const groupCreate = (chatName, userChat, userId) => {
   };
 }
 
-
 export const createChat = (friendId, userId) => {
   return async (dispatch) => {
     dispatch(req());
+    console.log(friendId)
+    console.log(userId)
     try {
-      let chatId = []
-      chatId.push(friendId,userId)
-      console.log("arr at action", friendId, userId, chatId)
+      console.log("arr at action create chat", friendId, userId)
+      let arr = [];
+      arr.push(userId);
+      arr.push(friendId);
+      console.log("cd",arr)
       const response = await axios.post(
-        BASE_URL+`/api/chat?userId=${userId}`,
+        BASE_URL+`/api/chat`,
         {
-          // chatName: null,
-          isGroupChat: false,
-          userChat: chatId
+          isGroupChat: "false",
+          userChat: arr
         },
       );
-      console.log("response", response.data)
-      dispatch(chatCreate(response.data));
-      // navigation.navigate('Chat')
+      console.log("xxx", response.data)
       // console.log("today", response.data)
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -198,7 +295,6 @@ export const createChat = (friendId, userId) => {
     }
   };
 }
-
 
 export const getGroupDetailsbyChatId = (id) => {
   return async (dispatch) => {

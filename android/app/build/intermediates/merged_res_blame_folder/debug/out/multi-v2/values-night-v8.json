@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\ANDALIB QURAISHI\\Desktop\\Work\\repofrontend\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "/Users/hmi/Desktop/frisles client/repofrontend/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\acc77ee559fe4b242c294f331a78c390\\transformed\\appcompat-1.4.1\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "/Users/hmi/.gradle/caches/transforms-3/acc77ee559fe4b242c294f331a78c390/transformed/appcompat-1.4.1/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ANDALIB QURAISHI\\Desktop\\Work\\repofrontend\\node_modules\\@react-native-community\\datetimepicker\\android\\build\\intermediates\\packaged_res\\debug\\values-night-v8\\values-night-v8.xml",
+                    "source": "/Users/hmi/Desktop/frisles client/repofrontend/node_modules/@react-native-community/datetimepicker/android/build/intermediates/packaged_res/debug/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,5",
                         "startColumns": "4,4",
@@ -32,7 +32,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\a2a555cc87784ed6d5e4d2a5771d7640\\transformed\\material-1.1.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "/Users/hmi/.gradle/caches/transforms-3/a2a555cc87784ed6d5e4d2a5771d7640/transformed/material-1.1.0/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

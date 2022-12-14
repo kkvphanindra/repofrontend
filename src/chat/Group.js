@@ -28,8 +28,6 @@ export default function Group({navigation}) {
     useCallback(() => {
       if (navigation.isFocused()) {
         console.log('group chat');
-        // alert("today is true",today)
-        // console.log("before hook today", today)
         dispatch(getAllChatListByUserId(authState.userId, null, groupChat)); // replace with your function
       }
     }, [dispatch, navigation.isFocused()]),
@@ -61,19 +59,15 @@ export default function Group({navigation}) {
       });
   };
   let a = data.map(i => i.displayName);
-  // console.log(a)
   let num = +'';
   let arr = [];
   for (let j = 0; j < contacts.length; j++) {
     const element = a[j];
     const element2 = contacts[j];
-    // console.log("num", element2)
     let value = (element2[0] || '').replace(/[^+\d]+/g, "");
-    // console.log("val", value)
     num = value;
     arr.push({name: element, number: num});
   }
-  // console.log("arr", chatState.contacts, arr)
   const contact = async () => {
     await dispatch(getContact(arr));
     navigation.navigate('groupCreation');
@@ -81,7 +75,7 @@ export default function Group({navigation}) {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      {chatState.data.map((item, index) => {
+      {chatState.groupFilterChat.map((item, index) => {
         return (
           <TouchableOpacity
             onPress={() =>
@@ -126,6 +120,13 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 45,
     color: 'white',
+    alignItems:'center',
+    alignContent:'center',
+   
+          resizeMode: 'contain',
+          alignItems: 'center',
+          justifyContent: 'center',
+          elevation:5
   },
   plus: {
     fontSize: 45,

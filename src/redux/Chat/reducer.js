@@ -13,7 +13,16 @@ import {
     NAMES,
     USERID,
     STATE_CLEANUP,
-    CREATE_CHAT
+    CREATE_CHAT,
+    ADD_CONTACT,
+    SUCCESS_GROUP_CHAT_CONTACT,
+    CHATLIST_SUCCESS_GROUP_CHAT,
+    SINGLE_CONTACT_FILTER,
+    GROUP_CONTACT_FILTER,
+    SINGLE_CHAT_FILTER,
+    GROUP_CHAT_FILTER,
+    SINGLE_CHAT_FILTER_UPDATE,
+    GROUP_CHAT_FILTER_UPDATE
 } from "./actionTypes";
 
 //Initial state///
@@ -21,6 +30,13 @@ import {
 const initialState = {
     loading: false,
     data: [],
+    singleChat:[],
+    singleFilterChat:[],
+    groupFilterChat:[],
+    groupChat:[],
+    singleFilter:[],
+    groupFilter:[],
+    groupData:[],
     name:[],
     userId:[],
     initialData:[],
@@ -28,7 +44,10 @@ const initialState = {
     group: [],
     chat:[],
     exitGroup:[],
-    clearChat: []
+    clearChat: [],
+    groupContact:[],
+    chatScreen:false,
+    groupScreen: false
 };
 
 
@@ -50,6 +69,84 @@ const chatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 data: action.data,
+                error: "",
+                loading: false,
+            };
+        }
+        case SINGLE_CONTACT_FILTER: {
+            console.log("Successfully Got List");
+            console.log(action.data);
+            return {
+                ...state,
+                singleFilter: action.data,
+                error: "",
+                loading: false,
+            };
+        }
+        case GROUP_CONTACT_FILTER: {
+            console.log("Successfully Got List");
+            console.log(action.data);
+            return {
+                ...state,
+                groupFilter: action.data,
+                error: "",
+                loading: false,
+            };
+        }
+        case SINGLE_CHAT_FILTER: {
+            console.log("Successfully Got List");
+            console.log(action.data);
+            return {
+                ...state,
+                singleChat: action.data,
+                error: "",
+                chatScreen: true,
+                groupScreen: false,
+                loading: false,
+            };
+        }
+        case SINGLE_CHAT_FILTER_UPDATE: {
+            console.log("Successfully Got List");
+            console.log(action.data);
+            return {
+                ...state,
+                singleFilterChat: action.data,
+                error: "",
+                chatScreen: true,
+                groupScreen: false,
+                loading: false,
+            };
+        }
+        case GROUP_CHAT_FILTER: {
+            console.log("Successfully Got List");
+            console.log(action.data);
+            return {
+                ...state,
+                groupChat: action.data,
+                chatScreen: false,
+                groupScreen: true,
+                error: "",
+                loading: false,
+            };
+        }
+        case GROUP_CHAT_FILTER_UPDATE: {
+            console.log("Successfully Got List");
+            console.log(action.data);
+            return {
+                ...state,
+                groupFilterChat: action.data,
+                error: "",
+                chatScreen: false,
+                groupScreen: true,
+                loading: false,
+            };
+        }
+        case CHATLIST_SUCCESS_GROUP_CHAT: {
+            console.log("Successfully group Got List");
+            console.log(action.data);
+            return {
+                ...state,
+                groupData: action.data,
                 error: "",
                 loading: false,
             };
@@ -88,6 +185,15 @@ const chatReducer = (state = initialState, action) => {
             return{
                 ...state,
                 contacts: action.data,
+                error: '',
+                loading: false
+            }
+        }
+        case SUCCESS_GROUP_CHAT_CONTACT: {
+            // console.log("got contacts", action.data)
+            return{
+                ...state,
+               groupContact  : action.data,
                 error: '',
                 loading: false
             }
@@ -161,10 +267,27 @@ const chatReducer = (state = initialState, action) => {
                 loading: false
             }
         }
-        // case SELECT_CONTACT:{
-        //     let contact = [];
-        //     contact= con
-        // }
+        case ADD_CONTACT:{
+            let final = [];
+                for (let j = 0; j < action.data.length; j++) {
+                  const element = caction.data[j];
+                  final.push({
+                    name: element.givenName,
+                    phone: element.phoneNumbers,
+                    profilePicture: element.thumbnailPath,
+                    isSelected: false,
+                    userId: null,
+                  });
+                }
+
+
+
+            return{
+                ...state,
+                contacts:action.data,
+                error:''
+            }
+        }
         default:
             return state;
     }

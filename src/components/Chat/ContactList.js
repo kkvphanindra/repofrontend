@@ -9,6 +9,7 @@ import Avatar from './Avatar';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContact } from '../../redux/Chat/actions';
+import colours from '../../assets/colours';
 
 
 const getAvatarInitials = (textString) => {
@@ -39,108 +40,214 @@ const ContactList = (props) => {
   //   dispatch(getContact(arr));
   // },[dispatch])
   // id= item.userId;
-  return (
-    <View>
-      <TouchableOpacity onPress={isGroupChat? selectContact:null}>
-        <View style={styles.itemContainer}>
-          <View style={styles.leftElementContainer}>
-            <Avatar
-              // img={
-              //   item.hasThumbnail ?
-              //     { uri: item.thumbnailPath } : undefined
-              // }
-              placeholder={getAvatarInitials(
-                `${item.name}`,
-              )}
-              width={40}
-              height={40}
-            />
-          </View>
-          <View style={styles.rightSectionContainer}>
-            <View style={styles.mainTitleContainer}>
-              <Text
-                style={
-                  styles.titleStyle
-                }>{`${item.name}`}</Text>
+  if(!isGroupChat){
+    return (
+      <View>
+        <TouchableOpacity onPress={isGroupChat? selectContact:null}>
+          <View style={styles.itemContainer}>
+            <View style={styles.leftElementContainer}>
+              <Avatar
+                // img={
+                //   item.hasThumbnail ?
+                //     { uri: item.thumbnailPath } : undefined
+                // }
+                placeholder={getAvatarInitials(
+                  `${item.name}`,
+                )}
+                width={40}
+                height={40}
+              />
             </View>
-          </View>
-          {
-            isGroupChat == true ?
-              <TouchableOpacity
-                onPress={selectContact}
-                style={{ alignSelf: 'center',marginHorizontal:20}}>
-                  {/* {isSelected == true?
-                  <Image
-                  source={require('./../../assets/icons/png/icon-done.png')}
-                  style={{
-                    height: 22,
-                    width: 22,
-                    // marginTop: '19%',
-                    // marginLeft: '1%',
-                    alignSelf: 'center',
-                  }}
-                />
-                :
-                <Image
-                  source={require('./../../assets/icons/png/icon-done-2.png')}
-                  style={{
-                    height: 22,
-                    width: 22,
-                    // marginTop: '19%',
-                    // marginLeft: '1%',
-                    alignSelf: 'center',
-                  }}
-                />
-                } */}
-              {selectedContacts?.includes(item.userId)?
-            <Image
-            source={require('./../../assets/icons/png/icon-done.png')}
-            style={{
-              height: 22,
-              width: 22,
-              // marginTop: '19%',
-              // marginLeft: '1%',
-              alignSelf: 'center',
-            }}
-          />
-          :
-          <Image
-            source={require('./../../assets/icons/png/icon-done-2.png')}
-            style={{
-              height: 22,
-              width: 22,
-              // marginTop: '19%',
-              // marginLeft: '1%',
-              alignSelf: 'center',
-            }}
-          />  
-            }
-              </TouchableOpacity>
-              :
-              <>
-                {item.userId == null ?
-                  <TouchableOpacity
-                    onPress={invite}
-                    style={styles.invite}>
-                    <Text style={styles.inviteText}>Invite</Text>
-                  </TouchableOpacity>
+            <View style={styles.rightSectionContainer}>
+              <View style={styles.mainTitleContainer}>
+                <Text
+                  style={
+                    styles.titleStyle
+                  }>{`${item.name}`}</Text>
+              </View>
+            </View>
+            {
+              isGroupChat == true ?
+                <TouchableOpacity
+                  onPress={selectContact}
+                  style={{ alignSelf: 'center',marginHorizontal:20}}>
+                    {/* {isSelected == true?
+                    <Image
+                    source={require('./../../assets/icons/png/icon-done.png')}
+                    style={{
+                      height: 22,
+                      width: 22,
+                      // marginTop: '19%',
+                      // marginLeft: '1%',
+                      alignSelf: 'center',
+                    }}
+                  />
                   :
-                  <TouchableOpacity
-                    onPress={createChat}
-                    style={styles.invite}>
-                    <Text style={styles.inviteText}>Message</Text>
-                  </TouchableOpacity>
-                }
-              </>
-
-
-          }
-
-
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
+                  <Image
+                    source={require('./../../assets/icons/png/icon-done-2.png')}
+                    style={{
+                      height: 22,
+                      width: 22,
+                      // marginTop: '19%',
+                      // marginLeft: '1%',
+                      alignSelf: 'center',
+                    }}
+                  />
+                  } */}
+                {selectedContacts?.includes(item.userId)?
+              <Image
+              source={require('./../../assets/icons/png/icon-done.png')}
+              style={{
+                height: 22,
+                width: 22,
+                // marginTop: '19%',
+                // marginLeft: '1%',
+                alignSelf: 'center',
+              }}
+            />
+            :
+            <Image
+              source={require('./../../assets/icons/png/icon-done-2.png')}
+              style={{
+                height: 22,
+                width: 22,
+                // marginTop: '19%',
+                // marginLeft: '1%',
+                alignSelf: 'center',
+              }}
+            />  
+              }
+                </TouchableOpacity>
+                :
+                <>
+                  {item.userId == null ?
+                    <TouchableOpacity
+                      onPress={invite}
+                      style={styles.invite}>
+                      <Text style={styles.inviteText}>Invite</Text>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity
+                      onPress={createChat}
+                      style={styles.invite}>
+                      <Text style={styles.inviteText}>Message</Text>
+                    </TouchableOpacity>
+                  }
+                </>
+  
+  
+            }
+  
+  
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  if(item.userId!=null){
+    return (
+      <View>
+        <TouchableOpacity onPress={isGroupChat? selectContact:null}>
+          <View style={styles.itemContainer}>
+            <View style={styles.leftElementContainer}>
+              <Avatar
+                // img={
+                //   item.hasThumbnail ?
+                //     { uri: item.thumbnailPath } : undefined
+                // }
+                placeholder={getAvatarInitials(
+                  `${item.name}`,
+                )}
+                width={40}
+                height={40}
+              />
+            </View>
+            <View style={styles.rightSectionContainer}>
+              <View style={styles.mainTitleContainer}>
+                <Text
+                  style={
+                    styles.titleStyle
+                  }>{`${item.name}`}</Text>
+              </View>
+            </View>
+            {
+              isGroupChat == true ?
+                <TouchableOpacity
+                  onPress={selectContact}
+                  style={{ alignSelf: 'center',marginHorizontal:20}}>
+                    {/* {isSelected == true?
+                    <Image
+                    source={require('./../../assets/icons/png/icon-done.png')}
+                    style={{
+                      height: 22,
+                      width: 22,
+                      // marginTop: '19%',
+                      // marginLeft: '1%',
+                      alignSelf: 'center',
+                    }}
+                  />
+                  :
+                  <Image
+                    source={require('./../../assets/icons/png/icon-done-2.png')}
+                    style={{
+                      height: 22,
+                      width: 22,
+                      // marginTop: '19%',
+                      // marginLeft: '1%',
+                      alignSelf: 'center',
+                    }}
+                  />
+                  } */}
+                {selectedContacts?.includes(item.userId)?
+              <Image
+              source={require('./../../assets/icons/png/icon-done.png')}
+              style={{
+                height: 22,
+                width: 22,
+                // marginTop: '19%',
+                // marginLeft: '1%',
+                alignSelf: 'center',
+              }}
+            />
+            :
+            <Image
+              source={require('./../../assets/icons/png/icon-done-2.png')}
+              style={{
+                height: 22,
+                width: 22,
+                // marginTop: '19%',
+                // marginLeft: '1%',
+                alignSelf: 'center',
+              }}
+            />  
+              }
+                </TouchableOpacity>
+                :
+                <>
+                  {item.userId == null ?
+                    <TouchableOpacity
+                      onPress={invite}
+                      style={styles.invite}>
+                      <Text style={styles.inviteText}>Invite</Text>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity
+                      onPress={createChat}
+                      style={styles.invite}>
+                      <Text style={styles.inviteText}>Message</Text>
+                    </TouchableOpacity>
+                  }
+                </>
+  
+  
+            }
+  
+  
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -177,7 +284,7 @@ const styles = StyleSheet.create({
     color: '#000'
   },
   invite: {
-    backgroundColor: '#5d6aff',
+    backgroundColor: colours.primary,
     paddingHorizontal: 15,
     paddingVertical: 5,
     borderRadius: 5,
