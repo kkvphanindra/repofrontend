@@ -4,7 +4,9 @@ import {
     GET_ALL_PRIVACY_SETTINGS,
     POST_PRIVACY_SELECTED,
     STATE_CLEANUP,
-    ENABLED
+    ENABLED,
+    GET_ALL_NOTIFICATION_SETTINGS,
+    POST_NOTIFICATION_SELECTED
 } from "./actionTypes";
 
 //Initial state///
@@ -12,7 +14,9 @@ import {
 const initialState = {
     loading: false,
     data: [],
+    notificationData: [],
     selected:[],
+    notificationSelected:[],
     enabled: false
 };
 
@@ -36,11 +40,29 @@ const notificationReducer = (state = initialState, action) => {
                 loading: false
             }
         }
+        case GET_ALL_NOTIFICATION_SETTINGS: {
+            // console.log("REDUCER PRIVACY", action.data)
+            return{
+                ...state,
+                notificationData: action.data,
+                error: '',
+                loading: false
+            }
+        }
         case POST_PRIVACY_SELECTED: {
             console.log("POST_PRIVACY_SELECTED", action.data)
             return{
                 ...state,
                 selected: action.data,
+                error: '',
+                loading: false
+            }
+        }
+        case POST_NOTIFICATION_SELECTED: {
+            console.log("POST_PRIVACY_SELECTED", action.data)
+            return{
+                ...state,
+                notificationSelected: action.data,
                 error: '',
                 loading: false
             }

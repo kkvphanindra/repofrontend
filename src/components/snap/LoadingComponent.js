@@ -11,7 +11,7 @@ const LoadingComponet = () => {
                 color={"black"}
                 size="large" />
             :
-            <Text style={{color: '#000', alignSelf: 'center'}}>No Pervious Post Found</Text>
+            <Text style={{color: '#000', alignSelf: 'center'}}>No Previous Post Found</Text>
         }
         </View>
     )

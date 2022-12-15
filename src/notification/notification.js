@@ -15,12 +15,46 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllPrivacySetting} from '../redux/Notifications/action';
 
+const data=[
+  {
+    id: "16fc7b70-7c40-11ed-9918-211591abd471",
+    name: "comment",
+    isActive: true,
+    createdAt: "2022-12-15T06:17:02.375Z",
+    updatedAt: "2022-12-15T06:17:02.375Z",
+    isEnabled: false
+},
+{
+    id: "1c3e0090-7c40-11ed-9918-211591abd471",
+    name: "share",
+    isActive: true,
+    createdAt: "2022-12-15T06:17:11.193Z",
+    updatedAt: "2022-12-15T06:17:11.193Z",
+    isEnabled: true
+},
+{
+    id: "203133c0-7c40-11ed-9918-211591abd471",
+    name: "tag",
+    isActive: true,
+    createdAt: "2022-12-15T06:17:17.820Z",
+    updatedAt: "2022-12-15T06:17:17.820Z",
+    isEnabled: false
+},
+{
+    id: "94a98710-7c41-11ed-b465-3336b2eb089c",
+    name: "connect request",
+    isActive: true,
+    createdAt: "2022-12-15T06:27:42.721Z",
+    updatedAt: "2022-12-15T06:27:42.721Z",
+    isEnabled: false
+}
+]
 export default function SettingNotifications({navigation}) {
   const notificationState = useSelector(state => state.notificationState);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllPrivacySetting());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllPrivacySetting());
+  // }, [dispatch]);
   //   console.log('notification state', notificationState);
   return (
     <View style={styles.container}>
@@ -40,11 +74,14 @@ export default function SettingNotifications({navigation}) {
         </View>
       </View>
       <ScrollView>
-        {notificationState.data.map(item => {
+        {/* {notificationState.data.map(item => { */}
+        {data.map(item => {
           return (
             <View style={styles.toggel}>
                 <Text style={styles.toggelName}>{item.name}</Text>
-              <ToggleSwitch/>
+              <ToggleSwitch 
+              id={item.id}
+              />
             </View>
           );
         })}

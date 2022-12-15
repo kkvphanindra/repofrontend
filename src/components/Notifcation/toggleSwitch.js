@@ -1,21 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View , StyleSheet, Alert} from 'react-native';
+import { Text, View , StyleSheet, Alert, Pressable} from 'react-native';
 import {Switch} from 'react-native-paper' ;
 
 const ToggleSwitch = (props) =>{
 	const [switchOn, setSwitchOn] = useState(false)
-	const toggleSwitch = () => {setSwitchOn(previousState => !previousState)};
-	console.log("object",switchOn)
+	const toggleSwitch = (onid) => {setSwitchOn(previousState => !previousState), console.log("onp", onid)}
 	return(
 		<View style ={styles.container}>
-			<Text style={styles.text}>{props.psId}</Text>
-			<Text style={styles.text}>{props.psItemId}</Text>
 			<Switch 
 			value={switchOn} 
 			thumbColor='#5d6afe'
 			trackColor={{false: '#dbdbdb', true: '#5d6afe'}}
-			onValueChange={(e) => toggleSwitch(e)}/>
-			{/* onValueChange={props.onValueChange}/> */}
+			onValueChange={() => {toggleSwitch(props.id)}}/>
 		</View>
 	)
 }
@@ -32,10 +28,13 @@ const styles = StyleSheet.create({
 	text: {
 		fontSize: 15,
 		color: '#000',
-		// backgroundColor: 'pink',
-		margin: '5%',
+		backgroundColor: 'pink',
+		marginTop: '15%',
 		// width: '75%',
 		fontWeight: '500',
 		alignSelf: 'center',
+	  },
+	  pressable:{
+		//   backgroundColor: 'red'
 	  },
 })
