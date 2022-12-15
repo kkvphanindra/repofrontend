@@ -198,6 +198,7 @@ export const  getContact = (arr,isGroupChat) => {
       console.log("response", response.data)
 
       if(isGroupChat){
+        console.log(("check"))
         dispatch(reqSuccessGroupChatContact(response.data))
         dispatch(groupFilter(response.data))
       } else{

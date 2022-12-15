@@ -32,18 +32,18 @@ export default function Group({navigation}) {
       }
     }, [dispatch, navigation.isFocused()]),
   );
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-        title: 'Contacts',
-        message: 'This app would like to view your contacts.',
-      }).then(() => {
-        loadContacts();
-      });
-    } else {
-      loadContacts();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Platform.OS === 'android') {
+  //     PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+  //       title: 'Contacts',
+  //       message: 'This app would like to view your contacts.',
+  //     }).then(() => {
+  //       loadContacts();
+  //     });
+  //   } else {
+  //     loadContacts();
+  //   }
+  // }, []);
   const loadContacts = () => {
     Contacts.getAll()
       .then(contacts => {

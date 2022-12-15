@@ -43,6 +43,7 @@ const AllContacts = ({ route }) => {
           final.sort((a, b) => a.name.localeCompare(b.name))
         }
       }
+      console.log("group c",isGroupChat)
       if (final.length > 0) {
         dispatch(getContact(final, isGroupChat));
       }
@@ -61,7 +62,7 @@ const AllContacts = ({ route }) => {
               getContacts(contacts)
             })
             .catch(e => {
-              alert(e);
+             
               console.warn('Permission to access contacts was denied',e);
             });
         })
@@ -76,11 +77,11 @@ const AllContacts = ({ route }) => {
   const search = text => {
     let d1=[];
     if(isGroupChat){
-      d1 = chatState.groupContact.filter(a => a.name.toLowerCase().includes(text));
+      d1 = chatState.groupContact.filter(a => a.name.toLowerCase().includes(text.toLowerCase()));
 
     }else if(!isGroupChat){
       console.log("cc",chatState.contacts)
-      d1 = chatState.contacts.filter(b=>b.name.toLowerCase().includes(text));
+      d1 = chatState.contacts.filter(b=>b.name.toLowerCase().includes(text.toLowerCase()));
       
     }
     dispatch(groupFilter(d1))

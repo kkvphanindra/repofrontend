@@ -10,6 +10,7 @@ import {
 const initialState = {
   isLoggedIn: false,
   loading: true,
+  userData:{},
   data: [],
   token: {},
   coverPicture: '',
@@ -26,9 +27,10 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case REQ_SUCCESS: {
-      console.log('da', action.data);
+      console.log('da', action);
       return {
         ...state,
+        // userData:action.data,
         coverPicture: action.coverPicture,
         dob: action.dob,
         name: action.name,

@@ -19,6 +19,7 @@ export const req = (
   phone,
   profilePicture,
   userId,
+  // data
 ) => ({
   type: REQ_SUCCESS,
   coverPicture,
@@ -29,6 +30,7 @@ export const req = (
   phone,
   profilePicture,
   userId,
+  // data
 });
 
 export const reqToken = data => ({
@@ -41,47 +43,49 @@ export const reqFailure = error => ({
   error: error,
 });
 
-export const login = number => {
+export const login = data => {
   return async dispatch => {
     // dispatch(reqActivityLoading());
-    console.log('login', number);
-    try {
-      const response = await axios.post(BASE_URL + `/api/user/number/details`, {
-        number: number,
-      });
-      console.log(response.data);
-      if (response) {
-        console.log('COMPLETE RESPONSE DATA:', response.data[0].name);
-        const userData = JSON.stringify({
-          coverPicture: response.data[0].coverPicture,
-          dob: response.data[0].dob,
-          name: response.data[0].name,
-          gender: response.data[0].gender,
-          occupation: response.data[0].occupation,
-          phone: response.data[0].phone,
-          profilePicture: response.data[0].profilePicture,
-          userId: response.data[0].userId,
+    console.log('login', data);
+    // try {
+    //   const response = await axios.post(BASE_URL + `/api/user/number/details`, {
+    //     number: number,
+    //   });
+      // console.log(response.data);
+      if (data) {
+        // console.log('COMPLETE RESPONSE DATA:', response.data[0].name);
+        const userData =
+        // JSON.stringify(data)
+        JSON.stringify({
+          coverPicture: data.coverPicture,
+          dob: data.dob,
+          name: data.name,
+          gender: data.gender,
+          occupation: data.occupation,
+          phone: data.phone,
+          profilePicture: data.profilePicture,
+          userId: data.userId,
         });
         await AsyncStorage.setItem('frislesAuthData', userData);
         console.log('Saved data to async storage!', userData);
         dispatch(
           req(
-            response.data[0].coverPicture,
-            response.data[0].dob,
-            response.data[0].name,
-            response.data[0].gender,
-            response.data[0].occupation,
-            response.data[0].phone,
-            response.data[0].profilePicture,
-            response.data[0].userId,
+            data.coverPicture,
+            data.dob,
+            data.name,
+            data.gender,
+            data.occupation,
+            data.phone,
+            data.profilePicture,
+            data.userId,
           ),
         );
       }
-    } catch (err) {
-      console.log('Request failed');
-      console.log(err.response.status, err.message);
-      dispatch(reqFailure(err.response.status));
-    }
+    // } catch (err) {
+    //   console.log('Request failed');
+    //   console.log(err.response.status, err.message);
+    //   dispatch(reqFailure(err.response.status));
+    // }
   };
 };
 

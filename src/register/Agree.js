@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Image, StyleSheet, Text, Pressable, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+// import { useDispatch, useSelector } from 'react-redux';
 
 const Agree = ({route, navigation}) => {
     const { phoneNumber, uniqueID } = route?.params;

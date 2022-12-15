@@ -16,6 +16,10 @@ import {
 import DeviceInfo from 'react-native-device-info';
 import axios from 'axios';
 import { environment } from '../../environment';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/auth/action';
+
+// import { BASE_URL } from '@env'
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -23,7 +27,8 @@ const height = Dimensions.get('window').height;
 const LoginComponent = ({navigation}) => {
     const [confirmLogin, setConfirmLogin] = useState(false);
     const [uniqueID, setUniqueID] = useState(false);
-    
+    const dispatch = useDispatch()
+    const authState = useSelector((state)=> state.authState)
     const phoneNumberValidate = () => {
         requestPermissions();
         if(PermissionsAndroid.RESULTS.GRANTED){
@@ -41,6 +46,8 @@ const LoginComponent = ({navigation}) => {
                                 console.log("e.mobile", e.mobile);
                                if(e.mobile === uniqueId){
                                    setConfirmLogin(false);
+                                   console.log("details",e)
+                                   dispatch(login(e))
                                    navigation.navigate('home')
                                }
                                else{
@@ -82,16 +89,16 @@ const LoginComponent = ({navigation}) => {
     }
 
     useEffect(() => {
-        console.log("Login Component ==>", environment);
+        console.log("Login Component");
         phoneNumberValidate();
+        // dispatch(tokenRetriever())
     }, []);
-    // console.log("Login confirmLogin", confirmLogin);
-
+    console.log("Login confirmLogin", confirmLogin);
     return (
         <ImageBackground source={require('../assets/images/login.png')} resizeMode="cover" style={styles.imageContainer}>
             {
                 confirmLogin && 
-                <TouchableOpacity onPress={()=> navigation.navigate('mobileNumber', {uniqueID: uniqueID})} style={styles.textWrapper}>
+                <TouchableOpacity onPress={()=>  navigation.navigate('mobileNumber', {uniqueID: uniqueID})} style={styles.textWrapper}>
                 <Text style={styles.loginText}>Login With Mobile</Text>
                 <Image
                     style={styles.arrow}

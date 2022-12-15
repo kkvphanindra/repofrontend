@@ -144,9 +144,10 @@ const ContactList = (props) => {
       </View>
     );
   }
-  if(item.userId!=null){
+  if(isGroupChat){
     return (
       <View>
+        {item.userId!==null?
         <TouchableOpacity onPress={isGroupChat? selectContact:null}>
           <View style={styles.itemContainer}>
             <View style={styles.leftElementContainer}>
@@ -171,6 +172,7 @@ const ContactList = (props) => {
               </View>
             </View>
             {
+              // groupchat True then circle icon
               isGroupChat == true ?
                 <TouchableOpacity
                   onPress={selectContact}
@@ -223,6 +225,7 @@ const ContactList = (props) => {
               }
                 </TouchableOpacity>
                 :
+                // groupchat false then not colored circle icon
                 <>
                   {item.userId == null ?
                     <TouchableOpacity
@@ -245,6 +248,10 @@ const ContactList = (props) => {
   
           </View>
         </TouchableOpacity>
+        :
+        // <Text>no contacts</Text>
+        <></>
+      }
       </View>
     );
   }

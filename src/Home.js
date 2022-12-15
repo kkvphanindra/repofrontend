@@ -22,7 +22,7 @@ const { width, height } = Dimensions.get('window');
 const Home = ({navigation}) => {
     const authState = useSelector((state)=>state.authState)
     // console.log("process.env", BASE_URL)
-    console.log("ftu",authState.userId)
+    console.log("ftu",authState.userId, authState)
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}
