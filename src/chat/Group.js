@@ -6,6 +6,7 @@ import {
   PermissionsAndroid,
   Platform,
   ScrollView,
+  Image
 } from 'react-native';
 import React, {useState, useCallback, useEffect} from 'react';
 import ChatListItem from '../components/Chat/ChatListItem';
@@ -99,7 +100,9 @@ export default function Group({navigation}) {
       })}
       </ScrollView>
       <TouchableOpacity style={styles.button} onPress={() => contact()}>
-        <Text style={styles.plus}>+</Text>
+      <Image 
+        source={require('../assets/icons/png/plus.png')}
+        />
       </TouchableOpacity>
     </View>
   );

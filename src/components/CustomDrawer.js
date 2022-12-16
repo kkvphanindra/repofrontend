@@ -2,8 +2,13 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 const CustomDrawer = (props) => {
+    const authState = useSelector((state)=>state.authState);
+    
     return (
         <View style={styles.Container}>
             <View style={{
@@ -29,7 +34,7 @@ const CustomDrawer = (props) => {
                         fontWeight: '600',
                         color: 'white',
                         marginLeft: 10,
-                    }}>Clara Fredry</Text>
+                    }}>{authState.name}</Text>
                 </View>
                 </View>
             </View>
@@ -45,7 +50,7 @@ const CustomDrawer = (props) => {
                 marginBottom: '5%',
                 margin: '5%'
             }}>
-                <Text style={{color: '#fff'}}>App Version - V2.00</Text>
+                <Text style={{color: '#fff'}}>App Version - V1.00</Text>
             </View>
         </View>
     )

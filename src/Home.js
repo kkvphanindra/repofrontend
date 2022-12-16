@@ -45,7 +45,7 @@ const Home = ({navigation}) => {
                         </View>    
                         <View style={styles.titleContainer}>
                             <Text style={styles.title}>Welcome Back</Text>
-                            <Text style={styles.name}>Clara Fredry</Text>
+                            <Text style={styles.name}>{authState.name}</Text>
                         </View>    
                         <View style={styles.badgeContainer}>
                             <ImageBackground

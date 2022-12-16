@@ -57,7 +57,7 @@ const ChatHome = ({ navigation, route }) => {
                             <Image style={styles.notifyIcon} source={require('../../assets/icons/png/notify-icon.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => onClick()} style={styles.badgeWrapper}>
-                            <Image style={styles.badgeIcon} source={require('../../assets/icons/png/search-icon.png')} />
+                            <Image style={styles.badgeIcon} source={require('../../assets/icons/png/search.png')} />
                         </TouchableOpacity>
                     </View>
                     :

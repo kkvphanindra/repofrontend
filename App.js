@@ -149,7 +149,7 @@ function DrawerNv() {
       }
     }}
     initialRouteName='Home'
-    drawerContent={props => <CustomDrawer {...props} />}
+    drawerContent={props => <CustomDrawer {...props}  />}
     >
     <Drawer.Screen name="Home" component={HomeStackScreen} 
     options={{

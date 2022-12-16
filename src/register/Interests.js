@@ -21,12 +21,17 @@ import axios from 'axios';
 import { environment } from '../../environment';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+import { login } from '../redux/auth/action';
+import { useDispatch, useSelector } from 'react-redux';
+
 const Interests = ({route, navigation}) => {
   const { uniqueID, phoneNumber, name, dob, gender, 
     occupation, profilePic, coverPic, latitude,longitude } = route?.params;
   const [BtnColor, setBtnColor] = useState("");
   const [interestData, setInterestData] = useState([]);
   const [filterData, setFilterData] = useState([]);
+  const dispatch = useDispatch()
+
   
   useEffect(() => {
     axios.get(`${environment.API_URL}/interest`).then((response) => {
@@ -92,6 +97,7 @@ const Interests = ({route, navigation}) => {
           25,
           height
         );
+        dispatch(login(e))
   });
     navigation.navigate('groups');
   }
