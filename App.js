@@ -195,11 +195,11 @@ function HomeStackScreen({navigation, route}) {
             <View
               style={{
                 position: 'absolute',
-                bottom: 10, // space from bottombar
+                bottom: 16, // space from bottombar
                 backgroundColor: '#5d6aff',
-                width: 60,
-                height: 60,
-                borderRadius: 45,
+                width: 70,
+                height: 70,
+                borderRadius: 100/2,
                 elevation: 5,
                 justifyContent: 'center',
                 alignItems: 'center',
