@@ -48,7 +48,7 @@ const ActivityDetailsGroupName = ({id,groupName}) => {
     useEffect(()=>{
         dispatch(activityByActivityId(id))
     },[dispatch])
-    console.log("state", activityState?.data[0]?.users[0]?.userId? "hey":'not hey')
+    console.log("state", activityState?.data[0]?.users[0]?.userId? "hey":'not hey',activityState.data[0].groupName)
     const renderItems = ({ item }) => {
         return (
             <ScrollView>
@@ -60,9 +60,9 @@ const ActivityDetailsGroupName = ({id,groupName}) => {
                         <View>
                             <Image
                                 source={{
-                                    uri: item?.photo
-                                        ? item?.photo
-                                        : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+                                    uri: item?.profilePicture
+                                        ? item?.profilePicture
+                                        : 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
                                 }}
                                 style={{
                                     // backgroundColor: 'black',
@@ -82,7 +82,7 @@ const ActivityDetailsGroupName = ({id,groupName}) => {
                                     marginLeft: '5%',
                                     color: '#000',
                                 }}>
-                                {item?.firstName}{" "}{item?.lastName}
+                                {item?.name}
                             </Text>
                             <Text
                                 style={{
@@ -126,7 +126,7 @@ const ActivityDetailsGroupName = ({id,groupName}) => {
         <View style={{  marginTop: '10%',
         backgroundColor: activityState?.data[0]?.users[0]?.userId?'#EBECFE':'#fff'}}>
             <ScrollView>
-                <Text style={styles.groupName}>{groupName}</Text>
+                <Text style={styles.groupName}>{activityState.data[0].groupName}</Text>
                 <FlatList
                     //   style={{ flex: 1, padding: 0 }} activityState.data[0].users
                     data={activityState?.data[0]?.users}

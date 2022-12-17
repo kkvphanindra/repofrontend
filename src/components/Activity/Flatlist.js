@@ -182,18 +182,18 @@ const Flatlist = ({data}) => {
               </Text>
             </View>
             <View style={styles.tabViewWrapper}>
-              {img.slice(0, 4).map(item => {
+              {data.item.users.slice(0, 4).map(item => {
                 return (
                   <View>
                     <View>
-                      <Image style={styles.groupIcon} source={{uri: item}} />
+                      <Image style={styles.groupIcon} source={{uri: item.profilePicture==""?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}} />
                     </View>
                   </View>
                 );
               })}
-              {img.length > 4 ? (
+              {data.item.users.length > 4 ? (
                 <View style={styles.groupIcon}>
-                  <Text style={styles.groupIconText}>+{img.length - 4}</Text>
+                  <Text style={styles.groupIconText}>+{data.item.users.length - 4}</Text>
                 </View>
               ) : null}
             </View>

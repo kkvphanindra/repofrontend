@@ -80,43 +80,43 @@ export const deleteActivity = data => ({
   type: DELETE_ACTIVITY,
   data,
 });
-export const getAllActivityByUserId = (today, week, month, year) => {
+export const getAllActivityByUserId = (id,today, week, month, year) => {
   return async dispatch => {
     try {
       // console.log("week", today,week,month)
       if (today === true) {
         const response = await axios.get(
           BASE_URL+
-          `/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?today=${today}`,
+          `/api/activity/user/${id}?today=${today}`,
         );
         if (response.status) {
           dispatch(ActivityByUserId(response.data));
-          // console.log("today", response.data)
+          console.log("today")
         }
       } else if (week === true) {
         const response = await axios.get(
           BASE_URL+
-          `/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?week=${week},`,
+          `/api/activity/user/${id}?week=${week},`,
         );
         if (response) {
           dispatch(ActivityByUserId(response.data));
-          // console.log("week", response.data)
+          console.log("week", )
         }
       } else if (month === true) {
         const response = await axios.get(
-          BASE_URL+`/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?month=${month},`,
+          BASE_URL+`/api/activity/user/${id}?month=${month},`,
         );
         if (response) {
           dispatch(ActivityByUserId(response.data));
-          // console.log("month", response.data)
+          console.log("month", )
         }
       } else if (year === true) {
         const response = await axios.get(
-          BASE_URL+`/api/activity/user/3ac1df80-5a6e-11ed-a871-7d8265a60df7?month=${year},`,
+          BASE_URL+`/api/activity/user/${id}?year=${year},`,
         );
         if (response) {
           dispatch(ActivityByUserId(response.data));
-          // console.log("month", response.data)
+          console.log("year",)
         }
       }
     } catch (err) {

@@ -11,9 +11,6 @@ import {reqSingleChatFilter, reqGroupChatFilter } from '../../redux/Chat/actions
 
 const Tab = createMaterialTopTabNavigator();
 const tabHiddenRoutes = [
-    "Chat",
-    "Group",
-    "Calls"
 ];
 const ChatHome = ({ navigation, route }) => {
     const [showSearchbar, setShowSearchbar] = useState(false)

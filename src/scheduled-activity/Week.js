@@ -13,6 +13,7 @@ import { useCallback } from 'react';
 
 const Week = () => {
   const navigation = useNavigation();
+  const authState = useSelector((state)=>state.authState)
   const activityState = useSelector(state => state.activityState);
   const [week, setWeek] = useState(true);
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Week = () => {
       if (navigation.isFocused()) {
         // console.log('week screen', week);
         {activityState.loading? <ActivityIndicator size='large'/>:
-        dispatch(getAllActivityByUserId(null, week, null, null)); // replace with your function
+        dispatch(getAllActivityByUserId(authState.userId,null, week, null, null)); // replace with your function
       }
       }
     }, [dispatch, navigation.isFocused()]),

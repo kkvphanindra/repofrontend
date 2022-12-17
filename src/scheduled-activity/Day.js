@@ -15,6 +15,7 @@ import Flatlist from '../components/Activity/Flatlist';
 const Day = () => {
   const navigation=useNavigation()
   // const isFocused= useIsFocused()
+  const authState = useSelector((state)=>state.authState)
   const [secondsLeft, setSecondsLeft] = useState();
   const [timerOn, setTimerOn] = useState(false);
   const [today,setToday]=useState(true)
@@ -25,12 +26,12 @@ const Day = () => {
       if(navigation.isFocused()){
         // alert("today is true",today)
         // console.log("before hook today", today)
-        dispatch(getAllActivityByUserId(today,null,null,null)); // replace with your function
+        dispatch(getAllActivityByUserId(authState.userId, today,null,null,null)); // replace with your function
       }
     },[dispatch,navigation.isFocused()])
   )
   // console.log("before hook", today)
-  // console.log("activity day", activityState.data)
+  console.log("activity day", activityState.data)
   return (
     <View style={styles.container}>
       {/* {activityState.loading?

@@ -192,7 +192,7 @@ const CreateActivty = ({navigation}) => {
             <Text style={styles.startDateText}>Start Date</Text>
             <TouchableOpacity
               style={styles.startDateButton}
-              onPress={() => setModalVisible(true)}>
+              onPress={() => {setModalVisible(true), console.log("modal", modalVisible)}}>
               <Text style={styles.startDateButtonText}>
                 {selectedStartDate ? minDate : 'YYYY/MM/DD'}
               </Text>
@@ -382,7 +382,7 @@ const CreateActivty = ({navigation}) => {
         </TouchableOpacity>
         <Modal
           animationType="slide"
-          // transparent={true}
+          transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');

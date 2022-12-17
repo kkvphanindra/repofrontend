@@ -15,13 +15,14 @@ import Flatlist from '../components/Activity/Flatlist';
 const Month = () => {
   const navigation=useNavigation()
   const [month,setMonth]=useState(true)
+  const authState = useSelector((state)=>state.authState)
   const activityState = useSelector((state)=> state.activityState)
   const dispatch= useDispatch()
   useFocusEffect(
     useCallback(()=>{
       if(navigation.isFocused()){
         // console.log("month screen",month)
-        dispatch(getAllActivityByUserId(null,null,month,null)); // replace with your function
+        dispatch(getAllActivityByUserId(authState.userId,null,null,month,null)); // replace with your function
       }
     },[dispatch,navigation.isFocused()])
   )
