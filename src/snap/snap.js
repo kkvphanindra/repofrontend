@@ -58,12 +58,13 @@ const Snap = navigation => {
   const [groupId, setGroupId] = useState('');
   const [activityN, setActivityN] = useState('');
 const authId=authState.userId
-  useFocusEffect(
-    React.useCallback(() => {
-      dispatch(getAllPostsByUserId(authState.userId));
-    }, [dispatch]),
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     dispatch(getAllPostsByUserId(authState.userId));
+  //   }, [dispatch]),
+  // );
   useEffect(()=>{
+      dispatch(getAllPostsByUserId(authState.userId));
         dispatch(groupName())
         dispatch(activityName())
       },[dispatch])

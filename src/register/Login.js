@@ -88,11 +88,11 @@ const LoginComponent = ({navigation}) => {
         PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE)
     }
 
-    useEffect(() => {
+    useEffect(async() => {
         console.log("Login Component");
         phoneNumberValidate();
         // dispatch(tokenRetriever())
-    }, []);
+    }, [dispatch]);
     console.log("Login confirmLogin", confirmLogin);
     return (
         <ImageBackground source={require('../assets/images/login.png')} resizeMode="cover" style={styles.imageContainer}>

@@ -1,3 +1,4 @@
+import { enable } from "./action";
 import {
     REQ,
     REQ_FAILURE,
@@ -41,7 +42,7 @@ const notificationReducer = (state = initialState, action) => {
             }
         }
         case GET_ALL_NOTIFICATION_SETTINGS: {
-            // console.log("REDUCER PRIVACY", action.data)
+            // console.log("REDUCER notification", action.data)
             return{
                 ...state,
                 notificationData: action.data,
@@ -63,6 +64,7 @@ const notificationReducer = (state = initialState, action) => {
             return{
                 ...state,
                 notificationSelected: action.data,
+                enabled: !initialState.enabled,
                 error: '',
                 loading: false
             }

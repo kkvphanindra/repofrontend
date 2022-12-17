@@ -31,6 +31,7 @@ import AudioRecorderPlayer,{
   AudioSet,
   AudioSourceAndroidType,
 } from 'react-native-audio-recorder-player';
+import {getAllPostsByUserId, postHide, postSave, postVerify} from '../../redux/Post/actions';
 
 var socket, selectedChatCompare;
 
@@ -88,6 +89,11 @@ const PostItem = props => {
   const modalClose = () => {
     setModalVisible(!modalVisible);
   };
+  useEffect(()=>{
+    dispatch(getAllPostsByUserId(authState.userId));
+      // dispatch(groupName())
+      // dispatch(activityName())
+    },[dispatch])
   let user = {
     userId: '6dddae20-5925-11ed-a555-c9afc10124e6',
     firstName: 'Danish',

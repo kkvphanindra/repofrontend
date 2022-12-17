@@ -13,7 +13,7 @@ import ToggleSwitch from '../components/Notifcation/toggleSwitch';
 // import { Switch } from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllPrivacySetting} from '../redux/Notifications/action';
+import {getAllNotificationSetting, getAllPrivacySetting} from '../redux/Notifications/action';
 
 const data=[
   {
@@ -51,11 +51,12 @@ const data=[
 ]
 export default function SettingNotifications({navigation}) {
   const notificationState = useSelector(state => state.notificationState);
+  const authState = useSelector(state => state.authState);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getAllPrivacySetting());
-  // }, [dispatch]);
-  //   console.log('notification state', notificationState);
+  useEffect(() => {
+    dispatch(getAllNotificationSetting(authState.userId));
+  }, [dispatch]);
+    // console.log('notification state', notificationState.enabled);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -74,13 +75,15 @@ export default function SettingNotifications({navigation}) {
         </View>
       </View>
       <ScrollView>
-        {/* {notificationState.data.map(item => { */}
-        {data.map(item => {
+        {notificationState.notificationData.map(item => {
+        {/* {data.map(item => { */}
           return (
             <View style={styles.toggel}>
-                <Text style={styles.toggelName}>{item.name}</Text>
+                <Text style={styles.toggelName}>{item.name}{item.isEnabled}</Text>
               <ToggleSwitch 
               id={item.id}
+              isEnabled={item.isEnabled}
+              name={item.name}
               />
             </View>
           );

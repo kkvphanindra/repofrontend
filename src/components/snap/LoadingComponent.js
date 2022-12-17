@@ -6,13 +6,13 @@ const LoadingComponet = () => {
     const postState = useSelector((state)=>state.postState)
     return (
         <View>
-            {postState.loading? 
+            {/* {postState.loading?  */}
             <ActivityIndicator
                 color={"black"}
                 size="large" />
-            :
-            <Text style={{color: '#000', alignSelf: 'center'}}>No Previous Post Found</Text>
-        }
+            {/* : */}
+            {/* <Text style={{color: '#000', alignSelf: 'center'}}>No Previous Post Found</Text> */}
+        {/* } */}
         </View>
     )
 }

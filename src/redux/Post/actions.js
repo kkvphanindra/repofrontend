@@ -93,12 +93,13 @@ export const getAllPostsByUserId = (id) => {
     return async (dispatch) => {
         dispatch(req());
         try {
+            console.log("post id user",id)
             const response = await axios.get(
                 BASE_URL+`/api/post/user/${id}`
             )
             if (response.status) {
                 dispatch(reqSuccess(response.data));
-                // console.log(response.data)
+                console.log(response.data)
             } else {
                 dispatch(reqFailure("Some Error Occured. Try Again Later"));
             }
@@ -114,7 +115,7 @@ export const getAllPostsByUserId = (id) => {
 
 export const addNewPost = (post, userId, location, lat, long, image) => {
     return async (dispatch) => {
-        dispatch(reqStartNewPost());
+        // dispatch(reqStartNewPost());
         console.log("add new post", post, userId, lat, long,image)
         try {
             const formData = new FormData();

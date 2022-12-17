@@ -100,20 +100,20 @@ export const selectedPrivacySetting = (id, psId, psItemId, isEnabled) => {
     }
   };
 };
-export const selectedNotificationSetting = (id, psId, psItemId, isEnabled) => {
+export const selectedNotificationSetting = (id,notificationId, isEnabled) => {
   return async dispatch => {
     try {
-      console.log('selecting privacy', id, psId, psItemId, isEnabled);
+      console.log('notification action selecting', id,notificationId, isEnabled);
       const response = await axios.post(
         BASE_URL + `/api/notification/user/${id}`,
         {
-          psId: psId,
-          psItemId: psItemId,
+         notificationId: notificationId,
           isEnabled: isEnabled,
         },
       );
       if (response.status) {
         dispatch(notificationSettingSelect(response.data));
+        console.log("selected notification", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');

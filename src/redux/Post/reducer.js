@@ -82,8 +82,8 @@ const storeReducer = (state = initialstate, action) => {
             };
         }
         case SUCCESS: {
-            console.log("Successfully Got shop List");
-            // console.log(action.data);
+            console.log("Successfully Got posts List");
+            console.log(action.data);
             return {
                 ...state,
                 data: action.data,
