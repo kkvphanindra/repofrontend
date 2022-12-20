@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "734655316928",
+    "project_id": "sms-otp-frisles",
+    "storage_bucket": "sms-otp-frisles.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734655316928:android:33313fa9e4d4d9728d7e25",
+        "android_client_info": {
+          "package_name": "com.frisles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734655316928-g0uu8ktmeckhub0vk3q8ff8kboiipc3q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.frisles",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "734655316928-abhkau10nhseq2soo190jv8h24j0fp5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhhlNy3wrElEkZdo-ykesyE3_BnIQgcMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734655316928-abhkau10nhseq2soo190jv8h24j0fp5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

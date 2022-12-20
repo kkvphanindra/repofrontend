@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">734655316928-abhkau10nhseq2soo190jv8h24j0fp5q.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">734655316928</string>
+    <string name="google_api_key" translatable="false">AIzaSyDhhlNy3wrElEkZdo-ykesyE3_BnIQgcMw</string>
+    <string name="google_app_id" translatable="false">1:734655316928:android:33313fa9e4d4d9728d7e25</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDhhlNy3wrElEkZdo-ykesyE3_BnIQgcMw</string>
+    <string name="google_storage_bucket" translatable="false">sms-otp-frisles.appspot.com</string>
+    <string name="project_id" translatable="false">sms-otp-frisles</string>
+</resources>
