@@ -54,8 +54,10 @@ const data = [
   },
 ];
 
-const ScheduleActivityGroupMemberSelect = () => {
+const ScheduleActivityGroupMemberSelect = ({data}) => {
   const navigation = useNavigation();
+  // const {data} = route.params
+  console.log("data", data)
   const [selected, setSelected] = useState(data);
   const [selectedBill, setSelectedBill] = useState([]);
   const handleOnPress = item => {

@@ -80,7 +80,7 @@ const ScheduleActivity = ({route}) => {
           {/* // onPress={()=>console.log("object")}> */}
           <Text style={styles.scheduleNowText}>Proceed to Schedule </Text>
         </TouchableOpacity>:
-          <ScheduleActivityGroupMemberSelect {...data}/>
+          <ScheduleActivityGroupMemberSelect />
           }
     </ScrollView>
   </View>

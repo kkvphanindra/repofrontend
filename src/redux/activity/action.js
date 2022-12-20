@@ -15,6 +15,7 @@ import {
   STARTED_TIME,
   DELETE_ACTIVITY,
   USER_STATUS,
+  SELECTED_USERS,
 } from './actionTypes';
 import { BASE_URL } from '@env'
 
@@ -62,6 +63,10 @@ export const GroupName = data => ({
 });
 export const getAllUsersByGroupId = data => ({
   type: GET_ALL_USERS_BY_GROUP_ID,
+  data,
+});
+export const selectedUsers = data => ({
+  type: SELECTED_USERS,
   data,
 });
 export const startedTime = data => ({
@@ -121,7 +126,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
       }
     } catch (err) {
       console.log('REQUEST FAILED');
-      console.log(err.response.status);
+      console.log(err.message);
       dispatch(reqFailure(err.message));
     }
   };

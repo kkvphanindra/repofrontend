@@ -6,31 +6,78 @@ import {
   Dimensions,
   Pressable,
   ScrollView,
+  Image,
+  Alert,
+  FlatList,
+  TouchableOpacity,
   TextInput,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, {useState, useEffect} from 'react';
 import StackHeader from '../components/Activity/StackHeader';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 import CalendarPicker from 'react-native-calendar-picker';
 import SelectList from 'react-native-dropdown-select-list';
 import TimeRangePicker from 'react-native-range-timepicker';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {Checkbox} from 'react-native-paper';
 import Geolocation from 'react-native-geolocation-service';
 import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
-import SelectDropdown from 'react-native-select-dropdown';
 import {
   activityName,
   groupName,
-  newActivity,
-  newActivityByUserId,
+  UsersByGroupId,
 } from '../redux/activity/action';
 import LocationIQ from 'react-native-locationiq';
+import GroupMembersFlatlist from '../components/Activity/GroupMembersFlatlist';
+import GroupMemberHeader from '../components/Activity/GroupMemberHeader';
 
+const data = [
+  {
+    id: 1,
+    img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
+    name: 'Crystal Merlin',
+    date: '08.02.2022',
+    status: 'Scheduled',
+    selected: false,
+  },
+  {
+    id: 2,
+    img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
+    name: 'Crystal Merlin',
+    date: '08.02.2022',
+    status: 'Accepted',
+    selected: false,
+  },
+  {
+    id: 3,
+    img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
+    name: 'Crystal Merlin',
+    date: '08.02.2022',
+    status: 'Declined',
+    selected: false,
+  },
+  {
+    id: 4,
+    img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
+    name: 'Crystal Merlin',
+    date: '08.02.2022',
+    status: 'Scheduled',
+    selected: false,
+  },
+  {
+    id: 5,
+    img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
+    name: 'Crystal Merlin',
+    date: '08.02.2022',
+    status: 'Accepted',
+    selected: false,
+  },
+];
 const requestLocationPermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(
@@ -57,15 +104,8 @@ const requestLocationPermission = async () => {
 };
 
 const CreateActivty = ({navigation}) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
-
   const [modalVisible, setModalVisible] = useState(false);
-  const authState = useSelector((state)=> state.authState)
+  const authState = useSelector(state => state.authState);
   const [timerModalVisible, setTimerModalVisible] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState();
   const [selectedEndDate, setSelectedEndDate] = useState();
@@ -103,7 +143,7 @@ const CreateActivty = ({navigation}) => {
   const onClose = () => {
     setVisible(false);
   };
-    var id = authState.userId;
+  var id = authState.userId;
   LocationIQ.init('pk.9258ab5f6e3604f3f0a08054a0b92c48');
 
   const getCurrentPosition = () => {
@@ -134,7 +174,7 @@ const CreateActivty = ({navigation}) => {
   LocationIQ.reverse(lat, long)
     .then(json => {
       var address = json.address.city;
-      // console.log(address);
+      console.log(address);
       setLocation(address);
     })
     .catch(error => console.warn(error));
@@ -142,6 +182,7 @@ const CreateActivty = ({navigation}) => {
   useEffect(() => {
     dispatch(activityName());
     dispatch(groupName());
+    dispatch(UsersByGroupId(groupId));
   }, [dispatch]);
   const press = selectedItem => {
     let d = activityState.groupName.filter(i => i.key === selectedItem);
@@ -149,6 +190,7 @@ const CreateActivty = ({navigation}) => {
     let f = d?.[0]?.value;
     setGroupN(f);
     setGroupId(e);
+    dispatch(UsersByGroupId(e));
     console.log(e, f);
   };
 
@@ -168,7 +210,28 @@ const CreateActivty = ({navigation}) => {
     groupId: groupId,
     createdBy: id,
   };
-
+  const [selected, setSelected] = useState(data);
+  const [selectedBill, setSelectedBill] = useState([]);
+  const handleOnPress = item => {
+    const newItem = selected.map(val => {
+      if (val?.id === item?.id) {
+        return {
+          ...val,
+          selected: !val.selected,
+        };
+      } else {
+        // return{...val,selected: false}
+        return val;
+      }
+    });
+    setSelected(newItem);
+  };
+  const selectAll = () => {
+    if (selected.selected === false) {
+      setSelected(true);
+    }
+  };
+  // console.log("",selected )
   return (
     <View style={styles.container}>
       <StackHeader
@@ -179,7 +242,7 @@ const CreateActivty = ({navigation}) => {
         IconRightSize={24}
         notification={true}
       />
-       <ScrollView>
+      <ScrollView>
         <Text style={styles.createActivity}>Create Activty</Text>
         <View
           style={{
@@ -192,7 +255,10 @@ const CreateActivty = ({navigation}) => {
             <Text style={styles.startDateText}>Start Date</Text>
             <TouchableOpacity
               style={styles.startDateButton}
-              onPress={() => {setModalVisible(true), console.log("modal", modalVisible)}}>
+              // onPress={()=>console.log("object")}
+              onPress={() => {
+                setModalVisible(true);
+              }}>
               <Text style={styles.startDateButtonText}>
                 {selectedStartDate ? minDate : 'YYYY/MM/DD'}
               </Text>
@@ -207,7 +273,7 @@ const CreateActivty = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-      <View
+        <View
           style={{
             flexDirection: 'row',
             alignSelf: 'flex-start',
@@ -241,9 +307,9 @@ const CreateActivty = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-         <View style={styles.activity}>
+        <View style={styles.activity}>
           <Text style={styles.startDateText}>Activity Name</Text>
-            <SelectList
+          <SelectList
             // onSelect={() => activity()}
             onSelect={() => console.log('object', activityN)}
             setSelected={setActivityN}
@@ -276,9 +342,9 @@ const CreateActivty = ({navigation}) => {
             dropdownTextStyles={{
               color: 'grey',
             }}
-          />  
+          />
         </View>
-         <View style={styles.assignTo}>
+        <View style={styles.assignTo}>
           <Text style={styles.assignToText}>Assign to</Text>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.self}>SELF</Text>
@@ -292,49 +358,71 @@ const CreateActivty = ({navigation}) => {
             </View>
           </View>
         </View>
-        {checked ? null : (
-          <View style={styles.activity}>
-            <Text style={styles.startDateText}>Group</Text>
-             <SelectList
-              onSelect={() => console.log('group name selected', groupN)}
-              // onSelect={press}
-              setSelected={press}
-              // save="value"
-              // setSelected={activityState.groupName.map((i)=>i.value)}
-              data={activityState.groupName}
-              arrowicon={
-                <FontAwesome name="chevron-down" size={12} color={'black'} />
-              }
-              searchicon={
-                <FontAwesome name="search" size={12} color={'black'} />
-              }
-              search={false}
-              placeholder="Select Group"
-              boxStyles={{
-                marginTop: '4%',
-                borderRadius: 10,
-                width: '90%',
-                backgroundColor: '#f7f7f7',
-                borderColor: '#f7f7f7',
-              }}
-              inputStyles={{
-                color: 'grey',
-              }}
-              dropdownStyles={{
-                width: '90%',
-                borderColor: '#f7f7f7',
-                // backgroundColor: '#fff',
-                backgroundColor: '#f7f7f7',
-              }}
-              dropdownItemStyles={{
-                backgroundColor: '#f7f7f7',
-              }}
-              dropdownTextStyles={{
-                color: 'grey',
-              }}
-            /> 
-          </View>
-         )} 
+        <View>
+          {checked ? null : (
+            <View>
+              <View style={styles.activity}>
+                <Text style={styles.startDateText}>Group</Text>
+                <SelectList
+                  onSelect={() => console.log('group name selected', groupN)}
+                  // onSelect={press}
+                  setSelected={press}
+                  // save="value"
+                  // setSelected={activityState.groupName.map((i)=>i.value)}
+                  data={activityState.groupName}
+                  arrowicon={
+                    <FontAwesome
+                      name="chevron-down"
+                      size={12}
+                      color={'black'}
+                    />
+                  }
+                  searchicon={
+                    <FontAwesome name="search" size={12} color={'black'} />
+                  }
+                  search={false}
+                  placeholder="Select Group"
+                  boxStyles={{
+                    marginTop: '4%',
+                    borderRadius: 10,
+                    width: '90%',
+                    backgroundColor: '#f7f7f7',
+                    borderColor: '#f7f7f7',
+                  }}
+                  inputStyles={{
+                    color: 'grey',
+                  }}
+                  dropdownStyles={{
+                    width: '90%',
+                    borderColor: '#f7f7f7',
+                    // backgroundColor: '#fff',
+                    backgroundColor: '#f7f7f7',
+                  }}
+                  dropdownItemStyles={{
+                    backgroundColor: '#f7f7f7',
+                  }}
+                  dropdownTextStyles={{
+                    color: 'grey',
+                  }}
+                />
+              </View>
+              {groupId ? (
+                <View style={styles.groupcontainer}>
+                  <FlatList
+                    ListHeaderComponent={() => (
+                      <GroupMemberHeader groupN={groupN} groupId={groupId}/>
+                    )}
+                    data={activityState.groupUser}
+                    keyExtractor={item => item?.id}
+                    renderItem={({item}) => (
+                      <GroupMembersFlatlist item={item} />
+                    )}
+                  />
+                </View>
+              ) : null}
+            </View>
+          )}
+        </View>
         <View style={styles.activity}>
           <Text style={styles.startDateText}>Location</Text>
           <TouchableOpacity
@@ -373,12 +461,11 @@ const CreateActivty = ({navigation}) => {
           onPress={() =>
             navigation.navigate('scheduleActivity', {data: createActivity})
           }>
-              <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
-                            <Text style={styles.buttonText}>
-                                Schedule Now
-                            </Text>
-                        </LinearGradient>
-          {/* <Text style={styles.scheduleNowText}>Schedule Now</Text> */}
+          <LinearGradient
+            style={styles.buttonWrapper}
+            colors={['#5E6BFF', '#212FCC']}>
+            <Text style={styles.buttonText}>Schedule Now</Text>
+          </LinearGradient>
         </TouchableOpacity>
         <Modal
           animationType="slide"
@@ -457,7 +544,7 @@ const CreateActivty = ({navigation}) => {
             </View>
           </View>
         </Modal>
-      </ScrollView> 
+      </ScrollView>
     </View>
   );
 };
@@ -471,6 +558,48 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  groupcontainer: {
+    marginTop: '2%',
+    marginLeft: '10%',
+    marginRight: '10%',
+    // backgroundColor: '#EBECFE',
+    marginBottom: '1%',
+    // backgroundColor: 'red'
+  },
+  groupName: {
+    fontSize: 20,
+    color: '#000',
+    fontWeight: '700',
+    // marginLeft: '9%',
+    marginTop: '8%',
+    width: '55%',
+    letterSpacing: 0.5,
+  },
+  selectAll: {
+    // fontSize: 20,
+    // color: '#000',
+    // fontWeight: '700',
+    backgroundColor: '#5E6BFF',
+    borderRadius: 20,
+    padding: 5,
+    alignSelf: 'flex-end',
+    alignContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginLeft: '20%',
+    marginTop: '8%',
+    // letterSpacing: 0.5
+  },
+  selectAllText: {
+    fontSize: 12,
+    color: '#fff',
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    fontWeight: '500',
+    // marginLeft: '9%',
+    // marginTop: '8%',
+    // width: '50%',
+    letterSpacing: 0.5,
   },
   createActivity: {
     marginLeft: '9%',
@@ -607,14 +736,14 @@ const styles = StyleSheet.create({
     // height: '100%',
     borderRadius: 12,
     alignItems: 'center',
-    justifyContent: 'center'
-},
-buttonText: {
+    justifyContent: 'center',
+  },
+  buttonText: {
     fontFamily: 'Inter',
     fontSize: 16,
     fontWeight: '600',
     color: '#FFF',
     lineHeight: 20,
-    textAlign: 'center'
-}
+    textAlign: 'center',
+  },
 });

@@ -95,11 +95,11 @@ export const getAllPostsByUserId = (id) => {
         try {
             console.log("post id user",id)
             const response = await axios.get(
-                BASE_URL+`/api/post/user/${id}`
+                BASE_URL+`/api/post/user/${id}?savedPost=false`
             )
             if (response.status) {
                 dispatch(reqSuccess(response.data));
-                console.log(response.data)
+                // console.log(response.data)
             } else {
                 dispatch(reqFailure("Some Error Occured. Try Again Later"));
             }

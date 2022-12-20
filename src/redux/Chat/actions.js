@@ -307,7 +307,7 @@ export const getGroupDetailsbyChatId = (id) => {
       );
       if (response.status) {
         dispatch(groupByChatId(response.data));
-        // console.log("today", response.data)
+        console.log("today", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');

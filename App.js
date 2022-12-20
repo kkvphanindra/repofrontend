@@ -415,7 +415,7 @@ const App = () => {
           {/* <Stack.Screen name="activityHome" component={ActivityHome} /> */}
           <Stack.Screen name="createActivity" component={CreateActivity} />
           <Stack.Screen
-            name="scheduledActivity"
+            name="scheduleActivity"
             component={ScheduledActivity}
           />
           <Stack.Screen name="activityDetails" component={ActivityDetails} />

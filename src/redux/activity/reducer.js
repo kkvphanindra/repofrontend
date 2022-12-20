@@ -18,12 +18,16 @@ import {
   STARTED_TIME,
   DELETE_ACTIVITY,
   USER_STATUS,
+  SELECTED_USERS,
 } from './actionTypes';
 
 const initialState = {
   loading: false,
   data: [],
   newData: [],
+  activityData:[],
+  groupUser:[],
+  selectedUsers:[],
   endedTime: '',
   startedTime: '',
   userStatus: '',
@@ -94,7 +98,7 @@ const activityReducer = (state = initialState, action) => {
       // console.log(action.data);
       return {
         ...state,
-        data: action.data,
+        activityData: action.data,
         error: '',
         loading: false,
       };
@@ -139,7 +143,17 @@ const activityReducer = (state = initialState, action) => {
       console.log(action.data);
       return {
         ...state,
-        data: action.data,
+       groupUser: action.data,
+        error: '',
+        loading: false,
+      };
+    }
+    case SELECTED_USERS: {
+      console.log('successfully got all selected users ');
+      console.log(action.data);
+      return {
+        ...state,
+        selectedUsers: action.data,
         error: '',
         loading: false,
       };

@@ -118,12 +118,14 @@ const ScheduleHome = () => {
             <Text style={styles.tabLocation}>{data.location}</Text>
           </View>
               <View style={styles.tabViewWrapper2}>
-          {data.users.slice(0,4).map((photo)=>{
+          {data?.users?.slice(0,4).map((photo)=>{
+            // console.log("122", data)
             return(
-              <Image style={styles.groupIcon} source={{uri:photo.profilePicture==""?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':photo.profilePicture}} />
+              // <Text>holl</Text>
+              <Image style={styles.groupIcon} source={{uri:photo?.profilePicture==""?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':photo?.profilePicture}} />
               )
             })}
-             {data.users.length > 4 ? (
+             {data?.users?.length > 4 ? (
                 <View style={styles.groupIcon}>
                   <Text style={styles.groupIconText}>+{img.length - 4}</Text>
                 </View>
