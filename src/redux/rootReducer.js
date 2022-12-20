@@ -5,6 +5,7 @@ import messageReducer from './Message/reducer';
 import authReducer from './auth/reducer'
 import activityReducer from './activity/reducer'
 import notificationReducer from './Notifications/reducer';
+import locationReducer from './nearMe/reducer';
 
 const rootReducer = combineReducers({
   authState: authReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   postState: postReducer,
   chatState: chatReducer,
   messageState: messageReducer,
-  notificationState: notificationReducer
+  notificationState: notificationReducer,
+  locationState:locationReducer,
 });
 
 export default rootReducer;

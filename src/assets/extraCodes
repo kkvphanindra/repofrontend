@@ -119,3 +119,45 @@
               );
             }}
           />
+
+// location code
+
+// <View>
+                //     {/* <Text>{item.name}</Text> */}
+                //     {/* <TouchableOpacity onPress={()=>console.log("object",item.name,item.distance)}>
+                //   <Image
+                //     style={styles.profilePicOne}
+                //     source={{uri:item.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}}
+                //   />
+                //     </TouchableOpacity> */}
+                //     <TouchableOpacity onPress={()=>console.log("object",item.name,item.distance)}>
+                //   <Image
+                //     style={styles.profilePicTwo}
+                //     source={{uri:item.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}}
+                //   />
+                //     </TouchableOpacity>
+                //     <TouchableOpacity onPress={()=>console.log("object",item.name,item.distance)}>
+                //   <Image
+                //     style={styles.profilePicThree}
+                //     source={{uri:item.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}}
+                //   />
+                //     </TouchableOpacity>
+                //     <TouchableOpacity onPress={()=>console.log("object",item.name,item.distance)}>
+                //   <Image
+                //     style={styles.profilePicFour}
+                //     source={{uri:item.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}}
+                //   />
+                //     </TouchableOpacity>
+                //     <TouchableOpacity onPress={()=>console.log("object",item.name,item.distance)}>
+                //   <Image
+                //     style={styles.profilePicFive}
+                //     source={{uri:item.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}}
+                //   />
+                //     </TouchableOpacity>
+                //     <TouchableOpacity onPress={()=>console.log("object",item.name,item.distance)}>
+                //   <Image
+                //     style={styles.profilePicSix}
+                //     source={{uri:item.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}}
+                //   />
+                //     </TouchableOpacity>
+                // </View>
