@@ -133,7 +133,7 @@ const GroupCreation = ({route, selectedName}) => {
         </View>
         <View>
           <Text style={styles.groupNo}>
-            Group.{selectedNames?.length}participant
+            Group. {chatState.name?.length} participant
           </Text>
         </View>
         <View style={{backgroundColor: '#cccef3', marginTop: '10%'}}>
@@ -189,7 +189,8 @@ const GroupCreation = ({route, selectedName}) => {
           <Text style={styles.addpar}>Message</Text>
           <TextInput
             style={styles.messageInput}
-            placeholder="Writr about your activity or thoughts here"
+            multiline={true}
+            placeholder="Write about your activity or thoughts here"
             placeholderTextColor="#cacaca"
           />
           {/* </View> */}
@@ -197,9 +198,11 @@ const GroupCreation = ({route, selectedName}) => {
         <View
           style={{
             flexDirection: 'row',
-            marginTop: '20%',
+            marginTop: 30,
+            paddingBottom:30,
             marginLeft: '5%',
             marginBottom: '5%',
+            height:300
           }}>
           <TouchableOpacity
             onPress={() => onSubmit()}
@@ -209,6 +212,8 @@ const GroupCreation = ({route, selectedName}) => {
               borderRadius: 10,
               marginLeft: '5%',
               marginRight: '5%',
+              height:'100%'
+              // height:'150%'
               // padding: 12
             }}>
             <LinearGradient
@@ -225,9 +230,9 @@ const GroupCreation = ({route, selectedName}) => {
               borderColor: '#636DD9',
               borderWidth: 1,
               height: '20%',
-              // marginLeft: '5%',
+              alignContent:'center',
+              justifyContent:'center',
               marginRight: '5%',
-              padding: 10,
             }}>
             <Text
               style={{

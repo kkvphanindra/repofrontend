@@ -228,7 +228,7 @@ const Home = ({navigation}) => {
                   Lorem Ipsum is simply dummy text.
                 </Text>
               </View>
-              {locationState.data.map(item => {
+              {locationState?.data?.map(item => {
                 return (
                   <View style={styles.groupImageWrapper}>
                     {/* {item.distance<12781? */}
