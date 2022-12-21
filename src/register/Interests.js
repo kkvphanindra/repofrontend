@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    TouchableOpacity,
-    Pressable,
-    Dimensions,
-    View,
-    TouchableHighlight,
-    FlatList,
-    ToastAndroid,
-    SectionList
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  TouchableOpacity,
+  Pressable,
+  Dimensions,
+  View,
+  TouchableHighlight,
+  FlatList,
+  ToastAndroid,
+  SectionList
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import data from '../../mock.json';
@@ -24,20 +24,20 @@ const height = Dimensions.get('window').height;
 import { login } from '../redux/auth/action';
 import { useDispatch, useSelector } from 'react-redux';
 
-const Interests = ({route, navigation}) => {
-  const { uniqueID, phoneNumber, name, dob, gender, 
-    occupation, profilePic, coverPic, latitude,longitude } = route?.params;
+const Interests = ({ route, navigation }) => {
+  const { uniqueID, phoneNumber, name, dob, gender,
+    occupation, profilePic, coverPic, latitude, longitude } = route?.params;
   const [BtnColor, setBtnColor] = useState("");
   const [interestData, setInterestData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const dispatch = useDispatch()
 
-  
+
   useEffect(() => {
     axios.get(`${environment.API_URL}/interest`).then((response) => {
-        // console.log('response interest', response?.data[0]?.interest);
-        setInterestData(response?.data[0]?.interest);
-        
+      // console.log('response interest', response?.data[0]?.interest);
+      setInterestData(response?.data[0]?.interest);
+
     }).catch(err => {
       console.log("interest err", err)
     });
@@ -64,7 +64,7 @@ const Interests = ({route, navigation}) => {
   const selectedItem = (item) => {
     console.log("item", item);
     const found = filterData.some(el => el.id === item.id);
-    if(!found){
+    if (!found) {
       setFilterData(filterData.concat(item))
     }
     console.log(filterData, "filter")
@@ -84,88 +84,88 @@ const Interests = ({route, navigation}) => {
       "latitude": latitude,
       "longitude": longitude,
       "interest": filterData
-  }
-  console.log("payload", payload)
+    }
+    console.log("payload", payload)
 
 
-  axios.post(`${environment.API_URL}/login`, payload).then((response) => {
+    axios.post(`${environment.API_URL}/login`, payload).then((response) => {
       console.log('response', response.data);
       ToastAndroid.showWithGravityAndOffset(
-          "Submitted Login Request Successfully",
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM,
-          25,
-          height
-        );
-        dispatch(login(e))
-  });
+        "Submitted Login Request Successfully",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        height
+      );
+      dispatch(login(response.data))
+    });
     navigation.navigate('groups');
   }
 
   // console.log("filterData", filterData)
 
-    return (
-        <View style={styles.container}>
-          <Pressable
-                onPress={() => navigation.navigate('groups')}
-                style={styles.skipContainer}>
-                <Text style={styles.skipText}>
-                    Skip
-                </Text>
-            </Pressable>
-            <View style={styles.wrapper}>
-                <Text style={styles.title}>Select 5 Interests</Text>
-                <View style={styles.filterContainer}>
-                  <SafeAreaView style={{ flex: 1 }}>
-                      <FlatList
-                        horizontal
-                        data={filterData}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item, index }) => <ListItem item={item} />}
-                        showsHorizontalScrollIndicator={true}
-                      />
-                  </SafeAreaView>
-                </View>
-                <View style={styles.listContainer}>
-                  {
-                    interestData?.length > 0 && interestData.map((e,i) => {
-                      // console.log("eeee", e)
-                      return <TouchableHighlight
-                      key={i}
-                      style={styles.listBox}
-                      activeOpacity={1}
-                      underlayColor="#FB8D33"
-                      onPress={() => selectedItem(e)}>
-                      <Text style={styles.listText}>{e.name}</Text>
-                    </TouchableHighlight>
-                    })
-                  }
-                </View>
-            </View>
-            <Pressable
-                onPress={() => submitLogin()}
-                style={styles.buttonContainer}>
-                <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
-                    <Text style={styles.buttonText}>
-                        Continue
-                    </Text>
-                </LinearGradient>
-            </Pressable>
+  return (
+    <View style={styles.container}>
+      <Pressable
+        onPress={() => navigation.navigate('groups')}
+        style={styles.skipContainer}>
+        <Text style={styles.skipText}>
+          Skip
+        </Text>
+      </Pressable>
+      <View style={styles.wrapper}>
+        <Text style={styles.title}>Select 5 Interests</Text>
+        <View style={styles.filterContainer}>
+          <SafeAreaView style={{ flex: 1 }}>
+            <FlatList
+              horizontal
+              data={filterData}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item, index }) => <ListItem item={item} />}
+              showsHorizontalScrollIndicator={true}
+            />
+          </SafeAreaView>
         </View>
-    )
+        <View style={styles.listContainer}>
+          {
+            interestData?.length > 0 && interestData.map((e, i) => {
+              // console.log("eeee", e)
+              return <TouchableHighlight
+                key={i}
+                style={styles.listBox}
+                activeOpacity={1}
+                underlayColor="#FB8D33"
+                onPress={() => selectedItem(e)}>
+                <Text style={styles.listText}>{e.name}</Text>
+              </TouchableHighlight>
+            })
+          }
+        </View>
+      </View>
+      <Pressable
+        onPress={() => submitLogin()}
+        style={styles.buttonContainer}>
+        <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
+          <Text style={styles.buttonText}>
+            Continue
+          </Text>
+        </LinearGradient>
+      </Pressable>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: '#FFF',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100%',
-      paddingTop: 60
+    flex: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    paddingTop: 60
   },
   wrapper: {
-      maxWidth: '80%'
+    maxWidth: '80%'
   },
   skipContainer: {
     borderColor: '#505EF4',
@@ -179,31 +179,31 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 35,
     top: 20
-},
-skipText: {
+  },
+  skipText: {
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: '400',
     color: '#5B67CA',
     lineHeight: 20,
     textAlign: 'center'
-},
-  title: {
-      fontFamily: 'Inter',
-      fontSize: 32,
-      fontWeight: '600',
-      color: '#2C2C2C',
-      lineHeight: 40,
-      textAlign: 'center',
-      paddingTop: 20,
-      paddingBottom: 20
   },
-  filterContainer:{
+  title: {
+    fontFamily: 'Inter',
+    fontSize: 32,
+    fontWeight: '600',
+    color: '#2C2C2C',
+    lineHeight: 40,
+    textAlign: 'center',
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  filterContainer: {
     height: 60,
     borderBottomColor: '#D2D1D7',
     borderBottomWidth: 0.5,
   },
-  itemContainer:{
+  itemContainer: {
     backgroundColor: '#8091E6',
     borderRadius: 15,
     height: 31,
@@ -212,9 +212,9 @@ skipText: {
     justifyContent: 'space-between',
     paddingHorizontal: 14,
     marginHorizontal: 5,
-    
+
   },
-  itemText:{
+  itemText: {
     fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: '600',
@@ -223,13 +223,13 @@ skipText: {
     paddingHorizontal: 10,
     textAlign: 'center',
   },
-  listContainer:{
+  listContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
     marginTop: 20
   },
-  listBox:{
+  listBox: {
     backgroundColor: '#F7F7F7',
     borderRadius: 25,
     height: 50,
@@ -240,7 +240,7 @@ skipText: {
     marginHorizontal: 2
 
   },
-  listText:{
+  listText: {
     fontFamily: 'Inter',
     fontSize: 16,
     fontWeight: '400',
@@ -248,7 +248,7 @@ skipText: {
     lineHeight: 20,
     textAlign: 'center',
   },
-  remove:{
+  remove: {
     backgroundColor: '#F7F7F7',
     justifyContent: 'center',
     borderRadius: 30,
@@ -256,30 +256,30 @@ skipText: {
     width: 20,
     height: 20,
   },
-  removeIcon:{
+  removeIcon: {
     color: '#8091E6',
     fontSize: 12
   },
   buttonContainer: {
-      width: '80%',
-      height: 60,
-      marginTop: 'auto',
-      marginBottom: 40
+    width: '80%',
+    height: 60,
+    marginTop: 'auto',
+    marginBottom: 40
   },
   buttonWrapper: {
-      width: '100%',
-      height: '100%',
-      borderRadius: 12,
-      alignItems: 'center',
-      justifyContent: 'center'
+    width: '100%',
+    height: '100%',
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   buttonText: {
-      fontFamily: 'Inter',
-      fontSize: 16,
-      fontWeight: '600',
-      color: '#FFF',
-      lineHeight: 20,
-      textAlign: 'center'
+    fontFamily: 'Inter',
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFF',
+    lineHeight: 20,
+    textAlign: 'center'
   }
 })
 

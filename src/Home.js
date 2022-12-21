@@ -29,8 +29,8 @@ const Home = ({navigation}) => {
     const authState = useSelector((state)=>state.authState)
     // console.log("process.env", BASE_URL)
     console.log("ftu",authState.userId, authState)
-    const [profileName, setProfileName] = useState(null);
-    const [profilePic, setProfilePic] = useState(null);
+    // const [profileName, setProfileName] = useState(null);
+    // const [profilePic, setProfilePic] = useState(null);
     const carouselRef = useRef(null);
     const ENTRIES1 = [
         {
@@ -78,32 +78,32 @@ const Home = ({navigation}) => {
         )
     }     
     useEffect(() => {
-        if(PermissionsAndroid.RESULTS.GRANTED){
-            DeviceInfo.getUniqueId().then((uniqueId) => {
-                console.log("uniqueId gr", uniqueId)
-                let payload = {"mobileUniqueID":uniqueId};
-                axios.post(`${environment.API_URL}/profile`, payload).then((response) => {
-                    // console.log("profile post response",response.data);
-                    const { mobileUniqueID } = response.data;
-                    // console.log("profile post response >>",mobileUniqueID);
-                    if(mobileUniqueID !== ""){
-                        const homePayload = {
-                            "mobileUniqueID" : mobileUniqueID
-                        }
-                        axios.post(`${environment.API_URL}/home`, homePayload).then((response) => {
-                            // console.log("home post response ==>",response.data);
-                            const {name, profilePicture} = response.data;
-                            setProfileName(name);
-                            setProfilePic(profilePicture!=""?profilePicture:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg');
-                        }).catch(err => {
-                            console.log("home post err", err)
-                        });
-                    }
-                }).catch(err => {
-                    console.log("profile post err", err)
-                });
-            })
-        }
+        // if(PermissionsAndroid.RESULTS.GRANTED){
+        //     DeviceInfo.getUniqueId().then((uniqueId) => {
+        //         console.log("uniqueId gr", uniqueId)
+        //         let payload = {"mobileUniqueID":uniqueId};
+        //         axios.post(`${environment.API_URL}/profile`, payload).then((response) => {
+        //             // console.log("profile post response",response.data);
+        //             const { mobileUniqueID } = response.data;
+        //             // console.log("profile post response >>",mobileUniqueID);
+        //             if(mobileUniqueID !== ""){
+        //                 const homePayload = {
+        //                     "mobileUniqueID" : mobileUniqueID
+        //                 }
+        //                 axios.post(`${environment.API_URL}/home`, homePayload).then((response) => {
+        //                     // console.log("home post response ==>",response.data);
+        //                     const {name, profilePicture} = response.data;
+        //                     setProfileName(name);
+        //                     setProfilePic(profilePicture!=""?profilePicture:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg');
+        //                 }).catch(err => {
+        //                     console.log("home post err", err)
+        //                 });
+        //             }
+        //         }).catch(err => {
+        //             console.log("profile post err", err)
+        //         });
+        //     })
+        // }
     }, []);
 
     return (
@@ -128,7 +128,7 @@ const Home = ({navigation}) => {
                         </View>    
                         <View style={styles.titleContainer}>
                             <Text style={styles.title}>Welcome Back</Text>
-                            <Text style={styles.name}>{profileName}</Text>
+                            <Text style={styles.name}>{authState.name}</Text>
                         </View>    
                         <View style={styles.badgeContainer}>
                             <ImageBackground
@@ -153,8 +153,7 @@ const Home = ({navigation}) => {
                             resizeMode="cover"
                             style={styles.profileImageContainer}>
                                 <Pressable onPress={() => navigation.navigate('profileHome')}>
-                                <Image style={styles.profilePic} source={{ uri: profilePic}}/>
-
+                                <Image style={styles.profilePic} source={{ uri: authState.profilePicture?authState.profilePicture:"https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg"}}/>
                                 </Pressable>
                         </ImageBackground>
                     </View>
