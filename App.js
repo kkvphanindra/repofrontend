@@ -91,6 +91,7 @@ function HomeStackScreen({navigation, route}) {
         headerShown: false,
         tabBarActiveTintColor: 'blue',
         tabBarStyle: {
+          // flex:0.1,
           // backgroundColor: '#fff',
           // height: 55,
           // paddingHorizontal: 5,
@@ -102,7 +103,7 @@ function HomeStackScreen({navigation, route}) {
           shadowOffset : { width: 0, height: 10 },
           borderTopRightRadius: 20,
           borderTopLeftRadius:20,
-          borderTopColor:'#000'
+          // borderTopColor:'#000'
         },
         tabBarLabelStyle:{
           borderRadius:20,
@@ -119,7 +120,7 @@ function HomeStackScreen({navigation, route}) {
           justifyContent: 'center', padding:5
         }
       }}
-      initialRouteName="Home">
+      initialRouteName="home">
       <Tab.Screen
         name="home"
         component={Home}

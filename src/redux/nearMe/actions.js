@@ -1,14 +1,13 @@
 import axios from 'axios';
 import {BASE_URL} from '@env';
-import {REQ, REQ_FAILURE, REQ_SUCCESS} from './actionTypes';
+import {REQ, REQ_FAILURE, SUCCESS} from './actionTypes';
 
-export const req = data => ({
+export const req = () => ({
   type: REQ,
-  data,
 });
 
 export const reqSucess = data => ({
-  type: REQ_SUCCESS,
+  type: SUCCESS,
   data,
 });
 
@@ -19,7 +18,7 @@ export const reqFailure = error => ({
 
 export const location = (id, lat, long) => {
     return async dispatch => {
-        console.log("lat long", lat, long)
+        // console.log("lat long", lat, long,id)
       try {
         const response = await axios.post(
           BASE_URL+`/api/user/${id}/nearest/users`,
@@ -28,13 +27,13 @@ export const location = (id, lat, long) => {
             longitude: long
         }
         );
-        if (response.status) {
+        if (response.status==200) {
           dispatch(reqSucess(response.data));
-          console.log("location action", response.data)
+          // console.log("location action", response.data)
         }
       } catch (err) {
-        console.log('REQUEST FAILED');
-        console.log(err.response.data.message);
+        console.log('REQUEST FAILED location action');
+        console.log(err.message);
         dispatch(reqFailure(err.message));
       }
     };
