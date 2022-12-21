@@ -1588,6 +1588,7 @@ drawable src_assets_icons_png_ongoingcallbutton
 drawable src_assets_icons_png_pen
 drawable src_assets_icons_png_pencil
 drawable src_assets_icons_png_plus
+drawable src_assets_icons_png_search
 drawable src_assets_icons_png_searchicon
 drawable src_assets_icons_png_share
 drawable src_assets_icons_png_shareclicked

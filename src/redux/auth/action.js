@@ -7,7 +7,7 @@ import {
   LOGOUT,
 } from './actionTypes';
 import axios from 'axios';
-import {BASE_URL} from '@env';
+import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const req = (
@@ -17,6 +17,8 @@ export const req = (
   gender,
   occupation,
   phone,
+  latitude,
+  longitude,
   profilePicture,
   userId,
   // data
@@ -28,6 +30,8 @@ export const req = (
   gender,
   occupation,
   phone,
+  latitude,
+  longitude,
   profilePicture,
   userId,
   // data
@@ -51,10 +55,10 @@ export const login = data => {
     //   const response = await axios.post(BASE_URL + `/api/user/number/details`, {
     //     number: number,
     //   });
-      // console.log(response.data);
-      if (data) {
-        // console.log('COMPLETE RESPONSE DATA:', response.data[0].name);
-        const userData =
+    // console.log(response.data);
+    if (data) {
+      // console.log('COMPLETE RESPONSE DATA:', response.data[0].name);
+      const userData =
         // JSON.stringify(data)
         JSON.stringify({
           coverPicture: data.coverPicture,
@@ -63,24 +67,28 @@ export const login = data => {
           gender: data.gender,
           occupation: data.occupation,
           phone: data.phone,
+          latitude: data.latitude,
+          longitude: data.longitude,
           profilePicture: data.profilePicture,
           userId: data.userId,
         });
-        await AsyncStorage.setItem('frislesAuthData', userData);
-        console.log('Saved data to async storage!', userData);
-        dispatch(
-          req(
-            data.coverPicture,
-            data.dob,
-            data.name,
-            data.gender,
-            data.occupation,
-            data.phone,
-            data.profilePicture,
-            data.userId,
-          ),
-        );
-      }
+      await AsyncStorage.setItem('frislesAuthData', userData);
+      console.log('Saved data to async storage!', userData);
+      dispatch(
+        req(
+          data.coverPicture,
+          data.dob,
+          data.name,
+          data.gender,
+          data.occupation,
+          data.phone,
+          data.latitude,
+          data.longitude,
+          data.profilePicture,
+          data.userId,
+        ),
+      );
+    }
     // } catch (err) {
     //   console.log('Request failed');
     //   console.log(err.response.status, err.message);
@@ -108,6 +116,8 @@ export const tokenRetriever = () => {
             loggedData.gender,
             loggedData.occupation,
             loggedData.phone,
+            loggedData.latitude,
+            loggedData.longitude,
             loggedData.profilePicture,
             loggedData.userId,
           ),
@@ -129,4 +139,4 @@ export const tokenRetriever = () => {
   };
 };
 
-export const logout = () => ({type: LOGOUT});
+export const logout = () => ({ type: LOGOUT });

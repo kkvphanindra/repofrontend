@@ -1,13 +1,13 @@
 import {
     REQ,
-    REQ_SUCCESS,
+    SUCCESS,
     REQ_FAILURE,
   } from './actionTypes';
   
   const initialState = {
-    isLoggedIn: false,
+    // isLoggedIn: false,
     loading: true,
-    data: [],
+    locationData: [],
     error: '',
   };
 
@@ -17,12 +17,13 @@ import {
             console.log("Getting location Data");
             return { ...state, loading: true, error: "" };
         }
-      case REQ_SUCCESS: {
-        console.log('location Res', action);
+      case SUCCESS: {
+        // console.log('location Res', action.data);
         return {
           ...state,
-          data:action.data,
-          isLoggedIn: true,
+          locationData: action.data,
+          loading: false,
+          // isLoggedIn: true,
         };
       }
       case REQ_FAILURE: {
