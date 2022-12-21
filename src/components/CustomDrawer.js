@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Image } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
@@ -24,6 +24,15 @@ const CustomDrawer = (props) => {
                     borderRadius: 20,
                     width: windowWidth/1.8
                 }}>
+                      <View style={{
+                    paddingHorizontal: 5,
+                    alignSelf: 'center'
+                }}>
+                  <Image
+                  style={{height:30, width: 30,marginLeft: 10,borderRadius:100/2}}
+                  source={{uri: authState.profilePicture!==""?authState.profilePicture:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'}}
+                  />
+                </View>
                 <View style={{
                     padding: 10,
                     alignSelf: 'center'
@@ -33,7 +42,7 @@ const CustomDrawer = (props) => {
                         fontSize: 16,
                         fontWeight: '600',
                         color: 'white',
-                        marginLeft: 10,
+                        marginLeft: 1,
                     }}>{authState.name}</Text>
                 </View>
                 </View>

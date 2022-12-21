@@ -80,7 +80,7 @@ const authState = useSelector((state)=>state.authState)
               </Pressable>
             </View>
             <View>
-              <View style={styles.profileInformation}>
+              <TouchableOpacity style={styles.profileInformation} onPress={()=>navigation.navigate('profileHome')}>
                 <Image
                   source={{
                     uri: authState.profilePicture==""? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':authState.profilePicture,
@@ -88,7 +88,7 @@ const authState = useSelector((state)=>state.authState)
                   style={styles.profileImage}
                 />
                 <Text style={styles.profileName}>{authState.name}</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </ImageBackground>
         </View>

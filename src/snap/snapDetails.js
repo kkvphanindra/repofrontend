@@ -19,6 +19,7 @@ import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 
 const SnapDetails = ({navigation}) => {
   const dispatch = useDispatch;
+  const authState=useSelector((state)=>state.authState)
   const postState = useSelector(state => state.postState);
   const [groupN, setGroupN] = useState('');
   const [groupId, setGroupId] = useState('');
@@ -55,7 +56,7 @@ const SnapDetails = ({navigation}) => {
                 <Image
                   style={styles.profileImage}
                   source={{
-                    uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png',
+                    uri: authState.profilePicture!==""?authState.profilePicture:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
                   }}
                 />
               </View>
