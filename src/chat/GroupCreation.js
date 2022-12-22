@@ -11,6 +11,7 @@ import {
   PermissionsAndroid,
   Platform,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import {useState, useEffect} from 'react';
@@ -24,6 +25,7 @@ import {
   reqName,
   stateCleanUp,
 } from '../redux/Chat/actions';
+import ImagePicker from 'react-native-image-crop-picker'
 import Contacts from 'react-native-contacts';
 import {useNavigation} from '@react-navigation/native';
 
@@ -35,6 +37,9 @@ const GroupCreation = ({route, selectedName}) => {
   const chatState = useSelector(state => state.chatState);
   const [res, setRes] = useState(chatState.contacts);
   const [groupName, setGroupName] = useState('');
+  const [image, setImage] = useState('');
+  const [send, setSend]=useState('')
+  const [message, setMessage]=useState('')
   const [selectedNames, setSelectedNames] = useState([]);
   const [number, setNumber] = useState([authState.userId]);
   const [filteredData, setFilteredData] = useState(chatState.contacts);
@@ -45,48 +50,39 @@ const GroupCreation = ({route, selectedName}) => {
       dispatch(reqName(chatState.name.filter(value => value !== item)));
     }
   };
-
-  // useEffect(() => {
-  //   dispatch(stateCleanUp());
-  // }, [dispatch]);
-  const handleOnChangeText = text => {
-    // ? Visible the spinner
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource and update FilteredDataSource
-      const newData = res.filter(function (item) {
-        // Applying filter for the inserted text in search bar
-        const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredData(newData);
-      setSearchText(text);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredData(res);
-      setSearchText(text);
-    }
-    console.log('filter data', filteredData);
-    console.log('search ', serachText);
-
-    // console.log("arr", arr.length, contacts.length)
-    // ? After you've done to implement your use-case
-    // ? Do not forget to set false to spinner's visibility
-  };
-  const clearFilter = text => {
-    if (text) {
-      return data;
-    }
-  };
   const onSubmit = () => {
-    dispatch(groupCreate(groupName, chatState.userId, authState.userId));
-    navigation.navigate('Group');
+    if(message!==null||message!==''){
+      dispatch(groupCreate(groupName, chatState.userId, authState.userId, send, message, Alert));
+      navigation.navigate('Chat');
+    }else{
+      Alert.alert('Enter the message')
+    }
   };
-
-  // console.log('changed', name);
-  console.log('chatstate', chatState.name, chatState.userId);
+  const launchCameraPhoto = async() => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    // ImagePicker.openCamera({
+    //   width: 300,
+    //   height: 400,
+    //   cropping: true,
+    // }).then(image => {
+    //   console.log(image);
+    // });
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+      // multiple: true
+    }).then(img => {
+      console.log(img.path);
+      setImage(img.path);
+      setSend(img);
+    });
+  };
+  console.log('changed', message);
+  // console.log('chatstate', chatState.name, chatState.userId);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -101,9 +97,13 @@ const GroupCreation = ({route, selectedName}) => {
               </TouchableOpacity>
             </View>
             <View style={styles.iconImage}>
+            <Image style={styles.iconImageBg}
+          source={{uri:image?image:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'}}
+          />
+            {/* </Image> */}
               <TouchableOpacity
                 style={styles.edit}
-                onPress={() => navigation.navigate('groupEdit')}>
+                onPress={() => launchCameraPhoto()}>
                 <Image
                   source={require('../assets/icons/png/pen.png')}
                   style={{
@@ -190,6 +190,7 @@ const GroupCreation = ({route, selectedName}) => {
           <TextInput
             style={styles.messageInput}
             multiline={true}
+            onChangeText={(e)=>setMessage(e)}
             placeholder="Write about your activity or thoughts here"
             placeholderTextColor="#cacaca"
           />
@@ -269,18 +270,29 @@ const styles = StyleSheet.create({
     marginRight: '5%',
   },
   iconImage: {
-    backgroundColor: 'powderblue',
+    // backgroundColor: 'powderblue',
     alignSelf: 'center',
     marginTop: '7%',
     marginLeft: '25%',
     width: 80,
     height: 80,
-    borderRadius: 100 / 2,
+    borderRadius: 100/2,
+  },
+  iconImageBg: {
+    // backgroundColor: 'powderblue',
+    alignSelf: 'center',
+    marginTop: '7%',
+    marginLeft: '25%',
+    width: 80,
+    height: 80,
+    borderRadius: 100/2,
   },
   edit: {
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    // bottom: 0,
+    // right: 0,
+    left:60,
+    top:60,
     backgroundColor: '#636DD9',
     width: 30,
     height: 30,

@@ -9,28 +9,32 @@ import {
   Dimensions,
   ScrollView,
   ImageBackground,
+  TextInput,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SearchBar from 'react-native-dynamic-search-bar';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearMessages, exitGroupChat, getGroupDetailsbyChatId } from '../redux/Chat/actions';
+import { clearMessages, editGroup, exitGroupChat, getGroupDetailsbyChatId } from '../redux/Chat/actions';
 
 
 export default function GroupDetails({ navigation, route }) {
   const { chatId } = route.params;
-  const authState = useSelector((state)=>state.authState)
+  const groupNameRef = useRef();
+  const authState = useSelector((state) => state.authState)
   const chatState = useSelector((state) => state.chatState)
   const [isEnabled, setIsEnabled] = useState(false);
+  const [edit, setEdit] = useState(false)
+  const [groupName, setGroupName]=useState('')
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-const authId= authState.userId
+  const authId = authState.userId
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGroupDetailsbyChatId(chatId));
   }, [dispatch]);
   // useEffect((chatId, authId) => {
-  console.log("ddddddddddddd",chatState.data[0].users)
+  // console.log("ddddddddddddd", chatState.data[0].users)
   function exit() {
 
     dispatch(exitGroupChat(chatId, authId));
@@ -41,6 +45,17 @@ const authId= authState.userId
     dispatch(clearMessages(chatId));
 
   }
+  const handleChangeEdit = (inputValue,e) => {
+    setGroupName(prevres => (prevres,inputValue));
+    // setGroupName(e)
+  };
+  const send = () =>{
+    dispatch(editGroup(chatId,groupName))
+    navigation.navigate('Chat')
+    // console.log("first", groupName)
+  }
+  // console.log("first out", groupName)
+
   // }, [dispatch]);
   return (
     <View style={styles.container}>
@@ -76,8 +91,22 @@ const authId= authState.userId
                   />
                 </View>
                 <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                  <Text style={styles.groupName}>{item?.chatName}</Text>
-                  <TouchableOpacity style={{ marginTop: '5%', marginLeft: '3%' }}>
+                  {edit ?
+                    <TextInput
+                    ref={groupNameRef}
+                      value={groupName}
+                      autoFocus={edit}
+                      style={styles.groupNameText}
+                      // onChangeText={(e)=>setGroupName({...e})}
+                      onSubmitEditing={send}
+                      onChangeText={(e)=>handleChangeEdit(e)}
+                      // onChangeText={()=>setGroupName()}
+                      // onChange={(e)=>setGroupName(e)}
+                    />
+                    :
+                    <Text style={styles.groupName}>{item?.chatName}</Text>
+                  }
+                  <TouchableOpacity style={{ marginTop: '5%', marginLeft: '3%' }} onPress={()=>setEdit(true)}>
                     <Image
                       source={require('../assets/icons/png/pencil.png')}
                       style={{
@@ -90,7 +119,7 @@ const authId= authState.userId
                   </TouchableOpacity>
                 </View>
                 <View>
-                  <Text style={styles.groupNo}>Group.{item?.users.length}participant</Text>
+                  <Text style={styles.groupNo}>Group.{'\b'}{item?.users.length}{'\b'}participant</Text>
                 </View>
               </ImageBackground>
               <View style={{ flexDirection: 'row' }}>
@@ -192,27 +221,20 @@ const authId= authState.userId
                                 }}
                               />
                             </View>
-                            <View style={{alignSelf: 'center',}}>
+                            <View style={{ alignSelf: 'center', width: '30%' }}>
                               <Text
                                 style={{
                                   // marginTop: '5%',
                                   // justifyContent: 'center',
                                   // alignSelf: 'center',
                                   marginBottom: '10%',
+                                  // width: '100%',
                                   marginLeft: '5%',
                                   color: '#000',
                                   // textAlign: 'center'
                                 }}>
                                 {item?.name}
                               </Text>
-                              {/* <Text
-                                style={{
-                                  marginTop: '5%',
-                                  marginLeft: '5%',
-                                  color: '#000',
-                                }}>
-                                {item?.phone}
-                              </Text> */}
                             </View>
                             <View
                               style={{
@@ -365,6 +387,15 @@ const styles = StyleSheet.create({
   groupName: {
     fontSize: 22,
     marginTop: '5%',
+    fontWeight: '500',
+    color: '#000',
+    textAlign: 'center',
+    marginLeft: '5%',
+  },
+  groupNameText: {
+    fontSize: 22,
+    // backgroundColor: 'red',
+    marginTop: '2.5%',
     fontWeight: '500',
     color: '#000',
     textAlign: 'center',

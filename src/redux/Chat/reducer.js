@@ -22,7 +22,8 @@ import {
     SINGLE_CHAT_FILTER,
     GROUP_CHAT_FILTER,
     SINGLE_CHAT_FILTER_UPDATE,
-    GROUP_CHAT_FILTER_UPDATE
+    GROUP_CHAT_FILTER_UPDATE,
+    EDIT_NAME
 } from "./actionTypes";
 
 //Initial state///
@@ -37,6 +38,7 @@ const initialState = {
     singleFilter:[],
     groupFilter:[],
     groupData:[],
+    editGroup:[],
     name:[],
     userId:[],
     initialData:[],
@@ -207,6 +209,16 @@ const chatReducer = (state = initialState, action) => {
                 error: '',
                 loading: false
             }
+        }
+        case EDIT_NAME: {
+            console.log("Successfully Got group ediited");
+            console.log(action.data);
+            return {
+                ...state,
+                editGroup: action.data,
+                error: "",
+                loading: false,
+            };
         }
         case CREATE_CHAT: {
             console.log("chat create", action.data)

@@ -97,8 +97,6 @@ const Home = ({ navigation }) => {
                 timeout: 15000,
             })
                 .then(res => {
-                    // console.log(location);
-                    // console.log("yo")
             dispatch(location(authState.userId,res.latitude,res.longitude));
 
                     // setLatitude(location.latitude);
@@ -111,58 +109,11 @@ const Home = ({ navigation }) => {
         };
 
         if (PermissionsAndroid.RESULTS.GRANTED) {
-            // DeviceInfo.getUniqueId().then(uniqueId => {
-            //     console.log('uniqueId gr', uniqueId);
-            //     let payload = { mobileUniqueID: uniqueId };
-            //     axios
-            //         .post(`${environment.API_URL}/profile`, payload)
-            //         .then(response => {
-            //             // console.log("profile post response",response.data);
-            //             const { mobileUniqueID } = response.data;
-            //             // console.log("profile post response >>",mobileUniqueID);
-            //             if (mobileUniqueID !== '') {
-            //                 const homePayload = {
-            //                     mobileUniqueID: mobileUniqueID,
-            //                 };
-            //                 axios
-            //                     .post(`${environment.API_URL}/home`, homePayload)
-            //                     .then(response => {
-            //                         // console.log("home post response ==>",response.data);
-            //                         const { name, profilePicture } = response.data;
-            //                         setProfileName(name);
-            //                         setProfilePic(
-            //                             profilePicture != ''
-            //                                 ? profilePicture
-            //                                 : 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
-            //                         );
-            //                     })
-            //                     .catch(err => {
-            //                         console.log('home post err', err);
-            //                     });
-            //             }
-            //         })
-            //         .catch(err => {
-            //             console.log('profile post err', err);
-            //         });
-            // });
-            // if(authState.latitude&&authState.longitude){
-            //     dispatch(location(authState.userId, authState.latitude,authState.longitude));
-            // }
             getLocation();
 
         }
-        // console.log("autoho",authState.userId)
         
     }, [dispatch,authState.userId]);
-    // console.log(
-    //     'latitudeho',
-    //     latitude,
-    //     'longitude',
-    //     longitude,
-    //     authState.latitude, authState.longitude,
-    //     locationState.loading,
-    //     // locationState.locationData,
-    // );
 
     return (
         <SafeAreaView>
@@ -253,7 +204,7 @@ const Home = ({ navigation }) => {
                                             < View >
                                                 <TouchableOpacity
                                                     onPress={() =>
-                                                        console.log("six")
+                                                        console.log("six",locationState?.locationData[5]?.userId)
                                                         // console.log('object', item.name, item.distance)
                                                     }>
                                                     <Image
@@ -268,7 +219,7 @@ const Home = ({ navigation }) => {
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
                                                     onPress={() =>
-                                                        console.log("five")
+                                                        console.log("five",locationState?.locationData[4]?.userId)
                                                         // console.log('object', item.name, item.distance)
                                                     }>
                                                     <Image
@@ -283,7 +234,7 @@ const Home = ({ navigation }) => {
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
                                                     onPress={() =>
-                                                        console.log("first")
+                                                        console.log("first",locationState?.locationData[0]?.userId)
                                                         // console.log('object', item.name, item.distance)
                                                     }>
                                                     <Image
@@ -298,7 +249,7 @@ const Home = ({ navigation }) => {
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
                                                     onPress={() =>
-                                                        console.log("four")
+                                                        console.log("four",locationState?.locationData[3]?.userId)
                                                         // console.log('object', item.name, item.distance)
                                                     }>
                                                     <Image
@@ -313,7 +264,7 @@ const Home = ({ navigation }) => {
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
                                                     onPress={() =>
-                                                        console.log("three")
+                                                        console.log("three",locationState?.locationData[2]?.userId)
                                                         // console.log('object', item.name, item.distance)
                                                     }>
                                                     <Image
@@ -328,7 +279,7 @@ const Home = ({ navigation }) => {
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
                                                     onPress={() =>
-                                                        console.log("second")
+                                                        console.log("second",locationState?.locationData[1]?.userId)
                                                         // console.log('object', item.name, item.distance)
                                                     }>
                                                     <Image
