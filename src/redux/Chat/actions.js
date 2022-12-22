@@ -24,7 +24,8 @@ import {
   GROUP_CHAT_FILTER,
   SINGLE_CHAT_FILTER_UPDATE,
   GROUP_CHAT_FILTER_UPDATE,
-  CREATE_CHAT
+  CREATE_CHAT,
+  EDIT_NAME
 } from "./actionTypes";
 import io from 'socket.io-client'
 import {BASE_URL} from '@env'
@@ -90,6 +91,10 @@ export const groupByChatId = (data) => ({
 export const reqChatListByUserId = (id) => ({
   type: FETCH_CHATLIST_BY__USER_ID,
   id: id,
+});
+export const reqEditGroup= (data) => ({
+  type: EDIT_NAME,
+  data
 });
 
 export const reqFilter = (data) =>({
@@ -158,7 +163,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
           dispatch(reqSuccess(response.data));
           dispatch(reqSingleChat(response.data))
           dispatch(reqSingleChatFilter(response.data))
-          console.log("today", response.data)
+          // console.log("today", response.data)
         }
       }
       else if (groupChat === true) {
@@ -243,27 +248,48 @@ export const  loadContact = (contact) => {
   };
 }
 
-export const groupCreate = (chatName, userChat, userId) => {
+export const groupCreate = (chatName, userChat, userId, image, message, Alert) => {
   return async (dispatch) => {
     dispatch(req());
     try {
       userChat.push(userId)
-      console.log("arr at action", chatName, userChat, userId)
-
-      const response = await axios.post(
-        BASE_URL+`/api/chat?userId=${userId}`,
-        {
-          chatName: chatName,
-          isGroupChat: true,
-          userChat: userChat
-        },
-      );
-      console.log("response", response.data)
-      dispatch(createGroup(response.data));
+      if(userChat.length>2){
+        console.log("arr at action", chatName,userId, image, userChat,message)
+        const formData = new FormData();
+        formData.append('chatName', chatName)
+        formData.append('isGroupChat', true)
+        userChat.forEach(
+          userChat => formData.append('userChat[]', userChat.length<2?Alert.alert('Please select atleast 3 users'):userChat)
+          )
+        formData.append('message', message==''||message==null?Alert.alert('Message should not be empty'):message)
+        formData.append('groupPhoto',image!==null?{
+            uri: image.path,
+            type: image.mime,
+            name: image.filename || `filename${image.size}.jpg`,
+        }:null);
+        const response = await axios.post(
+            BASE_URL+`/api/chat?userId=${userId}`,
+            formData,
+            {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        )
+        console.log("response dreate group", response.data)
+        dispatch(stateCleanUp())
+        dispatch(createGroup(response.data));
+      }
+      else{
+        dispatch(stateCleanUp())
+        Alert.alert('Please select atleast 3 users')
+      }
       // console.log("today", response.data)
     } catch (err) {
-      console.log('REQUEST FAILED');
-      console.log(err.response.status);
+      console.log('REQUEST FAILED group creation');
+      console.log(err);
+      dispatch(stateCleanUp())
       dispatch(reqFailure(err.message));
     }
   };
@@ -353,6 +379,29 @@ export const clearMessages = (chatId) => {
     } catch (err) {
       console.log('REQUEST FAILED');
       console.log(err.response.status);
+      dispatch(reqFailure(err.message));
+    }
+  };
+}
+
+export const editGroup = (chatId, chatName) => {
+  return async (dispatch) => {
+    dispatch(req());
+    console.log(chatName)
+    console.log(chatId)
+    try {
+      const response = await axios.put(
+        BASE_URL+`/api/chat/${chatId}/edit`,
+        {
+          chatName: chatName
+        },
+      );
+      console.log("edit", response.data)
+      dispatch(reqEditGroup(response.data))
+      // console.log("today", response.data)
+    } catch (err) {
+      console.log('REQUEST FAILED');
+      console.log("req failed edit group nam",err.message);
       dispatch(reqFailure(err.message));
     }
   };

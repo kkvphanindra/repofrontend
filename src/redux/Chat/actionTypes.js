@@ -14,6 +14,7 @@ export const FETCH_CHATLIST_BY__USER_ID = "FETCH_CHATLIST_BY_USER_ID"
 export const FILTER='FILTER'
 export const NAMES='NAMES'
 export const USERID='USERID'
+export const EDIT_NAME="EDIT_NAME"
 export const REMOVE_FILTER='REMOVE_FILTER'
 export const EXIT_GROUP = "EXIT_GROUP"
 export const CLEAR_CHAT = "CLEAR_CHAT"
