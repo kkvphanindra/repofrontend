@@ -71,6 +71,10 @@ import {tokenRetriever} from './src/redux/auth/action';
 import PrivacySettings from './src/notification/PrivacySettings';
 import PlusButton from './src/PlusButton';
 import Group from './src/chat/Group';
+import ActivityCreate from './src/scheduled-activity/ActivityCreate';
+import SelectActivity from './src/scheduled-activity/SelectActivity';
+import ScheduleTime from './src/scheduled-activity/ScheduleTime';
+import ActivityAssign from './src/scheduled-activity/ActivityAssign';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -441,6 +445,10 @@ const App = () => {
           <Stack.Screen name="scheduledHome" component={ScheduledHome} />
           {/* <Stack.Screen name="activityHome" component={ActivityHome} /> */}
           <Stack.Screen name="createActivity" component={CreateActivity} />
+          <Stack.Screen name="activityCreate" component={ActivityCreate} />
+          <Stack.Screen name="activitySelect" component={SelectActivity} />
+          <Stack.Screen name="activitySchedule" component={ScheduleTime} />
+          <Stack.Screen name="activityAssign" component={ActivityAssign} />
           <Stack.Screen name="scheduleActivity" component={ScheduledActivity} />
           <Stack.Screen name="activityDetails" component={ActivityDetails} />
           <Stack.Screen name="profileHome" component={ProfileHome} />

@@ -13,7 +13,6 @@ import {
   getAllPrivacySetting,
   selectedPrivacySetting,
 } from '../redux/Notifications/action';
-import Checkboxs from '../components/Notifcation/Checkbox';
 import { Checkbox } from 'react-native-paper';
 
 const PrivacySettings = ({navigation}) => {

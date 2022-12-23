@@ -46,7 +46,7 @@ const ActivityHome = ({navigation}) => {
       <TopTabNavigator />
       <TouchableOpacity
         style={styles.scheduleNow}
-        onPress={() => navigation.navigate('createActivity')}>
+        onPress={() => navigation.navigate('activityCreate')}>
            <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                             <Text style={styles.buttonText}>
                                 Schedule Now

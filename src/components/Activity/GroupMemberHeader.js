@@ -22,7 +22,7 @@ const GroupMemberHeader = ({groupN, groupId}) => {
         // })}
     }
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={{flexDirection: 'row', marginLeft: '10%'}}>
             <Text style={styles.groupName}>{groupN}</Text>
             <TouchableOpacity
               style={styles.selectAll}
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#000',
         fontWeight: '700',
-        // marginLeft: '9%',
+        // marginLeft: '10%',
         marginTop: '8%',
-        width: '55%',
+        width: '50%',
         letterSpacing: 0.5,
       },
       selectAll: {

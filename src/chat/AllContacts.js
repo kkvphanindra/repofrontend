@@ -10,17 +10,22 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Contacts from 'react-native-contacts';
 import ContactList from '../components/Chat/ContactList';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createChat, getContact, groupFilter, reqName, reqUserId, singleFilter } from '../redux/Chat/actions';
 import colours from '../assets/colours';
+import SendSMS from 'react-native-sms';
+
 const AllContacts = ({ route }) => {
   const navigation = useNavigation();
   const authState = useSelector(state => state.authState);
   const chatState = useSelector(state => state.chatState);
+  const [bodySMS, setBodySMS] = useState(
+    'Please follow https://aboutreact.com',
+  );
 
   const { isGroupChat } = route.params;
   useEffect(() => {
@@ -103,7 +108,29 @@ const AllContacts = ({ route }) => {
 
   console.log('arr', chatState.contacts);
   const dispatch = useDispatch();
-
+const message = (number)=>{
+  console.log("message func hit", number)
+  SendSMS.send(
+    {
+      // Message body
+      body: bodySMS,
+      // Recipients Number
+      recipients: [number],
+      // An array of types 
+      // "completed" response when using android
+      successTypes: ['sent', 'queued'],
+    },
+    (completed, cancelled, error) => {
+      if (completed) {
+        console.log('SMS Sent Completed');
+      } else if (cancelled) {
+        console.log('SMS Sent Cancelled');
+      } else if (error) {
+        console.log('Some error occured');
+      }
+    },
+  );
+}
   
   return (
     <View style={styles.container}>
@@ -124,6 +151,7 @@ const AllContacts = ({ route }) => {
         <FlatList
           data={!isGroupChat?chatState.singleFilter:chatState.groupFilter}
           renderItem={contact => {
+            console.log("contact", contact)
             return (
              
               <View>
@@ -145,7 +173,7 @@ const AllContacts = ({ route }) => {
                     );
                     navigation.navigate('Chat');
                   }}
-                  invite={{}}
+                  invite={()=>message(contact.item.phone)}
                 />
               </View>
             );
