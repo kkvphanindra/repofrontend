@@ -70,7 +70,7 @@ const GroupMembersFlatlist = ({item}) => {
         </Text>
       </View>
       <View>
-        <TouchableOpacity onPress={() => {console.log("id", item?.userId), kil(item?.userId)}} style={{
+        <TouchableOpacity onPress={() => {console.log("id hey", item?.userId,"mkil",activityState.selectedUsers), kil(item?.userId)}} style={{
               height: 32,
               width: 32,
               marginTop: '6%',
@@ -86,7 +86,7 @@ const GroupMembersFlatlist = ({item}) => {
                     }}> */}
           {/* <TouchableOpacity> */}
             {/* <View> */}
-                {activityState.selectedUsers==item.userId&&activityState.selectedUsers==''?
+                {activityState.selectedUsers.includes(item.userId)&&activityState.selectedUsers!==''?
                 <Image
                   source={require('../../assets/icons/png/icon-done.png')}
                   style={{ height: 25, width: 25, marginTop: '19%', marginLeft: '1%', alignSelf: 'center' }}
