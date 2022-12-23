@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  TextInput
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import ProgressBar from 'react-native-progress/Bar';
@@ -29,6 +30,7 @@ const ActivityAssign = ({navigation}) => {
   const [activityN, setActivityN] = useState('');
   const authState = useSelector(state => state.authState);
   const activityState = useSelector(state => state.activityState);
+  const [text, settext] = useState();
   const [groupN, setGroupN] = useState('');
   const [groupId, setGroupId] = useState('');
   const dispatch = useDispatch();
@@ -169,6 +171,29 @@ const ActivityAssign = ({navigation}) => {
           </View>
         )}
       </View>
+      <View style={styles.activity}>
+          <Text style={styles.startDateText}>Message</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Message"
+            placeholderTextColor="grey"
+            multiline
+            numberOfLines={5}
+            onChangeText={settext}
+            value={text}
+          />
+        </View>
+      <TouchableOpacity
+          style={styles.scheduleNow}
+          onPress={() =>
+            navigation.navigate('activitySchedule')
+          }>
+          <LinearGradient
+            style={styles.buttonWrapper}
+            colors={['#5E6BFF', '#212FCC']}>
+            <Text style={styles.buttonText}>Next</Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -225,6 +250,7 @@ const styles = StyleSheet.create({
   activity: {
     marginLeft: '10%',
     marginTop: '5%',
+    marginBottom: '5%'
   },
   activityDropdown: {
     backgroundColor: '#F7F7F7',
@@ -234,5 +260,48 @@ const styles = StyleSheet.create({
     // width: '90%',
     alignSelf: 'flex-start',
     borderColor: '#f7f7f7',
+  },
+  input: {
+    height: 140,
+    marginTop: '4%',
+    width: '90%',
+    borderRadius: 10,
+    color: 'grey',
+    backgroundColor: '#F7F7F7',
+    // borderWidth: 1,
+    padding: 10,
+  },
+  scheduleNow: {
+    // backgroundColor: '#5E6BFF',
+    width: width / 1.5,
+    marginTop: '5%',
+    height: height/15,
+    // position: 'absolute',
+    // bottom:0,
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginBottom: '2%',
+  },
+  scheduleNowText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  buttonWrapper: {
+    width: '100%',
+    padding: 10,
+    height: '100%',
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontFamily: 'Inter',
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFF',
+    lineHeight: 20,
+    textAlign: 'center',
   },
 });
