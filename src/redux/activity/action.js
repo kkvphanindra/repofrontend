@@ -16,6 +16,7 @@ import {
   DELETE_ACTIVITY,
   USER_STATUS,
   SELECTED_USERS,
+  ACTIVITY_TYPE,
 } from './actionTypes';
 import { BASE_URL } from '@env'
 
@@ -35,6 +36,10 @@ export const reqFailure = error => ({
 });
 export const ActivityByUserId = data => ({
   type: GET_ALL_ACTIVITY_BY_USER_ID,
+  data,
+});
+export const activityType = data => ({
+  type: ACTIVITY_TYPE,
   data,
 });
 export const newActivityByUserId = id => ({
@@ -141,6 +146,24 @@ export const activityByActivityId = id => {
       if (response.status) {
         dispatch(getActivityDetailsByactivityId(response.data));
         // console.log("today", response.data)
+      }
+    } catch (err) {
+      console.log('REQUEST FAILED');
+      console.log(err.response.data.message);
+      dispatch(reqFailure(err.message));
+    }
+  };
+};
+
+export const getActivityType = id => {
+  return async dispatch => {
+    try {
+      const response = await axios.get(
+        BASE_URL+`/api/activityTypes`,
+      );
+      if (response.status) {
+        dispatch(activityType(response.data));
+        console.log("activity Type", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');

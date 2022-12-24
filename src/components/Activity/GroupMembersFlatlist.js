@@ -42,7 +42,7 @@ const GroupMembersFlatlist = ({item}) => {
           source={{
             uri: item?.profilePicture!==""
               ? item?.profilePicture
-              : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+              : 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
           }}
           style={{
             // backgroundColor: 'black',

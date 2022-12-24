@@ -1,4 +1,5 @@
 import {
+  Alert,
   Dimensions,
   Image,
   ScrollView,
@@ -23,67 +24,95 @@ const data = [
     name: 'Sleep',
   },
 ];
-const SelectActivity = ({navigation}) => {
+const SelectActivity = ({navigation, route}) => {
   const [select, setSelect] = useState(false);
+  const [activityId,setActivityId]=useState('')
+  const {activities} = route.params;
+  const {activityType} = route.params;
   const [activityName, setActivityName] = useState('');
-  const SelectAct = name => {
+  const SelectAct = (name,id) => {
     setActivityName(name);
+    setActivityId(id)
     // setSelect(true)
   };
-  console.log("nk", activityName, select)
+  const details = {
+    // activityTypeId: activityTypeId,
+    activityName: activityName,
+    activityId: activityId
+  };
+  console.log(
+    'nk',
+    activityName,
+    select,
+    activities,
+    activityType,
+    activityId
+  );
   return (
     <View style={styles.container}>
-        <ScrollView>
-      <StackHeader
-        IconLeftName="left"
-        IconLeftSize={24}
-        header="Create Activity"
-        notification={false}
-      />
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Activity Name</Text>
-      </View>
-      <View style={styles.progressBar}>
-        <ProgressBar
-          progress={0.4}
-          width={width / 1.3}
-          borderRadius={0}
-          borderColor={'#fff'}
-          unfilledColor={'#f7f7f7'}
-          color={'#5E6BFF'}
-          borderWidth={0}
-          animated={false}
+      <ScrollView>
+        <StackHeader
+          IconLeftName="left"
+          IconLeftSize={24}
+          header="Create Activity"
+          notification={false}
         />
-      </View>
-      <View style={styles.activityHeader}>
-        <Text style={styles.started}>Choose Activity To Start </Text>
-      </View>
-      <View style={styles.activityView}>
-        {data.map(item => {
-          return (
-            <TouchableOpacity
-              style={[
-                styles.activity,
-                activityName.includes(item.name)?{backgroundColor: '#5E6BFF'} : {backgroundColor: '#fff'},
-              ]}
-              onPress={() => SelectAct(item.name)}>
-              <Text style={[styles.activityText,activityName.includes(item.name)?{color: '#fff'}:{color: '#000'}]}>{item.name}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-        </ScrollView>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{activityType}</Text>
+        </View>
+        <View style={styles.progressBar}>
+          <ProgressBar
+            progress={0.4}
+            width={width / 1.3}
+            borderRadius={0}
+            borderColor={'#fff'}
+            unfilledColor={'#f7f7f7'}
+            color={'#5E6BFF'}
+            borderWidth={0}
+            animated={false}
+          />
+        </View>
+        <View style={styles.activityHeader}>
+          <Text style={styles.started}>Choose Activity To Start </Text>
+        </View>
+        <View style={styles.activityView}>
+          {activities.map(item => {
+            return (
+              <TouchableOpacity
+                style={[
+                  styles.activity,
+                  activityName.includes(item.name)
+                    ? {backgroundColor: '#5E6BFF'}
+                    : {backgroundColor: '#fff'},
+                ]}
+                onPress={() => SelectAct(item.name,item.activityTypesId)}>
+                <Text
+                  style={[
+                    styles.activityText,
+                    activityName.includes(item.name)
+                      ? {color: '#fff'}
+                      : {color: '#000'},
+                  ]}>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </ScrollView>
       <TouchableOpacity
-          style={styles.scheduleNow}
-          onPress={() =>
-            navigation.navigate('activitySchedule')
-          }>
-          <LinearGradient
-            style={styles.buttonWrapper}
-            colors={['#5E6BFF', '#212FCC']}>
-            <Text style={styles.buttonText}>Next</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+        style={styles.scheduleNow}
+        onPress={() => {
+          activityName != ''
+            ? navigation.navigate('activitySchedule', {data: details})
+            : Alert.alert('Please select a activity');
+        }}>
+        <LinearGradient
+          style={styles.buttonWrapper}
+          colors={['#5E6BFF', '#212FCC']}>
+          <Text style={styles.buttonText}>Next</Text>
+        </LinearGradient>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -152,7 +181,7 @@ const styles = StyleSheet.create({
     width: width / 1.5,
     marginTop: '5%',
     position: 'absolute',
-    bottom:0,
+    bottom: 0,
     alignSelf: 'center',
     borderRadius: 10,
     marginBottom: '2%',

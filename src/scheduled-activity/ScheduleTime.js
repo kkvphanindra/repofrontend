@@ -1,4 +1,5 @@
 import {
+  Alert,
   Dimensions,
   Image,
   StyleSheet,
@@ -10,7 +11,25 @@ import React, {useState} from 'react';
 import ProgressBar from 'react-native-progress/Bar';
 import StackHeader from '../components/Activity/StackHeader';
 import LinearGradient from 'react-native-linear-gradient';
-const ScheduleTime = ({navigation}) => {
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
+
+const ScheduleTime = ({navigation, route}) => {
+  const {data} = route.params
+  const [date, setDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [startDateTime, setStartDateTime] = useState('');
+  const [endDateTime, setEndDateTime] = useState('');
+  const [open, setOpen] = useState(false);
+  const [endOpen, setEndOpen] = useState(false);
+  console.log(
+    'date',
+    data.activityId,
+    // data.activityId
+    // date,
+    // moment(date).format('YYYY/MM/DD HH:MM a'),
+    // startDateTime,
+  );
   return (
     <View style={styles.container}>
       <StackHeader
@@ -46,12 +65,27 @@ const ScheduleTime = ({navigation}) => {
             style={styles.startDateButton}
             // onPress={()=>console.log("object")}
             onPress={() => {
+              setOpen(true);
               // setModalVisible(true);
             }}>
             <Text style={styles.startDateButtonText}>
+              {startDateTime}
               {/* {selectedStartDate ? minDate : 'YYYY/MM/DD'} */}
             </Text>
           </TouchableOpacity>
+          <DatePicker
+            modal
+            open={open}
+            date={date}
+            onConfirm={date => {
+              setOpen(false);
+              setDate(date);
+              setStartDateTime(moment(date).format('YYYY/MM/DD hh:mm a'));
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          />
         </View>
         <View style={styles.startDate}>
           <Text style={styles.startDateText}>End Date & Time</Text>
@@ -60,24 +94,47 @@ const ScheduleTime = ({navigation}) => {
             // onPress={()=>console.log("object")}
             onPress={() => {
               // setModalVisible(true);
+              setEndOpen(true);
             }}>
             <Text style={styles.startDateButtonText}>
+              {endDateTime}
               {/* {selectedStartDate ? minDate : 'YYYY/MM/DD'} */}
             </Text>
           </TouchableOpacity>
+          <DatePicker
+            modal
+            open={endOpen}
+            date={endDate}
+            onConfirm={date => {
+              setEndOpen(false);
+              setEndDate(date);
+              setEndDateTime(moment(date).format('YYYY/MM/DD  hh:mm a'));
+            }}
+            onCancel={() => {
+              setEndOpen(false);
+            }}
+          />
         </View>
       </View>
       <TouchableOpacity
-          style={styles.scheduleNow}
-          onPress={() =>
-            navigation.navigate('activityAssign')
-          }>
-          <LinearGradient
-            style={styles.buttonWrapper}
-            colors={['#5E6BFF', '#212FCC']}>
-            <Text style={styles.buttonText}>Next</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+        style={styles.scheduleNow}
+        onPress={() => {
+          startDateTime ? (
+            <>
+              {endDateTime
+                ? navigation.navigate('activityAssign')
+                : Alert.alert('Please select end Time')}
+            </>
+          ) : (
+            Alert.alert('Please select Date Time')
+          );
+        }}>
+        <LinearGradient
+          style={styles.buttonWrapper}
+          colors={['#5E6BFF', '#212FCC']}>
+          <Text style={styles.buttonText}>Next</Text>
+        </LinearGradient>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -121,7 +178,8 @@ const styles = StyleSheet.create({
   startDateText: {
     fontSize: 16,
     marginTop: '5%',
-    color: '#808089',
+    // color: '#808089',
+    color: '#000',
     fontWeight: '500',
   },
   startDateButton: {
@@ -141,7 +199,7 @@ const styles = StyleSheet.create({
     width: width / 1.5,
     marginTop: '5%',
     position: 'absolute',
-    bottom:0,
+    bottom: 0,
     alignSelf: 'center',
     borderRadius: 10,
     marginBottom: '2%',

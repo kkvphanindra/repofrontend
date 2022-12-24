@@ -19,12 +19,14 @@ import {
   DELETE_ACTIVITY,
   USER_STATUS,
   SELECTED_USERS,
+  ACTIVITY_TYPE,
 } from './actionTypes';
 
 const initialState = {
   loading: false,
   data: [],
   newData: [],
+  activityTypeData:[],
   activityData:[],
   groupUser:[],
   selectedUsers:[],
@@ -71,6 +73,15 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         // let arr = [];
         data: action.data,
+        error: '',
+        loading: false,
+      };
+    }
+    case ACTIVITY_TYPE: {
+      console.log('Successfully Got activity type');
+      return {
+        ...state,
+        activityTypeData: action.data,
         error: '',
         loading: false,
       };

@@ -29,6 +29,8 @@ import com.dooboolab.audiorecorderplayer.RNAudioRecorderPlayerPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 // react-native-contacts
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
+// react-native-date-picker
+import com.henninghall.date_picker.DatePickerPackage;
 // react-native-device-info
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 // react-native-geolocation-service
@@ -117,6 +119,7 @@ public class PackageList {
       new RNAudioRecorderPlayerPackage(),
       new BackgroundTimerPackage(),
       new ReactNativeContacts(),
+      new DatePickerPackage(),
       new RNDeviceInfo(),
       new RNFusedLocationPackage(),
       new RNGestureHandlerPackage(),
