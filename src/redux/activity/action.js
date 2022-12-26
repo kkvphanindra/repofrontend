@@ -1,7 +1,9 @@
 import axios from 'axios';
 import {
+  STATE_CLEANUP,
   GET_ALL_ACTIVITY_BY_USER_ID,
   NEW_ACTIVITY_BY_USER_ID,
+  POST_ACTIVITY_BY_USER_ID,
   GET_ACTIVITY_DETAILS_BY_ACTIVITY_ID,
   ACTIVITY_SUCCESS,
   ACTIVITY_FAILURE,
@@ -24,7 +26,9 @@ export const req = () => {
   console.log('started activity');
   return {type: REQ_START};
 };
-
+export const stateCleanUp = () => ({
+  type:STATE_CLEANUP,
+});
 export const reqSuccess = data => ({
   type: ACTIVITY_SUCCESS,
   data,
@@ -45,6 +49,10 @@ export const activityType = data => ({
 export const newActivityByUserId = id => ({
   type: NEW_ACTIVITY_BY_USER_ID,
   id,
+});
+export const postActivityByUserId = data => ({
+  type: POST_ACTIVITY_BY_USER_ID,
+  data,
 });
 export const getActivityDetailsByactivityId = data => ({
   type: GET_ACTIVITY_DETAILS_BY_ACTIVITY_ID,
@@ -100,6 +108,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
           `/api/activity/user/${id}?today=${today}`,
         );
         if (response.status) {
+          dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
           console.log("today")
         }
@@ -109,6 +118,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
           `/api/activity/user/${id}?week=${week},`,
         );
         if (response) {
+          dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
           console.log("week", )
         }
@@ -117,6 +127,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
           BASE_URL+`/api/activity/user/${id}?month=${month},`,
         );
         if (response) {
+          dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
           console.log("month", )
         }
@@ -125,12 +136,52 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
           BASE_URL+`/api/activity/user/${id}?year=${year},`,
         );
         if (response) {
+          dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
           console.log("year",)
         }
       }
     } catch (err) {
       console.log('REQUEST FAILED');
+      console.log(err.message);
+      dispatch(reqFailure(err.message));
+    }
+  };
+};
+export const newActivity = (id,startDate,endDate,startTime,endTime,activityName,groupName,groupId, message, users) => {
+  return async dispatch => {
+    dispatch(req());
+    // console.log("product actions", _id)
+    console.log('new activity', id,startDate,endDate,startTime,endTime,activityName,groupName,message, users);
+    try {
+      users.push(id)
+      const response = await axios.post(
+        // STOREURL +
+        BASE_URL+`/api/activity`,
+        {
+          startDate:startDate ,
+          endDate:endDate,
+          startTime: startTime,
+          endTime: endTime,
+          activityName: activityName,
+          assignTo: null,
+          groupName: groupName,
+          groupId:groupId,
+          users:users,
+          location: null,
+          message:message,
+          createdBy: id
+        },
+      );
+      console.log(response.data);
+      if (response) {
+        // console.log('COMPLETE RESPONSE DATA:', response.data)
+        console.log('post activity', response.data);
+        dispatch(postActivityByUserId(response.data));
+        dispatch(stateCleanUp())
+      }
+    } catch (err) {
+      console.log('Request failed');
       console.log(err.message);
       dispatch(reqFailure(err.message));
     }
@@ -275,6 +326,7 @@ export const endTime = (endTime, activityId, endId) => {
         // console.log('COMPLETE RESPONSE DATA:', response.data)
         console.log('else if', response.data);
         dispatch(endedTime(response.data));
+        dispatch(getAllActivityByUserId())
       }
     } catch (err) {
       console.log('Request failed');

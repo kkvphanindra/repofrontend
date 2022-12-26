@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectedUsers } from '../../redux/activity/action'
 
-const GroupMembersFlatlist = ({item}) => {
+const GroupMembersFlatlist = ({item, groupN, groupId}) => {
     const activityState = useSelector((state)=>state.activityState)
     const dispatch = useDispatch()
     const kil = (name, userId) => {
@@ -20,7 +20,7 @@ const GroupMembersFlatlist = ({item}) => {
           console.log('se',activityState.selectedUsers);
         }
       };
-      console.log('oie',activityState.selectedUsers);
+      console.log('oie',activityState.selectedUsers, groupId, groupN);
   return (
     <View
     style={{

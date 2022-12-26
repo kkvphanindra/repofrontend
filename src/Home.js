@@ -211,7 +211,7 @@ const Home = ({ navigation }) => {
                                                         style={styles.profilePicOne}
                                                         source={{
                                                             uri:
-                                                                locationState?.locationData[5]?.profilePicture == null
+                                                                locationState?.locationData[5]?.profilePicture == ""
                                                                     ? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
                                                                     : locationState?.locationData[5]?.profilePicture,
                                                         }}
@@ -226,7 +226,7 @@ const Home = ({ navigation }) => {
                                                         style={styles.profilePicTwo}
                                                         source={{
                                                             uri:
-                                                                locationState?.locationData[4]?.profilePicture ==null
+                                                                locationState?.locationData[4]?.profilePicture ==""
                                                                     ? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
                                                                     : locationState?.locationData[4]?.profilePicture,
                                                         }}
@@ -241,7 +241,7 @@ const Home = ({ navigation }) => {
                                                         style={styles.profilePicThree}
                                                         source={{
                                                             uri:
-                                                                locationState?.locationData[0]?.profilePicture == null
+                                                                locationState?.locationData[0]?.profilePicture == ""
                                                                     ? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
                                                                     : locationState?.locationData[0]?.profilePicture,
                                                         }}
@@ -256,7 +256,7 @@ const Home = ({ navigation }) => {
                                                         style={styles.profilePicFour}
                                                         source={{
                                                             uri:
-                                                                locationState?.locationData[3]?.profilePicture == null
+                                                                locationState?.locationData[3]?.profilePicture == ""
                                                                     ? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
                                                                     : locationState?.locationData[3]?.profilePicture,
                                                         }}
@@ -271,7 +271,7 @@ const Home = ({ navigation }) => {
                                                         style={styles.profilePicFive}
                                                         source={{
                                                             uri:
-                                                                locationState?.locationData[2]?.profilePicture == null
+                                                                locationState?.locationData[2]?.profilePicture == ""
                                                                     ? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
                                                                     : locationState?.locationData[2]?.profilePicture,
                                                         }}
@@ -286,7 +286,7 @@ const Home = ({ navigation }) => {
                                                         style={styles.profilePicSix}
                                                         source={{
                                                             uri:
-                                                                locationState?.locationData[1]?.profilePicture == null
+                                                                locationState?.locationData[1]?.profilePicture == ""
                                                                     ? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'
                                                                     : locationState?.locationData[1]?.profilePicture,
                                                         }}

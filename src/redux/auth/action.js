@@ -7,10 +7,12 @@ import {
   LOGOUT,
 } from './actionTypes';
 import axios from 'axios';
-import { BASE_URL } from '@env';
+import {BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
 
 export const req = (
+  AccessToken,
   coverPicture,
   dob,
   name,
@@ -24,6 +26,7 @@ export const req = (
   // data
 ) => ({
   type: REQ_SUCCESS,
+  AccessToken,
   coverPicture,
   dob,
   name,
@@ -47,53 +50,139 @@ export const reqFailure = error => ({
   error: error,
 });
 
-export const login = data => {
+export const register = (
+  uniqueID,
+  phoneNumber,
+  name,
+  dob,
+  gender,
+  occupation,
+  profilePic,
+  coverPic,
+  latitude,
+  longitude,
+  interest,
+) => {
   return async dispatch => {
     // dispatch(reqActivityLoading());
-    console.log('login', data);
-    // try {
-    //   const response = await axios.post(BASE_URL + `/api/user/number/details`, {
-    //     number: number,
-    //   });
-    // console.log(response.data);
-    if (data) {
-      // console.log('COMPLETE RESPONSE DATA:', response.data[0].name);
-      const userData =
-        // JSON.stringify(data)
-        JSON.stringify({
-          coverPicture: data.coverPicture,
-          dob: data.dob,
-          name: data.name,
-          gender: data.gender,
-          occupation: data.occupation,
-          phone: data.phone,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          profilePicture: data.profilePicture,
-          userId: data.userId,
-        });
+    console.log(
+      'login',
+      uniqueID,
+      phoneNumber,
+      name,
+      dob,
+      gender,
+      occupation,
+      profilePic,
+      coverPic,
+      latitude,
+      longitude,
+      interest,
+    );
+    try {
+      const response = await axios.post(BASE_URL + `/api/login`, {
+        mobile: uniqueID,
+        phone: phoneNumber,
+        name: name,
+        dob: dob,
+        gender: gender,
+        occupation: occupation,
+        profilePicture: profilePic,
+        coverPicture: coverPic,
+        latitude: latitude,
+        longitude: longitude,
+        interest: interest,
+      });
+      console.log(response.data);
+      // if (data) {
+      //   // console.log('COMPLETE RESPONSE DATA:', response.data[0].name);
+      const userData = JSON.stringify({
+        AccessToken: response.data.AccessToken,
+        coverPicture: response.data.user.coverPicture,
+        dob: response.data.user.dob,
+        name: response.data.user.name,
+        gender: response.data.user.gender,
+        occupation: response.data.user.occupation,
+        phone: response.data.user.phone,
+        latitude: response.data.user.latitude,
+        longitude: response.data.user.longitude,
+        profilePicture: response.data.user.profilePicture,
+        userId: response.data.user.userId,
+      });
       await AsyncStorage.setItem('frislesAuthData', userData);
       console.log('Saved data to async storage!', userData);
       dispatch(
         req(
-          data.coverPicture,
-          data.dob,
-          data.name,
-          data.gender,
-          data.occupation,
-          data.phone,
-          data.latitude,
-          data.longitude,
-          data.profilePicture,
-          data.userId,
+          response.data.AccessToken,
+          response.data.user.coverPicture,
+          response.data.user.dob,
+          response.data.user.name,
+          response.data.user.gender,
+          response.data.user.occupation,
+          response.data.user.phone,
+          response.data.user.latitude,
+          response.data.user.longitude,
+          response.data.user.profilePicture,
+          response.data.user.userId,
         ),
       );
+      // }
+    } catch (err) {
+      console.log('Request failed');
+      console.log(err.message);
+      dispatch(reqFailure(err.message));
     }
-    // } catch (err) {
-    //   console.log('Request failed');
-    //   console.log(err.response.status, err.message);
-    //   dispatch(reqFailure(err.response.status));
-    // }
+  };
+};
+
+export const login = number => {
+  return async dispatch => {
+    // dispatch(reqActivityLoading());
+    // console.log('login',uniqueID,phoneNumber,name,dob,gender,occupation,profilePic,coverPic,latitude,longitude,interest);
+    try {
+      const response = await axios.post(BASE_URL + `/api/user/number/details`, {
+        number: number,
+      });
+      console.log(response.data);
+      // if (data) {
+      //   // console.log('COMPLETE RESPONSE DATA:', response.data[0].name);
+      const userData = JSON.stringify({
+        AccessToken: response.data.AccessToken,
+        coverPicture: response.data.user.coverPicture,
+        dob: response.data.user.dob,
+        name: response.data.user.name,
+        gender: response.data.user.gender,
+        occupation: response.data.user.occupation,
+        phone: response.data.user.phone,
+        latitude: response.data.user.latitude,
+        longitude: response.data.user.longitude,
+        profilePicture: response.data.user.profilePicture,
+        userId: response.data.user.userId,
+      });
+      await AsyncStorage.setItem('frislesAuthData', userData);
+      console.log('Saved data to async storage!', userData);
+      dispatch(
+        req(
+          response.data.AccessToken,
+          response.data.user.coverPicture,
+          response.data.user.dob,
+          response.data.user.name,
+          response.data.user.gender,
+          response.data.user.occupation,
+          response.data.user.phone,
+          response.data.user.latitude,
+          response.data.user.longitude,
+          response.data.user.profilePicture,
+          response.data.user.userId,
+        ),
+      );
+      // }
+    } catch (err) {
+      console.log('Request failed');
+      console.log("stat",err.response.status);
+      // Alert.alert("Your number is not registered Please Register to continue")
+      dispatch(reqFailure(err.response.status));
+    }
   };
 };
 
@@ -110,6 +199,7 @@ export const tokenRetriever = () => {
       if (loggedData != null) {
         dispatch(
           req(
+            loggedData.AccessToken,
             loggedData.coverPicture,
             loggedData.dob,
             loggedData.name,
@@ -139,4 +229,4 @@ export const tokenRetriever = () => {
   };
 };
 
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => ({type: LOGOUT});

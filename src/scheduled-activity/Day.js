@@ -31,7 +31,7 @@ const Day = () => {
     },[dispatch,navigation.isFocused()])
   )
   // console.log("before hook", authState.userId)
-  console.log("activity day", activityState.data)
+  // console.log("activity day", activityState.data)
   return (
     <View style={styles.container}>
       {/* {activityState.loading?

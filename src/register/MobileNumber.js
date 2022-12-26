@@ -13,12 +13,14 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PhoneInput from 'react-native-phone-number-input';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/auth/action';
 import auth from '@react-native-firebase/auth';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const MobileNumber = ({route, navigation}) => {
-    const { uniqueID } = route?.params;
+    // const { uniqueID } = route?.params;
     const [confirm, setConfirm] = useState(null);
     const [phoneNumber,
         setphoneNumber] = useState('');
@@ -26,29 +28,31 @@ const MobileNumber = ({route, navigation}) => {
         const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
   const [deviceIMEI, setDeviceIMEI] = useState();
-
+  const dispatch = useDispatch()
     const phoneInput = useRef(null);
-
-    const onAuthStateChanged = (user) => {
-        console.log('user', user)
-        setUser(user);
-        if (initializing) setInitializing(false);
-      }
+ const authState = useSelector((state)=>state.authState)
+    // const onAuthStateChanged = (user) => {
+    //     console.log('user', user)
+    //     setUser(user);
+    //     if (initializing) setInitializing(false);
+    //   }
 
       
-    useEffect(() => {
+    // useEffect(() => {
         // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         // console.log('subscriber', subscriber)
         // return subscriber; // unsubscribe on unmount
         
         
-    }, []);
+    // }, []);
 
     const signInWithPhoneNumber = async(phoneNumber) => {
         console.log('signInWithPhoneNumber Mbile.', phoneNumber);
         // auth().signOut();
         try{
-            const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+            // const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+            const confirmation = phoneNumber
+            console.log("confirma", confirmation)
             if(confirmation){
                 setConfirm(confirmation);
                 navigation.navigate('verifyAccount', {
@@ -60,7 +64,7 @@ const MobileNumber = ({route, navigation}) => {
             }
         }
         catch (e) {
-            console.log(e.message);
+            console.log("error",e.message);
             ToastAndroid.showWithGravityAndOffset(
                 `Request ${e.message}`,
                 ToastAndroid.LONG,
@@ -69,7 +73,7 @@ const MobileNumber = ({route, navigation}) => {
                 height
               );
         }
-        // console.log('confirmation.', confirmation);
+        console.log('confirmation.', confirm);
     }
 
     //   console.log('confirm ===>', confirm)
@@ -81,6 +85,10 @@ const MobileNumber = ({route, navigation}) => {
     //       />
     //     );
     //   }
+    const onProceed=()=>{
+        dispatch(login(number,Alert))
+    }
+    console.log("err", authState.error)
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
@@ -108,7 +116,14 @@ const MobileNumber = ({route, navigation}) => {
                 setphoneNumber(text);
             }}/>
             <Pressable
-                onPress={() => signInWithPhoneNumber(phoneNumber)}
+                // onPress={() => signInWithPhoneNumber(phoneNumber)}
+                onPress={()=> {
+                    navigation.navigate('verifyAccount', {
+                    // uniqueID: uniqueID,
+                    // screen: 'verifyAccount',
+                    number: phoneNumber,
+                    // getConfirm: confirmation
+                })}}
                 style={styles.buttonContainer}>
                 <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                     <Text style={styles.buttonText}>

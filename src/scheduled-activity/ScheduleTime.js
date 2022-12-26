@@ -15,21 +15,46 @@ import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 
 const ScheduleTime = ({navigation, route}) => {
-  const {data} = route.params
+  const {data} = route.params;
   const [date, setDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [dateR, setDateR] = useState('');
+  const [dateTimeR, setDateTimeR] = useState('');
+  const [endDateR, setEndDateR] = useState('');
+  const [endDateTimeR, setEndDateTimeR] = useState('');
   const [startDateTime, setStartDateTime] = useState('');
   const [endDateTime, setEndDateTime] = useState('');
   const [open, setOpen] = useState(false);
   const [endOpen, setEndOpen] = useState(false);
+  let activityId = data.activityId;
+  let activityName = data.activityName;
   console.log(
-    'date',
+    'activityTypesId',
     data.activityId,
+    'activityName',
+    data.activityName,
     // data.activityId
     // date,
-    // moment(date).format('YYYY/MM/DD HH:MM a'),
+    // endDate,
+    'date',
+    dateR,
+    'dateTime',
+    dateTimeR,
+    'endDate',
+    endDateR,
+    'endDateTime',
+    endDateTimeR,
     // startDateTime,
   );
+  const sendData = {
+    activityId,
+    activityName,
+    dateR,
+    dateTimeR,
+    endDateR,
+    endDateTimeR,
+  };
+
   return (
     <View style={styles.container}>
       <StackHeader
@@ -77,10 +102,13 @@ const ScheduleTime = ({navigation, route}) => {
             modal
             open={open}
             date={date}
+            is24hourSource={'device'}
             onConfirm={date => {
               setOpen(false);
               setDate(date);
-              setStartDateTime(moment(date).format('YYYY/MM/DD hh:mm a'));
+              setStartDateTime(moment(date).format('YYYY-MM-DD HH:mm'));
+              setDateR(moment(date).format('YYYY-MM-DD'));
+              setDateTimeR(moment(date).format('HH:mm'))
             }}
             onCancel={() => {
               setOpen(false);
@@ -108,7 +136,9 @@ const ScheduleTime = ({navigation, route}) => {
             onConfirm={date => {
               setEndOpen(false);
               setEndDate(date);
-              setEndDateTime(moment(date).format('YYYY/MM/DD  hh:mm a'));
+              setEndDateTime(moment(date).format('YYYY-MM-DD  HH:mm '));
+              setEndDateR(moment(date).format('YYYY-MM-DD'))
+              setEndDateTimeR(moment(date).format('HH:mm'))
             }}
             onCancel={() => {
               setEndOpen(false);
@@ -122,7 +152,7 @@ const ScheduleTime = ({navigation, route}) => {
           startDateTime ? (
             <>
               {endDateTime
-                ? navigation.navigate('activityAssign')
+                ? navigation.navigate('activityAssign', {data: sendData})
                 : Alert.alert('Please select end Time')}
             </>
           ) : (
