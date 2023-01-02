@@ -13,6 +13,7 @@ const initialState = {
   userData:{},
   data: [],
   token: {},
+  AccessToken:'',
   coverPicture: '',
   dob: '',
   name: '',
@@ -33,6 +34,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         // userData:action.data,
+        AccessToken: action.AccessToken,
         coverPicture: action.coverPicture,
         dob: action.dob,
         name: action.name,

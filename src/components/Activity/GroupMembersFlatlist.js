@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectedUsers } from '../../redux/activity/action'
 
-const GroupMembersFlatlist = ({item}) => {
+const GroupMembersFlatlist = ({item, groupN, groupId}) => {
     const activityState = useSelector((state)=>state.activityState)
     const dispatch = useDispatch()
     const kil = (name, userId) => {
@@ -20,7 +20,7 @@ const GroupMembersFlatlist = ({item}) => {
           console.log('se',activityState.selectedUsers);
         }
       };
-      console.log('oie',activityState.selectedUsers);
+      console.log('oie',activityState.selectedUsers, groupId, groupN);
   return (
     <View
     style={{
@@ -42,7 +42,7 @@ const GroupMembersFlatlist = ({item}) => {
           source={{
             uri: item?.profilePicture!==""
               ? item?.profilePicture
-              : 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+              : 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
           }}
           style={{
             // backgroundColor: 'black',

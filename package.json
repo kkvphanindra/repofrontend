@@ -38,6 +38,7 @@
     "react-native-confirmation-code-field": "^7.3.0",
     "react-native-contacts": "^7.0.5",
     "react-native-countdown-component": "^2.7.1",
+    "react-native-date-picker": "^4.2.6",
     "react-native-device-info": "^10.3.0",
     "react-native-dotenv": "^3.4.6",
     "react-native-dropdown-picker": "^5.4.3",

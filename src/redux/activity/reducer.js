@@ -19,12 +19,14 @@ import {
   DELETE_ACTIVITY,
   USER_STATUS,
   SELECTED_USERS,
+  ACTIVITY_TYPE,
 } from './actionTypes';
 
 const initialState = {
   loading: false,
   data: [],
   newData: [],
+  activityTypeData:[],
   activityData:[],
   groupUser:[],
   selectedUsers:[],
@@ -63,6 +65,10 @@ const activityReducer = (state = initialState, action) => {
       console.log('Getting Service Data');
       return {...state, loading: true, error: ''};
     }
+    case STATE_CLEANUP: {
+      console.log("Getting Chat List Data");
+      return { ...state,selectedUsers:[],activityTypeData:[],loading: true, error: "" };
+  }
     case GET_ALL_ACTIVITY_BY_USER_ID: {
       console.log('Successfully Got activity by userId');
       // state.data = state.data.concat(action.data)
@@ -71,6 +77,15 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         // let arr = [];
         data: action.data,
+        error: '',
+        loading: false,
+      };
+    }
+    case ACTIVITY_TYPE: {
+      console.log('Successfully Got activity type');
+      return {
+        ...state,
+        activityTypeData: action.data,
         error: '',
         loading: false,
       };

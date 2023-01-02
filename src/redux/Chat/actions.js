@@ -254,39 +254,44 @@ export const groupCreate = (chatName, userChat, userId, image, message, Alert) =
     try {
       userChat.push(userId)
       if(userChat.length>2){
-        console.log("arr at action", chatName,userId, image, userChat,message)
-        const formData = new FormData();
-        formData.append('chatName', chatName)
-        formData.append('isGroupChat', true)
-        userChat.forEach(
-          userChat => formData.append('userChat[]', userChat.length<2?Alert.alert('Please select atleast 3 users'):userChat)
-          )
-        formData.append('message', message==''||message==null?Alert.alert('Message should not be empty'):message)
-        formData.append('groupPhoto',image!==null?{
-            uri: image.path,
-            type: image.mime,
-            name: image.filename || `filename${image.size}.jpg`,
-        }:null);
-        const response = await axios.post(
-            BASE_URL+`/api/chat?userId=${userId}`,
-            formData,
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'multipart/form-data'
-                }
+        if(message!==''){
+          console.log("arr at action", chatName,userId, image, userChat,message)
+          const formData = new FormData();
+          formData.append('chatName', chatName)
+          formData.append('isGroupChat', true)
+          userChat.forEach(
+            userChat => formData.append('userChat[]', userChat.length<2?Alert.alert('Please select atleast 3 users'):userChat)
+            )
+          formData.append('message', message==''||message==null?Alert.alert('Message should not be empty'):message)
+          formData.append('groupPhoto',image!==null?{
+              uri: image.path,
+              type: image.mime,
+              name: image.filename || `filename${image.size}.jpg`,
             }
-        )
-        console.log("response dreate group", response.data)
-        dispatch(stateCleanUp())
-        dispatch(createGroup(response.data));
-      }
-      else{
-        dispatch(stateCleanUp())
-        Alert.alert('Please select atleast 3 users')
-      }
-      // console.log("today", response.data)
-    } catch (err) {
+            :null);
+            const response = await axios.post(
+              BASE_URL+`/api/chat?userId=${userId}`,
+              formData,
+              {
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'multipart/form-data'
+                }
+              }
+              )
+              console.log("response dreate group", response.data)
+              dispatch(stateCleanUp())
+              dispatch(createGroup(response.data));
+        }else{
+          Alert.alert("Message should not be empty")
+        }
+        }
+        else{
+          dispatch(stateCleanUp())
+          Alert.alert('Please select atleast 3 users')
+        }
+        // console.log("today", response.data)
+      } catch (err) {
       console.log('REQUEST FAILED group creation');
       console.log(err);
       dispatch(stateCleanUp())

@@ -21,7 +21,7 @@ import axios from 'axios';
 import { environment } from '../../environment';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-import { login } from '../redux/auth/action';
+import { login, register } from '../redux/auth/action';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Interests = ({ route, navigation }) => {
@@ -143,7 +143,8 @@ const Interests = ({ route, navigation }) => {
         </View>
       </View>
       <Pressable
-        onPress={() => submitLogin()}
+        // onPress={() => submitLogin()}
+        onPress={()=>{dispatch(register(uniqueID,phoneNumber,name,dob,gender,occupation,profilePic,coverPic,latitude,longitude,filterData)), navigation.navigate('home')}}
         style={styles.buttonContainer}>
         <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
           <Text style={styles.buttonText}>

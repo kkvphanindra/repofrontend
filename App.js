@@ -75,6 +75,7 @@ import ActivityCreate from './src/scheduled-activity/ActivityCreate';
 import SelectActivity from './src/scheduled-activity/SelectActivity';
 import ScheduleTime from './src/scheduled-activity/ScheduleTime';
 import ActivityAssign from './src/scheduled-activity/ActivityAssign';
+import ActivityHome from './src/scheduled-activity/ActivityHome';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -443,7 +444,7 @@ const App = () => {
           <Stack.Screen name="slambookHome" component={SlambookHome} />
           <Stack.Screen name="notifications" component={Notifications} />
           <Stack.Screen name="scheduledHome" component={ScheduledHome} />
-          {/* <Stack.Screen name="activityHome" component={ActivityHome} /> */}
+          <Stack.Screen name="activityHome" component={ActivityHome} />
           <Stack.Screen name="createActivity" component={CreateActivity} />
           <Stack.Screen name="activityCreate" component={ActivityCreate} />
           <Stack.Screen name="activitySelect" component={SelectActivity} />

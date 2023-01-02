@@ -1,4 +1,5 @@
 import {
+  Alert,
   Dimensions,
   Image,
   StyleSheet,
@@ -6,24 +7,105 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ProgressBar from 'react-native-progress/Bar';
 import StackHeader from '../components/Activity/StackHeader';
 import LinearGradient from 'react-native-linear-gradient';
 import Checkboxs from '../components/Activity/Checkbox';
+import {useDispatch, useSelector} from 'react-redux';
+import {getActivityType} from '../redux/activity/action';
 
-const data =[
+const data = [
   {
-    name:"GENERAL",
-    id:"vhnu34bk876niikmbghy"
+    name: 'GENERAL',
+    id: 'vhnu34bk876niikmbghy',
+    activities: [
+      {
+        name: 'Run',
+        id: '1a',
+      },
+      {
+        name: 'Walk',
+        id: '1b',
+      },
+      {
+        name: 'Laugh',
+        id: '1c',
+      },
+    ],
   },
   {
-    name:"HONOUR",
-    id:"mklothikkol6754nkom8"
-  }
-]
+    name: 'HONOUR',
+    id: 'mklothikkol6754nkom8',
+    activities: [
+      {
+        name: 'Sing',
+        id: '2a',
+      },
+      {
+        name: 'Dance',
+        id: '2b',
+      },
+      {
+        name: 'Fight',
+        id: '2c',
+      },
+    ],
+  },
+];
+const demo = [
+  {
+    activityType: {
+      id: 'bd7baeb0-82be-11ed-9a40-f383f2966c89',
+      name: 'General',
+      isActive: true,
+      createdAt: '2022-12-23T12:38:45.277Z',
+      updatedAt: '2022-12-23T12:38:45.277Z',
+    },
+    items: [
+      {
+        id: 'bdb18bc0-82be-11ed-9a40-f383f2966c89',
+        activityTypesId: 'bd7baeb0-82be-11ed-9a40-f383f2966c89',
+        name: 'Walk',
+      },
+      {
+        id: 'bdfdaff0-82be-11ed-9a40-f383f2966c89',
+        activityTypesId: 'bd7baeb0-82be-11ed-9a40-f383f2966c89',
+        name: 'Sing',
+      },
+    ],
+  },
+  {
+    activityType: {
+      id: 'c355ca50-82be-11ed-9a40-f383f2966c89',
+      name: 'Honor',
+      isActive: true,
+      createdAt: '2022-12-23T12:38:55.094Z',
+      updatedAt: '2022-12-23T12:38:55.094Z',
+    },
+    items: [
+      {
+        id: 'c39c9750-82be-11ed-9a40-f383f2966c89',
+        activityTypesId: 'c355ca50-82be-11ed-9a40-f383f2966c89',
+        name: 'Run',
+      },
+      {
+        id: 'c3cb9690-82be-11ed-9a40-f383f2966c89',
+        activityTypesId: 'c355ca50-82be-11ed-9a40-f383f2966c89',
+        name: 'Dance',
+      },
+    ],
+  },
+];
 const ActivityCreate = ({navigation}) => {
   const [checked, setChecked] = useState('');
+  const activityState = useSelector(state => state.activityState);
+  const [activityTypeId, setActivityTypeId] = useState('');
+  const dispatch = useDispatch();
+  const [store, setStore] = useState([]);
+  useEffect(() => {
+    dispatch(getActivityType());
+  }, [dispatch]);
   console.log('checked', checked);
   return (
     <View style={styles.container}>
@@ -56,34 +138,43 @@ const ActivityCreate = ({navigation}) => {
         </Text>
       </View>
       <View style={styles.activity}>
-        {data.map((item)=>{
-          return(
-        <View style={styles.activityBox}>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => {
-              setChecked(item.id)
-            }}>
-            {checked.includes(item.id) ? (
-              <Image
-                source={require('../assets/icons/png/icon-done.png')}
-                style={styles.icon}
-              />
-            ) : (
-              <Image
-                source={require('../assets/icons/png/icon-done-2.png')}
-                style={styles.icon}
-              />
-            )}
-          </TouchableOpacity>
-          <Text style={styles.activityText}>{item.name}</Text>
-        </View>
-          )
+        {activityState?.activityTypeData?.map(item => {
+          return (
+            <View style={styles.activityBox}>
+              <TouchableOpacity
+                style={styles.iconButton}
+                onPress={() => {
+                  setChecked(item.activityType.name),
+                    // setActivityTypeId(item.activityType.id)
+                    setStore(item.items);
+                }}>
+                {checked.includes(item.activityType.name) ? (
+                  <Image
+                    source={require('../assets/icons/png/icon-done.png')}
+                    style={styles.icon}
+                  />
+                ) : (
+                  <Image
+                    source={require('../assets/icons/png/icon-done-2.png')}
+                    style={styles.icon}
+                  />
+                )}
+              </TouchableOpacity>
+              <Text style={styles.activityText}>{item.activityType.name}</Text>
+            </View>
+          );
         })}
       </View>
       <TouchableOpacity
         style={styles.scheduleNow}
-        onPress={() => navigation.navigate('activitySelect')}>
+        onPress={() => {
+          checked != ''
+            ? navigation.navigate('activitySelect', {
+                activities: store,
+                activityType: checked,
+              })
+            : Alert.alert('Please select activity Type');
+        }}>
         <LinearGradient
           style={styles.buttonWrapper}
           colors={['#5E6BFF', '#212FCC']}>

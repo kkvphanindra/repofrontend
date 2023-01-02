@@ -1,14 +1,18 @@
 import React, {useRef, useState} from 'react';
-import {StyleSheet, Text, Pressable, View, Modal, TouchableOpacity, ToastAndroid} from 'react-native';
+import {StyleSheet, Text, Pressable, View, Modal, TouchableOpacity, ToastAndroid, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import CountDown from 'react-native-countdown-component';
 import auth from '@react-native-firebase/auth';
 import OTPInput from '../components/OTPInput';
+import { login } from '../redux/auth/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 const VerifyAccount = ({route, navigation}) => {
     // if(route !== undefined && route.params !== undefined){
         const { number, getConfirm, uniqueID } = route?.params;
     // }
+    const dispatch = useDispatch()
+    const authState = useSelector((state)=>state.authState)
     const [term, setTerm] = useState("");
     const [code, setCode] = useState("");
     const [getConfirmation, setGetConfirmation] = useState(getConfirm);
@@ -19,7 +23,7 @@ const VerifyAccount = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     // console.log("getConfirm", navigation?.getParam('number'))
-    // console.log(number, "getConfirm")
+    // console.log(number, "getConfirm")navigation.navigate('agree',{phoneNumber: number,})
     
     const resendCode = async(number) => {
         console.log('signInWithPhoneNumber.',number);
@@ -63,6 +67,12 @@ const VerifyAccount = ({route, navigation}) => {
             console.log('Invalid code.');
         }
         }
+
+    const onProceed=()=>{
+        dispatch(login(number,Alert))
+        navigation.navigate('agree',{phoneNumber: number,})
+    }
+    console.log("err", authState.error)
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
@@ -95,14 +105,18 @@ const VerifyAccount = ({route, navigation}) => {
                 <View style={styles.codeWrapper}>
                     <Text style={styles.subContent}>Didn’t not received the code?</Text>
                     {
-                        resend && <Pressable onPress={resendCode}  style={styles.resendButton}>
+                        resend && 
+                        <Pressable onPress={resendCode}  style={styles.resendButton}>
                             <Text style={styles.linkText}>Resend Code</Text>
                         </Pressable>
                     }
                 </View>
             </View>
             <Pressable
-                onPress={confirmCode}
+                // onPress={confirmCode}
+                onPress={()=>{
+                onProceed()
+                }}
                 style={styles.buttonContainer}>
                 <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                     <Text style={styles.buttonText}>
