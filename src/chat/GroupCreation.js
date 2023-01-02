@@ -51,12 +51,9 @@ const GroupCreation = ({route, selectedName}) => {
     }
   };
   const onSubmit = () => {
-    if(message!==null||message!==''){
+      console.log('changed', message);
       dispatch(groupCreate(groupName, chatState.userId, authState.userId, send, message, Alert));
       navigation.navigate('Chat');
-    }else{
-      Alert.alert('Enter the message')
-    }
   };
   const launchCameraPhoto = async() => {
     let options = {
@@ -81,7 +78,7 @@ const GroupCreation = ({route, selectedName}) => {
       setSend(img);
     });
   };
-  console.log('changed', message);
+  // console.log('changed', message);
   // console.log('chatstate', chatState.name, chatState.userId);
   return (
     <View style={styles.container}>

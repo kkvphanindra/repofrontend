@@ -23,16 +23,8 @@ import {
   userStatusByactivityId,
 } from '../../redux/activity/action';
 import {useSelector, useDispatch} from 'react-redux';
+import { activityByActivityId } from '../../redux/activity/action'
 import {useCallback} from 'react';
-
-const img = [
-  'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-  'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-  'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-  'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-  'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-  'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
-];
 
 const Flatlist = ({data}) => {
   const navigation = useNavigation();
@@ -130,6 +122,9 @@ const Flatlist = ({data}) => {
   //     sec,
   //   };
 }
+// useEffect(()=>{
+//   dispatch(activityByActivityId(id))
+// },[dispatch])
   useEffect((activityId) => {
     if (secondsLeft === 0) {
       BackgroundTimer.stopBackgroundTimer();
@@ -160,8 +155,8 @@ const Flatlist = ({data}) => {
     dispatch(deleteActivityByActivityId(status, activityId))
     // console.log('Timer stopped', status, activityId, id);
   };
-  // console.log('current date',  data);
-  // console.log('item',data.item.users);
+  // console.log('current date',  activityState.data.map((i)=>i.users.map((p)=>console.log("p", p.name,p.status))));
+  console.log('item',data.item.users);
   return (
     <View>
       {data?.item?.isActive === false?
@@ -291,13 +286,14 @@ const styles = StyleSheet.create({
   },
   topContentWrapper: {
     flexDirection: 'row',
-    // backgroundColor: 'pink',
+    // backgroundColor: 'red',
     width: windowWidth / 1.4,
     // justifyContent: 'center'
   },
   topTitleWrapper: {
     flexDirection: 'column',
-    width: '68%',
+    // backgroundColor:'blue',
+    width: '66%',
   },
   tabViewWrapper: {
     width: 40,

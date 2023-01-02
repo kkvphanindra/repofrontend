@@ -89,11 +89,11 @@ const PostItem = props => {
   const modalClose = () => {
     setModalVisible(!modalVisible);
   };
-  useEffect(()=>{
-    dispatch(getAllPostsByUserId(authState.userId));
-      // dispatch(groupName())
-      // dispatch(activityName())
-    },[dispatch])
+  // useEffect(()=>{
+  //   dispatch(getAllPostsByUserId(authState.userId));
+  //     // dispatch(groupName())
+  //     // dispatch(activityName())
+  //   },[dispatch])
   let user = {
     userId: '6dddae20-5925-11ed-a555-c9afc10124e6',
     firstName: 'Danish',

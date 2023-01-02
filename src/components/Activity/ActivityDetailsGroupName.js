@@ -5,50 +5,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { activityByActivityId } from '../../redux/activity/action'
 import moment from 'moment'
 
-const data = [
-    {
-        id: 1,
-        img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-        name: 'Crystal Merlin',
-        date: '08.02.2022',
-        status: 'Scheduled'
-    },
-    {
-        id: 2,
-        img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-        name: 'Crystal Merlin',
-        date: '08.02.2022',
-        status: 'Accepted'
-    },
-    {
-        id: 3,
-        img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-        name: 'Crystal Merlin',
-        date: '08.02.2022',
-        status: 'Declined'
-    },
-    {
-        id: 4,
-        img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-        name: 'Crystal Merlin',
-        date: '08.02.2022',
-        status: 'Scheduled'
-    },
-    {
-        id: 5,
-        img: 'https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?w=2000',
-        name: 'Crystal Merlin',
-        date: '08.02.2022',
-        status: 'Accepted'
-    },
-]
 const ActivityDetailsGroupName = ({id,groupName}) => {
     const activityState=useSelector((state)=>state.activityState)
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(activityByActivityId(id))
     },[dispatch])
-    console.log("state", activityState?.data[0]?.users[0]?.userId? "hey":'not hey',activityState.data[0].groupName)
+    // console.log("state", activityState?.data[0]?.users[0]?.userId)
     const renderItems = ({ item }) => {
         return (
             <ScrollView>

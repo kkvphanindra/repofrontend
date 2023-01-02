@@ -25,10 +25,10 @@ const PrivacySettings = ({navigation}) => {
   }, [dispatch]);
   const [checked, setChecked] = useState(false);
   const handleChange = async(item, id) => {
-    //   setChecked(!checked)
+      setChecked(!checked)
     //   dispatch(enable(true))
     // console.log('id', item, id, checked);
-    await dispatch(selectedPrivacySetting(authState.userId, item, id, checked));
+    await dispatch(selectedPrivacySetting(authState.userId, item, id, !checked));
     await dispatch(getAllPrivacySetting(authState.userId))
   };
   console.log('no', checked);
@@ -59,14 +59,14 @@ const PrivacySettings = ({navigation}) => {
                 return (
                   <View style={styles.itemInnerStyle}>
                     {y.isEnabled ? (
-                      <TouchableOpacity onPress={() =>{setChecked(false),handleChange(item.id,y.id)}}>
+                      <TouchableOpacity onPress={() =>{handleChange(item.id,y.id)}}>
                         <Image
                           style={{height: 20, width: 20, marginRight: '3%'}}
                           source={require('../assets/icons/png/icon-done.png')}
                         />
                       </TouchableOpacity>
                     ) : (
-                      <TouchableOpacity onPress={() => {setChecked(true),handleChange(item.id,y.id)}}>
+                      <TouchableOpacity onPress={() => {handleChange(item.id,y.id)}}>
                         <Image
                           style={{height: 20, width: 20,marginRight: '3%'}}
                           source={require('../assets/icons/png/icon-done-2.png')}
