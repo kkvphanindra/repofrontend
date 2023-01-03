@@ -1,4 +1,5 @@
-import React from 'react';
+import { DrawerActions } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -13,10 +14,15 @@ import {
     Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch, useSelector } from 'react-redux';
 import ShareMoment from '../components/share-moment';
+import { getAllGroupDetailsByUserId } from '../redux/auth/action';
 const { width, height } = Dimensions.get('window');
 
-const ProfileHome = ({navigation}) => {
+const ProfileHome = ({navigation,route}) => {
+    const authState = useSelector((state)=>state.authState)
+    const dispatch = useDispatch()
+    const {userId}=route.params
     const data =  [
         {
             "image": require('../assets/images/picture-1.png'),
@@ -81,6 +87,10 @@ const ProfileHome = ({navigation}) => {
 
         }
     ]
+    console.log("object",userId)
+    useEffect(()=>{
+dispatch(getAllGroupDetailsByUserId(userId))
+    },[dispatch])
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}
@@ -91,7 +101,7 @@ const ProfileHome = ({navigation}) => {
                         resizeMode="cover"
                         style={styles.topContainer}>
                         <View style={styles.menuContainer}>
-                            <Pressable onPress={() => navigation.navigate('home')}  style={styles.menuWrapper}>
+                            <Pressable onPress={() => navigation.dispatch(DrawerActions.openDrawer())}  style={styles.menuWrapper}>
                                 <Image style={styles.menuIcon} source={require('../assets/images/menu-icon.png')}/>
                             </Pressable>
                             <Pressable onPress={() => navigation.navigate('notifications')}  style={styles.notifyWrapper}>
@@ -107,14 +117,14 @@ const ProfileHome = ({navigation}) => {
                                 resizeMode="cover"
                                 style={styles.profileImageContainer}>
                                     <Pressable onPress={() => navigation.navigate('profileHome')}>
-                                    <Image style={styles.profilePic} source={require('../assets/images/picture-1.png')}/>
+                                    <Image style={styles.profilePic} source={{uri: authState?.userDetails[0]?.profilePicture!==''?authState?.userDetails[0]?.profilePicture:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg'}}/>
 
                                     </Pressable>
                                     <Image style={styles.tagIcon} source={require('../assets/images/vip-icon.png')}/>
                             </ImageBackground>
                         </View>  
                         <View style={styles.titleContainer}>
-                            <Text style={styles.name}>Clara Fredry</Text>
+                            <Text style={styles.name}>{authState?.userDetails[0]?.name}</Text>
                             <Text style={styles.title}>@clarafredry</Text>
                         </View>    
                         <View style={styles.badgeContainer}>
@@ -159,41 +169,46 @@ const ProfileHome = ({navigation}) => {
                             <View style={styles.detailsWrapper}>
                                 <View style={styles.editDetails}>
                                     <Text style={styles.editH1Title}>Public Details</Text>
+                                    {authState?.userId===authState?.userDetails[0]?.userId?
                                     <Pressable onPress={() => navigation.navigate('profileEdit')}>
                                         <Text style={styles.editLink}>Edit Now</Text>
                                     </Pressable>
+                                   :
+                                   null 
+                                }
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Works at</Text>
-                                    <Text style={styles.infoContent}>Company Name here</Text>
+                                    <Text style={styles.infoContent}>{authState?.userDetails[0]?.occupation}</Text>
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Studied at</Text>
-                                    <Text style={styles.infoContent}>University Name goes here</Text>
+                                    <Text style={styles.infoContent}>{authState?.userDetails[0]?.studiedAt}</Text>
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Marital Status</Text>
-                                    <Text style={styles.infoContent}>Single</Text>
+                                    <Text style={styles.infoContent}>{authState?.userDetails[0]?.maritalStatus}</Text>
                                 </View>
                                 <View style={styles.infoDetails}>
                                     <Text style={styles.infoTitle}>Location</Text>
                                     <View style={styles.tabLocationWrapper}>
                                     <Image style={styles.icon} source={require('../assets/images/location-icon.png')}/>
-                                    <Text style={styles.tabLocation}>Location</Text>
+                                    <Text style={styles.tabLocation}>{authState?.userDetails[0]?.location}</Text>
                                 </View>
                                 </View>
                             </View>
                         </View>
                         <View style={styles.groupContainer}>
                             <View style={styles.groupWrapper}>
-                                <Text style={styles.groupTitle}>Your Groups (23)</Text>
+                                <Text style={styles.groupTitle}>Your Groups ({authState.groupDetails.length})</Text>
                                 <View style={styles.groupContentWrapper}>
+                                    
                                     <ImageBackground
                                     source={require('../assets/images/group-brown-bg.png')}
                                     resizeMode="cover"
                                     style={styles.bgContainer}>
                                         <View style={styles.groupInfo}>
-                                            <Text style={styles.groupTitle}>Group Name</Text>
+                                            <Text style={styles.groupTitle}>{authState.groupDetails[0].chatName}</Text>
                                             <Text style={styles.groupLabel}>1.2K Conversations</Text>
                                         </View>
                                         <Image source={require('../assets/images/form-avatar-group.png')}/>
@@ -203,7 +218,7 @@ const ProfileHome = ({navigation}) => {
                                     resizeMode="cover"
                                     style={styles.bgContainer}>
                                         <View style={styles.groupInfo}>
-                                            <Text style={styles.groupTitle}>Group Name</Text>
+                                            <Text style={styles.groupTitle}>{authState.groupDetails[1].chatName}</Text>
                                             <Text style={styles.groupLabel}>1.2K Conversations</Text>
                                         </View>
                                         <Image source={require('../assets/images/form-avatar-group.png')}/>
@@ -213,7 +228,7 @@ const ProfileHome = ({navigation}) => {
                                     resizeMode="cover"
                                     style={styles.bgContainer}>
                                         <View style={styles.groupInfo}>
-                                            <Text style={styles.groupTitle}>Group Name</Text>
+                                            <Text style={styles.groupTitle}>{authState.groupDetails[2].chatName}</Text>
                                             <Text style={styles.groupLabel}>1.2K Conversations</Text>
                                         </View>
                                         <Image source={require('../assets/images/form-avatar-group.png')}/>
@@ -223,7 +238,7 @@ const ProfileHome = ({navigation}) => {
                                     resizeMode="cover"
                                     style={styles.bgContainer}>
                                         <View style={styles.groupInfo}>
-                                            <Text style={styles.groupTitle}>Group Name</Text>
+                                            <Text style={styles.groupTitle}>{authState.groupDetails[3].chatName}</Text>
                                             <Text style={styles.groupLabel}>1.2K Conversations</Text>
                                         </View>
                                         <Image source={require('../assets/images/form-avatar-group.png')}/>
@@ -233,7 +248,7 @@ const ProfileHome = ({navigation}) => {
                                     resizeMode="cover"
                                     style={styles.bgContainer}>
                                         <View style={styles.groupInfo}>
-                                            <Text style={styles.groupTitle}>Group Name</Text>
+                                            <Text style={styles.groupTitle}>{authState.groupDetails[4].chatName}</Text>
                                             <Text style={styles.groupLabel}>1.2K Conversations</Text>
                                         </View>
                                         <Image source={require('../assets/images/form-avatar-group.png')}/>
@@ -243,7 +258,7 @@ const ProfileHome = ({navigation}) => {
                                     resizeMode="cover"
                                     style={styles.bgContainer}>
                                         <View style={styles.groupInfo}>
-                                            <Text style={styles.groupTitle}>Group Name</Text>
+                                            <Text style={styles.groupTitle}>{authState.groupDetails[5].chatName}</Text>
                                             <Text style={styles.groupLabel}>1.2K Conversations</Text>
                                         </View>
                                         <Image source={require('../assets/images/form-avatar-group.png')}/>
@@ -532,13 +547,18 @@ const styles = StyleSheet.create({
     },
     tabLocationWrapper:{
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        // justifyContent: 'space-evenly',
         backgroundColor: '#C8E7F0',
         borderRadius: 18,
         height: 30,
+        // marginLeft:'5%',
         marginTop: 20,
         maxWidth: 110,
         alignItems: 'center'
+    },
+    icon:{
+        // width:'1%',
+        marginLeft: '15%'
     },
     tabLocation:{
         color: '#000',

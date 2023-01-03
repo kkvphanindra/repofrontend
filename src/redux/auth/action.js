@@ -5,6 +5,8 @@ import {
   REQ_FAILURE,
   REQ_TOKEN,
   LOGOUT,
+  GET_USER_DETAILS_BY_USER_ID,
+  GET_GROUP_DETAILS_BY_USER_ID,
 } from './actionTypes';
 import axios from 'axios';
 import {BASE_URL} from '@env';
@@ -42,6 +44,16 @@ export const req = (
 
 export const reqToken = data => ({
   type: REQ_TOKEN,
+  data,
+});
+
+export const userDetails = data => ({
+  type: GET_USER_DETAILS_BY_USER_ID,
+  data,
+});
+
+export const groupDetails = data => ({
+  type: GET_GROUP_DETAILS_BY_USER_ID,
   data,
 });
 
@@ -228,5 +240,45 @@ export const tokenRetriever = () => {
     }
   };
 };
+
+export const getAllUserDetailsByUserId = (id) => {
+  return async (dispatch) => {
+      try {
+          // console.log("userdetails id user",id)
+          const response = await axios.get(
+              BASE_URL+`/api/login/${id}`
+          )
+          if (response.status) {
+              dispatch(userDetails(response.data));
+              console.log("userdet",response.data)
+          } 
+      }
+      catch (err) {
+          console.log("Request failed USERdETAILS auth action");
+          console.log(err.message)
+          dispatch(reqFailure(err.message));
+      }
+  };
+}
+
+export const getAllGroupDetailsByUserId = (id) => {
+  return async (dispatch) => {
+      try {
+          console.log("groupdetails id user",id)
+          const response = await axios.get(
+              BASE_URL+`/api/chat/group/user/${id}`
+          )
+          if (response.status) {
+              dispatch(groupDetails(response.data));
+              console.log("groupDet",response.data)
+          } 
+      }
+      catch (err) {
+          console.log("Request failed groupdETAILS auth action");
+          console.log(err.message)
+          dispatch(reqFailure(err.message));
+      }
+  };
+}
 
 export const logout = () => ({type: LOGOUT});

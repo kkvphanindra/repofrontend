@@ -28,6 +28,7 @@ import GetLocation from 'react-native-get-location';
 import Geolocation from '@react-native-community/geolocation';
 import TopTabNavigator from './scheduled-activity/topTabNavigator';
 import { location } from './redux/nearMe/actions';
+import { getAllUserDetailsByUserId } from './redux/auth/action';
 
 const { width, height } = Dimensions.get('window');
 
@@ -42,6 +43,10 @@ const Home = ({ navigation }) => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const dispatch = useDispatch();
+    const profileDetails =(id)=>{
+        dispatch(getAllUserDetailsByUserId(id))
+        navigation.navigate('profileHome',{userId:id})
+    }
     const ENTRIES1 = [
         {
             img: require('../src/assets/images/group-bg-1.png'),
@@ -179,7 +184,7 @@ const Home = ({ navigation }) => {
                             source={require('../src/assets/images/home-profile.png')}
                             resizeMode="cover"
                             style={styles.profileImageContainer}>
-                            <Pressable onPress={() => navigation.navigate('profileHome')}>
+                            <Pressable onPress={() => profileDetails(authState.userId)}>
                                 <Image style={styles.profilePic} source={{ uri: authState.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':authState.profilePicture }} />
                             </Pressable>
                         </ImageBackground>
@@ -203,9 +208,10 @@ const Home = ({ navigation }) => {
                                         {locationState?.locationData?.length > 0 ?
                                             < View >
                                                 <TouchableOpacity
-                                                    onPress={() =>
-                                                        console.log("six",locationState?.locationData[5]?.userId)
-                                                        // console.log('object', item.name, item.distance)
+                                                    onPress={() =>{
+                                                        console.log("six",locationState?.locationData[5]?.userId),
+                                                        profileDetails(locationState?.locationData[5]?.userId)
+                                                    }
                                                     }>
                                                     <Image
                                                         style={styles.profilePicOne}
@@ -218,10 +224,10 @@ const Home = ({ navigation }) => {
                                                     />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
-                                                    onPress={() =>
-                                                        console.log("five",locationState?.locationData[4]?.userId)
-                                                        // console.log('object', item.name, item.distance)
-                                                    }>
+                                                    onPress={() =>{
+                                                        console.log("five",locationState?.locationData[4]?.userId),
+                                                        profileDetails(locationState?.locationData[4]?.userId)
+                                                    }}>
                                                     <Image
                                                         style={styles.profilePicTwo}
                                                         source={{
@@ -233,10 +239,11 @@ const Home = ({ navigation }) => {
                                                     />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
-                                                    onPress={() =>
-                                                        console.log("first",locationState?.locationData[0]?.userId)
+                                                    onPress={() =>{
+                                                        console.log("first",locationState?.locationData[0]?.userId),
+                                                        profileDetails(locationState?.locationData[0]?.userId)
                                                         // console.log('object', item.name, item.distance)
-                                                    }>
+                                                    }}>
                                                     <Image
                                                         style={styles.profilePicThree}
                                                         source={{
@@ -248,10 +255,11 @@ const Home = ({ navigation }) => {
                                                     />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
-                                                    onPress={() =>
-                                                        console.log("four",locationState?.locationData[3]?.userId)
+                                                    onPress={() =>{
+                                                        console.log("four",locationState?.locationData[3]?.userId),
+                                                        profileDetails(locationState?.locationData[3]?.userId)
                                                         // console.log('object', item.name, item.distance)
-                                                    }>
+                                                    }}>
                                                     <Image
                                                         style={styles.profilePicFour}
                                                         source={{
@@ -263,10 +271,11 @@ const Home = ({ navigation }) => {
                                                     />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
-                                                    onPress={() =>
+                                                    onPress={() =>{
                                                         console.log("three",locationState?.locationData[2]?.userId)
+                                                       profileDetails(locationState?.locationData[2]?.userId)
                                                         // console.log('object', item.name, item.distance)
-                                                    }>
+                                                    }}>
                                                     <Image
                                                         style={styles.profilePicFive}
                                                         source={{
@@ -278,10 +287,11 @@ const Home = ({ navigation }) => {
                                                     />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
-                                                    onPress={() =>
+                                                    onPress={() =>{
                                                         console.log("second",locationState?.locationData[1]?.userId)
+                                                        profileDetails(locationState?.locationData[1]?.userId)
                                                         // console.log('object', item.name, item.distance)
-                                                    }>
+                                                    }}>
                                                     <Image
                                                         style={styles.profilePicSix}
                                                         source={{
