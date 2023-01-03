@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import {
     REQ_START,
     BLUR_FIELDS,
-    SUCCESS,
+    POST_SUCCESS,
     FAILURE,
     UPDATE_FIELDS,
     STATE_CLEANUP,
@@ -81,9 +81,9 @@ const storeReducer = (state = initialstate, action) => {
                 error: ""
             };
         }
-        case SUCCESS: {
+        case POST_SUCCESS: {
             console.log("Successfully Got posts List");
-            console.log(action.data);
+            // console.log(action.data);
             return {
                 ...state,
                 data: action.data,

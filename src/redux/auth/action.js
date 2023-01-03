@@ -250,7 +250,7 @@ export const getAllUserDetailsByUserId = (id) => {
           )
           if (response.status) {
               dispatch(userDetails(response.data));
-              console.log("userdet",response.data)
+              // console.log("userdet",response.data)
           } 
       }
       catch (err) {
@@ -264,13 +264,13 @@ export const getAllUserDetailsByUserId = (id) => {
 export const getAllGroupDetailsByUserId = (id) => {
   return async (dispatch) => {
       try {
-          console.log("groupdetails id user",id)
+          // console.log("groupdetails id user",id)
           const response = await axios.get(
               BASE_URL+`/api/chat/group/user/${id}`
           )
           if (response.status) {
               dispatch(groupDetails(response.data));
-              console.log("groupDet",response.data)
+              // console.log("groupDet",response.data)
           } 
       }
       catch (err) {

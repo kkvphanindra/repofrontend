@@ -13,7 +13,8 @@ import {
     POST_SAVE,
     POSTSHARE,
     POSTVERIFY,
-    POSTGENUINE
+    POSTGENUINE,
+    POST_SUCCESS
 } from './actionTypes';
 import axios from 'axios';
 import { BASE_URL} from '@env'
@@ -46,7 +47,7 @@ export const stateCleanup = () => ({
 
 
 export const reqSuccess = (data) => ({
-    type: SUCCESS,
+    type:POST_SUCCESS,
     data,
 });
 

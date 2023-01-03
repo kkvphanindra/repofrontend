@@ -64,7 +64,7 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case GET_USER_DETAILS_BY_USER_ID: {
-      console.log('userdetils', action.data);
+      // console.log('userdetils', action.data);
       return {
         ...state,
         userDetails: action.data,
@@ -73,7 +73,7 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case GET_GROUP_DETAILS_BY_USER_ID: {
-      console.log('groupdetils', action.data);
+      // console.log('groupdetils', action.data);
       return {
         ...state,
         groupDetails: action.data,

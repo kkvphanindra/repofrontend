@@ -1,7 +1,7 @@
 export const STATE_CLEANUP = "STATE_CLEANUP"
 export const REQ_START= "REQ_START";
 export const REQ_START_NEW_POST= "REQ_START_NEW_POST";
-export const SUCCESS= "SUCCESS";
+export const POST_SUCCESS= "POST_SUCCESS";
 export const FAILURE="FAILURE";
 export const BLUR_FIELDS = "BLUR_FIELDS";
 export const UPDATE_FIELDS = "UPDATE_FIELDS";
