@@ -18,8 +18,8 @@ import * as ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
 
-const ProfileEdit = ({navigation}) => {
-
+const ProfileEdit = ({navigation,route}) => {
+const {profileDetails}=route.params
     const [profileFilepath,
         setProfileFilepath] = useState({data: '', uri: ''});
     const [profileFileData,
@@ -111,7 +111,8 @@ const ProfileEdit = ({navigation}) => {
           }
         })
     }
-
+    let v = profileDetails.interest.map((i)=>i.slice(16,-2))
+console.log("object", v.map((i)=>i))
     return (
         <ScrollView showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}>
@@ -150,12 +151,16 @@ const ProfileEdit = ({navigation}) => {
                 <View style={styles.formContainer}>
                     <View style={styles.formFlex}>
                         <Text style={styles.H1Title}>Bio</Text>
-                        <TextInput placeholder='Please fill in your BIO' multiline numberOfLines={4} style={[styles.formField, { height:200, textAlignVertical: 'top'}]} />
+                        <TextInput placeholder='Please fill in your BIO'
+                        value={profileDetails.bio}
+                        multiline numberOfLines={4} style={[styles.formField, { height:200, textAlignVertical: 'top'}]} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.H1Title}>Edit Details</Text>
                         <Text style={styles.formLabel}>Work</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited' 
+                        value={profileDetails.occupation}
+                        style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Study</Text>
@@ -163,19 +168,32 @@ const ProfileEdit = ({navigation}) => {
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Status</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited' 
+                        value={profileDetails.studiedAt}
+                        style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>DOB</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited' 
+                        value={profileDetails.dob}
+                        style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Location</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited' 
+                        value={profileDetails.location}
+                        style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Interests</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        {/* {v.map((i)=>{
+                            console.log("i", i)
+                            return( */}
+                                <TextInput placeholder='Auto filled can be edited'
+                                    // value={i}
+                                    style={styles.formField} />
+                        {/* //     )
+                        // })}  */}
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Hobbies</Text>

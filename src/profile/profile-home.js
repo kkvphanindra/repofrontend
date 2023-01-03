@@ -204,7 +204,7 @@ const ProfileHome = ({navigation, route}) => {
             <View style={styles.editDetails}>
               <Text style={styles.editH1Title}>Public Details</Text>
               {authState?.userId === authState?.userDetails[0]?.userId ? (
-                <Pressable onPress={() => navigation.navigate('profileEdit')}>
+                <Pressable onPress={() => navigation.navigate('profileEdit',{profileDetails: authState?.userDetails[0]})}>
                   <Text style={styles.editLink}>Edit Now</Text>
                 </Pressable>
               ) : null}
