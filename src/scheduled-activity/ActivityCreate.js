@@ -112,7 +112,7 @@ const ActivityCreate = ({navigation}) => {
       <StackHeader
         IconLeftName="left"
         IconLeftSize={24}
-        header="Create Activity"
+        header="CREATE ACTIVITY"
         IconRightName="notifications-outline"
         IconRightSize={24}
         notification={true}
@@ -122,8 +122,8 @@ const ActivityCreate = ({navigation}) => {
       </View>
       <View style={styles.progressBar}>
         <ProgressBar
-          progress={0.2}
-          width={width / 1.3}
+          progress={0.4}
+          width={width}
           borderRadius={0}
           borderColor={'#fff'}
           unfilledColor={'#f7f7f7'}
@@ -195,20 +195,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: '5%',
+    // backgroundColor:"pink"
   },
   headerText: {
-    fontSize: 17,
-    fontWeight: '500',
+    // marginLeft: '9%'
+    fontSize: 18,
+    fontWeight: '700',
+    letterSpacing: 0.5,
     color: '#000',
+    // marginTop: '5%',
   },
   progressBar: {
     alignSelf: 'center',
+    width:'100%'
+
   },
   activityHeader: {
     marginTop: '8%',
     marginLeft: '11%',
+    backgroundColor:'red'
   },
   started: {
     color: '#000',

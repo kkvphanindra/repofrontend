@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\ANDALIB QURAISHI\\Desktop\\Work\\repofrontend\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "/Users/hmi/Desktop/frisles client/repofrontend/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\2f2f1cd80fbd9ae2d047c6a7a9852952\\transformed\\appcompat-1.4.1\\res\\values-v16\\values-v16.xml",
+                    "source": "/Users/hmi/.gradle/caches/transforms-3/acc77ee559fe4b242c294f331a78c390/transformed/appcompat-1.4.1/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ANDALIB QURAISHI\\.gradle\\caches\\transforms-3\\c3e28046ca506d4a3ba8212b2a858bc5\\transformed\\core-1.7.0\\res\\values-v16\\values-v16.xml",
+                    "source": "/Users/hmi/.gradle/caches/transforms-3/9bfd0c3659f9e0c81cfc05e2858c1fac/transformed/core-1.7.0/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
