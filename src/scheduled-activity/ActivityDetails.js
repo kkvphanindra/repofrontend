@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View,Alert } from 'react-native'
 import React,{useEffect} from 'react'
 import StackHeader from '../components/Activity/StackHeader'
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,7 +25,7 @@ const ActivityDetails = ({ route }) => {
       'id',
       activityDetails.id,
       activityState.data[0].createdBy,
-      activityState.data[0].users.map(i => i.userId === authId)
+      // activityState.data[0].users.map(i => i.userId === authId)
     );
     const acceptedStatus = (activityId, userId) => {
       let accepted = 'ACCEPTED';

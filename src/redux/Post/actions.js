@@ -101,13 +101,11 @@ export const getAllPostsByUserId = (id) => {
             if (response.status) {
                 dispatch(reqSuccess(response.data));
                 // console.log(response.data)
-            } else {
-                dispatch(reqFailure("Some Error Occured. Try Again Later"));
-            }
+            } 
         }
         catch (err) {
             console.log("cool")
-            console.log("Request failed");
+            console.log("Request failed post");
             console.log(err.message)
             dispatch(reqFailure(err.message));
         }

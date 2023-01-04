@@ -44,6 +44,8 @@ const Home = ({ navigation }) => {
     const [longitude, setLongitude] = useState(0);
     const dispatch = useDispatch();
     const profileDetails =(id)=>{
+        console.log("lol", id)
+        // dispatch(getAllUserDetailsByUserId(id))
         dispatch(getAllUserDetailsByUserId(id))
         navigation.navigate('profileHome',{userId:id})
     }

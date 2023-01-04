@@ -244,13 +244,13 @@ export const tokenRetriever = () => {
 export const getAllUserDetailsByUserId = (id) => {
   return async (dispatch) => {
       try {
-          // console.log("userdetails id user",id)
+          console.log("userdetails id user",id)
           const response = await axios.get(
               BASE_URL+`/api/login/${id}`
           )
           if (response.status) {
               dispatch(userDetails(response.data));
-              // console.log("userdet",response.data)
+              console.log("userdet",response.data)
           } 
       }
       catch (err) {

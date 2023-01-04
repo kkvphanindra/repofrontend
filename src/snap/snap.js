@@ -63,6 +63,7 @@ const authId=authState.userId
   //     dispatch(getAllPostsByUserId(authState.userId));
   //   }, [dispatch]),
   // );
+  console.log("im", authId)
   useEffect(()=>{
       dispatch(getAllPostsByUserId(authState.userId));
         dispatch(groupName())
