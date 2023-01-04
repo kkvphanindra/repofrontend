@@ -185,17 +185,17 @@ console.log("first", authState?.userDetails)
         <View style={styles.commentsWrapper}>
           <View style={styles.commentsInfo}>
             <View style={styles.commentsContent}>
-              <Text style={styles.countText}>10</Text>
+              <Text style={styles.countText}>{authState?.userDetails[0]?.followers}</Text>
               <Text style={styles.labelText}>Followers</Text>
             </View>
             <View style={styles.borderRight}></View>
             <View style={styles.commentsContent}>
-              <Text style={styles.countText}>12</Text>
+              <Text style={styles.countText}>{authState?.userDetails[0]?.following}</Text>
               <Text style={styles.labelText}>Following</Text>
             </View>
             <View style={styles.borderRight}></View>
             <View style={styles.commentsContent}>
-              <Text style={styles.countText}>20</Text>
+              <Text style={styles.countText}>{authState?.userDetails[0]?.gifts}</Text>
               <Text style={styles.labelText}>Gifts</Text>
             </View>
           </View>

@@ -7,6 +7,7 @@ import {
   LOGOUT,
   GET_USER_DETAILS_BY_USER_ID,
   GET_GROUP_DETAILS_BY_USER_ID,
+  UPDATE_PROFILE,
 } from './actionTypes';
 import axios from 'axios';
 import {BASE_URL} from '@env';
@@ -54,6 +55,11 @@ export const userDetails = data => ({
 
 export const groupDetails = data => ({
   type: GET_GROUP_DETAILS_BY_USER_ID,
+  data,
+});
+
+export const updateProfile = data => ({
+  type: UPDATE_PROFILE,
   data,
 });
 
@@ -281,4 +287,68 @@ export const getAllGroupDetailsByUserId = (id) => {
   };
 }
 
+export const profileUpdate = (
+  id,
+profilePicture,
+coverPicture,
+bio,
+work,
+study,
+status,
+dob,
+location,
+interest,
+hobbies,
+links
+) => {
+  return async dispatch => {
+    // dispatch(reqActivityLoading());
+    console.log(
+      'update profile',
+      id,
+profilePicture,
+coverPicture,
+bio,
+work,
+study,
+status,
+dob,
+location,
+interest,
+hobbies,
+links
+    );
+    try {
+      const formData = new FormData();
+      formData.append('chatName', chatName)
+      formData.append('isGroupChat', true)
+      userChat.forEach(
+        userChat => formData.append('userChat[]', userChat.length<2?Alert.alert('Please select atleast 3 users'):userChat)
+        )
+      formData.append('message', message==''||message==null?Alert.alert('Message should not be empty'):message)
+      formData.append('groupPhoto',image!==null?{
+          uri: image.path,
+          type: image.mime,
+          name: image.filename || `filename${image.size}.jpg`,
+        }:null);
+      const response = await axios.put(BASE_URL + `/api/user/${id}/update/details`, 
+        formData,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+        )
+      console.log(response.data);
+      dispatch(updateProfile(response.data),
+      );
+      // }
+    } catch (err) {
+      console.log('Request failed update profile');
+      console.log(err.message);
+      dispatch(reqFailure(err.message));
+    }
+  };
+};
 export const logout = () => ({type: LOGOUT});

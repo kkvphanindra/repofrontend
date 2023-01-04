@@ -15,26 +15,29 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as ImagePicker from 'react-native-image-picker';
+import { useDispatch } from 'react-redux';
+import { profileUpdate } from '../redux/auth/action';
 
 const { width, height } = Dimensions.get('window');
 
-const ProfileEdit = ({navigation,route}) => {
-const {profileDetails}=route.params
+const ProfileEdit = ({ navigation, route }) => {
+    const { profileDetails } = route.params
     const [profileFilepath,
-        setProfileFilepath] = useState({data: '', uri: ''});
+        setProfileFilepath] = useState({ data: '', uri: '' });
     const [profileFileData,
         setProfileFileData] = useState('');
     const [profileFileUri,
         setProfileFileUri] = useState('');
     const [coverFilepath,
-        setCoverFilepath] = useState({data: '', uri: ''});
+        setCoverFilepath] = useState({ data: '', uri: '' });
     const [coverFileData,
         setCoverFileData] = useState('');
     const [coverFileUri,
         setCoverFileUri] = useState('');
     const [photo,
         setPhoto] = useState(null);
-
+        const [res,setRes]=useState(profileDetails)
+const dispatch=useDispatch()
     const launchImageLibrary = () => {
         let options = {
             storageOptions: {
@@ -43,34 +46,36 @@ const {profileDetails}=route.params
             }
         };
         ImagePicker.launchImageLibrary(options, (response) => {
-          if(response !== undefined){
-            // console.log('Response = ', response
-            //     ?.assets[0]
-            //         ?.uri);
-            // const getImage = response
-            //     ?.assets[0]
-            //         ?.uri;
-            // setProfileFileUri(getImage);
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-                console.log(response.customButton);
-            } else {
-                const source = {
-                    uri: response.uri
-                };
-                console.log('response.uri', response
-                    ?.assets[0]
+            if (response !== undefined) {
+                // console.log('Response = ', response
+                //     ?.assets[0]
+                //         ?.uri);
+                // const getImage = response
+                //     ?.assets[0]
+                //         ?.uri;
+                // setProfileFileUri(getImage);
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                } else if (response.error) {
+                    console.log('ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    console.log('User tapped custom button: ', response.customButton);
+                    console.log(response.customButton);
+                } else {
+                    const source = {
+                        uri: response.uri
+                    };
+                    console.log('response.uri', response
+                        ?.assets[0]
                         ?.uri);
-                        setCoverFilepath(response);
-                setProfileFileData(response.data);
-                setProfileFileUri(response?.assets[0]?.uri);
-            }
+                    setCoverFilepath(response);
+                    setProfileFileData(response?.assets[0]);
+                    setProfileFileUri(response?.assets[0]?.uri);
+                    console.log("profile",response.assets[0])
 
-          }
+                }
+
+            }
         })
     }
     const launchCoverImageLibrary = () => {
@@ -81,46 +86,73 @@ const {profileDetails}=route.params
             }
         };
         ImagePicker.launchImageLibrary(options, (response) => {
-          if(response !== undefined){
-            // console.log('Response = ', response
-            //     ?.assets[0]
-            //         ?.uri);
-            // const getImage = response
-            //     ?.assets[0]
-            //         ?.uri;
-            // setProfileFileUri(getImage);
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-                console.log(response.customButton);
-            } else {
-                const source = {
-                    uri: response.uri
-                };
-                console.log('cover response.uri', response
-                    ?.assets[0]
+            if (response !== undefined) {
+                // console.log('Response = ', response
+                //     ?.assets[0]
+                //         ?.uri);
+                // const getImage = response
+                //     ?.assets[0]
+                //         ?.uri;
+                // setProfileFileUri(getImage);
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                } else if (response.error) {
+                    console.log('ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    console.log('User tapped custom button: ', response.customButton);
+                    console.log(response.customButton);
+                } else {
+                    const source = {
+                        uri: response.uri
+                    };
+                    console.log('cover response.uri', response
+                        ?.assets[0]
                         ?.uri);
-                setCoverFilepath(response);
-                setCoverFileData(response.data);
-                setCoverFileUri(response?.assets[0]?.uri);
-            }
+                    setCoverFilepath(response);
+                    setCoverFileData(response?.assets[0]);
+                    setCoverFileUri(response?.assets[0]?.uri);
+                    console.log("cover",response?.assets[0])
+                }
 
-          }
+            }
         })
     }
-    let v = profileDetails.interest.map((i)=>i.slice(16,-2))
-console.log("object", v.map((i)=>i))
+    let interest = res.interest.map((i) => i)
+    let interestText = "";
+    interest.forEach(item => {
+        interestText += item + " , "
+    });
+    interestText=interestText.slice(0,-2)
+    let hobbies = res.hobbies.map((i) => i)
+    let hobbiesText = "";
+    hobbies.forEach(item => {
+        hobbiesText += item + " , "
+    });
+    hobbiesText=hobbiesText.slice(0,-2)
+    let links = res.links.map((i) => i)
+    let linksText = "";
+    links.forEach(item => {
+        linksText += item + " , "
+    });
+    linksText=linksText.slice(0,-2)
+    const handleChangeEdit = (val) => {
+        // setRes({...res, [name]: inputValue});
+        // console.log("lol",name,inputValue)
+        console.log(";pl",val)
+      };
+    //   console.log("res",res.bio)
+    const onSubmit=()=>{
+dispatch(profileUpdate(profileFileData,coverFileData))
+    }
+
     return (
         <ScrollView showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}>
             <View style={styles.container}>
-            <View style={styles.topContainer}>
-                    <Pressable onPress={() => navigation.navigate('profileHome')}  style={styles.iconWrapper}>
+                <View style={styles.topContainer}>
+                    <Pressable onPress={() => navigation.goBack(profileDetails.userId)} style={styles.iconWrapper}>
                         <Image style={styles.arrowIcon} source={require('../assets/images/left-arrow.png')} />
-                    </Pressable>    
+                    </Pressable>
                     <Text style={styles.title}>Profile Picture</Text>
                     <View style={styles.iconWrapper}></View>
                 </View>
@@ -130,78 +162,80 @@ console.log("object", v.map((i)=>i))
                         resizeMode="cover"
                         style={styles.profileImageContainer}>
                         <Image style={styles.pic} source={profileFileUri === '' ? require('../assets/images/contact-pic.png') : {
-                                    uri: profileFileUri
-                                }} />
-                        <Pressable onPress={launchImageLibrary}  style={styles.editIcon}>
+                            uri: profileFileUri
+                        }} />
+                        <Pressable onPress={launchImageLibrary} style={styles.editIcon}>
                             <Image source={require('../assets/images/edit-icon.png')} />
-                    </Pressable>
+                        </Pressable>
                     </ImageBackground>
                 </View>
                 <View style={styles.mainWrapper}>
                     <Text style={styles.H1Title}>Cover Picture</Text>
                     <View style={styles.imageWrapper}>
                         <Image style={styles.coverPic} source={coverFileUri === '' ? require('../assets/images/cover-pic.png') : {
-                                uri: coverFileUri
-                            }} />
-                            <Pressable onPress={launchCoverImageLibrary}  style={styles.coverEditIcon}>
-                                <Image source={require('../assets/images/edit-icon.png')} />
-                        </Pressable>    
-                    </View>            
+                            uri: coverFileUri
+                        }} />
+                        <Pressable onPress={launchCoverImageLibrary} style={styles.coverEditIcon}>
+                            <Image source={require('../assets/images/edit-icon.png')} />
+                        </Pressable>
+                    </View>
                 </View>
                 <View style={styles.formContainer}>
                     <View style={styles.formFlex}>
                         <Text style={styles.H1Title}>Bio</Text>
                         <TextInput placeholder='Please fill in your BIO'
-                        value={profileDetails.bio}
-                        multiline numberOfLines={4} style={[styles.formField, { height:200, textAlignVertical: 'top'}]} />
+                            value={res.bio}
+                            onChange={()=>{handleChangeEdit()}}
+                            multiline numberOfLines={4} style={[styles.formField, { height: 200, textAlignVertical: 'top' }]} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.H1Title}>Edit Details</Text>
                         <Text style={styles.formLabel}>Work</Text>
-                        <TextInput placeholder='Auto filled can be edited' 
-                        value={profileDetails.occupation}
-                        style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited'
+                            value={res.occupation}
+                            style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Study</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited' 
+                        value={res.studiedAt}
+                        style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Status</Text>
-                        <TextInput placeholder='Auto filled can be edited' 
-                        value={profileDetails.studiedAt}
-                        style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited'
+                            value={res.status}
+                            style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>DOB</Text>
-                        <TextInput placeholder='Auto filled can be edited' 
-                        value={profileDetails.dob}
-                        style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited'
+                            value={res.dob}
+                            style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Location</Text>
-                        <TextInput placeholder='Auto filled can be edited' 
-                        value={profileDetails.location}
-                        style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited'
+                            value={res.location}
+                            style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Interests</Text>
-                        {/* {v.map((i)=>{
-                            console.log("i", i)
-                            return( */}
-                                <TextInput placeholder='Auto filled can be edited'
-                                    // value={i}
-                                    style={styles.formField} />
-                        {/* //     )
-                        // })}  */}
+                        <TextInput placeholder='Auto filled can be edited'
+                            value={interestText}
+                            style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Hobbies</Text>
-                        <TextInput placeholder='Auto filled can be edited' style={styles.formField} />
+                        <TextInput placeholder='Auto filled can be edited' 
+                         value={hobbiesText}
+                        style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Links</Text>
-                        <TextInput placeholder='Auto filled can be edited' multiline numberOfLines={4} style={[styles.formField, { height:100, textAlignVertical: 'top'}]} />
+                        <TextInput placeholder='Auto filled can be edited' 
+                        value={linksText}
+                        multiline numberOfLines={4} style={[styles.formField, { height: 100, textAlignVertical: 'top' }]} />
                     </View>
                 </View>
                 <Pressable
@@ -232,7 +266,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 10
     },
-    iconWrapper:{
+    iconWrapper: {
         width: 50,
         height: 50,
         alignItems: 'center',
@@ -248,19 +282,19 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginRight: 'auto'
     },
-    profileImageContainer:{
+    profileImageContainer: {
         width: 180,
         height: 180,
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative'
     },
-    pic:{
+    pic: {
         width: 92,
         height: 92,
         borderRadius: 50
     },
-    editIcon:{
+    editIcon: {
         width: 42,
         height: 42,
         borderRadius: 50,
@@ -268,18 +302,18 @@ const styles = StyleSheet.create({
         right: 30,
         bottom: 40
     },
-    wrapper:{
+    wrapper: {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
         paddingHorizontal: 20,
         marginVertical: 20
     },
-    mainWrapper:{
+    mainWrapper: {
         flexDirection: 'column',
         width: '80%',
     },
-    H1Title:{
+    H1Title: {
         fontFamily: 'Inter',
         fontSize: 22,
         fontWeight: '600',
@@ -287,19 +321,19 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         paddingBottom: 20
     },
-    imageWrapper:{
+    imageWrapper: {
         height: 166,
         position: 'relative',
         borderRadius: 12,
         marginVertical: 20
     },
-    coverPic:{
-        resizeMode: 'cover', 
-        width: '100%', 
+    coverPic: {
+        resizeMode: 'cover',
+        width: '100%',
         height: '100%',
         borderRadius: 12,
     },
-    coverEditIcon:{
+    coverEditIcon: {
         width: 42,
         height: 42,
         borderRadius: 50,
@@ -307,16 +341,16 @@ const styles = StyleSheet.create({
         right: 10,
         bottom: 10
     },
-    formContainer:{
+    formContainer: {
         flexDirection: 'column',
         marginTop: 10,
         width: '80%'
     },
-    formFlex:{
+    formFlex: {
         width: '100%',
         marginVertical: 10
     },
-    formLabel:{
+    formLabel: {
         fontFamily: 'Inter',
         fontSize: 15,
         fontWeight: '400',
@@ -324,7 +358,7 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         paddingBottom: 10
     },
-    formField:{
+    formField: {
         fontFamily: 'Inter',
         width: '100%',
         fontSize: 15,

@@ -7,6 +7,7 @@ import {
   REQ_TOKEN,
   GET_USER_DETAILS_BY_USER_ID,
   GET_GROUP_DETAILS_BY_USER_ID,
+  UPDATE_PROFILE,
 } from './actionTypes';
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   data: [],
   userDetails:[],
   groupDetails:[],
+  profileUpdate:[],
   token: {},
   AccessToken:'',
   coverPicture: '',
@@ -77,6 +79,15 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         groupDetails: action.data,
+        error: '',
+        // isLoggedIn: true,
+      };
+    }
+    case UPDATE_PROFILE: {
+      // console.log('groupdetils', action.data);
+      return {
+        ...state,
+        profileUpdate: action.data,
         error: '',
         // isLoggedIn: true,
       };
