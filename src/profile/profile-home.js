@@ -17,8 +17,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import ShareMoment from '../components/share-moment';
-import {getAllGroupDetailsByUserId} from '../redux/auth/action';
+import NewSnap from '../components/snap/NewSnap';
+import {getAllFriends, getAllGroupDetailsByUserId} from '../redux/auth/action';
 import { getAllPostsByUserId } from '../redux/Post/actions';
+import Header from '../snap/header';
 const {width, height} = Dimensions.get('window');
 
 const ProfileHome = ({navigation, route}) => {
@@ -26,73 +28,23 @@ const ProfileHome = ({navigation, route}) => {
   const dispatch = useDispatch();
   const {userId} = route.params;
   const postState=useSelector((state)=>state.postState)
-  const data = [
-    {
-      image: require('../assets/images/picture-1.png'),
-      name: 'Crystal Merlin',
-    },
-    {
-      image: require('../assets/images/picture-2.png'),
-      name: 'Abinav jain',
-    },
-    {
-      image: require('../assets/images/picture-3.png'),
-      name: 'Thomas Denver',
-    },
-    {
-      image: require('../assets/images/picture-1.png'),
-      name: 'Crystal Merlin',
-    },
-    {
-      image: require('../assets/images/picture-2.png'),
-      name: 'Abinav jain',
-    },
-    {
-      image: require('../assets/images/picture-3.png'),
-      name: 'Thomas Denver',
-    },
-  ];
-  const data1 = [
-    {
-      profilePic: require('../assets/images/contact-pic.png'),
-      name: 'Crystal Merlin',
-      status: 'Online',
-      time: '04:32pm',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      coverPic: require('../assets/images/cover-pic.png'),
-    },
-    {
-      profilePic: require('../assets/images/contact-pic.png'),
-      name: 'Crystal Merlin',
-      status: 'Online',
-      time: '04:32pm',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      coverPic: require('../assets/images/cover-pic.png'),
-    },
-    {
-      profilePic: require('../assets/images/contact-pic.png'),
-      name: 'Crystal Merlin',
-      status: 'Online',
-      time: '04:32pm',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      coverPic: require('../assets/images/cover-pic.png'),
-    },
-    {
-      profilePic: require('../assets/images/contact-pic.png'),
-      name: 'Crystal Merlin',
-      status: 'Online',
-      time: '04:32pm',
-      message:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      coverPic: require('../assets/images/cover-pic.png'),
-    },
-  ];
+  // const {navigation} = props.navigation;
+
+  const checkValidity = (val, fieldId) => {
+    let isValid = true;
+
+    if (fieldId === 'post' && val.length <= 3) {
+      isValid = false;
+    }
+
+    console.log(val);
+
+    dispatch(updateFields(val, fieldId, isValid));
+  };
   useEffect(() => {
     dispatch(getAllGroupDetailsByUserId(userId));
     dispatch(getAllPostsByUserId(userId))
+    dispatch(getAllFriends(userId))
   }, [dispatch]);
 //   console.log(
 //     'object',
@@ -466,13 +418,13 @@ console.log("first", authState?.userDetails)
         </View>
         <View style={styles.contactContainer}>
           <View style={styles.contactWrapper}>
-            <Text style={styles.groupTitle}>Friends (123)</Text>
+            <Text style={styles.groupTitle}>Friends ({authState.friends.length})</Text>
             <View style={styles.contactFlex}>
-              {data.length > 0 &&
-                data.map((e, i) => {
+              {authState.friends.length > 0 &&
+                authState.friends.map((e, i) => {
                   return (
                     <View key={i} style={styles.contactList}>
-                      <Image style={styles.contactImage} source={e?.image} />
+                      <Image style={styles.contactImage} source={{uri:e?.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':e?.profilePicture}} />
                       <Text style={styles.contactName}>{e?.name}</Text>
                     </View>
                   );
@@ -488,10 +440,17 @@ console.log("first", authState?.userDetails)
               </LinearGradient>
             </Pressable>
           </View>
+          {/* <View style={styles.momentFormContainer}>
+          <NewSnap 
+          // thoughts='Snap'
+           editable={false}
+           navigation={navigation}
+           handleChange={checkValidity}
+          />
+            </View> */}
         </View>
-        <View style={styles.momentFormContainer}>
           <ShareMoment />
-        </View>
+          {/* <Header navigation={navigation}/> */}
         <View style={styles.contactContainer}>
           <View style={styles.contactWrapper}>
             <Text style={styles.groupTitle}>Active Posts</Text>
@@ -532,10 +491,12 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     backgroundColor: '#FFF',
   },
   topContainer: {
     width: width,
+    backgroundColor:'#fff'
   },
   groupNo:{
     width: 30,
@@ -774,10 +735,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     // width:'1%',
-    marginLeft: '15%',
+    marginLeft: '10%',
   },
   tabLocation: {
     color: '#000',
+    marginLeft: '3%',
     fontFamily: 'Inter',
     fontSize: 11,
     fontWeight: '400',
@@ -868,11 +830,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 20,
     flexWrap: 'wrap',
+    // margin:'5%',
     justifyContent: 'space-between',
   },
   contactList: {
     flexDirection: 'column',
     alignItems: 'center',
+    marginLeft:'5%',
     paddingVertical: 20,
   },
   contactImage: {
@@ -889,7 +853,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 10,
   },
-  momentFormContainer: {},
+  momentFormContainer: {
+    width:windowWidth/1.1,
+    alignSelf:'center',
+    // backgroundColor:'#fff',
+    marginTop:'10%'
+  },
   postContainer: {
     // flexDirection: 'column',
     padding:20,

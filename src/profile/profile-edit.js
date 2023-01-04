@@ -135,10 +135,10 @@ const dispatch=useDispatch()
         linksText += item + " , "
     });
     linksText=linksText.slice(0,-2)
-    const handleChangeEdit = (val) => {
+    const handleChangeEdit = (name,inputValue) => {
         // setRes({...res, [name]: inputValue});
-        // console.log("lol",name,inputValue)
-        console.log(";pl",val)
+        console.log("lol",name,inputValue)
+        // console.log(";pl",val)
       };
     //   console.log("res",res.bio)
     const onSubmit=()=>{
@@ -185,7 +185,7 @@ dispatch(profileUpdate(profileFileData,coverFileData))
                         <Text style={styles.H1Title}>Bio</Text>
                         <TextInput placeholder='Please fill in your BIO'
                             value={res.bio}
-                            onChange={()=>{handleChangeEdit()}}
+                            onChange={(e)=>{handleChangeEdit(e,'bio')}}
                             multiline numberOfLines={4} style={[styles.formField, { height: 200, textAlignVertical: 'top' }]} />
                     </View>
                     <View style={styles.formFlex}>
@@ -193,48 +193,56 @@ dispatch(profileUpdate(profileFileData,coverFileData))
                         <Text style={styles.formLabel}>Work</Text>
                         <TextInput placeholder='Auto filled can be edited'
                             value={res.occupation}
+                            onChange={(e)=>{handleChangeEdit(e,'occupation')}}
                             style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Study</Text>
                         <TextInput placeholder='Auto filled can be edited' 
                         value={res.studiedAt}
+                        onChange={(e)=>{handleChangeEdit(e,'study')}}
                         style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Status</Text>
                         <TextInput placeholder='Auto filled can be edited'
                             value={res.status}
+                            onChange={(e)=>{handleChangeEdit(e,'status')}}
                             style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>DOB</Text>
                         <TextInput placeholder='Auto filled can be edited'
                             value={res.dob}
+                            onChange={(e)=>{handleChangeEdit(e,'dob')}}
                             style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Location</Text>
                         <TextInput placeholder='Auto filled can be edited'
                             value={res.location}
+                            onChange={(e)=>{handleChangeEdit(e,'location')}}
                             style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Interests</Text>
                         <TextInput placeholder='Auto filled can be edited'
                             value={interestText}
+                            onChange={(e)=>{handleChangeEdit(e,'interest')}}
                             style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Hobbies</Text>
                         <TextInput placeholder='Auto filled can be edited' 
                          value={hobbiesText}
+                         onChange={(e)=>{handleChangeEdit(e,'hobbies')}}
                         style={styles.formField} />
                     </View>
                     <View style={styles.formFlex}>
                         <Text style={styles.formLabel}>Links</Text>
                         <TextInput placeholder='Auto filled can be edited' 
                         value={linksText}
+                        onChange={(e)=>{handleChangeEdit(e,'links')}}
                         multiline numberOfLines={4} style={[styles.formField, { height: 100, textAlignVertical: 'top' }]} />
                     </View>
                 </View>

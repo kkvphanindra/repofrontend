@@ -103,6 +103,7 @@ const authState = useSelector((state)=>state.authState)
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('snapDetails')}>
           <NewSnap
+          thoughts='Your thoughts'
             editable={false}
             navigation={navigation}
             handleChange={checkValidity}

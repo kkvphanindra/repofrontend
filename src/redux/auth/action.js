@@ -8,6 +8,7 @@ import {
   GET_USER_DETAILS_BY_USER_ID,
   GET_GROUP_DETAILS_BY_USER_ID,
   UPDATE_PROFILE,
+  GET_FRIENDS,
 } from './actionTypes';
 import axios from 'axios';
 import {BASE_URL} from '@env';
@@ -55,6 +56,11 @@ export const userDetails = data => ({
 
 export const groupDetails = data => ({
   type: GET_GROUP_DETAILS_BY_USER_ID,
+  data,
+});
+
+export const friends = data => ({
+  type: GET_FRIENDS,
   data,
 });
 
@@ -351,4 +357,24 @@ links
     }
   };
 };
+
+export const getAllFriends = (id) => {
+  return async (dispatch) => {
+      try {
+          // console.log("groupdetails id user",id)
+          const response = await axios.get(
+              BASE_URL+`/api/user/${id}/friends`
+          )
+          if (response.status) {
+              dispatch(friends(response.data));
+              console.log("friends",response.data)
+          } 
+      }
+      catch (err) {
+          console.log("Request failed friends auth action");
+          console.log(err.message)
+          dispatch(reqFailure(err.message));
+      }
+  };
+}
 export const logout = () => ({type: LOGOUT});

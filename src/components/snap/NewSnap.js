@@ -136,7 +136,7 @@ const NewSnap = props => {
   return (
     <View>
       <View style={styles.thoughts}>
-        <Text style={styles.thoughtsHeading}>Your thoughts</Text>
+        <Text style={styles.thoughtsHeading}>{props.thoughts}</Text>
         <View style={{}}>
           <View style={styles.thoughtsBox}>
             <View style={styles.thoughtsBoxInputViewBorder}>

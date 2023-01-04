@@ -8,6 +8,7 @@ import {
   GET_USER_DETAILS_BY_USER_ID,
   GET_GROUP_DETAILS_BY_USER_ID,
   UPDATE_PROFILE,
+  GET_FRIENDS,
 } from './actionTypes';
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   data: [],
   userDetails:[],
   groupDetails:[],
+  friends:[],
   profileUpdate:[],
   token: {},
   AccessToken:'',
@@ -79,6 +81,15 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         groupDetails: action.data,
+        error: '',
+        // isLoggedIn: true,
+      };
+    }
+    case GET_FRIENDS: {
+      // console.log('groupdetils', action.data);
+      return {
+        ...state,
+        friends: action.data,
         error: '',
         // isLoggedIn: true,
       };
