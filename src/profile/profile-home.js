@@ -51,7 +51,7 @@ const ProfileHome = ({navigation, route}) => {
 //     postState.data
 //     // authState.groupDetails.map(i => i),
 //   );
-console.log("first", authState?.userDetails)
+console.log("first",userId, authState?.userDetails)
   return (
     <SafeAreaView>
       <ScrollView
@@ -402,7 +402,7 @@ console.log("first", authState?.userDetails)
               </ImageBackground>
             </View>
             <Pressable
-              onPress={() => navigation.navigate('')}
+              onPress={() => navigation.navigate('Chat',{screen:'Group'})}
               style={styles.buttonContainer}>
               <LinearGradient
                 style={styles.buttonWrapper}
@@ -431,7 +431,7 @@ console.log("first", authState?.userDetails)
                 })}
             </View>
             <Pressable
-              onPress={() => navigation.navigate('')}
+              onPress={() => navigation.navigate('Chat',{screen:'Group'})}
               style={styles.buttonContainer}>
               <LinearGradient
                 style={styles.buttonWrapper}

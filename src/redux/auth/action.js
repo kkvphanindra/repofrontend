@@ -11,7 +11,7 @@ import {
   GET_FRIENDS,
 } from './actionTypes';
 import axios from 'axios';
-import {BASE_URL} from '@env';
+import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 
@@ -203,7 +203,7 @@ export const login = number => {
       // }
     } catch (err) {
       console.log('Request failed');
-      console.log("stat",err.response.status);
+      console.log("stat", err.response.status);
       // Alert.alert("Your number is not registered Please Register to continue")
       dispatch(reqFailure(err.response.status));
     }
@@ -255,89 +255,111 @@ export const tokenRetriever = () => {
 
 export const getAllUserDetailsByUserId = (id) => {
   return async (dispatch) => {
-      try {
-          console.log("userdetails id user",id)
-          const response = await axios.get(
-              BASE_URL+`/api/login/${id}`
-          )
-          if (response.status) {
-              dispatch(userDetails(response.data));
-              console.log("userdet",response.data)
-          } 
+    try {
+      console.log("userdetails id user", id)
+      const response = await axios.get(
+        BASE_URL + `/api/login/${id}`
+      )
+      if (response.status) {
+        dispatch(userDetails(response.data));
+        console.log("userdet", response.data)
       }
-      catch (err) {
-          console.log("Request failed USERdETAILS auth action");
-          console.log(err.message)
-          dispatch(reqFailure(err.message));
-      }
+    }
+    catch (err) {
+      console.log("Request failed USERdETAILS auth action");
+      console.log(err.message)
+      dispatch(reqFailure(err.message));
+    }
   };
 }
 
 export const getAllGroupDetailsByUserId = (id) => {
   return async (dispatch) => {
-      try {
-          // console.log("groupdetails id user",id)
-          const response = await axios.get(
-              BASE_URL+`/api/chat/group/user/${id}`
-          )
-          if (response.status) {
-              dispatch(groupDetails(response.data));
-              // console.log("groupDet",response.data)
-          } 
+    try {
+      console.log("groupdetails id user", id)
+      const response = await axios.get(
+        BASE_URL + `/api/chat/group/user/${id}`
+      )
+      if (response.status) {
+        dispatch(groupDetails(response.data));
+        // console.log("groupDet",response.data)
       }
-      catch (err) {
-          console.log("Request failed groupdETAILS auth action");
-          console.log(err.message)
-          dispatch(reqFailure(err.message));
-      }
+    }
+    catch (err) {
+      console.log("Request failed groupdETAILS auth action");
+      console.log(err.message)
+      dispatch(reqFailure(err.message));
+    }
   };
 }
 
 export const profileUpdate = (
   id,
-profilePicture,
-coverPicture,
-bio,
-work,
-study,
-status,
-dob,
-location,
-interest,
-hobbies,
-links
+  profilePicture,
+  coverPicture,
+  bio,
+  work,
+  study,
+  status,
+  dob,
+  location,
+  interest,
+  hobbies,
+  links
 ) => {
   return async dispatch => {
     // dispatch(reqActivityLoading());
     console.log(
       'update profile',
       id,
-profilePicture,
-coverPicture,
-bio,
-work,
-study,
-status,
-dob,
-location,
-interest,
-hobbies,
-links
+      profilePicture,
+      coverPicture,
+      bio,
+      work,
+      study,
+      status,
+      dob,
+      location,
+      interest,
+      hobbies,
+      links
     );
     try {
       const formData = new FormData();
-      formData.append('chatName', chatName)
-      formData.append('isGroupChat', true)
-      userChat.forEach(
-        userChat => formData.append('userChat[]', userChat.length<2?Alert.alert('Please select atleast 3 users'):userChat)
+      formData.append('profilePicture', profilePicture !== null ? {
+        uri: profilePicture.path,
+        type: profilePicture.type,
+        name: profilePicture.filename || `filename${profilePicture.size}.jpg`,
+      } : null);
+      formData.append('coverPicture', coverPicture !== null ? {
+        uri: coverPicture.path,
+        type: coverPicture.type,
+        name: coverPicture.filename || `filename${coverPicture.size}.jpg`,
+      } : null);
+      formData.append('bio', bio)
+      formData.append('occupation',work)
+      formData.append('studiedAt', study)
+      formData.append('status', status)
+      formData.append('dob', dob)
+      formData.append('location', location)
+      // formData.append('interest', interest)
+       interest.forEach(
+        interest => formData.append('interest[]', interest)
         )
-      formData.append('message', message==''||message==null?Alert.alert('Message should not be empty'):message)
-      formData.append('groupPhoto',image!==null?{
-          uri: image.path,
-          type: image.mime,
-          name: image.filename || `filename${image.size}.jpg`,
-        }:null);
-      const response = await axios.put(BASE_URL + `/api/user/${id}/update/details`, 
+      // formData.append('hobbies', hobbies)
+       hobbies.forEach(
+        hobbies => formData.append('hobbies[]', hobbies)
+        )
+      // formData.append('link', links)
+      links.forEach(
+        links => formData.append('links[]', links)
+        )
+      // formData.append('isGroupChat', true)
+      // userChat.forEach(
+      //   userChat => formData.append('userChat[]', userChat.length<2?Alert.alert('Please select atleast 3 users'):userChat)
+      //   )
+      // formData.append('message', message==''||message==null?Alert.alert('Message should not be empty'):message)
+      const response = await axios.put(BASE_URL + `/api/user/${id}/update/details`,
         formData,
         {
           headers: {
@@ -345,7 +367,7 @@ links
             'Content-Type': 'multipart/form-data'
           }
         }
-        )
+      )
       console.log(response.data);
       dispatch(updateProfile(response.data),
       );
@@ -360,21 +382,21 @@ links
 
 export const getAllFriends = (id) => {
   return async (dispatch) => {
-      try {
-          // console.log("groupdetails id user",id)
-          const response = await axios.get(
-              BASE_URL+`/api/user/${id}/friends`
-          )
-          if (response.status) {
-              dispatch(friends(response.data));
-              // console.log("friends",response.data)
-          } 
+    try {
+      // console.log("groupdetails id user",id)
+      const response = await axios.get(
+        BASE_URL + `/api/user/${id}/friends`
+      )
+      if (response.status) {
+        dispatch(friends(response.data));
+        // console.log("friends",response.data)
       }
-      catch (err) {
-          console.log("Request failed friends auth action");
-          console.log(err.message)
-          dispatch(reqFailure(err.message));
-      }
+    }
+    catch (err) {
+      console.log("Request failed friends auth action");
+      console.log(err.message)
+      dispatch(reqFailure(err.message));
+    }
   };
 }
-export const logout = () => ({type: LOGOUT});
+export const logout = () => ({ type: LOGOUT });

@@ -74,7 +74,7 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={1}
                 onPress={() => {
-                    carouselRef.current.scrollToIndex(index);
+                  navigation.navigate('Chat',{screen:'Group'})
                 }}>
                 <ImageBackground
                     source={item.img}
@@ -338,7 +338,7 @@ const Home = ({ navigation }) => {
                             style={styles.carouselWrapper}
                         />
                         <Pressable
-                            onPress={() => navigation.navigate('Chat')}
+                            onPress={() => navigation.navigate('Chat',{screen:'Group'})}
                             style={styles.buttonContainer}>
                             <LinearGradient
                                 style={styles.buttonWrapper}
