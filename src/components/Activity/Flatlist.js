@@ -179,7 +179,7 @@ const Flatlist = ({data}) => {
             <View style={styles.tabViewWrapper}>
               {data?.item?.users.slice(0,4).map((item) => {
                 return (
-                      <Image style={styles.groupIcon} source={{uri: item.profilePicture==""?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item.profilePicture}} />
+                      <Image style={styles.groupIcon} source={{uri: item?.profilePicture==""?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':item?.profilePicture}} />
                 );
               })}
               {data?.item?.users?.length > 4 ? (

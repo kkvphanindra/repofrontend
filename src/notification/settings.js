@@ -14,8 +14,8 @@ export default function Setting({ navigation }) {
 
     const settingsOptions = [
 
-        { title: 'Invite friends', subTitle: null, onPress: () => { } },
-        { title: 'Saved', subTitle: null, onPress: () => { } },
+        { title: 'Invite friends', subTitle: null, onPress: () => {navigation.navigate('inviteFriends',{uniqueID:null})} },
+        { title: 'Saved', subTitle: null, onPress: () => { navigation.navigate('snap')} },
         { title: 'Notifications', subTitle: null, onPress: () =>navigation.navigate('settingNotification')  },
         { title: 'Privacy & Security', subTitle: null, onPress: () => { navigation.navigate('privacy')} },
         { title: 'Help', subTitle: null, onPress: () => { } },

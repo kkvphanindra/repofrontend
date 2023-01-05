@@ -80,7 +80,7 @@ const authState = useSelector((state)=>state.authState)
               </Pressable>
             </View>
             <View>
-              <TouchableOpacity style={styles.profileInformation} onPress={()=>navigation.navigate('profileHome')}>
+              <TouchableOpacity style={styles.profileInformation} onPress={()=>navigation.navigate('profileHome',{userId:authState.userId})}>
                 <Image
                   source={{
                     uri: authState.profilePicture==""? 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':authState.profilePicture,
@@ -103,6 +103,7 @@ const authState = useSelector((state)=>state.authState)
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('snapDetails')}>
           <NewSnap
+          thoughts='Your thoughts'
             editable={false}
             navigation={navigation}
             handleChange={checkValidity}

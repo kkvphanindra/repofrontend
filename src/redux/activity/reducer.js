@@ -20,6 +20,7 @@ import {
   USER_STATUS,
   SELECTED_USERS,
   ACTIVITY_TYPE,
+  ACTIVITY_TYPE_NAME,
 } from './actionTypes';
 
 const initialState = {
@@ -37,6 +38,8 @@ const initialState = {
   groupName: [],
   group: [],
   activityName: [],
+  activityTypeName:[],
+  activityTypeNameData:[],
   newActivityId: '',
 };
 
@@ -88,6 +91,19 @@ const activityReducer = (state = initialState, action) => {
         activityTypeData: action.data,
         error: '',
         loading: false,
+      };
+    }
+    case ACTIVITY_TYPE_NAME: {
+      let newArray = action.data.map(item => {
+        return {key: item.activityType.id, value: item.activityType.name};
+      });
+      let arr = [];
+      action.data.forEach(c => arr.push(c.activityType.name));
+      console.log("activity type name filtered", arr, action.data)
+      return {
+        ...state,
+        activityTypeName: newArray,
+        activityTypeNameData: arr,
       };
     }
     case NEW_ACTIVITY_BY_USER_ID: {

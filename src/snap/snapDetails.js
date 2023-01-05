@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,31 +8,51 @@ import {
   View,
   Image,
   TextInput,
+  Alert,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NewSnap from '../components/snap/NewSnap';
-import {addNewPost} from '../redux/Post/actions';
+import { addNewPost } from '../redux/Post/actions';
 import SelectList from 'react-native-dropdown-select-list';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 
 
-const SnapDetails = ({navigation}) => {
+const SnapDetails = ({ navigation }) => {
   const dispatch = useDispatch;
-  const authState=useSelector((state)=>state.authState)
+  const data = [
+    {
+      key: 'Admin',
+      value: "Admin"
+    }
+  ]
+  const authState = useSelector((state) => state.authState)
   const postState = useSelector(state => state.postState);
   const [groupN, setGroupN] = useState('');
   const [groupId, setGroupId] = useState('');
+  const [activityId, setActivityId] = useState('');
   const [activityN, setActivityN] = useState('');
-  const activityState = useSelector((state)=> state.activityState)
+  const [admin, setAdmin] = useState('')
+  const [adminId, setAdminId] = useState('')
+  const activityState = useSelector((state) => state.activityState)
   const press = selectedItem => {
-      let d = activityState.groupName.filter(i => i.key === selectedItem);
-      let e = d?.[0]?.key;
-      let f = d?.[0]?.value;
-      setGroupN(f);
-      setGroupId(e);
-      console.log(e, f);
+    let d = activityState.groupName.filter(i => i.key === selectedItem);
+    let e = d?.[0]?.key;
+    let f = d?.[0]?.value;
+    setGroupN(f);
+    setGroupId(e!==''?e:Alert.alert('Please select group'));
+    // console.log("group",e, f,activityState.groupName);
   };
+  const pressActivity = selectedItem => {
+    let d = activityState.activityTypeName.filter(i => i.key === selectedItem);
+    let e = d?.[0]?.key;
+    let f = d?.[0]?.value;
+    // let g = f=='General'
+    setActivityN(f);
+    setActivityId(e!==''?e:Alert.alert("Please select activity"));
+    setAdmin(f==='General'?null:f)
+  };
+  // console.log("acheck check", admin);
   return (
     <SafeAreaView style={styles.constainer}>
       <View style={styles.header}>
@@ -56,7 +76,7 @@ const SnapDetails = ({navigation}) => {
                 <Image
                   style={styles.profileImage}
                   source={{
-                    uri: authState.profilePicture!==""?authState.profilePicture:'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
+                    uri: authState.profilePicture !== "" ? authState.profilePicture : 'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg',
                   }}
                 />
               </View>
@@ -88,7 +108,7 @@ const SnapDetails = ({navigation}) => {
                       marginTop: '4%',
                       borderRadius: 10,
                       width: '98%',
-                    //   height: '30%',
+                      //   height: '30%',
                       backgroundColor: '#f7f7f7',
                       borderColor: '#f7f7f7',
                     }}
@@ -117,62 +137,106 @@ const SnapDetails = ({navigation}) => {
                 <View style={styles.inputHeaderView}>
                   <Text style={styles.inputHeaderText}>Select activity</Text>
                   <SelectList
-            // onSelect={() => activity()}
-            onSelect={() => console.log('object', activityN)}
-            setSelected={setActivityN}
-            data={activityState.activityName}
-            arrowicon={
-              <FontAwesome name="chevron-down" size={12} color={'black'} />
-            }
-            searchicon={<FontAwesome name="search" size={12} color={'black'} />}
-            search={false}
-            placeholder="Select Activity"
-            boxStyles={{
-              marginTop: '4%',
-              borderRadius: 10,
-              width: '98%',
-              backgroundColor: '#f7f7f7',
-              borderColor: '#f7f7f7',
-              color: '#000',
-            }}
-            inputStyles={{
-              color: 'grey',
-            }}
-            dropdownStyles={{
-              width: '98%',
-              borderColor: '#f7f7f7',
-              backgroundColor: '#f7f7f7',
-            }}
-            dropdownItemStyles={{
-              backgroundColor: '#f7f7f7',
-            }}
-            dropdownTextStyles={{
-              color: 'grey',
-            }}
-          />  
+                    // onSelect={() => activity()}
+                    onSelect={() => console.log('object', activityN)}
+                    setSelected={pressActivity}
+                    data={activityState.activityTypeName}
+                    arrowicon={
+                      <FontAwesome name="chevron-down" size={12} color={'black'} />
+                    }
+                    searchicon={<FontAwesome name="search" size={12} color={'black'} />}
+                    search={false}
+                    placeholder="Select Activity"
+                    boxStyles={{
+                      marginTop: '4%',
+                      borderRadius: 10,
+                      width: '98%',
+                      backgroundColor: '#f7f7f7',
+                      borderColor: '#f7f7f7',
+                      color: '#000',
+                    }}
+                    inputStyles={{
+                      color: 'grey',
+                    }}
+                    dropdownStyles={{
+                      width: '98%',
+                      borderColor: '#f7f7f7',
+                      backgroundColor: '#f7f7f7',
+                    }}
+                    dropdownItemStyles={{
+                      backgroundColor: '#f7f7f7',
+                    }}
+                    dropdownTextStyles={{
+                      color: 'grey',
+                    }}
+                  />
                 </View>
                 {/* <View style={styles.inputTextInputView}>
                   <TextInput style={styles.inputTextInput} />
                 </View> */}
               </View>
-              <View style={styles.inputView}>
-                <View style={styles.inputHeaderView}>
-                  <Text style={styles.inputHeaderText}>
-                    Select for Approval
-                  </Text>
-                </View>
-                <View style={styles.inputTextInputView}>
+              {activityN == 'Honor' ?
+                <>
+                  <View style={styles.inputView}>
+                    <View style={styles.inputHeaderView}>
+                      <Text style={styles.inputHeaderText}>
+                        Select for Approval
+                      </Text>
+                      <SelectList
+                        // onSelect={() => activity()}
+                        onSelect={() => console.log('ad', admin)}
+                        setSelected={setAdmin}
+                        data={data}
+                        defaultOption={{ key: 'Admin', value: 'Admin' }}
+                        arrowicon={
+                          <FontAwesome name="chevron-down" size={12} color={'black'} />
+                        }
+                        searchicon={<FontAwesome name="search" size={12} color={'black'} />}
+                        search={false}
+                        placeholder="Select Approval"
+                        boxStyles={{
+                          marginTop: '4%',
+                          borderRadius: 10,
+                          width: '98%',
+                          backgroundColor: '#f7f7f7',
+                          borderColor: '#f7f7f7',
+                          color: '#000',
+                        }}
+                        inputStyles={{
+                          color: 'grey',
+                        }}
+                        dropdownStyles={{
+                          width: '98%',
+                          borderColor: '#f7f7f7',
+                          backgroundColor: '#f7f7f7',
+                        }}
+                        dropdownItemStyles={{
+                          backgroundColor: '#f7f7f7',
+                        }}
+                        dropdownTextStyles={{
+                          color: 'grey',
+                        }}
+                      />
+                    </View>
+                    {/* <View style={styles.inputTextInputView}>
                   <TextInput style={styles.inputTextInput} />
-                </View>
-              </View>
+                </View> */}
+                  </View>
+                </>
+                :
+                null
+              }
             </View>
           </View>
           <View style={styles.bodyThoughtsView}>
             <NewSnap
+              admin={admin}
+              groupId={groupId}
+              activityId={activityId}
               editable={true}
               navigation={navigation}
               postButton={true}
-              />
+            />
           </View>
         </View>
       </ScrollView>
