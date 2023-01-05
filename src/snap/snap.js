@@ -13,7 +13,7 @@ import PostItem from '../components/snap/PostItem';
 import LoadingComponet from '../components/snap/LoadingComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllPostsByUserId, postHide, postSave, postVerify} from '../redux/Post/actions';
-import { activityName, groupName } from '../redux/activity/action';
+import { activityName, getActivityType, groupName } from '../redux/activity/action';
 
 const data = [
   {
@@ -67,7 +67,8 @@ const authId=authState.userId
   useEffect(()=>{
       dispatch(getAllPostsByUserId(authState.userId));
         dispatch(groupName())
-        dispatch(activityName())
+        // dispatch(activityName())
+        dispatch(getActivityType())
       },[dispatch])
   const hidePost = (postId) => {
     dispatch(postHide(postId, authId))

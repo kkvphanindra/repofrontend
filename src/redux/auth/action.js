@@ -367,7 +367,7 @@ export const getAllFriends = (id) => {
           )
           if (response.status) {
               dispatch(friends(response.data));
-              console.log("friends",response.data)
+              // console.log("friends",response.data)
           } 
       }
       catch (err) {

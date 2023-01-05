@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -7,12 +7,13 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-const {height} = Dimensions.get('window');
-import {openPicker} from 'react-native-image-crop-picker';
+const { height } = Dimensions.get('window');
+import { openPicker } from 'react-native-image-crop-picker';
 import GetLocation from 'react-native-get-location';
-import {addNewPost, getAllPostsByUserId, updateFields} from '../../redux/Post/actions';
-import {useDispatch, useSelector} from 'react-redux';
+import { addNewPost, getAllPostsByUserId, updateFields } from '../../redux/Post/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import LocationIQ from 'react-native-locationiq';
@@ -20,14 +21,14 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 const NewSnap = props => {
   const [state, setState] = useState();
-  const authState = useSelector((state)=> state.authState)
-  const [pic,setPic] = useState()
+  const authState = useSelector((state) => state.authState)
+  const [pic, setPic] = useState()
   const navigation = useNavigation();
   const [images, setImages] = useState()
   const dispatch = useDispatch();
-  const [lat, setLat]=useState('')
-  const [long, setLong]=useState('')
-  const [location,setLocation]=useState('')
+  const [lat, setLat] = useState('')
+  const [long, setLong] = useState('')
+  const [location, setLocation] = useState('')
   const postState = useSelector(state => state.postState);
   LocationIQ.init('pk.9258ab5f6e3604f3f0a08054a0b92c48');
   const launchLibrary = async navigation => {
@@ -41,13 +42,13 @@ const NewSnap = props => {
     openPicker({
       multiple: true,
     }).then(image => {
-      console.log("ma",image);
+      // console.log("ma",image);
       setImages(image[0].path)
       setPic(image[0])
     });
   };
-  let newPic = pic==undefined?null:pic
-  console.log("pic", pic, newPic)
+  let newPic = pic == undefined ? null : pic
+  // console.log("pic", pic, newPic)
   const launchCameraPhoto = () => {
     let options = {
       storageOptions: {
@@ -56,18 +57,18 @@ const NewSnap = props => {
       },
     };
     launchCamera(options, response => {
-      console.log('Response = ', response);
+      // console.log('Response = ', response);
 
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        // console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        // console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+        // console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
-        const source = {uri: response.uri};
-        console.log('response', JSON.stringify(response));
+        const source = { uri: response.uri };
+        // console.log('response', JSON.stringify(response));
         setState({
           filePath: response,
           fileData: response.data,
@@ -105,7 +106,7 @@ const NewSnap = props => {
         setLong(location.longitude)
       })
       .catch(error => {
-        const {code, message} = error;
+        const { code, message } = error;
         console.warn(code, message);
       });
   };
@@ -116,7 +117,7 @@ const NewSnap = props => {
       setLocation(address);
     })
     .catch(error => console.warn(error));
-    console.log("location", location)
+  // console.log("location", location)
   const checkValidity = (val, fieldId) => {
     let isValid = true;
 
@@ -132,7 +133,8 @@ const NewSnap = props => {
 
     dispatch(updateFields(val, fieldId, isValid));
   };
-// console.log("img", images)
+  console.log("admin", props.admin, props.activityId, props.groupId)
+  // console.log("null check")
   return (
     <View>
       <View style={styles.thoughts}>
@@ -185,27 +187,27 @@ const NewSnap = props => {
               </View>
             </View>
           </View>
-          {location? 
-          <Text style={{
-            margin: '5%',
-            color: '#000',
-            // fontWeight: '600'
-          }}>Checked in{'\b'} <Text style={{fontWeight: 'bold'}}>{location}</Text></Text>
-          :
-          null
-        }
-        {images?
-        <Image 
-        source={{uri: images?images: null}}
-        style={{alignSelf: 'center', height: 100, width: 100, marginTop: '5%'}}
-        />:null
-      }
+          {location ?
+            <Text style={{
+              margin: '5%',
+              color: '#000',
+              // fontWeight: '600'
+            }}>Checked in{'\b'} <Text style={{ fontWeight: 'bold' }}>{location}</Text></Text>
+            :
+            null
+          }
+          {images ?
+            <Image
+              source={{ uri: images ? images : null }}
+              style={{ alignSelf: 'center', height: 100, width: 100, marginTop: '5%' }}
+            /> : null
+          }
           {props.postButton ? (
             <>
               <View style={styles.postButtonView}>
                 <TouchableOpacity
                   style={styles.postButton}
-                  onPress={() =>{
+                  onPress={() => {
                     dispatch(
                       addNewPost(
                         postState.inputValues.post,
@@ -213,18 +215,32 @@ const NewSnap = props => {
                         location,
                         lat,
                         long,
-                        newPic
+                        newPic,
+                        props.admin,
+                        props.activityId,
+                        props.groupId,
+                        Alert
                       ),
                     )
                     // dispatch(getAllPostsByUserId(authState.userId))
-                    navigation.navigate('snap')
+                    {
+                      props.groupId === '' ?
+                      <>
+                        {props.activityId == '' ?
+                          Alert.alert('Please select activity') :
+                          Alert.alert('Please Select Group')
+                        }
+                      </>
+                      :
+                      navigation.navigate('snap')
+                    }
                   }
                   }>
-                    <LinearGradient
-              style={styles.buttonWrapper}
-              colors={['#5E6BFF', '#212FCC']}>
-              <Text style={styles.buttonText}>Post Now</Text>
-            </LinearGradient>
+                  <LinearGradient
+                    style={styles.buttonWrapper}
+                    colors={['#5E6BFF', '#212FCC']}>
+                    <Text style={styles.buttonText}>Post Now</Text>
+                  </LinearGradient>
                 </TouchableOpacity>
               </View>
             </>
@@ -235,7 +251,7 @@ const NewSnap = props => {
   );
 };
 
-const width =Dimensions.get('window').width;
+const width = Dimensions.get('window').width;
 // const wheight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   thoughts: {
@@ -339,17 +355,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
   },
-  shareNowButton:{
+  shareNowButton: {
     alignSelf: 'flex-end',
-    width: width/3,
-    height: height/14,
+    width: width / 3,
+    height: height / 14,
     marginTop: '5%'
-      },
+  },
   buttonWrapper: {
     width: '100%',
     height: '70%',
     borderRadius: 5,
-    padding:10,
+    padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -366,7 +382,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginLeft: '2%',
     fontWeight: 'bold'
-        },
+  },
 });
 
 export default NewSnap;

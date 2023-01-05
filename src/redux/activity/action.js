@@ -11,6 +11,7 @@ import {
   GET_ACTIVITY_NAME,
   GET_GROUP_NAME,
   ACTIVITY_NAME,
+  ACTIVITY_TYPE_NAME,
   GROUP_NAME,
   GET_ALL_USERS_BY_GROUP_ID,
   ENDED_TIME,
@@ -64,6 +65,10 @@ export const getActivityName = data => ({
 });
 export const ActivityName = data => ({
   type: ACTIVITY_NAME,
+  data,
+});
+export const ActivityTypeName = data => ({
+  type: ACTIVITY_TYPE_NAME,
   data,
 });
 export const getGroupName = data => ({
@@ -214,6 +219,7 @@ export const getActivityType = id => {
       );
       if (response.status) {
         dispatch(activityType(response.data));
+        dispatch(ActivityTypeName(response.data));
         console.log("activity Type", response.data)
       }
     } catch (err) {

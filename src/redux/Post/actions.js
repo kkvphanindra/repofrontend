@@ -18,7 +18,6 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 import { BASE_URL} from '@env'
-
 export const req = () => {
     console.log('started');
     return {
@@ -112,46 +111,50 @@ export const getAllPostsByUserId = (id) => {
     };
 }
 
-export const addNewPost = (post, userId, location, lat, long, image) => {
+export const addNewPost = (post, userId, location, lat, long, image,approval,activityId,groupId,Alert) => {
     return async (dispatch) => {
         // dispatch(reqStartNewPost());
-        console.log("add new post", post, userId, lat, long,image)
+        console.log("add new post", post, userId, lat, long,image,approval,groupId,activityId)
         try {
-            const formData = new FormData();
-            formData.append('description', post)
-            formData.append('userId', userId)
-            formData.append('location', location)
-            formData.append('latitude', lat)
-            formData.append('longitude', long)
-            formData.append('images', image!==null?{
-                uri: image.path==null?null:image.path,
-                type: image.mime|| null,
-                name: image.filename || `filename${image.size}.jpg`,
-            }:null);
-            const response = await axios.post(
-                BASE_URL+`/api/post`,
-                formData,
-                {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'multipart/form-data'
+            if(groupId!==undefined){
+                const formData = new FormData();
+                formData.append('description', post)
+                formData.append('userId', userId)
+                formData.append('location', location)
+                formData.append('latitude', lat)
+                formData.append('longitude', long)
+                formData.append('images', image!==null?{
+                    uri: image.path==null?null:image.path,
+                    type: image.mime|| null,
+                    name: image.filename || `filename${image.size}.jpg`,
+                }:null);
+                formData.append('tagGroup',groupId)
+                formData.append('tagActivity',activityId)
+                formData.append('selectForApproval',approval)
+                const response = await axios.post(
+                    BASE_URL+`/api/post`,
+                    formData,
+                    {
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'multipart/form-data'
+                        }
                     }
+                )
+                console.log("new post res", response.data)
+                if (response) {
+                    // console.log('COMPLETE RESPONSE DATA:', response.data)
+                    // console.log(response.data)
+                    dispatch(stateCleanup())
+                    dispatch(reqSuccessNewPost());
+                    // dispatch(getAllPostsByUserId())
                 }
-            )
-            console.log("new post res", response.data)
-            if (response) {
-                // console.log('COMPLETE RESPONSE DATA:', response.data)
-                console.log(response.data)
-                dispatch(reqSuccessNewPost());
-                dispatch(stateCleanup())
-                // dispatch(getAllPostsByUserId(userId))
-            }
-            else {
-                dispatch(reqFailureNewPost('Please Enter Valid Inputs'));
+            }else{
+                Alert.alert('Please Select group')
             }
         }
         catch (err) {
-            console.log("Request failed");
+            console.log("Request failed add post");
             console.log(err.message)
             dispatch(reqFailureNewPost(err.message));
         }
