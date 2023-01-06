@@ -38,11 +38,12 @@ export default function GroupDetails({ navigation, route }) {
   function exit() {
 
     dispatch(exitGroupChat(chatId, authId));
-    navigation.navigate('chat')
+    navigation.navigate('Chat')
   }
   function clearMessage() {
     console.log("inside function", chatId)
-    dispatch(clearMessages(chatId));
+    dispatch(clearMessages(chatId,authState.userId));
+    navigation.navigate('Chat')
 
   }
   const handleChangeEdit = (inputValue,e) => {

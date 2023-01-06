@@ -223,7 +223,7 @@ const GroupChat = ({ navigation, route }) => {
       }
     }
   };
-  console.log("first",group.groupPhoto)
+  // console.log("first",group.groupPhoto)
   return (
     <View style={styles.container}>
       <ChatHeader

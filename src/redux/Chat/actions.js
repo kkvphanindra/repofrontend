@@ -110,9 +110,9 @@ export const exitGroup = (chatId, authId) => ({
   authId: authId,
 })
 
-export const clearChat = (chatId) => ({
+export const clearChat = (data) => ({
   type: CLEAR_CHAT,
-  chatId: chatId,
+  data
 })
 
 export const singleFilter = (data) => ({
@@ -368,22 +368,22 @@ export const exitGroupChat = (chatId, authId) => {
   };
 }
 
-export const clearMessages = (chatId) => {
-  console.log("chatId:::", chatId)
+export const clearMessages = (chatId,id) => {
+  console.log("chatId:::", chatId,id)
   return async (dispatch) => {
     dispatch(req());
     try {
       const response = await axios.delete(
-        BASE_URL+`/api/chat/${chatId}/clear`,
+        BASE_URL+`/api/chat/${chatId}/user/${id}/clear`,
       );
       if (response.status) {
         dispatch(clearChat(response.data));
-        dispatch(getAllMessageByChatId(chatId))
-        console.log("today---", response.data)
+        dispatch(getAllMessageByChatId())
+        console.log("clear chat---", response.data)
       }
     } catch (err) {
-      console.log('REQUEST FAILED');
-      console.log(err.response.status);
+      console.log('REQUEST FAILED clear chat');
+      console.log(err.message);
       dispatch(reqFailure(err.message));
     }
   };

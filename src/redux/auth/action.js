@@ -311,18 +311,18 @@ export const profileUpdate = (
     // dispatch(reqActivityLoading());
     console.log(
       'update profile',
-      id,
-      profilePicture,
-      coverPicture,
-      bio,
-      work,
-      study,
-      status,
-      dob,
-      location,
-      interest,
-      hobbies,
-      links
+      "id:",id,
+    "profilePicture:", profilePicture,
+    "coverPicture:", coverPicture,
+    "bio:", bio,
+    "occupation:", work,
+    "studiedAt:" ,study,
+    "status:", status,
+    "dob:", dob,
+    "location:", location,
+    "interest:", interest,
+    "hobbies:", hobbies,
+    "links:" ,links
     );
     try {
       const formData = new FormData();

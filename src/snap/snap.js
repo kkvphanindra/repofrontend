@@ -63,11 +63,11 @@ const authId=authState.userId
   //     dispatch(getAllPostsByUserId(authState.userId));
   //   }, [dispatch]),
   // );
-  console.log("im", authId)
+  console.log("im snap screen")
   useEffect(()=>{
       dispatch(getAllPostsByUserId(authState.userId));
         dispatch(groupName())
-        // dispatch(activityName())
+  //       // dispatch(activityName())
         dispatch(getActivityType())
       },[dispatch])
   const hidePost = (postId) => {

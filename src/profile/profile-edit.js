@@ -117,30 +117,56 @@ const dispatch=useDispatch()
             }
         })
     }
-    let interest = res.interest.map((i) => i)
+    let interest = res.interest.map((i) => i.slice(16,-2))
+    // console.log("array",res.interest.map((i) => i.slice(16,-2)))
     let interestText = "";
-    interest.forEach(item => {
-        interestText += item + " , "
+    let intText =[];
+    interest.forEach(c => {
+        interestText += c + ","
+        console.log("in",interestText)
+        intText.push(c)
+        console.log("intText",intText)
+        // interestText.push(c)
     });
     interestText=interestText.slice(0,-2)
-    let hobbies = res.hobbies.map((i) => i)
+    let hobbies = res.hobbies.map((i) => i.slice(16,-2))
     let hobbiesText = "";
+    let hobbiText = [];
     hobbies.forEach(item => {
         hobbiesText += item + " , "
+        console.log("hob",hobbiesText)
+        hobbiText.push(item)
+        console.log("hob",hobbiText)
     });
     hobbiesText=hobbiesText.slice(0,-2)
-    let links = res.links.map((i) => i)
+    let links = res.links.map((i) => i.slice(16,-2))
     let linksText = "";
+    let link=[]
     links.forEach(item => {
         linksText += item + " , "
+        console.log("hob",linksText)
+        link.push(item)
+        console.log("hob",link)
     });
     linksText=linksText.slice(0,-2)
+    console.log("edit",intText,hobbiText,link)
     const handleChangeEdit = (name,inputValue) => {
         setRes({...res, [name]: inputValue});
       };
-      console.log("res",res)
     const onSubmit=()=>{
-dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occupation,res.study,res.status,res.dob,res.location,res.interest,res.hobbies,res.links))
+        // id,
+        // profilePicture,
+        // coverPicture,
+        // bio,
+        // work,
+        // study,
+        // status,
+        // dob,
+        // location,
+        // interest,
+        // hobbies,
+        // links
+dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occupation,res.study,res.status,res.dob,res.location,intText,hobbiText,link))
     }
 
     return (
@@ -226,6 +252,7 @@ dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occu
                         <Text style={styles.formLabel}>Interests</Text>
                         <TextInput placeholder='Auto filled can be edited'
                             value={interestText}
+                            editable={false}
                             onChangeText={(e)=>{handleChangeEdit('interest',e)}}
                             style={styles.formField} />
                     </View>
@@ -233,6 +260,7 @@ dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occu
                         <Text style={styles.formLabel}>Hobbies</Text>
                         <TextInput placeholder='Auto filled can be edited' 
                          value={hobbiesText}
+                         editable={false}
                          onChangeText={(e)=>{handleChangeEdit('hobbies',e)}}
                         style={styles.formField} />
                     </View>
@@ -240,13 +268,14 @@ dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occu
                         <Text style={styles.formLabel}>Links</Text>
                         <TextInput placeholder='Auto filled can be edited' 
                         value={linksText}
+                        editable={false}
                         onChangeText={(e)=>{handleChangeEdit('links',e)}}
                         multiline numberOfLines={4} style={[styles.formField, { height: 100, textAlignVertical: 'top' }]} />
                     </View>
                 </View>
                 <Pressable
-                    // onPress={() => onSubmit()}
-                    onPress={()=>console.log("first")}
+                    onPress={() => onSubmit()}
+                    // onPress={()=>console.log("first")}
                     style={styles.buttonContainer}>
                     <LinearGradient style={styles.buttonWrapper} colors={['#5E6BFF', '#212FCC']}>
                         <Text style={styles.buttonText}>
