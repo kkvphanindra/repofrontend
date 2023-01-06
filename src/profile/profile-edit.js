@@ -123,9 +123,9 @@ const dispatch=useDispatch()
     let intText =[];
     interest.forEach(c => {
         interestText += c + ","
-        console.log("in",interestText)
+        // console.log("in",interestText)
         intText.push(c)
-        console.log("intText",intText)
+        // console.log("intText",intText)
         // interestText.push(c)
     });
     interestText=interestText.slice(0,-2)
@@ -134,9 +134,9 @@ const dispatch=useDispatch()
     let hobbiText = [];
     hobbies.forEach(item => {
         hobbiesText += item + " , "
-        console.log("hob",hobbiesText)
+        // console.log("hob",hobbiesText)
         hobbiText.push(item)
-        console.log("hob",hobbiText)
+        // console.log("hob",hobbiText)
     });
     hobbiesText=hobbiesText.slice(0,-2)
     let links = res.links.map((i) => i.slice(16,-2))
@@ -144,14 +144,15 @@ const dispatch=useDispatch()
     let link=[]
     links.forEach(item => {
         linksText += item + " , "
-        console.log("hob",linksText)
+        // console.log("hob",linksText)
         link.push(item)
-        console.log("hob",link)
+        // console.log("hob",link)
     });
     linksText=linksText.slice(0,-2)
-    console.log("edit",intText,hobbiText,link)
+    // console.log("edit",intText,hobbiText,link)
     const handleChangeEdit = (name,inputValue) => {
         setRes({...res, [name]: inputValue});
+        console.log("res editted", res.studiedAt)
       };
     const onSubmit=()=>{
         // id,
@@ -166,7 +167,9 @@ const dispatch=useDispatch()
         // interest,
         // hobbies,
         // links
-dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occupation,res.study,res.status,res.dob,res.location,intText,hobbiText,link))
+dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occupation,res.studiedAt==undefined?'':res.studiedAt,res.status==undefined?'':res.status,res.dob,res.location,intText,hobbiText,link))
+// navigation.navigate('profileHome',{userId:res.userId})
+navigation.goBack()
     }
 
     return (
@@ -231,6 +234,7 @@ dispatch(profileUpdate(res.userId,profileFileData,coverFileData,res.bio,res.occu
                         <Text style={styles.formLabel}>Status</Text>
                         <TextInput placeholder='Auto filled can be edited'
                             value={res.status}
+                            editable={false}
                             onChangeText={(e)=>{handleChangeEdit('status',e)}}
                             style={styles.formField} />
                     </View>

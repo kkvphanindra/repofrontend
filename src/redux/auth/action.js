@@ -325,51 +325,59 @@ export const profileUpdate = (
     "links:" ,links
     );
     try {
-      const formData = new FormData();
-      formData.append('profilePicture', profilePicture !== null ? {
-        uri: profilePicture.path,
-        type: profilePicture.type,
-        name: profilePicture.filename || `filename${profilePicture.size}.jpg`,
-      } : null);
-      formData.append('coverPicture', coverPicture !== null ? {
-        uri: coverPicture.path,
-        type: coverPicture.type,
-        name: coverPicture.filename || `filename${coverPicture.size}.jpg`,
-      } : null);
-      formData.append('bio', bio)
-      formData.append('occupation',work)
-      formData.append('studiedAt', study)
-      formData.append('status', status)
-      formData.append('dob', dob)
-      formData.append('location', location)
-      // formData.append('interest', interest)
-       interest.forEach(
-        interest => formData.append('interest[]', interest)
-        )
-      // formData.append('hobbies', hobbies)
-       hobbies.forEach(
-        hobbies => formData.append('hobbies[]', hobbies)
-        )
-      // formData.append('link', links)
-      links.forEach(
-        links => formData.append('links[]', links)
-        )
+      // const formData = new FormData();
+      // formData.append('profilePicture', profilePicture !== null ? {
+      //   uri: profilePicture.path,
+      //   type: profilePicture.type,
+      //   name: profilePicture.filename || `filename${profilePicture.size}.jpg`,
+      // } : null);
+      // formData.append('coverPicture', coverPicture !== null ? {
+      //   uri: coverPicture.path,
+      //   type: coverPicture.type,
+      //   name: coverPicture.filename || `filename${coverPicture.size}.jpg`,
+      // } : null);
+      // formData.append('bio', bio)
+      // formData.append('occupation',work)
+      // formData.append('studiedAt', study)
+      // formData.append('status', status)
+      // formData.append('dob', dob)
+      // formData.append('location', location)
+      // // formData.append('interest', interest)
+      //  interest.forEach(
+      //   interest => formData.append('interest[]', interest)
+      //   )
+      // // formData.append('hobbies', hobbies)
+      //  hobbies.forEach(
+      //   hobbies => formData.append('hobbies[]', hobbies)
+      //   )
+      // // formData.append('link', links)
+      // links.forEach(
+      //   links => formData.append('links[]', links)
+      //   )
       // formData.append('isGroupChat', true)
       // userChat.forEach(
       //   userChat => formData.append('userChat[]', userChat.length<2?Alert.alert('Please select atleast 3 users'):userChat)
       //   )
       // formData.append('message', message==''||message==null?Alert.alert('Message should not be empty'):message)
-      const response = await axios.put(BASE_URL + `/api/user/${id}/update/details`,
-        formData,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      )
-      console.log(response.data);
+      const response = await axios.put(BASE_URL + `/api/user/${id}/update/details`,{
+        bio:bio,
+        occupation:work,
+        studiedAt:study,
+        status:status,
+        dob:dob,
+        location:location
+      })
+        // formData,
+        // {
+        //   headers: {
+        //     Accept: 'application/json',
+        //     'Content-Type': 'multipart/form-data'
+        //   }
+        // }
+      // )
+      console.log("profile updated",response.data);
       dispatch(updateProfile(response.data),
+      dispatch(getAllUserDetailsByUserId(id))
       );
       // }
     } catch (err) {

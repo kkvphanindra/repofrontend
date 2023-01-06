@@ -24,7 +24,7 @@ const AllContacts = ({ route }) => {
   const authState = useSelector(state => state.authState);
   const chatState = useSelector(state => state.chatState);
   const [bodySMS, setBodySMS] = useState(
-    'Please follow https://aboutreact.com',
+    'Please download and join Frisles',
   );
 
   const { isGroupChat } = route.params;

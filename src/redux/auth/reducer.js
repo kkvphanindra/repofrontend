@@ -95,7 +95,7 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case UPDATE_PROFILE: {
-      // console.log('groupdetils', action.data);
+      console.log('profile updated reducer', action.data);
       return {
         ...state,
         profileUpdate: action.data,
