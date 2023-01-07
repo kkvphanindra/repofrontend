@@ -25,11 +25,11 @@ const notificationReducer = (state = initialState, action) => {
     // console.log("fired");
     switch (action.type) {
         case REQ: {
-            console.log("Getting Chat List Data");
+            // console.log("Getting Chat List Data");
             return { ...state, loading: true, error: "" };
         }
         case STATE_CLEANUP: {
-            console.log("Getting Chat List Data");
+            // console.log("Getting Chat List Data");
             return { ...state,userId:[],name:[],loading: true, error: "" };
         }
         case GET_ALL_PRIVACY_SETTINGS: {
@@ -51,7 +51,7 @@ const notificationReducer = (state = initialState, action) => {
             }
         }
         case POST_PRIVACY_SELECTED: {
-            console.log("POST_PRIVACY_SELECTED", action.data)
+            // console.log("POST_PRIVACY_SELECTED", action.data)
             return{
                 ...state,
                 selected: action.data,
@@ -60,7 +60,7 @@ const notificationReducer = (state = initialState, action) => {
             }
         }
         case POST_NOTIFICATION_SELECTED: {
-            console.log("POST_PRIVACY_SELECTED", action.data)
+            // console.log("POST_PRIVACY_SELECTED", action.data)
             return{
                 ...state,
                 notificationSelected: action.data,
@@ -70,7 +70,7 @@ const notificationReducer = (state = initialState, action) => {
             }
         }
         case ENABLED: {
-            console.log("enabled", action.data)
+            // console.log("enabled", action.data)
             return{
                 ...state,
                 enabled: true,

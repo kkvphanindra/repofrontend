@@ -51,7 +51,7 @@ const ProfileHome = ({navigation, route}) => {
 //     postState.data
 //     // authState.groupDetails.map(i => i),
 //   );
-console.log("first",userId, authState?.userDetails)
+// console.log("first",userId, authState?.userDetails)
   return (
     <SafeAreaView>
       <ScrollView

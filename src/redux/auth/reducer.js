@@ -59,7 +59,7 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case REQ_FAILURE: {
-      console.log('request failed', action.error);
+      // console.log('request failed', action.error);
       return {
         ...state,
         data: [],
@@ -95,7 +95,7 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case UPDATE_PROFILE: {
-      console.log('profile updated reducer', action.data);
+      // console.log('profile updated reducer', action.data);
       return {
         ...state,
         profileUpdate: action.data,
@@ -104,7 +104,7 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case REQ_TOKEN: {
-      console.log('tok', action.data);
+      // console.log('tok', action.data);
       return {
         ...state,
         data: action.data,

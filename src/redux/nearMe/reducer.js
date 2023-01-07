@@ -14,7 +14,7 @@ import {
   const locationReducer = (state = initialState, action) => {
     switch (action.type) {
         case REQ: {
-            console.log("Getting location Data");
+            // console.log("Getting location Data");
             return { ...state, loading: true, error: "" };
         }
       case SUCCESS: {

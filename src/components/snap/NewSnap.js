@@ -133,8 +133,8 @@ const NewSnap = props => {
 
     dispatch(updateFields(val, fieldId, isValid));
   };
-  console.log("admin", props.admin, props.activityId, props.groupId)
-  // console.log("null check")
+  // console.log("admin", props.admin, props.activityId, props.groupId)
+  console.log("new snap screen")
   return (
     <View>
       <View style={styles.thoughts}>
@@ -225,14 +225,15 @@ const NewSnap = props => {
                     // dispatch(getAllPostsByUserId(authState.userId))
                     {
                       props.groupId === '' ?
+                      Alert.alert("Please select Group here"):
                       <>
                         {props.activityId == '' ?
                           Alert.alert('Please select activity') :
-                          Alert.alert('Please Select Group')
+                          // Alert.alert('Please Select Group')
+                          navigation.goBack()
+                          // null
                         }
                       </>
-                      :
-                      navigation.navigate('snap')
                     }
                   }
                   }>

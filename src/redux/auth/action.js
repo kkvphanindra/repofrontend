@@ -256,13 +256,13 @@ export const tokenRetriever = () => {
 export const getAllUserDetailsByUserId = (id) => {
   return async (dispatch) => {
     try {
-      console.log("userdetails id user", id)
+      // console.log("userdetails id user", id)
       const response = await axios.get(
         BASE_URL + `/api/login/${id}`
       )
       if (response.status) {
         dispatch(userDetails(response.data));
-        console.log("userdet", response.data)
+        // console.log("userdet", response.data)
       }
     }
     catch (err) {
@@ -276,7 +276,7 @@ export const getAllUserDetailsByUserId = (id) => {
 export const getAllGroupDetailsByUserId = (id) => {
   return async (dispatch) => {
     try {
-      console.log("groupdetails id user", id)
+      // console.log("groupdetails id user", id)
       const response = await axios.get(
         BASE_URL + `/api/chat/group/user/${id}`
       )
@@ -309,21 +309,21 @@ export const profileUpdate = (
 ) => {
   return async dispatch => {
     // dispatch(reqActivityLoading());
-    console.log(
-      'update profile',
-      "id:",id,
-    "profilePicture:", profilePicture,
-    "coverPicture:", coverPicture,
-    "bio:", bio,
-    "occupation:", work,
-    "studiedAt:" ,study,
-    "status:", status,
-    "dob:", dob,
-    "location:", location,
-    "interest:", interest,
-    "hobbies:", hobbies,
-    "links:" ,links
-    );
+    // console.log(
+    //   'update profile',
+    //   "id:",id,
+    // "profilePicture:", profilePicture,
+    // "coverPicture:", coverPicture,
+    // "bio:", bio,
+    // "occupation:", work,
+    // "studiedAt:" ,study,
+    // "status:", status,
+    // "dob:", dob,
+    // "location:", location,
+    // "interest:", interest,
+    // "hobbies:", hobbies,
+    // "links:" ,links
+    // );
     try {
       // const formData = new FormData();
       // formData.append('profilePicture', profilePicture !== null ? {
@@ -375,7 +375,7 @@ export const profileUpdate = (
         //   }
         // }
       // )
-      console.log("profile updated",response.data);
+      // console.log("profile updated",response.data);
       dispatch(updateProfile(response.data),
       dispatch(getAllUserDetailsByUserId(id))
       );

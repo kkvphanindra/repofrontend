@@ -44,7 +44,7 @@ export const reqFailure = error => ({
 export const getAllNotificationSetting = id => {
   return async dispatch => {
     try {
-      console.log('id', id);
+      // console.log('id', id);
       const response = await axios.get(
         BASE_URL + `/api/notification/user/${id}`,
       );
@@ -62,7 +62,7 @@ export const getAllNotificationSetting = id => {
 export const getAllPrivacySetting = id => {
   return async dispatch => {
     try {
-      console.log('id', id);
+      // console.log('id', id);
       const response = await axios.get(
         BASE_URL + `/api/privacyAndSecurity/user/${id}`,
       );
@@ -81,7 +81,7 @@ export const getAllPrivacySetting = id => {
 export const selectedPrivacySetting = (id, psId, psItemId, isEnabled) => {
   return async dispatch => {
     try {
-      console.log('selecting privacy', id, psId, psItemId, isEnabled);
+      // console.log('selecting privacy', id, psId, psItemId, isEnabled);
       const response = await axios.post(
         BASE_URL + `/api/privacyAndSecurity/user/${id}`,
         {
@@ -103,7 +103,7 @@ export const selectedPrivacySetting = (id, psId, psItemId, isEnabled) => {
 export const selectedNotificationSetting = (id,notificationId, isEnabled) => {
   return async dispatch => {
     try {
-      console.log('notification action selecting', id,notificationId, isEnabled);
+      // console.log('notification action selecting', id,notificationId, isEnabled);
       const response = await axios.post(
         BASE_URL + `/api/notification/user/${id}`,
         {
@@ -113,7 +113,7 @@ export const selectedNotificationSetting = (id,notificationId, isEnabled) => {
       );
       if (response.status) {
         dispatch(notificationSettingSelect(response.data));
-        console.log("selected notification", response.data)
+        // console.log("selected notification", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');

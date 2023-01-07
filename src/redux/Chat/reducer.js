@@ -59,15 +59,15 @@ const chatReducer = (state = initialState, action) => {
     // console.log("fired");
     switch (action.type) {
         case REQ_START: {
-            console.log("Getting Chat List Data");
+            // console.log("Getting Chat List Data");
             return { ...state, loading: true, error: "" };
         }
         case STATE_CLEANUP: {
-            console.log("Getting Chat List Data");
+            // console.log("Getting Chat List Data");
             return { ...state,userId:[],name:[],loading: true, error: "" };
         }
         case CHATLIST_SUCCESS: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -77,7 +77,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case SINGLE_CONTACT_FILTER: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -87,7 +87,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case GROUP_CONTACT_FILTER: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -97,7 +97,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case SINGLE_CHAT_FILTER: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -109,7 +109,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case SINGLE_CHAT_FILTER_UPDATE: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -121,7 +121,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case GROUP_CHAT_FILTER: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -133,7 +133,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case GROUP_CHAT_FILTER_UPDATE: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -145,7 +145,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case CHATLIST_SUCCESS_GROUP_CHAT: {
-            console.log("Successfully group Got List");
+            // console.log("Successfully group Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -155,7 +155,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case FETCH_CHATLIST_BY__USER_ID: {
-            console.log("Successfully Got Chat List by User id");
+            // console.log("Successfully Got Chat List by User id");
             return {
                 ...state,
                 data: action.data,
@@ -165,7 +165,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case FILTER: {
-            console.log("Successfully filtering");
+            // console.log("Successfully filtering");
             return {
                 ...state,
                 data: action.data,
@@ -174,7 +174,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case REMOVE_FILTER: {
-            console.log("Successfully filter removed");
+            // console.log("Successfully filter removed");
             return {
                 ...state,
                 data: initialState.initialData,
@@ -211,8 +211,8 @@ const chatReducer = (state = initialState, action) => {
             }
         }
         case EDIT_NAME: {
-            console.log("Successfully Got group ediited");
-            console.log(action.data);
+            // console.log("Successfully Got group ediited");
+            // console.log(action.data);
             return {
                 ...state,
                 editGroup: action.data,
@@ -221,7 +221,7 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case CREATE_CHAT: {
-            console.log("chat create", action.data)
+            // console.log("chat create", action.data)
             return{
                 ...state,
                 chat: action.data,
@@ -283,7 +283,7 @@ const chatReducer = (state = initialState, action) => {
         case ADD_CONTACT:{
             let final = [];
                 for (let j = 0; j < action.data.length; j++) {
-                  const element = caction.data[j];
+                  const element = action.data[j];
                   final.push({
                     name: element.givenName,
                     phone: element.phoneNumbers,

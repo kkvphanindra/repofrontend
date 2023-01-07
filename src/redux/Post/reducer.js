@@ -74,7 +74,7 @@ const storeReducer = (state = initialstate, action) => {
             return { ...state, isTouched: newInputIsTouched };
         }
         case REQ_START: {
-            console.log("getting shops all data");
+            // console.log("getting shops all data");
             return {
                 ...state,
                 loading: true,
@@ -82,7 +82,7 @@ const storeReducer = (state = initialstate, action) => {
             };
         }
         case POST_SUCCESS: {
-            console.log("Successfully Got posts List");
+            // console.log("Successfully Got posts List");
             // console.log(action.data);
             return {
                 ...state,

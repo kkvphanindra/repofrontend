@@ -15,15 +15,15 @@ const initialState = {
 
 // REDUCER FUNCTION.
 const messageReducer = (state = initialState, action) => {
-    console.log("fired");
+    // console.log("fired");
     switch (action.type) {
         case REQ_START: {
-            console.log("Getting Message Data");
+            // console.log("Getting Message Data");
             return { ...state, loading: true, error: "" };
         }
 
         case MESSAGE_SUCCESS: {
-            console.log("Successfully Got List");
+            // console.log("Successfully Got List");
             console.log(action.data);
             return {
                 ...state,
@@ -33,7 +33,7 @@ const messageReducer = (state = initialState, action) => {
             };
         }
         case FETCH_MESSAGE_BY__CHAT_ID: {
-            console.log("Successfully Got Message by Chat id");
+            // console.log("Successfully Got Message by Chat id");
             return {
                 ...state,
                 data: action.data,

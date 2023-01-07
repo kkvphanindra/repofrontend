@@ -65,15 +65,15 @@ const activityReducer = (state = initialState, action) => {
       return {...state, isTouched: newInputIsTouched};
     }
     case REQ_START: {
-      console.log('Getting Service Data');
+      // console.log('Getting Service Data');
       return {...state, loading: true, error: ''};
     }
     case STATE_CLEANUP: {
-      console.log("Getting Chat List Data");
+      // console.log("Getting Chat List Data");
       return { ...state,selectedUsers:[],activityTypeData:[],loading: true, error: "" };
   }
     case GET_ALL_ACTIVITY_BY_USER_ID: {
-      console.log('Successfully Got activity by userId');
+      // console.log('Successfully Got activity by userId');
       // state.data = state.data.concat(action.data)
       // console.log(action);
       return {
@@ -85,7 +85,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case ACTIVITY_TYPE: {
-      console.log('Successfully Got activity type');
+      // console.log('Successfully Got activity type');
       return {
         ...state,
         activityTypeData: action.data,
@@ -99,7 +99,7 @@ const activityReducer = (state = initialState, action) => {
       });
       let arr = [];
       action.data.forEach(c => arr.push(c.activityType.name));
-      console.log("activity type name filtered", arr, action.data)
+      // console.log("activity type name filtered", arr, action.data)
       return {
         ...state,
         activityTypeName: newArray,
@@ -107,7 +107,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case NEW_ACTIVITY_BY_USER_ID: {
-      console.log('successfully added new activity');
+      // console.log('successfully added new activity');
       return {
         ...state,
         newActivityId: action.id,
@@ -116,7 +116,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case GET_ACTIVITY_DETAILS_BY_ACTIVITY_ID: {
-      console.log('Successfully Got activity details');
+      // console.log('Successfully Got activity details');
       return {
         ...state,
         data: action.data,
@@ -125,7 +125,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case GET_ACTIVITY_NAME: {
-      console.log('Successfully Got activity Name');
+      // console.log('Successfully Got activity Name');
       // console.log(action.data);
       return {
         ...state,
@@ -144,7 +144,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case GET_GROUP_NAME: {
-      console.log('Successfully Got GROUP Name');
+      // console.log('Successfully Got GROUP Name');
       // console.log(action.data);
       return {
         ...state,
@@ -170,7 +170,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case GET_ALL_USERS_BY_GROUP_ID: {
-      console.log('successfully got all users by group id ');
+      // console.log('successfully got all users by group id ');
       console.log(action.data);
       return {
         ...state,
@@ -180,7 +180,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case SELECTED_USERS: {
-      console.log('successfully got all selected users ');
+      // console.log('successfully got all selected users ');
       console.log(action.data);
       return {
         ...state,
@@ -190,7 +190,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case STARTED_TIME: {
-      console.log('successfully passed started time');
+      // console.log('successfully passed started time');
       console.log('act', action.data);
       return {
         ...state,
@@ -200,7 +200,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case ENDED_TIME: {
-      console.log('successfully passed ended time');
+      // console.log('successfully passed ended time');
       console.log(action.data);
       return {
         ...state,
@@ -210,7 +210,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case USER_STATUS: {
-      console.log('successfully passed user status');
+      // console.log('successfully passed user status');
       console.log(action.data);
       return {
         ...state,
@@ -220,7 +220,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case DELETE_ACTIVITY: {
-      console.log('successfully Deleted activity');
+      // console.log('successfully Deleted activity');
       console.log(action.data);
       return {
         ...state,
@@ -230,7 +230,7 @@ const activityReducer = (state = initialState, action) => {
       };
     }
     case ACTIVITY_SUCCESS: {
-      console.log('Successfully Got List');
+      // console.log('Successfully Got List');
       console.log(action.data);
       return {
         ...state,

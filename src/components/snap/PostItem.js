@@ -90,13 +90,13 @@ const PostItem = props => {
   const modalClose = () => {
     setModalVisible(!modalVisible);
   };
-  useEffect(()=>{
-    console.log("i am post item screen")
-    dispatch(getAllPostsByUserId(authState.userId));
+  // useEffect(()=>{
+    // console.log("i am post item screen")
+    // dispatch(getAllPostsByUserId(authState.userId));
     //   dispatch(groupName())
     //   dispatch(getActivityType())
   //     // dispatch(activityName())
-    },[dispatch])
+    // },[dispatch])
   let user = {
     userId: '6dddae20-5925-11ed-a555-c9afc10124e6',
     firstName: 'Danish',

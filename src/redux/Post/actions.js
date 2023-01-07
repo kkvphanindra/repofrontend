@@ -91,19 +91,19 @@ export const genuinePost = () => ({
 
 export const getAllPostsByUserId = (id) => {
     return async (dispatch) => {
-        dispatch(req());
+        dispatch(reqStartNewPost());
         try {
-            console.log("post id user",id)
+            // console.log("post id user",id)
             const response = await axios.get(
                 BASE_URL+`/api/post/user/${id}?savedPost=false`
             )
             if (response.status) {
                 dispatch(reqSuccess(response.data));
-                // console.log(response.data)
+                console.log(response.data)
             } 
         }
         catch (err) {
-            console.log("cool")
+            // console.log("cool")
             console.log("Request failed post");
             console.log(err.message)
             dispatch(reqFailure(err.message));
@@ -114,9 +114,9 @@ export const getAllPostsByUserId = (id) => {
 export const addNewPost = (post, userId, location, lat, long, image,approval,activityId,groupId,Alert) => {
     return async (dispatch) => {
         // dispatch(reqStartNewPost());
-        console.log("add new post", post, userId, lat, long,image,approval,groupId,activityId)
+        // console.log("add new post", post, userId, lat, long,image,approval,groupId,activityId)
         try {
-            if(groupId!==undefined){
+            // if(groupId!==undefined){
                 const formData = new FormData();
                 formData.append('description', post)
                 formData.append('userId', userId)
@@ -141,17 +141,18 @@ export const addNewPost = (post, userId, location, lat, long, image,approval,act
                         }
                     }
                 )
-                console.log("new post res", response.data)
+                // console.log("new post res", response.data)
                 if (response) {
-                    // console.log('COMPLETE RESPONSE DATA:', response.data)
+                    console.log('COMPLETE RESPONSE DATA add post:', response.data)
                     // console.log(response.data)
                     dispatch(stateCleanup())
                     dispatch(reqSuccessNewPost());
-                    // dispatch(getAllPostsByUserId())
+                    dispatch(getAllPostsByUserId(userId))
+                    Alert.alert("Post added Successfully")
                 }
-            }else{
-                Alert.alert('Please Select group')
-            }
+            // }else{
+            //     Alert.alert('Please Select group')
+            // }
         }
         catch (err) {
             console.log("Request failed add post");
@@ -199,7 +200,7 @@ export const addPostLike = (postId, userId) => {
 export const postHide = (post, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(post, userId)
+        // console.log(post, userId)
         try {
             const response = await axios.post(
                 BASE_URL+`/api/post/${post}/user/${userId}`,
@@ -208,7 +209,7 @@ export const postHide = (post, userId) => {
                 }
             )
             if (response) {
-                console.log("post hide action log", response.data)
+                // console.log("post hide action log", response.data)
                 dispatch(hidePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -233,7 +234,7 @@ export const postSave = (post, userId) => {
                 }
             )
             if (response) {
-                console.log("post save action log", response.data)
+                // console.log("post save action log", response.data)
                 dispatch(savePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -249,7 +250,7 @@ export const postSave = (post, userId) => {
 export const postShare = (post, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(post, userId)
+        // console.log(post, userId)
         try {
             const response = await axios.post(
                 BASE_URL+`/api/post-share`,
@@ -259,7 +260,7 @@ export const postShare = (post, userId) => {
                 }
             )
             if (response) {
-                console.log("post share action log", response.data)
+                // console.log("post share action log", response.data)
                 dispatch(sharePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -275,7 +276,7 @@ export const postShare = (post, userId) => {
 export const postVerify = (user, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(user, userId)
+        // console.log(user, userId)
         try {
             const response = await axios.post(
                 BASE_URL+`/api/verify/user/${userId}`,
@@ -284,7 +285,7 @@ export const postVerify = (user, userId) => {
                 }
             )
             if (response) {
-                console.log("post share action log", response.data)
+                // console.log("post share action log", response.data)
                 dispatch(verifyPost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }
@@ -300,13 +301,13 @@ export const postVerify = (user, userId) => {
 export const postGenuine = (user, userId) => {
     return async (dispatch) => {
         dispatch(reqStartNewPost());
-        console.log(user, userId)
+        // console.log(user, userId)
         try {
             const response = await axios.get(
                 BASE_URL+`/api/verify/user/${userId}`,
             )
             if (response) {
-                console.log("post share action log", response.data)
+                // console.log("post share action log", response.data)
                 dispatch(genuinePost(response.data))
                 dispatch(getAllPostsByUserId(userId));
             }

@@ -33,7 +33,7 @@ import { getAllMessageByChatId } from "../Message/actions";
 var socket, selectedChatCompare;
 
 export const req = () => {
-  console.log("yo");
+  ////console.log("yo");
   return { type: REQ_START };
 };
 
@@ -154,7 +154,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
 
     dispatch(req());
     try {
-      console.log("chat", privateChat, id, groupChat)
+      ////console.log("chat", privateChat, id, groupChat)
       if (privateChat === true) {
         const response = await axios.get(
           BASE_URL+`/api/chat/list/user/${id}?isPrivateList=${privateChat}`,
@@ -163,7 +163,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
           dispatch(reqSuccess(response.data));
           dispatch(reqSingleChat(response.data))
           dispatch(reqSingleChatFilter(response.data))
-          // console.log("today", response.data)
+          // ////console.log("today", response.data)
         }
       }
       else if (groupChat === true) {
@@ -174,7 +174,7 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
           dispatch(reqSuccessGroupChat(response.data));
           dispatch(reqGroupChat(response.data))
           dispatch(reqGroupChatFilter(response.data))
-          // console.log("week", response.data)
+          // ////console.log("week", response.data)
         }
       }
     } catch (err) {
@@ -188,19 +188,19 @@ export const getAllChatListByUserId = (id, privateChat, groupChat) => {
 export const  getContact = (arr,isGroupChat) => {
   return async (dispatch) => {
     dispatch(req());
-    console.log("fx", arr)
+    ////console.log("fx", arr)
 
     try {
-      console.log("arr at action", arr)
+      ////console.log("arr at action", arr)
       const response = await axios.post(
         BASE_URL+`/api/user/list/details`,
         {
           contacts: arr
         },
       );
-      console.log("first")
-      console.log()
-      console.log("response", response.data)
+      ////console.log("first")
+      // console.log()
+      //console.log("response", response.data)
 
       if(isGroupChat){
         console.log(("check"))
@@ -210,7 +210,7 @@ export const  getContact = (arr,isGroupChat) => {
         dispatch(reqContacts(response.data));
         dispatch(singleFilter(response.data))
       }
-      // console.log("today", response.data)
+      // //console.log("today", response.data)
     } catch (err) {
       console.log('REQUEST FAILED');
       console.log(err.response.status);
@@ -222,7 +222,7 @@ export const  getContact = (arr,isGroupChat) => {
 export const  loadContact = (contact) => {
   return async (dispatch) => {
     dispatch(req());
-    console.log("loadContact")
+    //console.log("loadContact")
 
     let final = [];
     
@@ -255,7 +255,7 @@ export const groupCreate = (chatName, userChat, userId, image, message, Alert) =
       userChat.push(userId)
       if(userChat.length>2){
         if(message!==''){
-          console.log("arr at action", chatName,userId, image, userChat,message)
+          //console.log("arr at action", chatName,userId, image, userChat,message)
           const formData = new FormData();
           formData.append('chatName', chatName)
           formData.append('isGroupChat', true)
@@ -279,7 +279,7 @@ export const groupCreate = (chatName, userChat, userId, image, message, Alert) =
                 }
               }
               )
-              console.log("response dreate group", response.data)
+              //console.log("response dreate group", response.data)
               dispatch(stateCleanUp())
               dispatch(createGroup(response.data));
         }else{
@@ -290,7 +290,7 @@ export const groupCreate = (chatName, userChat, userId, image, message, Alert) =
           dispatch(stateCleanUp())
           Alert.alert('Please select atleast 3 users')
         }
-        // console.log("today", response.data)
+        // //console.log("today", response.data)
       } catch (err) {
       console.log('REQUEST FAILED group creation');
       console.log(err);
@@ -306,11 +306,11 @@ export const createChat = (friendId, userId) => {
     console.log(friendId)
     console.log(userId)
     try {
-      console.log("arr at action create chat", friendId, userId)
+      //console.log("arr at action create chat", friendId, userId)
       let arr = [];
       arr.push(userId);
       arr.push(friendId);
-      console.log("cd",arr)
+      //console.log("cd",arr)
       const response = await axios.post(
         BASE_URL+`/api/chat`,
         {
@@ -318,8 +318,8 @@ export const createChat = (friendId, userId) => {
           userChat: arr
         },
       );
-      console.log("xxx", response.data)
-      // console.log("today", response.data)
+      //console.log("xxx", response.data)
+      // //console.log("today", response.data)
     } catch (err) {
       console.log('REQUEST FAILED');
       console.log(err.message);
@@ -332,13 +332,13 @@ export const getGroupDetailsbyChatId = (id) => {
   return async (dispatch) => {
     dispatch(req());
     try {
-      console.log("group chat", id)
+      ////console.log("group chat", id)
       const response = await axios.get(
         BASE_URL+`/api/chat/${id}/details`,
       );
       if (response.status) {
         dispatch(groupByChatId(response.data));
-        console.log("today", response.data)
+        ////console.log("today", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -349,7 +349,7 @@ export const getGroupDetailsbyChatId = (id) => {
 }
 
 export const exitGroupChat = (chatId, authId) => {
-  console.log("chatId", chatId, "authId", authId)
+  ////console.log("chatId", chatId, "authId", authId)
   return async (dispatch) => {
     dispatch(req());
     try {
@@ -358,7 +358,7 @@ export const exitGroupChat = (chatId, authId) => {
       );
       if (response.status) {
         dispatch(exitGroup(response.data));
-        console.log("today---", response.data)
+        ////console.log("today---", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -369,7 +369,7 @@ export const exitGroupChat = (chatId, authId) => {
 }
 
 export const clearMessages = (chatId,id) => {
-  console.log("chatId:::", chatId,id)
+  // ////console.log("chatId:::", chatId,id)
   return async (dispatch) => {
     dispatch(req());
     try {
@@ -379,7 +379,7 @@ export const clearMessages = (chatId,id) => {
       if (response.status) {
         dispatch(clearChat(response.data));
         dispatch(getAllMessageByChatId())
-        console.log("clear chat---", response.data)
+        // ////console.log("clear chat---", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED clear chat');
@@ -401,12 +401,12 @@ export const editGroup = (chatId, chatName) => {
           chatName: chatName
         },
       );
-      console.log("edit", response.data)
+      ////console.log("edit", response.data)
       dispatch(reqEditGroup(response.data))
-      // console.log("today", response.data)
+      // ////console.log("today", response.data)
     } catch (err) {
       console.log('REQUEST FAILED');
-      console.log("req failed edit group nam",err.message);
+      ////console.log("req failed edit group nam",err.message);
       dispatch(reqFailure(err.message));
     }
   };

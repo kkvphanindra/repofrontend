@@ -106,7 +106,7 @@ export const deleteActivity = data => ({
 export const getAllActivityByUserId = (id,today, week, month, year) => {
   return async dispatch => {
     try {
-      // console.log("week", today,week,month)
+      // //////console.log("week", today,week,month)
       if (today === true) {
         const response = await axios.get(
           BASE_URL+
@@ -115,7 +115,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response.status) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          console.log("today")
+          // //today")
         }
       } else if (week === true) {
         const response = await axios.get(
@@ -125,7 +125,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          console.log("week", )
+          //week", )
         }
       } else if (month === true) {
         const response = await axios.get(
@@ -134,7 +134,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          console.log("month", )
+          //month", )
         }
       } else if (year === true) {
         const response = await axios.get(
@@ -143,7 +143,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          console.log("year",)
+          //year",)
         }
       }
     } catch (err) {
@@ -156,7 +156,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
 export const newActivity = (id,startDate,endDate,startTime,endTime,activityName,groupName,groupId, message, users) => {
   return async dispatch => {
     dispatch(req());
-    // console.log("product actions", _id)
+    // ////////console.log("product actions", _id)
     console.log('new activity', id,startDate,endDate,startTime,endTime,activityName,groupName,message, users);
     try {
       users.push(id)
@@ -201,7 +201,7 @@ export const activityByActivityId = id => {
       );
       if (response.status) {
         dispatch(getActivityDetailsByactivityId(response.data));
-        // console.log("today", response.data)
+        // ////////console.log("today", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -220,7 +220,7 @@ export const getActivityType = id => {
       if (response.status) {
         dispatch(activityType(response.data));
         dispatch(ActivityTypeName(response.data));
-        console.log("activity Type", response.data)
+        ////////console.log("activity Type", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -239,7 +239,7 @@ export const activityName = () => {
       if (response.status) {
         dispatch(getActivityName(response.data));
         dispatch(ActivityName(response.data));
-        // console.log("activityName", response.data)
+        // ////////console.log("activityName", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -258,7 +258,7 @@ export const groupName = () => {
       if (response.status) {
         dispatch(getGroupName(response.data));
         dispatch(GroupName(response.data));
-        // console.log("GroupName", response.data)
+        // ////////console.log("GroupName", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -277,7 +277,7 @@ export const UsersByGroupId = id => {
       if (response.status) {
         dispatch(getAllUsersByGroupId(response.data));
         // dispatch(GroupName(response.data));
-        // console.log("GroupName", response.data)
+        // ////////console.log("GroupName", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');
@@ -291,7 +291,7 @@ export const startTime = (startTime, activityId, startId) => {
   return async dispatch => {
     dispatch(req());
     console.log('endTime activity action', startTime, activityId, startId);
-    // console.log("product actions", _id)
+    // ////////console.log("product actions", _id)
     try {
       const response = await axios.post(
         // STOREURL +
@@ -318,7 +318,7 @@ export const endTime = (endTime, activityId, endId) => {
   return async dispatch => {
     dispatch(req());
     console.log('endTime activity action', endTime, activityId, endId);
-    // console.log("product actions", _id)
+    // ////////console.log("product actions", _id)
     try {
       const response = await axios.put(
         // STOREURL +
@@ -357,7 +357,7 @@ export const deleteActivityByActivityId = (status,activityId) => {
         console.log('else if', response.data);
         dispatch(deleteActivity(response.data.message));
         // dispatch(reqSuccessGetProducts(response.data))
-        // console.log("351 product reducer", response.data, response.status)
+        // ////////console.log("351 product reducer", response.data, response.status)
       }
     } catch (err) {
       console.log('Request failed');
@@ -371,7 +371,7 @@ export const userStatusByactivityId = (status, activityId, userId) => {
   return async dispatch => {
     dispatch(req());
     console.log('user status activity action', status, activityId, userId);
-    // console.log("product actions", _id)
+    // ////////console.log("product actions", _id)
     try {
       const response = await axios.put(
         BASE_URL +
