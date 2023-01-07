@@ -11,18 +11,20 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  StyleSheet,
   Text,
   useColorScheme,
   View,
   LogBox,
   Image,
   Settings,
+  StyleSheet,
 } from 'react-native';
 import {
   NavigationContainer,
   useNavigation,
   getFocusedRouteNameFromRoute,
+  TouchableOpacity,
+  DrawerActions,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -76,20 +78,13 @@ import SelectActivity from './src/scheduled-activity/SelectActivity';
 import ScheduleTime from './src/scheduled-activity/ScheduleTime';
 import ActivityAssign from './src/scheduled-activity/ActivityAssign';
 import ActivityHome from './src/scheduled-activity/ActivityHome';
+import SlambookTopTab from './src/slambook/Header';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const tabHiddenRoutes = [];
 function HomeStackScreen({navigation, route}) {
-  // useLayoutEffect(() => {
-  //   // const routeName = getFocusedRouteNameFromRoute(route);
-  //   if (tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))) {
-  //     navigation.setOptions({tabBarStyle: {display: 'none'}});
-  //   } else {
-  //     navigation.setOptions({tabBarStyle: {display: 'flex'}});
-  //   }
-  // }, [navigation, route]);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -362,11 +357,20 @@ function DrawerNv() {
         }}
       />
       <Drawer.Screen
-        name="slamBook"
-        component={SlambookHome}
-        options={{
-          drawerLabel: 'Slam-Book',
-        }}
+        name="slambook"
+        component={SlambookTopTab}
+        options={({ navigation }) => ({
+          drawerLabel:'Slam-Book',
+        //   headerTitle: (
+        //     // <View>
+        //     //   <MaterialIcons name="menu" onPress={() => navigation.openDrawer()} size={28}/>
+        //     // </View>
+        //     <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuWrapper}>
+        //     <Image style={styles.menuIcon} source={require('./src/assets/icons/png/menu-icon.png')} />
+        //     {console.log("drawer slam")}
+        // </TouchableOpacity>
+        //   ),
+        })}
       />
       <Drawer.Screen
         name="schedule"
@@ -442,6 +446,7 @@ const App = () => {
           <Stack.Screen name="slambookRequest" component={SlambookRequest} />
           <Stack.Screen name="slambookForm" component={SlambookForm} />
           <Stack.Screen name="slambookHome" component={SlambookHome} />
+          <Stack.Screen name="slambookTopTab" component={SlambookTopTab} />
           <Stack.Screen name="notifications" component={Notifications} />
           <Stack.Screen name="scheduledHome" component={ScheduledHome} />
           <Stack.Screen name="activityHome" component={ActivityHome} />
@@ -478,4 +483,13 @@ const App = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  menuWrapper: {
+    marginLeft: 30
+},
+menuIcon: {
+    width: 29,
+    height: 20
+},
+})
 export default App;

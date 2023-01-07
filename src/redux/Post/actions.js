@@ -99,7 +99,7 @@ export const getAllPostsByUserId = (id) => {
             )
             if (response.status) {
                 dispatch(reqSuccess(response.data));
-                console.log(response.data)
+                // console.log(response.data)
             } 
         }
         catch (err) {
@@ -143,7 +143,7 @@ export const addNewPost = (post, userId, location, lat, long, image,approval,act
                 )
                 // console.log("new post res", response.data)
                 if (response) {
-                    console.log('COMPLETE RESPONSE DATA add post:', response.data)
+                    // console.log('COMPLETE RESPONSE DATA add post:', response.data)
                     // console.log(response.data)
                     dispatch(stateCleanup())
                     dispatch(reqSuccessNewPost());

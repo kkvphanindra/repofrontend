@@ -1,4 +1,4 @@
-import {DrawerActions} from '@react-navigation/native';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
 import moment from 'moment';
 import React, {useEffect} from 'react';
 import {
@@ -23,12 +23,12 @@ import { getAllPostsByUserId } from '../redux/Post/actions';
 import Header from '../snap/header';
 const {width, height} = Dimensions.get('window');
 
-const ProfileHome = ({navigation, route}) => {
+const ProfileHome = ({route}) => {
   const authState = useSelector(state => state.authState);
   const dispatch = useDispatch();
   const {userId} = route.params;
   const postState=useSelector((state)=>state.postState)
-  // const {navigation} = props.navigation;
+  const navigation = useNavigation();
 
   const checkValidity = (val, fieldId) => {
     let isValid = true;
@@ -80,7 +80,7 @@ const ProfileHome = ({navigation, route}) => {
                 />
               </Pressable>
               <Pressable
-                onPress={() => navigation.navigate('slambookHome')}
+                onPress={() => navigation.navigate('slambook')}
                 style={styles.badgeWrapper}>
                 <Image
                   style={styles.badgeIcon}

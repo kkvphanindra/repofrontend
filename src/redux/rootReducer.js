@@ -6,6 +6,7 @@ import authReducer from './auth/reducer'
 import activityReducer from './activity/reducer'
 import notificationReducer from './Notifications/reducer';
 import locationReducer from './nearMe/reducer';
+import slambookReducer from './Slambook/reducer';
 
 const rootReducer = combineReducers({
   authState: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   messageState: messageReducer,
   notificationState: notificationReducer,
   locationState:locationReducer,
+  slambookState:slambookReducer
 });
 
 export default rootReducer;

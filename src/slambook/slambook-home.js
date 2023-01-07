@@ -18,179 +18,179 @@ import LinearGradient from 'react-native-linear-gradient';
 const { width, height } = Dimensions.get('window');
 
 const SlambookHome = ({navigation}) => {
-    const [index, setIndex] = useState(0);
-    const tab = ['Received - 21', 'Sent - 20', 'Pending - 8'];
-    const groupDatas = [
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Goku',
-          "number": '9878321453',
-          "id": 1
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Trunks',
-          "number": '9878321453',
-          "id": 2
-        },
-        {
-          "pic": require('../assets/images/picture-3.png'),
-          "name": 'Freza',
-          "number": '9878321453',
-          "id": 3
-        },
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Yamcha',
-          "number": '9878321453',
-          "id": 3
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Pikolo',
-          "number": '9878321453',
-          "id": 4
-        },
-        {
-          "pic": require('../assets/images/picture-3.png'),
-          "name": 'Cullin',
-          "number": '9878321453',
-          "id": 5
-        },
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Vegeta',
-          "number": '9878321453',
-          "id": 6
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Gohan',
-          "number": '9878321453',
-          "id": 7
-        },
-      ];
-    const groupDatasONE = [
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Trunks',
-          "number": '9878321453',
-          "id": 2
-        },
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Goku',
-          "number": '9878321453',
-          "id": 1
-        },
-        {
-          "pic": require('../assets/images/picture-3.png'),
-          "name": 'Freza',
-          "number": '9878321453',
-          "id": 3
-        },
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Yamcha',
-          "number": '9878321453',
-          "id": 3
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Pikolo',
-          "number": '9878321453',
-          "id": 4
-        },
-        {
-          "pic": require('../assets/images/picture-3.png'),
-          "name": 'Cullin',
-          "number": '9878321453',
-          "id": 5
-        },
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Vegeta',
-          "number": '9878321453',
-          "id": 6
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Gohan',
-          "number": '9878321453',
-          "id": 7
-        },
-      ];
-    const groupDatasTWO = [
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Goku',
-          "number": '9878321453',
-          "id": 1
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Trunks',
-          "number": '9878321453',
-          "id": 2
-        },
-        {
-          "pic": require('../assets/images/picture-3.png'),
-          "name": 'Freza',
-          "number": '9878321453',
-          "id": 3
-        },
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Yamcha',
-          "number": '9878321453',
-          "id": 3
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Pikolo',
-          "number": '9878321453',
-          "id": 4
-        },
-        {
-          "pic": require('../assets/images/picture-3.png'),
-          "name": 'Cullin',
-          "number": '9878321453',
-          "id": 5
-        },
-        {
-          "pic": require('../assets/images/picture-1.png'),
-          "name": 'Vegeta',
-          "number": '9878321453',
-          "id": 6
-        },
-        {
-          "pic": require('../assets/images/picture-2.png'),
-          "name": 'Gohan',
-          "number": '9878321453',
-          "id": 7
-        },
-      ];
-      const getItem = (data, index) => ({
-        id: Math.random().toString(12).substring(0),
-        name: data[index].name,
-        number: data[index].number,
-        pic: data[index].pic,
-      });
-      const getItemCount = (data) => groupDatas.length;
-      const ListItem = ({ data }) => {
-        // console.log('item', data)
-        return (
-            <View style={styles.listContainer} key={data.id}>
-                <Image style={styles.imageContainer} source={data.pic}/>
-                <View style={styles.contactWrapper}>
-                    <Text style={styles.contactName}>{data?.name ? data?.name: ''}</Text>
-                    <Text style={styles.contactNumber}>{data?.number}</Text>
-                </View>
-                <Pressable onPress={() => navigation.navigate('slambookRequest')} style={styles.smallButton}>
-                    <Text style={styles.smallButtonText}>Revert</Text>
-                </Pressable>
-            </View>
-        )}
+    // const [index, setIndex] = useState(0);
+    // const tab = ['Received - 21', 'Sent - 20', 'Pending - 8'];
+    // const groupDatas = [
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Goku',
+    //       "number": '9878321453',
+    //       "id": 1
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Trunks',
+    //       "number": '9878321453',
+    //       "id": 2
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-3.png'),
+    //       "name": 'Freza',
+    //       "number": '9878321453',
+    //       "id": 3
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Yamcha',
+    //       "number": '9878321453',
+    //       "id": 3
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Pikolo',
+    //       "number": '9878321453',
+    //       "id": 4
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-3.png'),
+    //       "name": 'Cullin',
+    //       "number": '9878321453',
+    //       "id": 5
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Vegeta',
+    //       "number": '9878321453',
+    //       "id": 6
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Gohan',
+    //       "number": '9878321453',
+    //       "id": 7
+    //     },
+    //   ];
+    // const groupDatasONE = [
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Trunks',
+    //       "number": '9878321453',
+    //       "id": 2
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Goku',
+    //       "number": '9878321453',
+    //       "id": 1
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-3.png'),
+    //       "name": 'Freza',
+    //       "number": '9878321453',
+    //       "id": 3
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Yamcha',
+    //       "number": '9878321453',
+    //       "id": 3
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Pikolo',
+    //       "number": '9878321453',
+    //       "id": 4
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-3.png'),
+    //       "name": 'Cullin',
+    //       "number": '9878321453',
+    //       "id": 5
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Vegeta',
+    //       "number": '9878321453',
+    //       "id": 6
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Gohan',
+    //       "number": '9878321453',
+    //       "id": 7
+    //     },
+    //   ];
+    // const groupDatasTWO = [
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Goku',
+    //       "number": '9878321453',
+    //       "id": 1
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Trunks',
+    //       "number": '9878321453',
+    //       "id": 2
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-3.png'),
+    //       "name": 'Freza',
+    //       "number": '9878321453',
+    //       "id": 3
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Yamcha',
+    //       "number": '9878321453',
+    //       "id": 3
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Pikolo',
+    //       "number": '9878321453',
+    //       "id": 4
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-3.png'),
+    //       "name": 'Cullin',
+    //       "number": '9878321453',
+    //       "id": 5
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-1.png'),
+    //       "name": 'Vegeta',
+    //       "number": '9878321453',
+    //       "id": 6
+    //     },
+    //     {
+    //       "pic": require('../assets/images/picture-2.png'),
+    //       "name": 'Gohan',
+    //       "number": '9878321453',
+    //       "id": 7
+    //     },
+    //   ];
+    //   const getItem = (data, index) => ({
+    //     id: Math.random().toString(12).substring(0),
+    //     name: data[index].name,
+    //     number: data[index].number,
+    //     pic: data[index].pic,
+    //   });
+    //   const getItemCount = (data) => groupDatas.length;
+    //   const ListItem = ({ data }) => {
+    //     // console.log('item', data)
+    //     return (
+    //         <View style={styles.listContainer} key={data.id}>
+    //             <Image style={styles.imageContainer} source={data.pic}/>
+    //             <View style={styles.contactWrapper}>
+    //                 <Text style={styles.contactName}>{data?.name ? data?.name: ''}</Text>
+    //                 <Text style={styles.contactNumber}>{data?.number}</Text>
+    //             </View>
+    //             <Pressable onPress={() => navigation.navigate('slambookRequest')} style={styles.smallButton}>
+    //                 <Text style={styles.smallButtonText}>Revert</Text>
+    //             </Pressable>
+    //         </View>
+    //     )}
     return (
         <View style={styles.container}>
                 <ImageBackground
@@ -215,7 +215,7 @@ const SlambookHome = ({navigation}) => {
                             </Pressable>
                         </View>
                         <View style={styles.tabSection}>
-                        {
+                        {/* {
                             tab.length && tab.map((e,i) => {
                                 return(
                                     <TouchableHighlight
@@ -231,12 +231,13 @@ const SlambookHome = ({navigation}) => {
                                     </TouchableHighlight>
                                 )
                             })
-                        }
+                        } */}
+
                         </View>
                 </ImageBackground>
 
                 <View style={styles.tabWrapper}>
-                <View style={styles.tabContainer}>
+                {/* <View style={styles.tabContainer}>
                 {
                         index === 0 && 
                         <VirtualizedList
@@ -270,7 +271,7 @@ const SlambookHome = ({navigation}) => {
                             getItem={getItem}
                         />
                     }
-                </View>
+                </View> */}
                 </View>
         </View>
     )

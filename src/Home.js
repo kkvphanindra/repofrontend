@@ -150,7 +150,7 @@ const Home = ({ navigation }) => {
                                 />
                             </Pressable>
                             <Pressable
-                                onPress={() => navigation.navigate('slambookHome')}
+                                onPress={() => navigation.navigate('slambook')}
                                 style={styles.badgeWrapper}>
                                 <Image
                                     style={styles.badgeIcon}
