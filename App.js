@@ -446,7 +446,7 @@ const App = () => {
           <Stack.Screen name="slambookRequest" component={SlambookRequest} />
           <Stack.Screen name="slambookForm" component={SlambookForm} />
           <Stack.Screen name="slambookHome" component={SlambookHome} />
-          <Stack.Screen name="slambookTopTab" component={SlambookTopTab} />
+          {/* <Stack.Screen name="slambookTopTab" component={SlambookTopTab} /> */}
           <Stack.Screen name="notifications" component={Notifications} />
           <Stack.Screen name="scheduledHome" component={ScheduledHome} />
           <Stack.Screen name="activityHome" component={ActivityHome} />

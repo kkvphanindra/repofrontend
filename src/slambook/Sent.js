@@ -14,8 +14,9 @@ const Sent = () => {
       dispatch(getAllSlambookByUserId(authState.userId, null, true));
     }, [dispatch]),
   );
-  console.log("slambook sent screen",slambookState.sentData)
+  // console.log("slambook sent screen",slambookState.sentData)
   return (
+    <View style={styles.container}>
     <View style={styles.tabWrapper}>
       <FlatList
         data={slambookState.sentData}
@@ -23,12 +24,17 @@ const Sent = () => {
         keyExtractor={item => item.id}
       />
     </View>
+    </View>
   );
 };
 
 export default Sent;
 
 const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    backgroundColor: '#fff'
+  },
   tabWrapper:{
     width: '100%',
     alignSelf: 'center',

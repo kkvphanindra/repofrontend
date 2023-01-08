@@ -1,9 +1,13 @@
 import {
     GET_SLAMBOOK_BY_USER_ID_RECEIVED,
      GET_SLAMBOOK_BY_USER_ID_SENT, 
+     GET_GROUP_FRIENDS_WITH_DETAILS,
      REQ, 
      SLAMBOOK_FAILURE,
-     STATE_CLEANUP
+     STATE_CLEANUP,
+     CREATE_SLAMBOOK,
+     UPDATE_SLAMBOOK_STATUS,
+     FILL_SLAMBOOK
      } from "./actionTypes";
 
 const initialstate = {
@@ -11,6 +15,8 @@ const initialstate = {
     data:[],
     receivedData:[],
     sentData:[],
+    groupDetails:[],
+    slambookFill:[],
 }
 
 const slambookReducer = (state = initialstate, action) => {
@@ -43,6 +49,34 @@ const slambookReducer = (state = initialstate, action) => {
                 loading: false,
             };
         }
+         case GET_GROUP_FRIENDS_WITH_DETAILS:{
+            return {
+                ...state,
+                groupDetails: action.data,
+                loading: false,
+            };
+         }
+         case CREATE_SLAMBOOK:{
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            };
+         }
+         case UPDATE_SLAMBOOK_STATUS:{
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            };
+         }
+         case FILL_SLAMBOOK:{
+            return {
+                ...state,
+                slambookFill: action.data,
+                loading: false,
+            };
+         }
         case SLAMBOOK_FAILURE : {
             return {
                 ...state,

@@ -3,15 +3,18 @@ import React, { useState } from 'react'
 
 const SlambookFlatlist = ({data}) => {
     const [button,setButton]=useState('')
-    console.log("button", button)
+    const statusButton= (name) =>{
+        setButton(name)
+        // console.log("flatlist sent", button)
+    }
   return (
-    <View style={styles.listContainer} key={data.id}>
-                 <Image style={styles.imageContainer} source={data.pic}/>
+    <View style={styles.listContainer} key={data?.invitedTo[0]?.userId}>
+                 <Image style={styles.imageContainer} source={data?.invitedTo[0]?.profilePicture}/>
                  <View style={styles.contactWrapper}>
-                     <Text style={styles.contactName}>{data?.fullName ? data?.fullName: ''}</Text>
-                     <Text style={styles.contactNumber}>{data?.number}</Text>
+                     <Text style={styles.contactName}>{data?.invitedTo[0]?.name ? data?.invitedTo[0]?.name: ''}</Text>
+                     <Text style={styles.contactNumber}>{data?.invitedTo[0]?.dob}</Text>
                  </View>
-                 <Pressable onPress={() => setButton('sent')} style={styles.smallButton}>
+                 <Pressable style={styles.smallButton}>
                      <Text style={styles.smallButtonText}>{data?.status}</Text>
                  </Pressable>
           </View>
