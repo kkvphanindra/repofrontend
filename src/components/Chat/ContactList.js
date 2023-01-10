@@ -71,29 +71,6 @@ const ContactList = (props) => {
                 <TouchableOpacity
                   onPress={selectContact}
                   style={{ alignSelf: 'center',marginHorizontal:20}}>
-                    {/* {isSelected == true?
-                    <Image
-                    source={require('./../../assets/icons/png/icon-done.png')}
-                    style={{
-                      height: 22,
-                      width: 22,
-                      // marginTop: '19%',
-                      // marginLeft: '1%',
-                      alignSelf: 'center',
-                    }}
-                  />
-                  :
-                  <Image
-                    source={require('./../../assets/icons/png/icon-done-2.png')}
-                    style={{
-                      height: 22,
-                      width: 22,
-                      // marginTop: '19%',
-                      // marginLeft: '1%',
-                      alignSelf: 'center',
-                    }}
-                  />
-                  } */}
                 {selectedContacts?.includes(item.userId)?
               <Image
               source={require('./../../assets/icons/png/icon-done.png')}
@@ -174,32 +151,17 @@ const ContactList = (props) => {
             {
               // groupchat True then circle icon
               isGroupChat == true ?
+              <>
+              {item?.userId==null?
+              <TouchableOpacity
+              onPress={invite}
+              style={styles.invite}>
+              <Text style={styles.inviteText}>Invite</Text>
+            </TouchableOpacity>
+            :
                 <TouchableOpacity
                   onPress={selectContact}
                   style={{ alignSelf: 'center',marginHorizontal:20}}>
-                    {/* {isSelected == true?
-                    <Image
-                    source={require('./../../assets/icons/png/icon-done.png')}
-                    style={{
-                      height: 22,
-                      width: 22,
-                      // marginTop: '19%',
-                      // marginLeft: '1%',
-                      alignSelf: 'center',
-                    }}
-                  />
-                  :
-                  <Image
-                    source={require('./../../assets/icons/png/icon-done-2.png')}
-                    style={{
-                      height: 22,
-                      width: 22,
-                      // marginTop: '19%',
-                      // marginLeft: '1%',
-                      alignSelf: 'center',
-                    }}
-                  />
-                  } */}
                 {selectedContacts?.includes(item.userId)?
               <Image
               source={require('./../../assets/icons/png/icon-done.png')}
@@ -224,6 +186,8 @@ const ContactList = (props) => {
             />  
               }
                 </TouchableOpacity>
+            }
+              </>
                 :
                 // groupchat false then not colored circle icon
                 <>
@@ -249,8 +213,89 @@ const ContactList = (props) => {
           </View>
         </TouchableOpacity>
         :
-        // <Text>no contacts</Text>
-        <></>
+        <TouchableOpacity onPress={isGroupChat? selectContact:null}>
+          <View style={styles.itemContainer}>
+            <View style={styles.leftElementContainer}>
+              <Avatar
+                placeholder={getAvatarInitials(
+                  `${item.name}`,
+                )}
+                width={40}
+                height={40}
+              />
+            </View>
+            <View style={styles.rightSectionContainer}>
+              <View style={styles.mainTitleContainer}>
+                <Text
+                  style={
+                    styles.titleStyle
+                  }>{`${item.name}`}</Text>
+              </View>
+            </View>
+            {
+              // groupchat True then circle icon
+              isGroupChat == true ?
+              <>
+              {item?.userId==null?
+              <TouchableOpacity
+              onPress={invite}
+              style={styles.invite}>
+              <Text style={styles.inviteText}>Invite</Text>
+            </TouchableOpacity>
+            :
+                <TouchableOpacity
+                  onPress={selectContact}
+                  style={{ alignSelf: 'center',marginHorizontal:20}}>
+                {selectedContacts?.includes(item.userId)?
+              <Image
+              source={require('./../../assets/icons/png/icon-done.png')}
+              style={{
+                height: 22,
+                width: 22,
+                // marginTop: '19%',
+                // marginLeft: '1%',
+                alignSelf: 'center',
+              }}
+            />
+            :
+            <Image
+              source={require('./../../assets/icons/png/icon-done-2.png')}
+              style={{
+                height: 22,
+                width: 22,
+                // marginTop: '19%',
+                // marginLeft: '1%',
+                alignSelf: 'center',
+              }}
+            />  
+              }
+                </TouchableOpacity>
+            }
+              </>
+                :
+                // groupchat false then not colored circle icon
+                <>
+                  {item.userId == null ?
+                    <TouchableOpacity
+                      onPress={invite}
+                      style={styles.invite}>
+                      <Text style={styles.inviteText}>Invite</Text>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity
+                      onPress={createChat}
+                      style={styles.invite}>
+                      <Text style={styles.inviteText}>Message</Text>
+                    </TouchableOpacity>
+                  }
+                </>
+  
+  
+            }
+  
+  
+          </View>
+        </TouchableOpacity>
       }
       </View>
     );

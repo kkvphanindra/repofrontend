@@ -151,7 +151,7 @@ const message = (number)=>{
         <FlatList
           data={!isGroupChat?chatState.singleFilter:chatState.groupFilter}
           renderItem={contact => {
-            console.log("contact", contact)
+            // console.log("contact", contact)
             return (
              
               <View>

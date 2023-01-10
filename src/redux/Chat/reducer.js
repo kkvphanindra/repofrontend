@@ -77,8 +77,8 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case SINGLE_CONTACT_FILTER: {
-            // console.log("Successfully Got List");
-            console.log(action.data);
+            console.log("Successfully Got single contact filter at reducer List");
+            // console.log(action.data);
             return {
                 ...state,
                 singleFilter: action.data,
@@ -87,8 +87,8 @@ const chatReducer = (state = initialState, action) => {
             };
         }
         case GROUP_CONTACT_FILTER: {
-            // console.log("Successfully Got List");
-            console.log(action.data);
+            console.log("Successfully group contact fiter at reducer List");
+            // console.log(action.data);
             return {
                 ...state,
                 groupFilter: action.data,

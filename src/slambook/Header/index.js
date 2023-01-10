@@ -14,6 +14,7 @@ const tabHiddenRoutes = [
 ];
 const Drawer = createDrawerNavigator();
 const SlambookTopTab = ({route }) => {
+    const slambookState=useSelector((state)=>state.slambookState)
     const [showSearchbar, setShowSearchbar] = useState(false)
     const navigation=useNavigation()
     const chatState = useSelector((state) => state.chatState)
@@ -41,6 +42,8 @@ const SlambookTopTab = ({route }) => {
             navigation.setOptions({ tabBarStyle: { display: 'flex' } });
         }
     }, [navigation, route]);
+    let receivedData = slambookState.receivedData
+    let sentData = slambookState.sentData
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -83,8 +86,16 @@ const SlambookTopTab = ({route }) => {
                         tabBarIndicatorStyle: { backgroundColor: 'rgb(94,107,255)' , height: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10 },
                         tabBarBounces: true,
                     }}>
-                    <Tab.Screen name="Received" component={Received} />
-                    <Tab.Screen name="Sent" component={Sent} />
+                    <Tab.Screen name="Received" component={Received} 
+                    options={{
+                        tabBarLabel:'Received'+' '+'-'+' '+receivedData.length
+                    }}
+                    />
+                    <Tab.Screen name="Sent" component={Sent} 
+                    options={{
+                        tabBarLabel:'Sent'+' '+'-'+' '+sentData.length
+                    }}
+                    />
                 </Tab.Navigator>
             </ImageBackground>
         </View>
