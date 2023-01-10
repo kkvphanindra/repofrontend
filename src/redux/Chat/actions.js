@@ -250,7 +250,7 @@ export const  loadContact = (contact) => {
 
 export const groupCreate = (chatName, userChat, userId, image, message, Alert) => {
   return async (dispatch) => {
-    dispatch(req());
+    // dispatch(req());
     try {
       userChat.push(userId)
       if(userChat.length>2){
