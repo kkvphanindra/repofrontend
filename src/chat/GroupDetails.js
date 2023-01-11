@@ -52,7 +52,8 @@ export default function GroupDetails({ navigation, route }) {
   };
   const send = () =>{
     dispatch(editGroup(chatId,groupName))
-    navigation.navigate('Chat')
+    navigation.navigate('Group')
+    // navigation.goBack()
     // console.log("first", groupName)
   }
   // console.log("first out", groupName)

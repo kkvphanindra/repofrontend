@@ -14,7 +14,7 @@ const Sent = () => {
       dispatch(getAllSlambookByUserId(authState.userId, null, true));
     }, [dispatch]),
   );
-  // console.log("slambook sent screen",slambookState.sentData)
+  console.log("slambook sent screen",slambookState.sentData[0]?.invitedTo[0])
   return (
     <View style={styles.container}>
     <View style={styles.tabWrapper}>

@@ -13,17 +13,6 @@ import ProgressBar from 'react-native-progress/Bar';
 import StackHeader from '../components/Activity/StackHeader';
 import LinearGradient from 'react-native-linear-gradient';
 
-const data = [
-  {
-    name: 'Run',
-  },
-  {
-    name: 'Walk',
-  },
-  {
-    name: 'Sleep',
-  },
-];
 const SelectActivity = ({navigation, route}) => {
   const [select, setSelect] = useState(false);
   const [activityId,setActivityId]=useState('')
@@ -62,7 +51,7 @@ const SelectActivity = ({navigation, route}) => {
         </View>
         <View style={styles.progressBar}>
           <ProgressBar
-            progress={0.4}
+            progress={activityName==''?0.2:0.4}
             width={width / 1.3}
             borderRadius={0}
             borderColor={'#fff'}
@@ -158,11 +147,14 @@ const styles = StyleSheet.create({
     // marginTop: '5%',
     alignSelf: 'flex-start',
     alignContent: 'center',
-    borderBottomWidth: 1,
+    borderWidth: 1,
+    marginBottom:'5%',
     // marginBottom: '5%',
     alignItems: 'center',
+    borderRadius: 10,
+    elevation:5,
     justifyContent: 'center',
-    borderBottomColor: '#c4c4c4',
+    borderColor: '#c4c4c4',
   },
   activityText: {
     alignSelf: 'flex-start',

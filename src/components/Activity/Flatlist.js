@@ -191,15 +191,13 @@ const Flatlist = ({data}) => {
           </View>
           <View style={{flexDirection: 'row'}}>
             <View style={{width: '50%'}}>
+              {data?.item?.location?
               <View style={styles.tabLocationWrapper}>
-                <EvilIcon
-                  name="location"
-                  size={18}
-                  color="#000"
-                  style={styles.icon}
-                />
+                <Image source={require('../../assets/images/location-icon.png')} style={styles.icon}/>
                 <Text style={styles.tabLocation}>{data?.item?.location}</Text>
               </View>
+              :null
+            }
             </View>
             <View>
               <TouchableOpacity
@@ -231,12 +229,7 @@ const Flatlist = ({data}) => {
                 onPress={timerOn => {
                   setTimerOn(!timerOn), onTimeEnd(data?.item?.id);
                 }}>
-                <AntDesign
-                  name="close"
-                  size={20}
-                  color="#fff"
-                  style={styles.stopButtonIcon}
-                />
+                <Image source={require('../../assets/images/close-icon.png')}/>
               </TouchableOpacity>
             </View>
           </View>
@@ -337,6 +330,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     margin: '2%',
+    marginLeft: '5%'
   },
   startButton: {
     backgroundColor: '#5E6BFF',
@@ -383,7 +377,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
     marginLeft: -10,
     // top: 10,
     // bottom: 20,

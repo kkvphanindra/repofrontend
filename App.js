@@ -462,7 +462,7 @@ const App = () => {
           <Stack.Screen name="connectHome" component={HomeStackScreen} />
           <Stack.Screen name="inviteToGroup" component={InviteToGroup} />
           <Stack.Screen name="chatSingle" component={ChatSingle} />
-          <Stack.Screen name="Group" component={Group} />
+          <Stack.Screen name="group" component={Group} />
           <Stack.Screen name="groupChat" component={GroupChat} />
           <Stack.Screen name="allContacts" component={AllContacts} />
           <Stack.Screen name="groupCreation" component={GroupCreation} />

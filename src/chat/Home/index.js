@@ -74,10 +74,7 @@ const ChatHome = ({ navigation, route }) => {
                         tabBarIndicatorStyle: { backgroundColor: 'rgb(94,107,255)' , height: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10 },
                         tabBarBounces: true,
                     }}>
-                    <Tab.Screen
-                        name="Chat">
-                        {() => <Chat />}
-                    </Tab.Screen>
+                    <Tab.Screen name="Chat" component={Chat}/>
                     <Tab.Screen name="Group" component={Group} />
                     <Tab.Screen name="Calls" component={Call} />
                 </Tab.Navigator>

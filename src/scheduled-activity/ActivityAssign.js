@@ -57,20 +57,7 @@ const ActivityAssign = ({navigation, route}) => {
   };
 
   const handleCheck = id => {
-    // setChecked(!checked ? id : null);
-    // if(checked==id){
-    //   console.log("if")
       setChecked(!checked ? id : null);
-      // setGroupId(null)
-      // setGroupN(null)
-    // }
-    // else{
-    //   console.log("else")
-    //   setGroupId(null)
-    //   setGroupN(null)
-    //   dispatch(selectedUsers(null))
-    //   setChecked(!checked ? id : null);
-    // }
   };
   const onSubmitHandler = async () => {
     console.log("object")
@@ -80,10 +67,10 @@ const ActivityAssign = ({navigation, route}) => {
         .post(
         BASE_URL+`/api/activity`,
           {
-            startDate: data.dateR,
-            endDate: data.endDateR,
-            startTime: data.dateTimeR,
-            endTime: data.endDateTimeR,
+            startDate: data.minDate,
+            endDate: data.maxDate,
+            startTime: data.minTime,
+            endTime: data.maxTime,
             activityName: data.activityName,
             assignTo: checked,
             // groupName: data.groupType,
@@ -104,7 +91,7 @@ const ActivityAssign = ({navigation, route}) => {
         Alert.alert("catching error", error.message)
       }
     }else if(checked==null){
-      dispatch(newActivity(authState.userId, data.dateR,data.endDateR,data.dateTimeR,data.endDateTimeR,data.activityName, groupN, groupId, text, activityState.selectedUsers))
+      dispatch(newActivity(authState.userId, data.minDate,data.maxDate,data.minTime,data.maxTime,data.activityName, groupN, groupId, text, activityState.selectedUsers))
       // Alert.alert('')
       navigation.navigate('activityHome')
     }
@@ -125,7 +112,7 @@ const ActivityAssign = ({navigation, route}) => {
         </View>
         <View style={styles.progressBar}>
           <ProgressBar
-            progress={1}
+            progress={checked!==null?1:groupId==''?0.7:1}
             width={width / 1.3}
             borderRadius={0}
             borderColor={'#fff'}

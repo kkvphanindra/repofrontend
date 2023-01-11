@@ -13,7 +13,7 @@ const Received = () => {
     useCallback(()=>{
       dispatch(getAllSlambookByUserId(authState.userId,true, null))
     },[dispatch]))
-  // console.log("slambook RECEIVED screen",slambookState.receivedData)
+  console.log("slambook RECEIVED screen",slambookState.receivedData[0]?.invitedBy[0])
   return (
     <View style={styles.container}>
     <View style={styles.tabWrapper}>

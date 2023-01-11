@@ -5,10 +5,6 @@ import {useNavigation} from '@react-navigation/native';
 const SlambookReceivedFlatlist = ({data}) => {
   const [button, setButton] = useState('');
   const navigation = useNavigation();
-  const startButton = name => {
-    setButton(name);
-    // console.log('flatlist received', button);
-  };
   return (
     <>
       {data?.status == 'SENT' ? (
@@ -16,7 +12,7 @@ const SlambookReceivedFlatlist = ({data}) => {
             <View style={styles.listContainer} key={data?.invitedBy[0]?.userId}>
               <Image
                 style={styles.imageContainer}
-                source={data?.invitedBy[0]?.profilePicture}
+                source={{uri: data?.invitedBy[0]?.profilePicture==''?'https://i.pinimg.com/236x/38/aa/95/38aa95f88d5f0fc3fc0f691abfaeaf0c.jpg':data?.invitedBy[0]?.profilePicture}}
               />
               <View style={styles.contactWrapper}>
                 <Text style={styles.contactName}>
@@ -189,6 +185,7 @@ const styles = StyleSheet.create({
     width: 54,
     height: 54,
     borderRadius: 54,
+    backgroundColor:'red'
   },
   contactWrapper: {
     flexDirection: 'column',

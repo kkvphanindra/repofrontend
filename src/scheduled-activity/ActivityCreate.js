@@ -15,88 +15,6 @@ import Checkboxs from '../components/Activity/Checkbox';
 import {useDispatch, useSelector} from 'react-redux';
 import {getActivityType} from '../redux/activity/action';
 
-const data = [
-  {
-    name: 'GENERAL',
-    id: 'vhnu34bk876niikmbghy',
-    activities: [
-      {
-        name: 'Run',
-        id: '1a',
-      },
-      {
-        name: 'Walk',
-        id: '1b',
-      },
-      {
-        name: 'Laugh',
-        id: '1c',
-      },
-    ],
-  },
-  {
-    name: 'HONOUR',
-    id: 'mklothikkol6754nkom8',
-    activities: [
-      {
-        name: 'Sing',
-        id: '2a',
-      },
-      {
-        name: 'Dance',
-        id: '2b',
-      },
-      {
-        name: 'Fight',
-        id: '2c',
-      },
-    ],
-  },
-];
-const demo = [
-  {
-    activityType: {
-      id: 'bd7baeb0-82be-11ed-9a40-f383f2966c89',
-      name: 'General',
-      isActive: true,
-      createdAt: '2022-12-23T12:38:45.277Z',
-      updatedAt: '2022-12-23T12:38:45.277Z',
-    },
-    items: [
-      {
-        id: 'bdb18bc0-82be-11ed-9a40-f383f2966c89',
-        activityTypesId: 'bd7baeb0-82be-11ed-9a40-f383f2966c89',
-        name: 'Walk',
-      },
-      {
-        id: 'bdfdaff0-82be-11ed-9a40-f383f2966c89',
-        activityTypesId: 'bd7baeb0-82be-11ed-9a40-f383f2966c89',
-        name: 'Sing',
-      },
-    ],
-  },
-  {
-    activityType: {
-      id: 'c355ca50-82be-11ed-9a40-f383f2966c89',
-      name: 'Honor',
-      isActive: true,
-      createdAt: '2022-12-23T12:38:55.094Z',
-      updatedAt: '2022-12-23T12:38:55.094Z',
-    },
-    items: [
-      {
-        id: 'c39c9750-82be-11ed-9a40-f383f2966c89',
-        activityTypesId: 'c355ca50-82be-11ed-9a40-f383f2966c89',
-        name: 'Run',
-      },
-      {
-        id: 'c3cb9690-82be-11ed-9a40-f383f2966c89',
-        activityTypesId: 'c355ca50-82be-11ed-9a40-f383f2966c89',
-        name: 'Dance',
-      },
-    ],
-  },
-];
 const ActivityCreate = ({navigation}) => {
   const [checked, setChecked] = useState('');
   const activityState = useSelector(state => state.activityState);
@@ -122,8 +40,8 @@ const ActivityCreate = ({navigation}) => {
       </View>
       <View style={styles.progressBar}>
         <ProgressBar
-          progress={0.4}
-          width={width}
+          progress={checked==''?0:0.2}
+          width={width/1.3}
           borderRadius={0}
           borderColor={'#fff'}
           unfilledColor={'#f7f7f7'}
@@ -140,7 +58,13 @@ const ActivityCreate = ({navigation}) => {
       <View style={styles.activity}>
         {activityState?.activityTypeData?.map(item => {
           return (
-            <View style={styles.activityBox}>
+            <TouchableOpacity style={[styles.activityBox,checked.includes(item?.activityType?.name)?{borderColor:'#5C64FF'}:{borderColor:'grey'}]} 
+            onPress={() => {
+              setChecked(item?.activityType?.name),
+                // setActivityTypeId(item.activityType.id)
+                setStore(item.items);
+            }}
+            >
               <TouchableOpacity
                 style={styles.iconButton}
                 onPress={() => {
@@ -161,7 +85,7 @@ const ActivityCreate = ({navigation}) => {
                 )}
               </TouchableOpacity>
               <Text style={styles.activityText}>{item.activityType.name}</Text>
-            </View>
+            </TouchableOpacity>
           );
         })}
       </View>
@@ -209,13 +133,13 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     alignSelf: 'center',
-    width:'100%'
+    // width:'100%'
 
   },
   activityHeader: {
     marginTop: '8%',
     marginLeft: '11%',
-    backgroundColor:'red'
+    // backgroundColor:'red'
   },
   started: {
     color: '#000',
@@ -230,6 +154,9 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     borderColor: '#c4c4c4',
     borderWidth: 1,
+    borderRadius:10,
+    elevation:5,
+    backgroundColor:'#fff',
     // paddingHorizontal:10,
     height: height / 7,
     width: width / 1.3,
