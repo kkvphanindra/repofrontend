@@ -75,7 +75,7 @@ const ActivityAssign = ({navigation, route}) => {
             assignTo: checked,
             // groupName: data.groupType,
             // groupId: data.groupId,
-            location: null,
+            location: data.Location,
             // users: selectedName,
             message: text,
             createdBy: id
@@ -91,7 +91,7 @@ const ActivityAssign = ({navigation, route}) => {
         Alert.alert("catching error", error.message)
       }
     }else if(checked==null){
-      dispatch(newActivity(authState.userId, data.minDate,data.maxDate,data.minTime,data.maxTime,data.activityName, groupN, groupId, text, activityState.selectedUsers))
+      dispatch(newActivity(authState.userId, data.minDate,data.maxDate,data.minTime,data.maxTime,data.activityName, groupN, groupId, text, activityState.selectedUsers,data.location))
       // Alert.alert('')
       navigation.navigate('activityHome')
     }

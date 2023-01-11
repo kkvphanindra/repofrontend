@@ -153,11 +153,11 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
     }
   };
 };
-export const newActivity = (id,startDate,endDate,startTime,endTime,activityName,groupName,groupId, message, users) => {
+export const newActivity = (id,startDate,endDate,startTime,endTime,activityName,groupName,groupId, message, users,location) => {
   return async dispatch => {
     dispatch(req());
     // ////////console.log("product actions", _id)
-    console.log('new activity', id,startDate,endDate,startTime,endTime,activityName,groupName,message, users);
+    console.log('new activity', id,startDate,endDate,startTime,endTime,activityName,groupName,message, users,location);
     try {
       users.push(id)
       const response = await axios.post(
@@ -173,7 +173,7 @@ export const newActivity = (id,startDate,endDate,startTime,endTime,activityName,
           groupName: groupName,
           groupId:groupId,
           users:users,
-          location: null,
+          location: location,
           message:message,
           createdBy: id
         },

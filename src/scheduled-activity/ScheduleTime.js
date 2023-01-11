@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Modal,
   View,
-  Pressable
+  Pressable,
+  PermissionsAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
 import ProgressBar from 'react-native-progress/Bar';
@@ -15,8 +16,35 @@ import StackHeader from '../components/Activity/StackHeader';
 import LinearGradient from 'react-native-linear-gradient';
 import TimeRangePicker from 'react-native-range-timepicker';
 import CalendarPicker from 'react-native-calendar-picker';
+import LocationIQ from 'react-native-locationiq';
+import Geolocation from 'react-native-geolocation-service';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
+
+const requestLocationPermission = async () => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: 'Geolocation Permission',
+        message: 'Can we access your location?',
+        buttonNeutral: 'Ask Me Later',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
+    console.log('granted', granted);
+    if (granted === 'granted') {
+      console.log('You can use Geolocation');
+      return true;
+    } else {
+      console.log('You cannot use Geolocation');
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+};
 
 const ScheduleTime = ({navigation, route}) => {
   const {data} = route.params;
@@ -27,13 +55,17 @@ const ScheduleTime = ({navigation, route}) => {
   const minDate = moment(selectedStartDate).format('YYYY-MM-DD');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const [Location, setLocation] = useState('');
   const [visible, setVisible] = useState(false);
+  const [lat, setLat] = useState('');
+  const [long, setLong] = useState('');
   const [open, setOpen] = useState(false);
   const [endOpen, setEndOpen] = useState(false);
   let activityId = data.activityId;
   let activityName = data.activityName;
   let minTime=moment(startTime,"HH:mm").format('HH:mm')
   let maxTime=moment(endTime,"HH:mm").format('HH:mm')
+  
   // console.log(
   //   'activityTypesId',
   //   data.activityId,
@@ -59,6 +91,7 @@ const ScheduleTime = ({navigation, route}) => {
     maxDate,
     minTime,
     maxTime,
+    Location
   };
   const onDateChange = (date, type) => {
     if (type === 'END_DATE') {
@@ -80,6 +113,35 @@ const ScheduleTime = ({navigation, route}) => {
   const onClose = () => {
     setVisible(false);
   };
+  LocationIQ.init('pk.9258ab5f6e3604f3f0a08054a0b92c48');
+
+  const getCurrentPosition = () => {
+    const result = requestLocationPermission();
+    result.then(res => {
+      console.log('res is:', res);
+      if (res) {
+        Geolocation.getCurrentPosition(
+          pos => {
+            setLat(JSON.stringify(pos.coords.latitude));
+            setLong(JSON.stringify(pos.coords.longitude));
+            // setPosition([lat,long])
+            // setPosition(JSON.stringify(pos.coords.latitude));
+          },
+          // error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
+          error =>
+            console.log('GetCurrentPosition Error', JSON.stringify(error)),
+          {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+        );
+      }
+    });
+  };
+  LocationIQ.reverse(lat, long)
+  .then(json => {
+    var address = json.address.city;
+    console.log(address);
+    setLocation(address);
+  })
+  .catch(error => console.warn(error));
   return (
     <View style={styles.container}>
       <StackHeader
@@ -117,15 +179,9 @@ const ScheduleTime = ({navigation, route}) => {
             onPress={() => {
               setOpen(true);
               setModalVisible(true)
-              // setVisible(true)
-              // setModalVisible(true);
             }}>
             <Text style={styles.startDateButtonText}>
             {selectedStartDate ? minDate : 'YYYY-MM-DD'}{' '}{minTime!=='Invalid date'?minTime:'HH:MM'}
-              {/* {startTime} */}
-              {/* {stime} */}
-              {/* {moment().format('hh:mm'),startTime} */}
-              {/* {selectedStartDate ? minDate : 'YYYY/MM/DD'} */}
             </Text>
           </TouchableOpacity>
           <TimeRangePicker
@@ -144,6 +200,15 @@ const ScheduleTime = ({navigation, route}) => {
             </Text>
           </View>
         </View>
+        <TouchableOpacity style={styles.startDate} onPress={()=>{getCurrentPosition()}}>
+          <Text style={styles.startDateText}>Location</Text>
+          <View
+            style={styles.startDateButton}>
+            <Text style={styles.startDateButtonText}>
+              {Location}
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         style={styles.scheduleNow}
@@ -152,7 +217,6 @@ const ScheduleTime = ({navigation, route}) => {
             <>
               {endTime
                 ? navigation.navigate('activityAssign', {data: sendData})
-                // ? Alert.alert("you cn go ahead")
                 : Alert.alert('Please select end Time')}
             </>
           ) : (
