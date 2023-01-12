@@ -3,6 +3,7 @@ import {BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ENABLED,
+  GET_ALL_NOTIFICATION_BY_USER_ID,
   GET_ALL_NOTIFICATION_SETTINGS,
   GET_ALL_PRIVACY_SETTINGS,
   POST_NOTIFICATION_SELECTED,
@@ -28,6 +29,11 @@ export const privacySettingSelect = data => ({
 });
 export const notificationSetting = data => ({
   type: GET_ALL_NOTIFICATION_SETTINGS,
+  data,
+});
+
+export const notificationAll = data => ({
+  type: GET_ALL_NOTIFICATION_BY_USER_ID,
   data,
 });
 
@@ -114,6 +120,25 @@ export const selectedNotificationSetting = (id,notificationId, isEnabled) => {
       if (response.status) {
         dispatch(notificationSettingSelect(response.data));
         // console.log("selected notification", response.data)
+      }
+    } catch (err) {
+      console.log('REQUEST FAILED');
+      console.log(err.message);
+      dispatch(reqFailure(err.message));
+    }
+  };
+};
+
+export const getAllNotificationByUserId = id => {
+  return async dispatch => {
+    try {
+      console.log('id', id);
+      const response = await axios.get(
+        BASE_URL + `/api/mainNotification/user/95a779b0-9177-11ed-a213-e74eeb527c52`,
+      );
+      if (response.status) {
+        dispatch(notificationAll(response.data));
+        // console.log("by", response.data)
       }
     } catch (err) {
       console.log('REQUEST FAILED');

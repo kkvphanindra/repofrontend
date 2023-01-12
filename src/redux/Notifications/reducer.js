@@ -7,7 +7,8 @@ import {
     STATE_CLEANUP,
     ENABLED,
     GET_ALL_NOTIFICATION_SETTINGS,
-    POST_NOTIFICATION_SELECTED
+    POST_NOTIFICATION_SELECTED,
+    GET_ALL_NOTIFICATION_BY_USER_ID
 } from "./actionTypes";
 
 //Initial state///
@@ -18,6 +19,7 @@ const initialState = {
     notificationData: [],
     selected:[],
     notificationSelected:[],
+    allNotification:[],
     enabled: false
 };
 
@@ -46,6 +48,15 @@ const notificationReducer = (state = initialState, action) => {
             return{
                 ...state,
                 notificationData: action.data,
+                error: '',
+                loading: false
+            }
+        }
+        case GET_ALL_NOTIFICATION_BY_USER_ID: {
+            console.log("REDUCER all notification", action.data)
+            return{
+                ...state,
+                allNotification: action.data,
                 error: '',
                 loading: false
             }

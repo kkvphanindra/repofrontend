@@ -61,7 +61,7 @@ const ChatSingle = ({navigation, route}) => {
       sendMessage(video);
     });
   };
-  // console.log("launch cam", authState.name, authState)
+  console.log("chat data", chat.users[0].userId )
   let user = {
     userId: '3ac1df80-5a6e-11ed-a871-7d8265a60df7',
     firstName: 'Andalib',
@@ -148,6 +148,9 @@ const ChatSingle = ({navigation, route}) => {
       }
     }, timerLength);
   };
+  let sentTo=[];
+  sentTo.push(chat.users[0].userId)
+
   const sendMessage = async (video) => {
     // console.log("event",event.nativeEvent)
     console.log("before if", newMessage)
@@ -155,7 +158,7 @@ const ChatSingle = ({navigation, route}) => {
       socket.emit('stop typing', chat.chatId);
       console.log("before try")
       try {
-        // console.log('form data', formData);
+        console.log('send to', sentTo);
         setNewMessage('');
         await axios
           .post(BASE_URL + `/api/message/chat/${chat.chatId}/user/${authId}`, {
@@ -165,6 +168,7 @@ const ChatSingle = ({navigation, route}) => {
             // lastName: user.lastName,
             name: authState.name,
             profilePicture: authState.profilePicture,
+            sentTo:sentTo
           })
           .then(async response => {
             if (response.status == 200) {
@@ -201,6 +205,9 @@ const ChatSingle = ({navigation, route}) => {
         // formData.append('lastName', user.lastName)
         formData.append('profilePicture',authState.profilePicture)
         formData.append('name', authState.name)
+        sentTo.forEach(
+            sentTo => formData.append('sendTo[]', sentTo)
+            )
         await axios
           .post(BASE_URL + `/api/message/chat/${chat.chatId}/user/${authId}`, 
           formData,

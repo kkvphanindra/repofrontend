@@ -12,20 +12,6 @@ import Feather from 'react-native-vector-icons/Feather'
 var socket, selectedChatCompare;
 import {BASE_URL} from '@env'
 
-const data = [
-  {
-    senderMessage: 'I am good. how are you all good?',
-  },
-  {
-    senderMessage: 'I am good.how are you all good?',
-  },
-  {
-    senderMessage: 'I am good.how are you all good?',
-  },
-  {
-    senderMessage: 'I am good.how are you all good?',
-  },
-];
 const GroupChat = ({ navigation, route }) => {
   const { group, authId } = route.params
   const chatState = useSelector((state) => state.chatState)
@@ -55,18 +41,11 @@ const GroupChat = ({ navigation, route }) => {
     });
 
   }
-  let user = {
-    "userId": "3ac1df80-5a6e-11ed-a871-7d8265a60df7",
-    "firstName": "Andalib",
-    "lastName": "Quraishi",
-    "photo": "https://assets.vogue.in/photos/622f9af651da11b2e5b0b176/master/pass/7%20times%20Alia%20Bhatt%20served%20sublime%20beauty%20moments%20.jpg",
-    "countryCode": "91",
-    "phoneNumber": "9748121112",
-    "createdAt": "2022-11-02T05:21:39.705Z",
-    "updatedAt": "2022-11-02T05:21:39.705Z"
-  }
-  var endPoint = `https://frisles.herokuapp.com`
 
+let g = group.users.map((i)=>i.userId)
+const itemToRemove = authId
+const originalArray = g
+const newArray = originalArray.filter(item => item !== itemToRemove)
 
   const getMessagesByChatId = async () => {
     // if (!selectedChat) return;
@@ -121,8 +100,6 @@ const GroupChat = ({ navigation, route }) => {
       console.log("new msg inside ", newMessageRecieved)
     });
   }, []);
-  // console.log("time", moment().toISOString())
-  // console.log("old msg", messages)
   const typingHandler = (event) => {
     setNewMessage(event);
     console.log(event)
@@ -144,10 +121,10 @@ const GroupChat = ({ navigation, route }) => {
     }, timerLength);
   };
   const sendMessage = async (video) => {
-    // console.log("event",event.nativeEvent)
     if (newMessage) {
       socket.emit("stop typing", group.chatId);
       try {
+        console.log('send to group', newArray);
         setNewMessage("");
         await axios.post(
           BASE_URL +
@@ -158,7 +135,8 @@ const GroupChat = ({ navigation, route }) => {
             // firstName: user.firstName,
             // lastName: user.lastName,
             name: authState.name,
-            profilePicture: authState.profilePicture
+            profilePicture: authState.profilePicture,
+            sentTo:newArray
           },
         ).then(async (response) => {
           if (response.status == 200) {
@@ -195,6 +173,9 @@ const GroupChat = ({ navigation, route }) => {
         formData.append('createdAt', moment().toISOString())
         formData.append('profilePicture', authState.profilePicture)
         formData.append('name', authState.name)
+        newArray.forEach(
+          newArray => formData.append('sentTo[]', newArray)
+          )
         // formData.append('lastName', user.lastName)
         await axios
           .post(BASE_URL + `/api/message/chat/${group.chatId}/user/${authId}`,

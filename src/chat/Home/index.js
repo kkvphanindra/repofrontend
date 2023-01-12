@@ -50,7 +50,7 @@ const ChatHome = ({ navigation, route }) => {
                         <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuWrapper}>
                             <Image style={styles.menuIcon} source={require('../../assets/icons/png/menu-icon.png')} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate('/')} style={styles.notifyWrapper}>
+                        <TouchableOpacity onPress={() => navigation.navigate('notifications')} style={styles.notifyWrapper}>
                             <Image style={styles.notifyIcon} source={require('../../assets/icons/png/notify-icon.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => onClick()} style={styles.badgeWrapper}>

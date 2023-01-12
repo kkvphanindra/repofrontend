@@ -6,6 +6,7 @@ import {
   PermissionsAndroid,
   Platform,
   ScrollView,
+  BackHandler,
   Image
 } from 'react-native';
 import React, {useState, useCallback, useEffect} from 'react';
@@ -33,18 +34,16 @@ export default function Group({navigation}) {
       }
     }, [dispatch, navigation.isFocused()]),
   );
-  // useEffect(() => {
-  //   if (Platform.OS === 'android') {
-  //     PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-  //       title: 'Contacts',
-  //       message: 'This app would like to view your contacts.',
-  //     }).then(() => {
-  //       loadContacts();
-  //     });
-  //   } else {
-  //     loadContacts();
-  //   }
-  // }, []);
+  function handleBackButtonClick() {
+    navigation.push('home');
+    return true;
+  }
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButtonClick);
+    };
+  }, []);
   const loadContacts = () => {
     Contacts.getAll()
       .then(contacts => {
