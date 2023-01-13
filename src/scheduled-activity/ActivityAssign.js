@@ -91,7 +91,8 @@ const ActivityAssign = ({navigation, route}) => {
         Alert.alert("catching error", error.message)
       }
     }else if(checked==null){
-      dispatch(newActivity(authState.userId, data.minDate,data.maxDate,data.minTime,data.maxTime,data.activityName, groupN, groupId, text, activityState.selectedUsers,data.location))
+      console.log("location",data.Location)
+      dispatch(newActivity(authState.userId, data.minDate,data.maxDate,data.minTime,data.maxTime,data.activityName, groupN, groupId, text, activityState.selectedUsers,data.Location))
       // Alert.alert('')
       navigation.navigate('activityHome')
     }

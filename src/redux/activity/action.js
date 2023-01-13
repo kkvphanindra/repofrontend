@@ -115,7 +115,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response.status) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          // //today")
+          console.log("today")
         }
       } else if (week === true) {
         const response = await axios.get(
@@ -125,7 +125,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          //week", )
+          console.log("week")
         }
       } else if (month === true) {
         const response = await axios.get(
@@ -134,7 +134,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          //month", )
+          console.log("month")
         }
       } else if (year === true) {
         const response = await axios.get(
@@ -143,7 +143,7 @@ export const getAllActivityByUserId = (id,today, week, month, year) => {
         if (response) {
           dispatch(stateCleanUp())
           dispatch(ActivityByUserId(response.data));
-          //year",)
+          console.log("year")
         }
       }
     } catch (err) {

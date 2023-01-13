@@ -30,9 +30,11 @@ const Flatlist = ({data}) => {
   const navigation = useNavigation();
   const [secondsLeft, setSecondsLeft] = useState();
   const [status, setStatus] = useState(false);
+  const [activityI,setActivityI]=useState('')
   const [month, setMonth] = useState(true);
   const authState = useSelector((state)=>state.authState)
   const activityState = useSelector(state => state.activityState);
+  let today= true
   let s = new Date();
   let startedTime = s.toISOString();
   let e = new Date();
@@ -125,13 +127,17 @@ const Flatlist = ({data}) => {
 // useEffect(()=>{
 //   dispatch(activityByActivityId(id))
 // },[dispatch])
-  useEffect((activityId) => {
+  useEffect(() => {
+    if(timerOn==true){
     if (secondsLeft === 0) {
       BackgroundTimer.stopBackgroundTimer();
-      Alert.alert('Timer Ended');
-      // dispatch(deleteActivityByActivityId(status, activityId))
+        Alert.alert('Timer Ended automatically');
+        console.log("timmer ending",activityI)
+        dispatch(deleteActivityByActivityId(status, activityI))
+        dispatch(getAllActivityByUserId(authState.userId, today,null,null,null))
+      }
     }
-  }, [secondsLeft]);
+  }, [secondsLeft,activityI,authState.userId,today]);
   const clockify = () => {
     let hours = Math.floor(secondsLeft / 60 / 60);
     let mins = Math.floor((secondsLeft / 60) % 60);
@@ -153,10 +159,11 @@ const Flatlist = ({data}) => {
   const onTimeEnd = activityId => {
     dispatch(endTime(ended, activityId, id));
     dispatch(deleteActivityByActivityId(status, activityId))
+    dispatch(getAllActivityByUserId(authState.userId, today,null,null,null))
     // console.log('Timer stopped', status, activityId, id);
   };
   // console.log('current date',  activityState.data.map((i)=>i.users.map((p)=>console.log("p", p.name,p.status))));
-  console.log('item',data.item.users);
+  // console.log('item',data.item.users);
   return (
     <View>
       {data?.item?.isActive === false?
@@ -227,7 +234,9 @@ const Flatlist = ({data}) => {
               <TouchableOpacity
                 style={styles.stopButton}
                 onPress={timerOn => {
-                  setTimerOn(!timerOn), onTimeEnd(data?.item?.id);
+                  setTimerOn(!timerOn), 
+                  setActivityI(data?.item?.id)
+                  onTimeEnd(data?.item?.id);
                 }}>
                 <Image source={require('../../assets/images/close-icon.png')}/>
               </TouchableOpacity>
